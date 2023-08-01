@@ -1,0 +1,114 @@
+
+.authorization
+  margin: 0 auto
+  padding: 110px
+  min-height: 582px
+  max-width: 834px
+  background-color: #fff
+  border-radius: 70px
+  border: 3px solid var(--website-colors, #1C204A)
+  display: flex
+  flex-direction: column
+  align-items: center
+
+  &__form-inputs
+    padding-top: 35px
+    display: flex
+    flex-direction: column
+    gap: 20px
+    width: 100%
+
+    label
+      display: flex
+      flex-direction: column
+      gap: 21px
+
+      input
+        border-radius: 34px
+        border: 2px solid var(--website-colors, #1C204A)
+        padding: 20px 25px
+        font-size: 15px
+
+  .checkbox
+    margin-top: 27px
+    display: flex
+    gap: 19px
+    align-self: start
+    cursor: pointer
+    text-align: left
+
+    input
+      position: relative
+      appearance: none
+      cursor: pointer
+      width: 24px
+      height: 24px
+
+      &::before
+        content: ""
+        position: absolute
+        right: 0
+        top: 0
+        width: 24px
+        height: 24px
+        background: url("../images/checkbox_off.svg")
+
+      &:checked
+        background: url("../images/checkbox_on.svg")
+
+    p
+      width: 400px
+
+  button
+    cursor: pointer
+    width: 100%
+    text-align: center
+    padding: 24px 0
+    font-size: 24px
+    font-weight: 400
+    color: #FFF
+    border-radius: 40px
+    border: 1px solid var(--website-colors, #1C204A)
+    background: var(--website-colors, #1C204A)
+    box-shadow: 0 9px 16px 2px rgba(0, 0, 0, 0.25)
+
+  &__regbtn
+    margin-top: 35px
+
+  &__loginbtn
+    margin-top: 54px
+
+  > p
+    margin-top: 55px
+    text-align: center
+    position: relative
+    font-size: 18px
+
+    &::before
+      content: ""
+      position: absolute
+      left: 64px
+      top: 15px
+      width: 215px
+      height: 1px
+      background: #000
+
+    &::after
+      content: ""
+      position: absolute
+      right: 64px
+      top: 15px
+      width: 215px
+      height: 1px
+      background: #000
+
+  &__with
+    margin-top: 35px
+    display: flex
+    flex-direction: column
+    align-items: center
+    div
+      margin-top: 53px
+      display: flex
+      gap: 28px
+

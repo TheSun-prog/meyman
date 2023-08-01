@@ -1,10 +1,10 @@
-
+import './assets/sass/bundle.sass'
 import './assets/css/App.css';
 
 function App() {
   return (
     <div className="App">
-     
+
     </div>
   );
 }
