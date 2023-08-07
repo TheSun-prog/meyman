@@ -1,6 +1,5 @@
 import {useState} from "react";
 import googleIcon from '../../../../assets/images/google.svg'
-import facebookIcon from '../../../../assets/images/facebook.svg'
 
 
 const Signin = ({}) => {
@@ -24,11 +23,13 @@ const Signin = ({}) => {
     }
 
     return (
-        <>
-            <div className="authorization__form-inputs">
+        <div className="container mx-auto w-[774px] p-[80px] bg-white rounded-[70px]">
+            <h4 className="text-[30px] text-center">Войти</h4>
+            <div className="flex flex-col gap-[20px] py-[54px]">
                 <label htmlFor="email">
-                    <p>Адрес электронной почты</p>
+                    <p className="pb-[21px]">Адрес электронной почты</p>
                     <input
+                        className="border-2 border-black rounded-full px-[25px] py-[20px] text-[16px] w-[614px]"
                         type="email"
                         id="email"
                         placeholder="Введите свой адрес электронной почты"
@@ -38,8 +39,9 @@ const Signin = ({}) => {
                 </label>
 
                 <label htmlFor="password">
-                    <p>Пароль</p>
+                    <p className="pb-[21px]">Пароль</p>
                     <input
+                        className="border-2 border-black rounded-full px-[25px] py-[20px] text-[16px] w-[614px]"
                         type="password"
                         id="password"
                         placeholder="Ведите пароль"
@@ -49,21 +51,20 @@ const Signin = ({}) => {
                 </label>
             </div>
             <button
-                className="authorization__loginbtn"
+                className="w-[611px] py-[20px] text-center bg-blue rounded-[40px] text-white"
                 onClick={sendFromdata}
             >Войти
             </button>
 
-            <p>или</p>
+            <p
+                className="relative text-center mt-[55px] after:content-[''] after:w-[215px] after:h-[1px] after:bg-black after:absolute after:left-[37.5px] after:top-[50%] before:content-[''] before:w-[215px] before:h-[1px] before:bg-black before:absolute before:right-[37.5px] before:top-[50%]"
+            >или</p>
 
-            <div className="authorization__with">
-                <p>Войти через соц.сети</p>
-                <div>
-                    <img src={googleIcon} alt="google"/>
-                    <img src={facebookIcon} alt="facebook"/>
-                </div>
+            <div className="pt-[35px] flex flex-col items-center gap-[53px]">
+                <p>Войти через соц.сеть</p>
+                <img src={googleIcon} alt="google"/>
             </div>
-        </>
+        </div>
     )
 }
 

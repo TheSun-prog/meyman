@@ -1,6 +1,5 @@
 import {useState} from "react";
 import googleIcon from '../../../../assets/images/google.svg'
-import facebookIcon from '../../../../assets/images/facebook.svg'
 
 
 const Signup = ({}) => {
@@ -48,15 +47,13 @@ const Signup = ({}) => {
     }
 
     return (
-        <>
-            <h4>Зарегистрироваться</h4>
-
-            <div className="authorization__form-inputs">
-
-
+        <div className="container mx-auto w-[774px] px-[80px] py-[90px] bg-white rounded-[70px]">
+            <h4 className="text-[30px] text-center">Зарегистрироваться</h4>
+            <div className="flex flex-col gap-[20px] py-[35px]">
                 <label htmlFor="email">
-                    <p>Адрес электронной почты</p>
+                    <p className="pb-[21px]">Адрес электронной почты</p>
                     <input
+                        className="border-2 border-black rounded-full px-[25px] py-[20px] text-[16px] w-[614px]"
                         type="email"
                         id="email"
                         placeholder="Введите свой адрес электронной почты"
@@ -66,8 +63,9 @@ const Signup = ({}) => {
                 </label>
 
                 <label htmlFor="name">
-                    <p>Имя</p>
+                    <p className="pb-[21px] text-[18px]">Имя</p>
                     <input
+                        className="border-2 border-black rounded-full px-[25px] py-[20px] text-[16px] w-[614px]"
                         type="text"
                         id="name"
                         placeholder="Введите свое имя"
@@ -77,8 +75,9 @@ const Signup = ({}) => {
                 </label>
 
                 <label htmlFor="surname">
-                    <p>Фамилия</p>
+                    <p className="pb-[21px]">Фамилия</p>
                     <input
+                        className="border-2 border-black rounded-full px-[25px] py-[20px] text-[16px] w-[614px]"
                         type="text"
                         id="surname"
                         placeholder="Введите свое фамилие"
@@ -88,8 +87,9 @@ const Signup = ({}) => {
                 </label>
 
                 <label htmlFor="password">
-                    <p>Пароль</p>
+                    <p className="pb-[21px]">Пароль</p>
                     <input
+                        className="border-2 border-black rounded-full px-[25px] py-[20px] text-[16px] w-[614px]"
                         type="password"
                         id="password"
                         placeholder="Ведите пароль"
@@ -99,8 +99,9 @@ const Signup = ({}) => {
                 </label>
 
                 <label htmlFor="confirmPassword">
-                    <p>Подтвердите пароль</p>
+                    <p className="pb-[21px]">Подтвердите пароль</p>
                     <input
+                        className="border-2 border-black rounded-full px-[25px] py-[20px] text-[16px] w-[614px]"
                         type="password"
                         id="confirmPassword"
                         placeholder="Ведите пароль"
@@ -111,31 +112,21 @@ const Signup = ({}) => {
 
             </div>
 
-            <label htmlFor="checkbox" className="checkbox">
-                <input
-                    type="checkbox"
-                    id="checkbox"
-                />
-                <p>Создавая учетную запись, я соглашаюсь с Условиями использования и Политикой конфиденциальности
-                    logo.kg</p>
-            </label>
-
             <button
                 onClick={sendFromdata}
-                className="authorization__regbtn"
+                className="w-[611px] py-[20px] text-center bg-blue rounded-[40px] text-white"
             >Зарегистрироваться
             </button>
 
-            <p>или</p>
+            <p
+                className="relative text-center mt-[55px] after:content-[''] after:w-[215px] after:h-[1px] after:bg-black after:absolute after:left-[37.5px] after:top-[50%] before:content-[''] before:w-[215px] before:h-[1px] before:bg-black before:absolute before:right-[37.5px] before:top-[50%]"
+            >или</p>
 
-            <div className="authorization__with">
-                <p>Зарегистрируйтесь через соц.сети</p>
-                <div>
-                    <img src={googleIcon} alt="google"/>
-                    <img src={facebookIcon} alt="facebook"/>
-                </div>
+            <div className="pt-[35px] flex flex-col items-center gap-[53px]">
+                <p>Зарегистрируйтесь через соц.сеть</p>
+                <img className="w-[78px] h-[79px]" src={googleIcon} alt="google"/>
             </div>
-        </>
+        </div>
     )
 }
 

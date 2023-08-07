@@ -1,36 +1,26 @@
-import download from '../../../../assets/images/download.png'
+import googlePlay from '../../../../assets/images/footer-googlePlay.svg'
 
 
 const Footer = () => {
     return(
-        <footer className="footer">
-            <div className="container">
-                <div className="footer__inner">
-                    <ul>
-                        <li>
-                            <ul>
-                                <li><h6>Компания</h6></li>
-                                <li><p>О нас</p></li>
-                                <li>Служба поддержки</li>
-                            </ul>
-                        </li>
-                        <li>
-                            <ul>
-                                <li><h6>Партнёрам</h6></li>
-                                <li><p>Подключить отель</p></li>
-                                <li><p>Подключить туры</p></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <ul className="footer__download">
-                                <li><h6>Приложение Meyman</h6></li>
-                                <li><img src={download} alt="Google play"/></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <p className="txt">© 2023 logo.kg</p>
-            </div>
+        <footer className="container mx-auto flex justify-between relative pt-[70px] h-[386px]">
+            <ul className="flex flex-col gap-[20px]">
+                <li><h6 className="mb-[10px] text-[22px]">Компания</h6></li>
+                <li><p>О нас</p></li>
+                <li><p>Служба поддержки</p></li>
+            </ul>
+            <ul className="flex flex-col gap-[20px]">
+                <li><h6 className="mb-[10px] text-[22px]">Партнёрам</h6></li>
+                <li><p>Подключить отель</p></li>
+                <li><p>Подключить транспорт</p></li>
+            </ul>
+            <ul>
+                <li><h6 className="mb-[37px] text-[22px]">Приложение Meyman</h6></li>
+                <li><img src={googlePlay} alt="download android"/></li>
+            </ul>
+
+            <p className="absolute bottom-[20px] left-0">© 2023 Meyman</p>
+            <div className="absolute bottom-[20px] right-0 w-[52px] h-[52px] bg-black rounded-full text-white text-[32px] flex justify-center items-center">?</div>
         </footer>
     )
 }
