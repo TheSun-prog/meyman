@@ -7,8 +7,8 @@ import register from '../../../../assets/images/header-profile.svg'
 
 function Header() {
   return (
-    <div className='container mx-auto my-[20px]'>
-      <div className='w-[1240px] flex justify-between'>
+    <div className='container mx-auto py-[20px] w-[1240px]'>
+      <div className='h-[60px] flex justify-between'>
          <img src={logoheader} alt="header"/>
          <div className='flex items-center'>
            <div className='flex'>
