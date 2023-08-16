@@ -5,6 +5,7 @@ import carIcon from "../../assets/images/main-car.svg";
 import {useState} from "react";
 import sort from '../../assets/images/sort.svg'
 import filter from '../../assets/images/filter.svg'
+import HotelCard from "../../components/Base/HotelCard/HotelCard";
 
 
 const HotelCatalog = () => {
@@ -93,7 +94,8 @@ const HotelCatalog = () => {
                         </div>
                     </div>
                     <div className="flex justify-end gap-[20px] pt-[18px]">
-                        <div className="flex items-center justify-center gap-[21px] w-[200px] h-[40px] bg-blue rounded-[40px] text-white">
+                        <div
+                            className="flex items-center justify-center gap-[21px] w-[200px] h-[40px] bg-blue rounded-[40px] text-white">
                             <img src={sort} alt="sort"/>
                             <button
                                 onClick={() => {
@@ -103,7 +105,8 @@ const HotelCatalog = () => {
                             >Сортировка
                             </button>
                         </div>
-                        <div className="flex items-center justify-center gap-[21px] w-[200px] h-[40px] bg-blue rounded-[40px] text-white">
+                        <div
+                            className="flex items-center justify-center gap-[21px] w-[200px] h-[40px] bg-blue rounded-[40px] text-white">
                             <img src={filter} alt="filter"/>
                             <button
                                 onClick={() => {
@@ -116,9 +119,21 @@ const HotelCatalog = () => {
                     </div>
                 </div>
             </div>
-            <div className="">
-
-
+            <div className="container mx-auto w-[1240px] pt-[80px]">
+                <div className="flex flex-wrap gap-x-[20px] gap-y-[55px]">
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                    <HotelCard/>
+                </div>
             </div>
             <Footer/>
         </>
