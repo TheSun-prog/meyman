@@ -1,0 +1,29 @@
+.Auth_title {
+    @apply w-[610px] h-[394px] mt-[112px] text-left 
+}
+
+.Auth_title h1 {
+    @apply text-[32px] 
+}
+
+.Auth__title h3 {
+    @apply text-2xl
+}
+
+.region input {
+    @apply w-[610px] h-[50px] border-2 border-black rounded-[34px] mt-[40px] text-2xl 
+}
+
+.region  {
+    @apply w-[610px] h-[60px] border-2 border-black rounded-[34px] mt-[40px] text-2xl pl-3
+}
+
+
+.region label {
+    @apply mt-[40px]
+}
+
+.Auth__input {
+    @apply mt-[40px]
+}
+

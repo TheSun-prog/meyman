@@ -1,0 +1,24 @@
+.Auth__title {
+    @apply w-[631px] h-[920px]  mt-[112px] 
+    }
+
+.Auth__title h1 {
+    @apply text-3xl leading-[60px]
+}
+
+.Auth__title h3 {
+    @apply text-2xl 
+}
+
+.Auth__input {
+    @apply mt-[40px]
+}
+
+.Auth__input input {
+    @apply mt-5 w-[614px] h-[70px] rounded-[34px] border-2 border-black pl-5 text-base 
+}
+
+.Auth__input h3 {
+    @apply mt-5 text-[20px] text-black
+}
+
