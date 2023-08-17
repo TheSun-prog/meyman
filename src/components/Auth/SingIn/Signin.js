@@ -1,6 +1,6 @@
 import {useState} from "react";
-import googleIcon from '../../../../assets/images/google.svg'
-import {postLoginData} from "../../../../common/axios/authorization";
+import googleIcon from '../../../assets/images/google.svg'
+import {postLoginData} from "../../../axios/authorization";
 
 
 const Signin = ({}) => {

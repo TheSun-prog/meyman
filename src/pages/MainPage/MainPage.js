@@ -1,9 +1,9 @@
-import Header from "../../components/Base/Header&Footer/Header/Header";
+import Header from "../../components/Header&Footer/Header/Header";
 import {useState} from "react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import hotelIcon from '../../assets/images/main-hotel.svg'
 import carIcon from '../../assets/images/main-car.svg'
-import Footer from "../../components/Base/Header&Footer/Footer/Footer";
+import Footer from "../../components/Header&Footer/Footer/Footer";
 import chuy from "../../assets/images/chuy.png"
 import dzhalal_abad from "../../assets/images/dzhalal-abad.png"
 import yssyk_kul from "../../assets/images/yssyk-kul.png"
@@ -11,7 +11,7 @@ import osh from "../../assets/images/osh.png"
 import batken from "../../assets/images/batken.png"
 import talas from "../../assets/images/talas.png"
 import naryn from "../../assets/images/naryn.png"
-import ReviewSlider from "../../components/Base/ReviewSlider/ReviewSlider";
+import ReviewSlider from "../../components/ReviewSlider/ReviewSlider";
 
 
 const MainPage = () => {

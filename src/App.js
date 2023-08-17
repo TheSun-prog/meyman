@@ -1,10 +1,10 @@
 import MainPage from "./pages/MainPage/MainPage";
-import Signup from "./components/Base/Auth/SingUp/Signup";
-import Signin from "./components/Base/Auth/SingIn/Signin";
+import Signup from "./components/Auth/SingUp/Signup";
+import Signin from "./components/Auth/SingIn/Signin";
 import {Route, Routes} from "react-router-dom";
 import HotelCatalog from "./pages/HotelCatalog/HotelCatalog";
-import ScrollToTop from "./components/Base/ScrollToTop/ScrollToTop";
-import HotelCard from "./components/Base/HotelCard/HotelCard";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
+import HotelCard from "./components/HotelCard/HotelCard";
 
 
 function App() {

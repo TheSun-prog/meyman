@@ -2,10 +2,10 @@ import React from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import {Swiper, SwiperSlide} from 'swiper/react';
-import avatar from '../../../assets/images/review-avatar.png'
+import avatar from '../../assets/images/review-avatar.png'
 import SwiperCore from 'swiper';
 import {Navigation} from 'swiper/modules';
-import {getReviews} from "../../../common/axios/fetchReview";
+import {getReviews} from "../../axios/fetchReview";
 
 SwiperCore.use([Navigation]);
 

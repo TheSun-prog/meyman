@@ -1,8 +1,8 @@
-import logoheader from '../../../../assets/images/meyman-logo.svg'
-import language from '../../../../assets/images/header-language.svg'
-import money from '../../../../assets/images/header-money.svg'
-import burgermenu from '../../../../assets/images/burger-menu.svg'
-import register from '../../../../assets/images/header-profile.svg'
+import logoheader from '../../../assets/images/meyman-logo.svg'
+import language from '../../../assets/images/header-language.svg'
+import money from '../../../assets/images/header-money.svg'
+import burgermenu from '../../../assets/images/burger-menu.svg'
+import register from '../../../assets/images/header-profile.svg'
 
 
 function Header() {

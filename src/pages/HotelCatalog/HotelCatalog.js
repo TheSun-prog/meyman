@@ -1,11 +1,11 @@
-import Header from "../../components/Base/Header&Footer/Header/Header";
-import Footer from "../../components/Base/Header&Footer/Footer/Footer";
+import Header from "../../components/Header&Footer/Header/Header";
+import Footer from "../../components/Header&Footer/Footer/Footer";
 import hotelIcon from "../../assets/images/main-hotel.svg";
 import carIcon from "../../assets/images/main-car.svg";
 import {useState} from "react";
 import sort from '../../assets/images/sort.svg'
 import filter from '../../assets/images/filter.svg'
-import HotelCard from "../../components/Base/HotelCard/HotelCard";
+import HotelCard from "../../components/HotelCard/HotelCard";
 
 
 const HotelCatalog = () => {

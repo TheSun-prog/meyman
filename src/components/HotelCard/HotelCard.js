@@ -1,8 +1,8 @@
-import favorite from '../../../assets/images/favorite.svg'
-import star from '../../../assets/images/star.svg'
-import location from '../../../assets/images/location.svg'
-import done from '../../../assets/images/done.svg'
-import som from '../../../assets/images/som.svg'
+import favorite from '../../assets/images/favorite.svg'
+import star from '../../assets/images/star.svg'
+import location from '../../assets/images/location.svg'
+import done from '../../assets/images/done.svg'
+import som from '../../assets/images/som.svg'
 
 
 const HotelCard = ({data}) => {

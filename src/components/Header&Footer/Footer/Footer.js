@@ -1,4 +1,4 @@
-import googlePlay from '../../../../assets/images/footer-googlePlay.svg'
+import googlePlay from '../../../assets/images/footer-googlePlay.svg'
 
 
 const Footer = () => {
