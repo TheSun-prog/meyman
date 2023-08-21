@@ -1,5 +1,6 @@
 @import "./assets/fonts/Quicksand/stylesheet.css";
 
+
 * {
     padding: 0;
     margin: 0;
@@ -14,8 +15,16 @@ html {
     line-height: 140%; /* 25.2px */
 }
 
+
 h1, h2, h3, h4, h5, h6, p {
     font-family: Quicksand, sans-serif;
+}
+
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
 }
 
 
