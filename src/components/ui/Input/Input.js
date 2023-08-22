@@ -1,9 +1,14 @@
 import {useEffect, useState} from "react";
-import passwordHide from '../../assets/images/password-hide.svg'
-import passwordShow from '../../assets/images/password-show.svg'
+import passwordHide from '../../../assets/images/password-hide.svg'
+import passwordShow from '../../../assets/images/password-show.svg'
 
 
-const Input = ({type='text', text, isError, handleIsError}) => {
+const Input = ({
+                   type = 'text',
+                   text,
+                   isError,
+                   handleIsError
+               }) => {
 
     const styleNotError = 'border-grey outline-black text-black placeholder:text-grey'
     const styleisError = 'border-red outline-red text-red placeholder:text-red'

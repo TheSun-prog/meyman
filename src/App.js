@@ -1,6 +1,8 @@
-import './assets/css/App.css';
+// React modules
 import {Route, Routes} from "react-router-dom";
 
+// Pages
+import Test from "./pages/Test/Test";
 
 
 function App() {
