@@ -3,13 +3,22 @@ module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
         extend: {
-            backgroundColor: {
-                'blue': 'var(--website-colors, #1164B4);',
-                'light-white': 'var(--website-colors, #E9E7E7)',
-            },
             colors: {
                 'grey': 'var(--website-colors, #787878)',
                 'green': 'var(--website-colors, #228B22)',
+                'blue': 'var(--website-colors, #1164B4);',
+            },
+            backgroundImage: {
+                'main': 'url("/src/assets/images/main-bg.png")',
+
+            },
+            backgroundColor: {
+                'blue': 'var(--website-colors, #1164B4);',
+                'light-white': 'var(--website-colors, #E9E7E7)',
+                'grey': 'rgba(255, 255, 255, 0.30)',
+                'dark-blue': 'rgba(38, 43, 100, 0.30)',
+                'yellow': 'var(--mob-yellow, #FFC506)',
+                'green': '#228B22'
             },
             boxShadow: {
                 "bigBtn": '0px 9px 16px 2px rgba(0, 0, 0, 0.25)',
@@ -26,3 +35,4 @@ module.exports = {
     plugins: [],
 }
 
+import image from './src/assets/images/chuy.png'
