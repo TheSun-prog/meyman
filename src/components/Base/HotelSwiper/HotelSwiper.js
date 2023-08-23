@@ -12,7 +12,7 @@ import 'swiper/css/scrollbar';
 
 SwiperCore.use([Navigation]);
 
-const SwiperHotels = ({}) => {
+const HotelSwiper = ({}) => {
 
     const swiperRef = React.useRef(null);
 
@@ -42,7 +42,7 @@ const SwiperHotels = ({}) => {
                     swiperRef.current = swiper;
                 }}
                 navigation={{
-                    nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev',
+                    nextEl: '.swiper-button-next-hotel', prevEl: '.swiper-button-prev-hotel',
                 }}
             >
                 {data.map((value, index, array) => {
@@ -57,12 +57,12 @@ const SwiperHotels = ({}) => {
             <div className="flex gap-[50px] justify-center pt-[50px]">
                 <img
                     src={left} alt="left"
-                    className="swiper-button-prev"
+                    className="swiper-button-prev-hotel"
                     onClick={goPrev}
                 />
                 <img
                     src={right} alt="right"
-                    className="swiper-button-next"
+                    className="swiper-button-next-hotel"
                     onClick={goNext}
                 />
             </div>
@@ -70,4 +70,4 @@ const SwiperHotels = ({}) => {
 
 
 }
-export default SwiperHotels
+export default HotelSwiper

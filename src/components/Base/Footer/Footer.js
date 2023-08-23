@@ -6,6 +6,9 @@ const Footer = ({
                 }) => {
 
     return(
+        <div className="border-t-[1px] border-t-grey">
+
+
         <div className="mx-auto w-[1240px]">
             <div className="min-h-[386px] pt-[70px] pb-[30px] flex justify-between relative">
                 <div className="flex flex-col gap-[30px]">
@@ -29,6 +32,7 @@ const Footer = ({
                 <p className="absolute left-0 bottom-[30px]">© 2023 Meyman</p>
             </div>
         </div>
+            </div>
     )
 }
 

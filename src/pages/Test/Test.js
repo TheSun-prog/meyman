@@ -1,11 +1,9 @@
-import SwiperHotels from "../../components/Base/HotelSwiper/SwiperHotels";
-import ReviewCard from "../../components/Base/ReviewCard/ReviewCard";
-import ReviewSwiper from "../../components/Base/ReviewSwiper/ReviewSwiper";
+import Mainpage from "../Mainpage/Mainpage";
 
 
 const Test = () => {
     return (
-        <ReviewSwiper/>
+        <Mainpage/>
     )
 }
 

@@ -16,6 +16,9 @@ import osh from '../../assets/images/osh.png'
 import batken from '../../assets/images/batken.png'
 import talas from '../../assets/images/talas.png'
 import naryn from '../../assets/images/naryn.png'
+import HotelCard from "../../components/Base/HotelCard/HotelCard";
+import HotelSwiper from "../../components/Base/HotelSwiper/HotelSwiper";
+import ReviewSwiper from "../../components/Base/ReviewSwiper/ReviewSwiper";
 
 
 const Mainpage = () => {
@@ -153,9 +156,16 @@ const Mainpage = () => {
 
             <div className="mx-auto w-[1240px] pt-[100px]">
                 <div className="flex flex-col gap-[40px] items-center">
-                    <p className="text-[28px]">Рекомендации</p>
-
+                    <p className="text-[28px] pb-[40px]">Рекомендации</p>
                 </div>
+                <HotelSwiper/>
+            </div>
+
+            <div className="mx-auto w-[1240px] py-[100px]">
+                <div className="flex flex-col gap-[40px] items-center">
+                    <p className="text-[28px] pb-[40px]">Отзывы о сайте</p>
+                </div>
+                <ReviewSwiper/>
             </div>
 
             <Footer/>

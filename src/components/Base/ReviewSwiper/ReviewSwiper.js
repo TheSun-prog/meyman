@@ -13,7 +13,7 @@ import ReviewCard from "../ReviewCard/ReviewCard";
 
 SwiperCore.use([Navigation]);
 
-const SwiperHotels = ({}) => {
+const ReviewSwiper = ({}) => {
 
     const swiperRef = React.useRef(null);
 
@@ -43,7 +43,7 @@ const SwiperHotels = ({}) => {
                     swiperRef.current = swiper;
                 }}
                 navigation={{
-                    nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev',
+                    nextEl: '.swiper-button-next-review', prevEl: '.swiper-button-prev-review',
                 }}
             >
                 {data.map((value, index, array) => {
@@ -58,12 +58,12 @@ const SwiperHotels = ({}) => {
             <div className="flex gap-[50px] justify-center pt-[50px]">
                 <img
                     src={left} alt="left"
-                    className="swiper-button-prev"
+                    className="swiper-button-prev-review"
                     onClick={goPrev}
                 />
                 <img
                     src={right} alt="right"
-                    className="swiper-button-next"
+                    className="swiper-button-next-review"
                     onClick={goNext}
                 />
             </div>
@@ -71,4 +71,4 @@ const SwiperHotels = ({}) => {
 
 
 }
-export default SwiperHotels
+export default ReviewSwiper
