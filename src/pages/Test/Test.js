@@ -1,3 +1,4 @@
+import HotelCatalog from "../HotelCatalog/HotelCatalog";
 import Mainpage from "../Mainpage/Mainpage";
 
 

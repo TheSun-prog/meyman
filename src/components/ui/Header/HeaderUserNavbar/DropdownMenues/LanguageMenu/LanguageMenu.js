@@ -25,7 +25,7 @@ const LanguageMenu = ({handleMenu}) => {
 
     return (
         <div
-            className={`absolute top-[42px] right-0 w-[224px] min-h-[186px] rounded-[18px] shadow-dropdown-menu border-light-white border-[1px] py-[20px] px-[30px] flex flex-col gap-[25px]`}
+            className={`absolute top-[42px] right-0 w-[224px] min-h-[186px] rounded-[18px] shadow-dropdown-menu border-light-white border-[1px] py-[20px] px-[30px] flex flex-col gap-[25px] bg-white`}
         >
             <div className="flex justify-between">
                 <p>Язык</p>
