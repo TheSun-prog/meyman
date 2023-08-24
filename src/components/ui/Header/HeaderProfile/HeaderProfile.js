@@ -3,25 +3,19 @@ import {useEffect, useState} from "react";
 
 // images
 import profile from '../../../../assets/images/profile.svg'
-import NotUserMenu from "../HeaderUserNavbar/DropdownMenues/NotUserMenu/NotUserMenu";
-import IsUserMenu from "../HeaderUserNavbar/DropdownMenues/IsUserMenu/IsUserMenu";
-import {useDispatch, useSelector} from "react-redux";
-import {setModalsClosed} from "../../../../store/slice/headerModalsSlice";
+import NotUserMenu from "../DropdownMenues/NotUserMenu/NotUserMenu";
+import IsUserMenu from "../DropdownMenues/IsUserMenu/IsUserMenu";
 
 
 const HeaderProfile = ({
                            userType,
+                           showModal,
+                           handleShowModal,
                        }) => {
 
 
-    const [isShow, setIsShow] = useState(false)
     const [isReg, setIsReg] = useState(false)
 
-    const handleIsShow = () => {
-
-        setIsShow(prevState => !prevState)
-
-    }
 
     useEffect(() => {
         switch (userType) {
@@ -53,11 +47,14 @@ const HeaderProfile = ({
         <div className="relative">
             <div
                 className="w-[112px] h-[42px] rounded-full flex items-center justify-center border-[1px] border-blue cursor-pointer"
-                onClick={handleIsShow}
+                onClick={() => {
+                    if (showModal !== 'profile') handleShowModal('profile')
+                    else handleShowModal('')
+                }}
             >
                 {isReg ? isRegProfile : nonRegProfile}
             </div>
-            {isShow && (isReg ? <IsUserMenu/> : <NotUserMenu/>)}
+            {showModal === 'profile' && (isReg ? <IsUserMenu/> : <NotUserMenu/>)}
         </div>
     )
 }

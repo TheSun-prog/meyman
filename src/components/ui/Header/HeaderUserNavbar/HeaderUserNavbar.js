@@ -1,5 +1,5 @@
 // React modules
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 // components
 import Button from "../../Button/Button";
@@ -7,41 +7,21 @@ import Button from "../../Button/Button";
 // images
 import som from '../../../../assets/images/som.svg'
 import language from '../../../../assets/images/language.svg'
-import LanguageMenu from "./DropdownMenues/LanguageMenu/LanguageMenu";
-import MoneyMenu from "./DropdownMenues/MoneyMenu/MoneyMenu";
-import {useDispatch, useSelector} from "react-redux";
-import {setModalsClosed} from "../../../../store/slice/headerModalsSlice";
+import LanguageMenu from "../DropdownMenues/LanguageMenu/LanguageMenu";
+import MoneyMenu from "../DropdownMenues/MoneyMenu/MoneyMenu";
 
 const HeaderUserNavbar = ({
                               pageType,
+                              showModal,
+                              handleShowModal,
                           }) => {
-    const [languageIsOpen, setLanguageIsOpen] = useState(false)
-    const [moneyIsOpen, setMoneyIsOpen] = useState(false)
+
     const [isActive, setIsActive] = useState(1)
 
 
     const handleActiveLink = (index) => {
         setIsActive(index)
     }
-
-    const handleMenu = (action) => {
-        if (action === 'language') {
-
-            setLanguageIsOpen(prevState => !prevState)
-            setMoneyIsOpen(false)
-        } else if (action === 'money') {
-
-            setMoneyIsOpen(prevState => !prevState)
-            setLanguageIsOpen(false)
-        } else if (action === 'close') {
-
-            setMoneyIsOpen(false)
-            setLanguageIsOpen(false)
-        }
-
-    }
-
-
 
 
     const mainpageNavbar = (
@@ -50,25 +30,31 @@ const HeaderUserNavbar = ({
                 <div className="relative">
                     <div
                         className="flex gap-[12px] items-center cursor-pointer relative"
-                        onClick={() => handleMenu('language')}
+                        onClick={() => {
+                            if (showModal !== 'language') handleShowModal('language')
+                            else handleShowModal('')
+                        }}
                     >
                         <img src={language} alt="language"/>
                         <p className="text-[16px]">Русский</p>
                     </div>
-                    {languageIsOpen && <LanguageMenu handleMenu={handleMenu}/>}
+                    {showModal === 'language' && <LanguageMenu handleMenu={handleShowModal}/>}
                 </div>
 
 
                 <div className="relative">
                     <div
                         className="flex gap-[12px] items-center cursor-pointer"
-                        onClick={() => handleMenu('money')}
+                        onClick={() => {
+                            if (showModal !== 'money') handleShowModal('money')
+                            else handleShowModal('')
+                        }}
                     >
                         <img src={som} alt="som"/>
                         <p className="text-[16px]">Сом</p>
 
                     </div>
-                    {moneyIsOpen && <MoneyMenu handleMenu={handleMenu}/>}
+                    {showModal === 'money' && <MoneyMenu handleMenu={handleShowModal}/>}
                 </div>
 
 

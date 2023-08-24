@@ -13,6 +13,11 @@ const Header = ({
                 }) => {
 
     const [isMainPage, setIsMainPage] = useState(false)
+    const [showModal, setShowModal] = useState('')
+
+    const handleShowModal = (value) => {
+        setShowModal(value)
+    }
 
 
     useEffect(() => {
@@ -38,10 +43,14 @@ const Header = ({
 
                     { isMainPage && <HeaderUserNavbar
                         pageType={pageType}
+                        handleShowModal={handleShowModal}
+                        showModal={showModal}
                     />}
 
                     <HeaderProfile
                         userType={userType}
+                        handleShowModal={handleShowModal}
+                        showModal={showModal}
                     />
 
                 </div>

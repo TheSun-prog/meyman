@@ -2,10 +2,10 @@
 import {useState} from "react";
 
 // images
-import close from '../../../../../../assets/images/close.svg'
+import close from '../../../../../assets/images/close.svg'
 
 
-const LanguageMenu = ({handleMenu}) => {
+const LanguageMenu = ({closeMenu}) => {
 
     const [kgsIsActive, setKgzIsActive] = useState(true)
     const [usdIsActive, setUsdIsActive] = useState(false)
@@ -40,7 +40,7 @@ const LanguageMenu = ({handleMenu}) => {
                 <img
                     src={close} alt="close"
                     className="cursor-pointer"
-                    onClick={() => handleMenu('close')}
+                    onClick={() => closeMenu('')}
                 />
             </div>
             <div className="flex flex-col gap-[12px]">
