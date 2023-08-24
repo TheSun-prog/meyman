@@ -13,8 +13,19 @@ import arrow2 from '../../assets/images/arrow2.svg'
 import Button from '../../components/ui/Button/Button'
 import RoomDate from './RoomDate'
 import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import ModalAllPhotosRooms from '../../components/roomComponents/modals/ModalAllPhotosRooms'
+import ModalAllServices from '../../components/roomComponents/modals/ModalAllServices'
 
 const Room = () => {
+
+  const [activeModalAllPhotosRooms, setActiveModalAllPhotosRooms] = useState(false)
+  const [activeModalALlServices, setActiveModalAllServices] = useState(false)
+
+  const handleActiveModal = () => {
+    setActiveModalAllPhotosRooms(true)
+  }
+
   return (
     <div className='mx-auto w-[1240px]'>
       <div className="flex items-center mb-[50px]">
@@ -42,7 +53,7 @@ const Room = () => {
             <img src={heartIcon} alt="heartIcon" />
           </div>
         </div>
-        <div className="flex justify-between mt-[20px]">
+        <div onClick={handleActiveModal} className="flex justify-between mt-[20px] cursor-pointer">
           <div>
             <img
               className="rounded-l-2xl h-[500px] w-[490px]"
@@ -157,7 +168,7 @@ const Room = () => {
                   </li>
                 </div>
               </ul>
-              <Button classes={'py-2 px-3'}>
+              <Button clickFunc={() => {setActiveModalAllServices(true)}} classes={'py-2 px-3'}>
                 Показать все Удобства <img src={arrow} alt="arrow" />
               </Button>
             </div>
@@ -165,6 +176,9 @@ const Room = () => {
           <RoomDate />
         </div>
       </div>
+
+      {activeModalAllPhotosRooms && <ModalAllPhotosRooms handleCLickCloseModal={() => {setActiveModalAllPhotosRooms(false)}}/>}
+      {activeModalALlServices && <ModalAllServices handleCLickCloseModal={() => {setActiveModalAllServices(false)}}/>}
     </div>
   )
 }

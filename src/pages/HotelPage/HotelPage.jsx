@@ -4,27 +4,64 @@ import HotelRules from '../../components/hotelComponents/HotelRules/HotelRules'
 import HotelDate from '../../components/hotelComponents/HotelDate/HotelDate'
 import HotelRooms from '../../components/hotelComponents/HotelRooms/HotelRooms'
 import HotelGrade from '../../components/hotelComponents/HotelGrade/HotelGrade'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import arrow from '../../assets/images/arrow2.svg'
+import ReviewSwiper from '../../components/reviewComponents/ReviewSwiper/ReviewSwiper'
+import { useState } from 'react'
+import ModalReview from '../../components/hotelComponents/modals/ModalReview'
+import ModalAllRooms from '../../components/hotelComponents/modals/ModalAllRooms'
+import ModalAllPhotos from '../../components/hotelComponents/modals/ModalAllPhotos'
 
-const HotelPage = () => {
+const HotelPage = ({ activeModalServices }) => {
+  const [activeModalReview, setActiveModalReview] = useState(false)
+  const [activeModalAllRooms, setActiveModalAllRooms] = useState(false)
+  const [activeModalALlImages, setActiveModalImages] = useState(false)
+
   return (
-    <div className='mx-auto w-[1240px]'>
+    <div className="mx-auto w-[1240px]">
       <div className="flex items-center mb-[50px]">
-        <NavLink to={'/'}>Главная</NavLink>
+        <Link>Главная</Link>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
-        Отель
+        <Link>Отель</Link>
       </div>
       <div>
         <HotelName />
-        <HotelImages />
+        <HotelImages handleOpenModalImages={setActiveModalImages} />
         <div className="flex justify-between mt-[50px]">
-          <HotelRules />
+          <HotelRules
+            handleClickModal={() => {
+              activeModalServices(true)
+            }}
+          />
           <HotelDate />
         </div>
-        <HotelRooms />
+        <HotelRooms
+          handleActiveModal={() => {
+            setActiveModalAllRooms(true)
+          }}
+        />
         <HotelGrade />
+        <ReviewSwiper
+          handleClick={() => {
+            setActiveModalReview(true)
+          }}
+        />
       </div>
+      {activeModalReview && (
+        <ModalReview
+          handleCLickCloseModal={() => {
+            setActiveModalReview(false)
+          }}
+        />
+      )}
+      {activeModalAllRooms && (
+        <ModalAllRooms
+          handleCLickCloseModal={() => {
+            setActiveModalAllRooms(false)
+          }}
+        />
+      )}
+      {activeModalALlImages && <ModalAllPhotos handleCLickCloseModal={() => {setActiveModalImages(false)}}/>}
     </div>
   )
 }

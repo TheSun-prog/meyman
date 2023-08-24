@@ -2,9 +2,9 @@ import hotelImg from "../../../assets/images/hotel-img.png";
 import hotelImg2 from "../../../assets/images/hotel-img2.png";
 import Button from "../../ui/Button/Button";
 
-const HotelImages = () => {
+const HotelImages = ({handleOpenModalImages}) => {
   return (
-    <div className="flex justify-between mt-[20px]">
+    <div className="flex justify-between mt-[20px] cursor-pointer" onClick={handleOpenModalImages}>
       <div>
         <img
           className="rounded-l-2xl h-[500px] w-[490px]"

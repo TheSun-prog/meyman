@@ -11,7 +11,7 @@ import arrow from '../../../assets/images/arrow.svg'
 // ui
 import Button from '../../ui/Button/Button'
 
-const HotelRules = () => {
+const HotelRules = ({ handleClickModal }) => {
   return (
     <div className="flex-1">
       <div className="max-w-[566px]">
@@ -89,7 +89,7 @@ const HotelRules = () => {
           </li>
         </div>
       </ul>
-      <Button classes={'py-[10px] px-[25px]'}>
+      <Button clickFunc={handleClickModal} classes={'py-[10px] px-[25px]'}>
         Подробнее <img className="ml-[10px]" src={arrow} alt="arrow" />
       </Button>
     </div>
