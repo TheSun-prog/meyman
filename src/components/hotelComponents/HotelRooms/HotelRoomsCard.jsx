@@ -50,7 +50,6 @@ const HotelRoomsCard = () => {
         </div>
         <p className="text-[16px] mb-[20px] text-grey">Включая налоги сборы</p>
       </div>
-      <Button classes={'w-full py-[14px]'}>Забронировать</Button>
     </div>
   )
 }

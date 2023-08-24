@@ -74,12 +74,12 @@ const Room = () => {
                 src={roomImg}
                 alt="hotelImg2"
               />
-              <Button
-                classes={
-                  'font-[600] !bg-[#1164B480] !w-[227px] absolute bottom-[20px] right-[20px]'
-                }
-                text="Показать все фото"
-              />
+              {/*<Button*/}
+              {/*  classes={*/}
+              {/*    'font-[600] !bg-[#1164B480] !w-[227px] absolute bottom-[20px] right-[20px]'*/}
+              {/*  }*/}
+              {/*  text="Показать все фото"*/}
+              {/*/>*/}
             </div>
           </div>
         </div>
