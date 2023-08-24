@@ -16,9 +16,9 @@ import osh from '../../assets/images/osh.png'
 import batken from '../../assets/images/batken.png'
 import talas from '../../assets/images/talas.png'
 import naryn from '../../assets/images/naryn.png'
-import HotelCard from "../../components/Base/HotelCard/HotelCard";
 import HotelSwiper from "../../components/Base/HotelSwiper/HotelSwiper";
 import ReviewSwiper from "../../components/Base/ReviewSwiper/ReviewSwiper";
+import {NavLink} from "react-router-dom";
 
 
 const Mainpage = () => {
@@ -114,11 +114,13 @@ const Mainpage = () => {
                                     className="w-[90%] outline-none text-[16px]"
                                 />
                             </div>
-                            <Button
-                                width={202}
-                                height={53}
-                                text={'Искать'}
-                            />
+                            <NavLink to={'/hotelcatalog'}>
+                                <Button
+                                    width={202}
+                                    height={53}
+                                    text={'Искать'}
+                                />
+                            </NavLink>
                         </div>
                     </div>
                     <div
@@ -143,7 +145,7 @@ const Mainpage = () => {
                                     className="w-[250px] h-[300px] flex flex-col justify-between items-center"
                                 >
                                     <img
-                                    className="w-[250px] h-[250px] rounded-[18px]"
+                                        className="w-[250px] h-[250px] rounded-[18px]"
                                         src={value.img} alt="region of kg"
                                     />
                                     <p className="text-[22px]">{value.name}</p>

@@ -8,6 +8,7 @@ import done from '../../../assets/images/done.svg'
 import location from '../../../assets/images/location.svg'
 import hotelImage from '../../../assets/images/hotel-image.png'
 import {useState} from "react";
+import {NavLink} from "react-router-dom";
 
 
 const HotelCard = ({data}) => {
@@ -29,7 +30,7 @@ const HotelCard = ({data}) => {
 
             <div className="w-[350px] h-[540px] flex flex-col gap-[10px] relative">
 
-                {/*<NavLink to="/hotelcatalog/hotel">*/}
+                <NavLink to="/hotelcatalog/hotel">
 
                 <div
                     className="bg-cover bg-center bg-no-repeat w-[350px] h-[350px] rounded-[30px]"
@@ -76,7 +77,7 @@ const HotelCard = ({data}) => {
                         />
                     </div>
                 </div>
-                {/*</NavLink>*/}
+                </NavLink>
             </div>
 
 

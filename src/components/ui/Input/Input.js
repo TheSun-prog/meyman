@@ -7,7 +7,8 @@ const Input = ({
                    type = 'text',
                    text,
                    isError,
-                   handleIsError
+                   classes,
+                   handleIsError=() => {}
                }) => {
 
     const styleNotError = 'border-grey outline-black text-black placeholder:text-grey'
@@ -39,7 +40,7 @@ const Input = ({
         <div className="relative w-[520px]">
             <input
                 type={inputType}
-                className={`w-[520px] h-[50px] px-[25px] flex items-center rounded-full border-[2px] hover:border-blue text-[16px] -ms-clear ${inputStyle}`}
+                className={`${classes} w-[520px] h-[50px] px-[25px] flex items-center rounded-full border-[2px] hover:border-blue text-[16px] -ms-clear ${inputStyle}`}
                 placeholder={text}
                 onClick={() => {
                     handleIsError()
