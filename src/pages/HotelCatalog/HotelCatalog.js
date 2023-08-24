@@ -4,7 +4,7 @@ import hotelIcon from "../../assets/images/hotel-icon.svg";
 import carIcon from "../../assets/images/car-icon.svg";
 import Button from "../../components/ui/Button/Button";
 import {useState} from "react";
-import HotelCard from "../../components/Base/HotelCard/HotelCard";
+import HotelCard from "../../components/hotelComponents/HotelCard/HotelCard";
 
 
 const HotelCatalog = () => {

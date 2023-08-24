@@ -2,7 +2,6 @@ import React from 'react';
 import SwiperCore from 'swiper';
 import {Navigation} from "swiper/modules";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import HotelCard from "../HotelCard/HotelCard";
 import left from '../../../assets/images/arrow-left.svg'
 import right from '../../../assets/images/arrow-right.svg'
 

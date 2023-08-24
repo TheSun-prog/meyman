@@ -16,8 +16,8 @@ import osh from '../../assets/images/osh.png'
 import batken from '../../assets/images/batken.png'
 import talas from '../../assets/images/talas.png'
 import naryn from '../../assets/images/naryn.png'
-import HotelSwiper from "../../components/Base/HotelSwiper/HotelSwiper";
-import ReviewSwiper from "../../components/Base/ReviewSwiper/ReviewSwiper";
+import HotelSwiper from "../../components/hotelComponents/HotelSwiper/HotelSwiper";
+import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper";
 import {NavLink} from "react-router-dom";
 
 
