@@ -7,6 +7,7 @@ const ModalDefult = ({
   classes,
   isBorder,
   isTitle,
+  isClose = true,
   title
 }) => {
   const handleBackgroundClick = event => {
@@ -29,12 +30,14 @@ const ModalDefult = ({
               isBorder ? 'border-b' : ''
             }  border-[#8C8C8C] w-full pb-[44px]`}
           >
-            <img
-              onClick={handleCLickCloseModal}
-              className="absolute top-2 left-4 cursor-pointer"
-              src={clear}
-              alt="clear"
-            />
+            {isClose && (
+              <img
+                onClick={handleCLickCloseModal}
+                className="absolute top-2 left-4 cursor-pointer"
+                src={clear}
+                alt="clear"
+              />
+            )}
             {isTitle && <h3 className="text-center text-[28px]">{title}</h3>}
           </div>
           {children}

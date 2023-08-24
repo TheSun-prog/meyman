@@ -27,7 +27,7 @@ const Room = () => {
   }
 
   return (
-    <div className='mx-auto w-[1240px]'>
+    <div className='mx-auto w-[1240px] min-h-screen'>
       <div className="flex items-center mb-[50px]">
         <NavLink to={'/'}>Главная</NavLink>
         <img className="-rotate-90 h-4" src={arrow2} alt="arrow" />
