@@ -11,14 +11,19 @@ import arrow from '../../../assets/images/arrow.svg'
 // ui
 import Button from '../../ui/Button/Button'
 
+import { useSelector } from "react-redux";
+
 const HotelRules = ({ handleClickModal }) => {
+
+  const {data, isLoading, isError} = useSelector(state => state.hotel)
+
   return (
     <div className="flex-1">
       <div className="max-w-[566px]">
         <h5 className="text-[28px] mb-[20px]">Порядок проживания в отеле</h5>
         <p className="text-[22px] mb-[10px]">Время заезда/выезда</p>
-        <p className="text-[18px] mb-[5px]">Заезд с 15:00 до 00:00</p>
-        <p className="text-[18px] mb-[20px]">Выезд с 00:00 до 12:00</p>
+        <p className="text-[18px] mb-[5px]">Заезд с {data?.results?.[0]?.check_in_time_start} до {data?.results?.[0]?.check_in_time_end}</p>
+        <p className="text-[18px] mb-[20px]">Выезд с {data?.results?.[0]?.check_out_time_start} до {data?.results?.[0]?.check_out_time_end}</p>
         <h5 className="text-[22px] mb-[10px]">Домашние животные</h5>
         <div className="flex items-center justify-between">
           <p className="text-[18px]">

@@ -13,8 +13,17 @@ import arrow from '../../assets/images/arrow2.svg'
 import Input from '../../components/ui/Input/Input'
 import Button from '../../components/ui/Button/Button'
 import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import ModalSuccess from '../../components/bookingComponents/modals/ModalSuccess'
 
 const Booking = () => {
+
+  const [activeModal, setActiveModal] = useState(false)
+
+  const handleClickBooking = () => {
+    setActiveModal(true)
+  }
+
   return (
     <div className="mx-auto w-[1240px]">
       <div className='flex items-center mb-[50px]'>
@@ -171,9 +180,20 @@ const Booking = () => {
             <span className="">Итого</span>
             <span>3200 сом</span>
           </div>
-          <Button classes={'py-[20px] w-full'}>Забронировать</Button>
+          <Button clickFunc={handleClickBooking} classes={'py-[20px] w-full'}>Забронировать</Button>
         </div>
       </div>
+      {activeModal && (
+        <ModalSuccess
+          handleSuccessClick={() => {
+            setActiveModal(false)
+          }}
+          handleCLickCloseModal={() => {
+            setActiveModal(false)
+          }}
+        />
+      )}
+
     </div>
   )
 }

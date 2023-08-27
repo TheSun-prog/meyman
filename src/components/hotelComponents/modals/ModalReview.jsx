@@ -1,11 +1,10 @@
 import person from '../../../assets/images/viliam.jpg'
 import ModalDefult from './ModalDefault'
 
-
 const ModalReview = ({handleCLickCloseModal}) => {
   return (
     <ModalDefult classes={'w-[634px]  !fixed'} isBorder={false} handleCLickCloseModal={handleCLickCloseModal} isTitle={false}>
-      <div className='mt-3 p-[50px]'>
+      <div className='mt-3 p-[30px]'>
         <div className="flex items-center ">
           <img
             className="h-[80px] w-[80px] object-cover rounded-full"

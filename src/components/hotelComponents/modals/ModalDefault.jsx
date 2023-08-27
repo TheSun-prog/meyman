@@ -1,14 +1,14 @@
 import clear from '../../../assets/images/clear.svg'
 import 'animate.css'
 
-const ModalDefult = ({
-  handleCLickCloseModal,
-  children,
-  classes,
-  isBorder,
-  isTitle,
-  title
-}) => {
+const ModalDefault = ({
+                        handleCLickCloseModal,
+                        children,
+                        classes,
+                        isBorder,
+                        isTitle,
+                        title
+                      }) => {
   const handleBackgroundClick = event => {
     if (event.target.classList.contains('bg-black')) {
       handleCLickCloseModal()
@@ -18,7 +18,7 @@ const ModalDefult = ({
   return (
     <div
       onClick={handleBackgroundClick}
-      className="absolute inset-0 z-40 w-screen bg-black bg-opacity-40 animate__animated animate__fadeIn"
+      className="fixed inset-0 z-40 w-screen bg-black bg-opacity-40 animate__animated animate__fadeIn"
     >
       <div
         className={`bg-white ${classes} z-50 py-[37px] rounded-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
@@ -44,4 +44,4 @@ const ModalDefult = ({
   )
 }
 
-export default ModalDefult
+export default ModalDefault

@@ -1,22 +1,20 @@
-import starFillIcon from "../../../assets/images/star-fill.svg";
-import starDefaultIcon from "../../../assets/images/star-default.svg";
 import placeIcon from "../../../assets/images/place.svg";
 import whatsAppIcon from '../../../assets/images/whats-app.svg'
 import heartIcon from '../../../assets/images/heart.svg'
+import { useSelector } from "react-redux";
+
+import { Rate } from 'antd';
+import { useEffect } from "react";
 
 const HotelName = () => {
+  const {data, isLoading, isError} = useSelector(state => state.hotel)
+
   return (
     <div className="flex justify-between">
       <div>
-        <h3 className="font-medium text-[32px]">Novotel</h3>
+        <h3 className="font-medium text-[32px]">{data?.results?.[0]?.housing_name}</h3> 
         <div className="flex">
-          <div className="flex gap-[5px]">
-            <img src={starFillIcon} alt="starFillIcon" />
-            <img src={starFillIcon} alt="starFillIcon" />
-            <img src={starFillIcon} alt="starFillIcon" />
-            <img src={starFillIcon} alt="starFillIcon" />
-            <img src={starDefaultIcon} alt="starFillIcon" />
-          </div>
+          <Rate defaultValue={data?.results?.[0]?.stars} disabled/> 
           <div className="ml-[10px] flex items-center">
             <div className="bg-[#FFC506] pr-[2px] rounded-full mr-[5px] w-[30px] h-[28px] text-center">
               <span className="text-white">10</span>

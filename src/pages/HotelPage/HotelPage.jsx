@@ -1,21 +1,31 @@
 import HotelName from '../../components/hotelComponents/HotelName/HotelName'
 import HotelImages from '../../components/hotelComponents/HotelImages/HotelImages'
 import HotelRules from '../../components/hotelComponents/HotelRules/HotelRules'
-import HotelDate from '../../components/hotelComponents/HotelDate/HotelDate'
 import HotelRooms from '../../components/hotelComponents/HotelRooms/HotelRooms'
 import HotelGrade from '../../components/hotelComponents/HotelGrade/HotelGrade'
 import { Link } from 'react-router-dom'
 import arrow from '../../assets/images/arrow2.svg'
 import ReviewSwiper from '../../components/reviewComponents/ReviewSwiper/ReviewSwiper'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ModalReview from '../../components/hotelComponents/modals/ModalReview'
 import ModalAllRooms from '../../components/hotelComponents/modals/ModalAllRooms'
 import ModalAllPhotos from '../../components/hotelComponents/modals/ModalAllPhotos'
+
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchHotelData } from '../../store/hotelSlice'
+import HotelDate from '../../components/hotelComponents/HotelDate/HotelDate'
 
 const HotelPage = ({ activeModalServices }) => {
   const [activeModalReview, setActiveModalReview] = useState(false)
   const [activeModalAllRooms, setActiveModalAllRooms] = useState(false)
   const [activeModalALlImages, setActiveModalImages] = useState(false)
+
+  const dispatch = useDispatch()
+  const state = useSelector(state => state.hotel)
+
+  useEffect(() => {
+    dispatch(fetchHotelData())
+  }, [])
 
   return (
     <div className="mx-auto w-[1240px]">

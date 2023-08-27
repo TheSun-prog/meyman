@@ -11,7 +11,7 @@ import arrow from '../../assets/images/arrow.svg'
 import arrow2 from '../../assets/images/arrow2.svg'
 // ui
 import Button from '../../components/ui/Button/Button'
-import RoomDate from './RoomDate'
+import RoomDate from '../../components/roomComponents/RoomDate'
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
 import ModalAllPhotosRooms from '../../components/roomComponents/modals/ModalAllPhotosRooms'
@@ -27,7 +27,7 @@ const Room = () => {
   }
 
   return (
-    <div className='mx-auto w-[1240px]'>
+    <div className='mx-auto w-[1240px] h-screen'>
       <div className="flex items-center mb-[50px]">
         <NavLink to={'/'}>Главная</NavLink>
         <img className="-rotate-90 h-4" src={arrow2} alt="arrow" />
