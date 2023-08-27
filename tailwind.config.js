@@ -7,6 +7,8 @@ module.exports = {
                 'grey': 'var(--website-colors, #787878)',
                 'green': 'var(--website-colors, #228B22)',
                 'blue': 'var(--website-colors, #1164B4);',
+                'red': '#BC0000',
+                'half-opacity': 'rgba(0, 0, 0, 0.45)',
             },
             backgroundImage: {
                 'main': 'url("/src/assets/images/main-bg.png")',
@@ -18,7 +20,8 @@ module.exports = {
                 'grey': 'rgba(255, 255, 255, 0.30)',
                 'dark-blue': 'rgba(38, 43, 100, 0.30)',
                 'yellow': 'var(--mob-yellow, #FFC506)',
-                'green': '#228B22'
+                'green': '#228B22',
+                'red': '#BC0000',
             },
             boxShadow: {
                 "bigBtn": '0px 9px 16px 2px rgba(0, 0, 0, 0.25)',
@@ -26,6 +29,7 @@ module.exports = {
                 "smallBtn": '0px 4px 8px 0px rgba(0, 0, 0, 0.25)',
             },
             borderColor: {
+                'red': '#BC0000',
                 'grey': 'var(--website-colors, #A1A1A1)',
                 'blue': 'var(--website-colors, #1164B4);',
                 'dropdown': "rgba(28, 32, 74, 0.40)",

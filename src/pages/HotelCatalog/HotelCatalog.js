@@ -1,25 +1,32 @@
-import Header from "../../components/Base/Header/Header";
-import Footer from "../../components/Base/Footer/Footer";
 import hotelIcon from "../../assets/images/hotel-icon.svg";
 import carIcon from "../../assets/images/car-icon.svg";
 import Button from "../../components/ui/Button/Button";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 import HotelCard from "../../components/hotelComponents/HotelCard/HotelCard";
+import {
+    fetchHousingData,
+    selectHotelData,
+    selectHotelError,
+    selectHotelLoadingStatus
+} from "../../store/slice/hotelSlice";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const HotelCatalog = () => {
 
     const [activeSearch, setActiveSearch] = useState('hotel')
 
-    let data = []
+    const dispatch = useDispatch();
+    const hotelData = useSelector(selectHotelData);
+    const loading = useSelector(selectHotelLoadingStatus);
+    const error = useSelector(selectHotelError);
 
-    for (let i = 0; i < 12; i++) {
-        data.push([])
-    }
+    useEffect(() => {
+        dispatch(fetchHousingData({limit: 7, offset: 0}));
+    }, [dispatch]);
 
     return (
         <>
-            <Header/>
             <div className="bg-main bg-no-repeat bg-cover h-[550px]">
                 <div className="mx-auto w-[1240px] h-[100%] relative">
                     <div className="pt-[180px] flex flex-col gap-[50px]">
@@ -85,15 +92,16 @@ const HotelCatalog = () => {
             </div>
             <div className="mx-auto w-[1240px]">
                 <div className="pt-[80px] pb-[100px] flex flex-wrap gap-x-[95px] gap-y-[55px]">
-                    {data.map(() => {
-                        return(
-                            <HotelCard/>
+                    {hotelData && hotelData.map((value, index, array) => {
+                        return (
+                            <HotelCard
+                                data={value}
+                                key={index}
+                            />
                         )
                     })}
                 </div>
             </div>
-
-            <Footer/>
         </>
     )
 }

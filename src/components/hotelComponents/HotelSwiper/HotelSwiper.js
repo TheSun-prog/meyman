@@ -1,18 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import SwiperCore from 'swiper';
 import {Navigation} from "swiper/modules";
 import {Swiper, SwiperSlide} from 'swiper/react';
-import HotelCard from "../HotelCard/HotelCard";
 import left from '../../../assets/images/arrow-left.svg'
 import right from '../../../assets/images/arrow-right.svg'
-
 import 'swiper/css'
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import {useDispatch, useSelector} from "react-redux";
+import {
+    fetchHousingData,
+    selectHotelData,
+    selectHotelError,
+    selectHotelLoadingStatus
+} from "../../../store/slice/hotelSlice";
+import HotelCard from "../HotelCard/HotelCard";
 
 SwiperCore.use([Navigation]);
 
 const HotelSwiper = ({}) => {
+
+    const dispatch = useDispatch();
+    const hotelData = useSelector(selectHotelData);
+    const loading = useSelector(selectHotelLoadingStatus);
+    const error = useSelector(selectHotelError);
+
+    const [slidesCount, setSlidesCount] = useState(0)
+
+    useEffect(() => {
+        try {
+            if (hotelData.length > 3) setSlidesCount(3.23)
+            else setSlidesCount(hotelData.length)
+        } catch (e) {
+
+        }
+    }, [hotelData])
+
+    useEffect(() => {
+        dispatch(fetchHousingData({limit: 7, offset: 0}));
+    }, [dispatch]);
 
     const swiperRef = React.useRef(null);
 
@@ -28,45 +54,37 @@ const HotelSwiper = ({}) => {
         }
     };
 
-    let data = []
-
-    for (let i = 0; i < 7; i++) {
-        data.push([])
-    }
-
     return (<>
-            <Swiper
-                spaceBetween={40}
-                slidesPerView={3.23}
-                onInit={(swiper) => {
-                    swiperRef.current = swiper;
-                }}
-                navigation={{
-                    nextEl: '.swiper-button-next-hotel', prevEl: '.swiper-button-prev-hotel',
-                }}
-            >
-                {data.map((value, index, array) => {
-                    return (
-                        <SwiperSlide key={index}>
-                            <HotelCard/>
-                        </SwiperSlide>
-                    )
-                })}
+        <Swiper
+            spaceBetween={40}
+            slidesPerView={3.23}
+            navigation={{
+                nextEl: '.swiper-button-next-hotel', prevEl: '.swiper-button-prev-hotel',
+            }}
+        >
+            {hotelData && hotelData.map((value, index, array) => {
+                return (<SwiperSlide>
+                        <HotelCard
+                            data={value}
+                            key={index}
+                        />
+                    </SwiperSlide>)
+            })}
 
-            </Swiper>
-            <div className="flex gap-[50px] justify-center pt-[50px]">
-                <img
-                    src={left} alt="left"
-                    className="swiper-button-prev-hotel"
-                    onClick={goPrev}
-                />
-                <img
-                    src={right} alt="right"
-                    className="swiper-button-next-hotel"
-                    onClick={goNext}
-                />
-            </div>
-        </>)
+        </Swiper>
+        <div className="flex gap-[50px] justify-center pt-[50px]">
+            <img
+                src={left} alt="left"
+                className="swiper-button-prev-hotel"
+                onClick={goPrev}
+            />
+            <img
+                src={right} alt="right"
+                className="swiper-button-next-hotel"
+                onClick={goNext}
+            />
+        </div>
+    </>)
 
 
 }

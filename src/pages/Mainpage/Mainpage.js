@@ -1,10 +1,6 @@
 // React module
 import {useState} from "react";
 
-// components
-import Header from "../../components/Base/Header/Header";
-import Footer from "../../components/Base/Footer/Footer";
-
 // images
 import hotelIcon from '../../assets/images/hotel-icon.svg'
 import carIcon from '../../assets/images/car-icon.svg'
@@ -59,7 +55,6 @@ const Mainpage = () => {
 
     return (
         <>
-            <Header/>
             <div className="bg-main bg-no-repeat bg-cover h-[550px]">
                 <div className="mx-auto w-[1240px] h-[100%] relative">
                     <div className="pt-[180px] flex flex-col gap-[50px]">
@@ -170,7 +165,6 @@ const Mainpage = () => {
                 <ReviewSwiper/>
             </div>
 
-            <Footer/>
         </>
     )
 }

@@ -6,7 +6,7 @@ const Footer = ({
                 }) => {
 
     return(
-        <div className="border-t-[1px] border-t-grey">
+        <div className="border-t-[1px] border-t-grey mt-[100px]">
 
 
         <div className="mx-auto w-[1240px]">
