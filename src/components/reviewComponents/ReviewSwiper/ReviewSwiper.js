@@ -12,7 +12,7 @@ import ReviewCard from "../ReviewCard/ReviewCard";
 
 SwiperCore.use([Navigation]);
 
-const ReviewSwiper = ({handleClick}) => {
+const ReviewSwiper = ({handleClick, data}) => {
 
     const swiperRef = React.useRef(null);
 
@@ -28,11 +28,9 @@ const ReviewSwiper = ({handleClick}) => {
         }
     };
 
-    let data = []
-
-    for (let i = 0; i < 7; i++) {
-        data.push([])
-    }
+    // for (let i = 0; i < 7; i++) {
+    //     data.push([])
+    // }
 
     return (<>
             <Swiper
@@ -45,10 +43,10 @@ const ReviewSwiper = ({handleClick}) => {
                     nextEl: '.swiper-button-next-review', prevEl: '.swiper-button-prev-review',
                 }}
             >
-                {data.map((value, index, array) => {
+                {data?.map((value, index) => {
                     return (
-                        <SwiperSlide key={index} onClick={handleClick} >
-                            <ReviewCard/>
+                        <SwiperSlide key={index} onClick={() => {handleClick(value)}} >
+                            <ReviewCard date={value.date_added} text={value.comment}/>
                         </SwiperSlide>
                     )
                 })}

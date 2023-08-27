@@ -14,14 +14,21 @@ import ModalAllPhotos from '../../components/hotelComponents/modals/ModalAllPhot
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchHotelData } from '../../store/hotelSlice'
 import HotelDate from '../../components/hotelComponents/HotelDate/HotelDate'
+import ModalFilteredRooms from '../../components/hotelComponents/modals/ModalFilteredRooms'
 
 const HotelPage = ({ activeModalServices }) => {
   const [activeModalReview, setActiveModalReview] = useState(false)
   const [activeModalAllRooms, setActiveModalAllRooms] = useState(false)
   const [activeModalALlImages, setActiveModalImages] = useState(false)
+  const [modalFilteredRoom, setModalFilteredRoom] = useState(false)
+  const [reviewData, setReviewData] = useState()
 
   const dispatch = useDispatch()
-  const state = useSelector(state => state.hotel)
+  const {data} = useSelector(state => state.hotel)
+
+  const openModalFilteredRoom = () => {
+    setModalFilteredRoom(true)
+  }
 
   useEffect(() => {
     dispatch(fetchHotelData())
@@ -30,9 +37,9 @@ const HotelPage = ({ activeModalServices }) => {
   return (
     <div className="mx-auto w-[1240px]">
       <div className="flex items-center mb-[50px]">
-        <Link>Главная</Link>
+        <Link to={'/'}>Главная</Link>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
-        <Link>Отель</Link>
+        <Link to={'/hotelcatalog/hotel'}>Отель</Link>
       </div>
       <div>
         <HotelName />
@@ -43,7 +50,7 @@ const HotelPage = ({ activeModalServices }) => {
               activeModalServices(true)
             }}
           />
-          <HotelDate />
+          <HotelDate openModalFilteredRoom={openModalFilteredRoom} />
         </div>
         <HotelRooms
           handleActiveModal={() => {
@@ -52,13 +59,16 @@ const HotelPage = ({ activeModalServices }) => {
         />
         <HotelGrade />
         <ReviewSwiper
-          handleClick={() => {
+          data={data?.reviews}
+          handleClick={(value) => {
+            setReviewData(value)
             setActiveModalReview(true)
           }}
         />
       </div>
       {activeModalReview && (
         <ModalReview
+          data={reviewData}
           handleCLickCloseModal={() => {
             setActiveModalReview(false)
           }}
@@ -71,7 +81,20 @@ const HotelPage = ({ activeModalServices }) => {
           }}
         />
       )}
-      {activeModalALlImages && <ModalAllPhotos handleCLickCloseModal={() => {setActiveModalImages(false)}}/>}
+      {activeModalALlImages && (
+        <ModalAllPhotos
+          handleCLickCloseModal={() => {
+            setActiveModalImages(false)
+          }}
+        />
+      )}
+      {modalFilteredRoom && (
+        <ModalFilteredRooms
+          handleCLickCloseModal={() => {
+            setModalFilteredRoom(false)
+          }}
+        />
+      )}
     </div>
   )
 }

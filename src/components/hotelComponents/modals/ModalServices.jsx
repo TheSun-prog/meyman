@@ -3,6 +3,11 @@ import wifi from '../../../assets/images/wifi.svg'
 import bar from '../../../assets/images/bar.svg'
 import transfer from '../../../assets/images/transfer.svg'
 import parking from '../../../assets/images/parking.svg'
+import dish from '../../../assets/images/dish.svg'
+import pool from '../../../assets/images/pool.svg'
+import spa from '../../../assets/images/spa.svg'
+
+import {useSelector} from "react-redux";
 
 import 'animate.css';
 
@@ -13,13 +18,15 @@ const Services = ({ handleCLickCloseModal }) => {
       handleCLickCloseModal()
     }
   }
+  
+  const {data} = useSelector(state => state.hotel)
 
   return (
     <div
       onClick={handleBackgroundClick}
       className="absolute inset-0 z-40 w-screen bg-black bg-opacity-40 animate__animated animate__fadeIn"
     >
-      <div className="bg-white z-50 w-[957px] py-[37px] rounded-3xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="bg-white z-50 w-[957px] py-[37px] rounded-3xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="flex justify-center items-center border-b border-[#8C8C8C] w-full pb-[44px]">
           <img
             onClick={handleCLickCloseModal}
@@ -31,40 +38,56 @@ const Services = ({ handleCLickCloseModal }) => {
         </div>
         <div className="flex justify-between px-[64px] pt-[55px]">
           <ul className="flex flex-col gap-[40px]">
-            <li className="relative flex">
-              <img src={wifi} alt="wifi" />
-              <span className="ml-2 text-2xl">Бесплатный Интернет</span>
-            </li>
-            <li className="relative flex">
-              <img src={bar} alt="wifi" />
-              <span className="ml-2 text-2xl">Ресторан</span>
-            </li>
-            <li className="relative flex">
-              <img src={parking} alt="wifi" />
-              <span className="ml-2 text-2xl">Парковка</span>
-            </li>
-            <li className="relative flex">
-              <img src={transfer} alt="wifi" />
-              <span className="ml-2 text-2xl">Трансфер от/до аэропорта</span>
-            </li>
+            {data.free_internet &&
+              <li className="relative flex">
+                <img src={wifi} alt="wifi" />
+                <span className="ml-2 text-2xl">Бесплатный Интернет</span>
+              </li>
+            }
+            {data.restaurant &&
+              <li className="relative flex">
+                <img src={bar} alt="wifi" />
+                <span className="ml-2 text-2xl">Ресторан</span>
+              </li>
+            }
+            {data.park &&
+              <li className="relative flex">
+                <img src={parking} alt="wifi" />
+                <span className="ml-2 text-2xl">Парковка</span>
+              </li>
+            }
+            {data.airport_transfer &&
+              <li className="relative flex">
+                <img src={transfer} alt="wifi" />
+                <span className="ml-2 text-2xl">Трансфер от/до аэропорта</span>
+              </li>
+            }
           </ul>
           <ul className="flex flex-col gap-[40px]">
-            <li className="relative flex">
-              <img src={wifi} alt="wifi" />
-              <span className="ml-2 text-2xl">Бесплатный Интернет</span>
-            </li>
-            <li className="relative flex">
-              <img src={bar} alt="wifi" />
-              <span className="ml-2 text-2xl">Ресторан</span>
-            </li>
-            <li className="relative flex">
-              <img src={parking} alt="wifi" />
-              <span className="ml-2 text-2xl">Парковка</span>
-            </li>
-            <li className="relative flex">
-              <img src={transfer} alt="wifi" />
-              <span className="ml-2 text-2xl">Трансфер от/до аэропорта</span>
-            </li>
+            {data.spa_services &&
+              <li className="relative flex">
+                <img src={spa} alt="wifi" />
+                <span className="ml-2 text-2xl">Спа услуги</span>
+              </li>
+            }
+            {data.bar &&
+              <li className="relative flex">
+                <img src={bar} alt="wifi" />
+                <span className="ml-2 text-2xl">Бар</span>
+              </li>
+            }
+            {data.pool &&
+              <li className="relative flex">
+                <img src={pool} alt="wifi" />
+                <span className="ml-2 text-2xl">Бассейн</span>
+              </li>
+            }
+            {data.room_service &&
+              <li className="relative flex">
+                <img src={dish} alt="wifi" />
+                <span className="ml-2 text-2xl">Обслуживание номеров</span>
+              </li>
+            }
           </ul>
         </div>
         <div className="flex justify-between mt-[80px] px-[64px]">

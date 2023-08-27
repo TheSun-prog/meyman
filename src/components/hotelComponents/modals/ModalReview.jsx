@@ -1,10 +1,24 @@
 import person from '../../../assets/images/viliam.jpg'
 import ModalDefult from './ModalDefault'
 
-const ModalReview = ({handleCLickCloseModal}) => {
+const ModalReview = ({ handleCLickCloseModal, data }) => {
+  const totalRate =
+    (data.cleanliness_rating +
+      data.comfort_rating +
+      data.food_rating +
+      data.location_rating +
+      data.staff_rating +
+      data.value_for_money_rating) /
+    6
+
   return (
-    <ModalDefult classes={'w-[634px]  !fixed'} isBorder={false} handleCLickCloseModal={handleCLickCloseModal} isTitle={false}>
-      <div className='mt-3 p-[30px]'>
+    <ModalDefult
+      classes={'w-[634px]  !fixed'}
+      isBorder={false}
+      handleCLickCloseModal={handleCLickCloseModal}
+      isTitle={false}
+    >
+      <div className="mt-3 p-[30px]">
         <div className="flex items-center ">
           <img
             className="h-[80px] w-[80px] object-cover rounded-full"
@@ -13,30 +27,9 @@ const ModalReview = ({handleCLickCloseModal}) => {
           />
           <span className="text-[22px] ml-3">William</span>
         </div>
-        <p className="text-[18px] mt-4">
-          Путешествия - это не только новые места, но и внутренние переживания.
-          Одна из самых ярких поездок в моей жизни была с сервисом "Meyman".
-          Этот опыт оказался идеальным во всех аспектах. Уже на этапе
-          бронирования жилья и транспорта я почувствовал уровень
-          профессионализма команды. Но что меня действительно поразило, так это
-          дружелюбная поддержка клиентов. Ответы на вопросы были оперативными, и
-          я всегда чувствовал, что могу полагаться на этот сервис. Это придает
-          уверенности и спокойствия, особенно когда ты находишься далеко от
-          дома. И, конечно, нельзя не упомянуть жилье, предоставленное "Meyman".
-          Это был настоящий оазис комфорта. Каждый уголок номера продуман до
-          мелочей. Я наслаждался не только интерьером, но и атмосферой, которая
-          способствовала релаксации и настоящему отдыху. Эта поездка стала для
-          меня одной из самых незабываемых. Я ощутил себя настоящим
-          путешественником, открывающим для себя мир с новой стороны. Прекрасные
-          виды, интересные встречи, невероятные впечатления - все это сделало
-          поездку с "Meyman" поистине неповторимой. Я уверен, что вернусь снова.
-          Этот опыт оставил неизгладимое впечатление в моем сердце. Спасибо,
-          "Meyman", за возможность погрузиться в мир приключений и открытий. Я с
-          нетерпением жду следующей поездки, чтобы вновь ощутить всю прелесть
-          путешествий с вашим сервисом. Незабываемо!
-        </p>
-        <div className='h-[80px] flex justify-center items-center absolute -top-9 rounded-b-lg p-2 right-4 bg-[#FFC506] text-xl  text-white'>
-          <span>10</span>
+        <p className="text-[18px] mt-4">{data?.comment}</p>
+        <div className="h-[80px] flex justify-center items-center absolute -top-9 rounded-b-lg p-2 right-4 bg-[#FFC506] text-xl  text-white">
+          <span>{Math.round(totalRate)}</span>
         </div>
       </div>
     </ModalDefult>

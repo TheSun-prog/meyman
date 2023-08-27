@@ -22,8 +22,12 @@ const HotelRules = ({ handleClickModal }) => {
       <div className="max-w-[566px]">
         <h5 className="text-[28px] mb-[20px]">Порядок проживания в отеле</h5>
         <p className="text-[22px] mb-[10px]">Время заезда/выезда</p>
-        <p className="text-[18px] mb-[5px]">Заезд с {data?.results?.[0]?.check_in_time_start} до {data?.results?.[0]?.check_in_time_end}</p>
-        <p className="text-[18px] mb-[20px]">Выезд с {data?.results?.[0]?.check_out_time_start} до {data?.results?.[0]?.check_out_time_end}</p>
+        <p className="text-[18px] mb-[5px]">
+          Заезд с {data?.check_in_time_start} до {data?.check_in_time_end}
+        </p>
+        <p className="text-[18px] mb-[20px]">
+          Выезд с {data?.check_out_time_start} до {data?.check_out_time_end}
+        </p>
         <h5 className="text-[22px] mb-[10px]">Домашние животные</h5>
         <div className="flex items-center justify-between">
           <p className="text-[18px]">
@@ -39,53 +43,65 @@ const HotelRules = ({ handleClickModal }) => {
       </h5>
       <ul className="pb-[10px] flex justify-between max-w-[684px]">
         <div className="max-w-[328px]">
-          <li className="flex mb-[24px] ">
-            <div className="flex border-b border-b-[#8C8C8C]">
-              <img className="mr-[14px]" src={wifiIcon} alt="wifiIcon" />
-              <span className="text-[22px]">Бесплатный интерент</span>
-            </div>
-          </li>
+          {data.free_internet && (
+            <li className="flex mb-[24px] ">
+              <div className="flex border-b border-b-[#8C8C8C]">
+                <img className="mr-[14px]" src={wifiIcon} alt="wifiIcon" />
+                <span className="text-[22px]">Бесплатный интерент</span>
+              </div>
+            </li>
+          )}
           <li className="flex mb-[24px] ">
             <div className="flex border-b border-b-[#8C8C8C]">
               <img className="mr-[14px]" src={fit} alt="wifiIcon" />
               <span className="text-[22px]">Спортивный зал</span>
             </div>
           </li>
-          <li className="flex mb-[24px] ">
-            <div className="flex border-b border-b-[#8C8C8C]">
-              <img className="mr-[14px]" src={bar} alt="wifiIcon" />
-              <span className="text-[22px]">Бар/ресторан</span>
-            </div>
-          </li>
-          <li className="flex mb-[24px] ">
-            <div className="flex border-b border-b-[#8C8C8C]">
-              <img className="mr-[14px]" src={transfer} alt="wifiIcon" />
-              <span className="text-[22px]">Трансфер от/до аэропорта</span>
-            </div>
-          </li>
+          {data.bar && (
+            <li className="flex mb-[24px] ">
+              <div className="flex border-b border-b-[#8C8C8C]">
+                <img className="mr-[14px]" src={bar} alt="wifiIcon" />
+                <span className="text-[22px]">Бар/ресторан</span>
+              </div>
+            </li>
+          )}
+          {data.airport_transfer && (
+            <li className="flex mb-[24px] ">
+              <div className="flex border-b border-b-[#8C8C8C]">
+                <img className="mr-[14px]" src={transfer} alt="wifiIcon" />
+                <span className="text-[22px]">Трансфер от/до аэропорта</span>
+              </div>
+            </li>
+          )}
         </div>
         <div className="max-w-[328px]">
-          <li className="flex items-center justify-between mb-[24px] ">
-            <div className="flex border-b border-b-[#8C8C8C]">
-              <img className="mr-[14px]" src={parking} alt="wifiIcon" />
-              <span className="text-[22px]">Парковка</span>
-            </div>
-            <div className="bg-[#A1A1A1] px-[15px] h-[19px] rounded-[21px] flex justify-center">
-              <span className="text-white text-[12px]">Платно</span>
-            </div>
-          </li>
-          <li className="flex mb-[24px] ">
-            <div className="flex border-b border-b-[#8C8C8C]">
-              <img className="mr-[14px]" src={pool} alt="wifiIcon" />
-              <span className="text-[22px]">Бассейн</span>
-            </div>
-          </li>
-          <li className="flex mb-[24px] ">
-            <div className="flex border-b border-b-[#8C8C8C]">
-              <img className="mr-[14px]" src={spa} alt="wifiIcon" />
-              <span className="text-[22px]">Спа услуги</span>
-            </div>
-          </li>
+          {data.park && (
+            <li className="flex items-center justify-between mb-[24px] ">
+              <div className="flex border-b border-b-[#8C8C8C]">
+                <img className="mr-[14px]" src={parking} alt="wifiIcon" />
+                <span className="text-[22px]">Парковка</span>
+              </div>
+              <div className="bg-[#A1A1A1] px-[15px] h-[19px] rounded-[21px] flex justify-center">
+                <span className="text-white text-[12px]">Платно</span>
+              </div>
+            </li>
+          )}
+          {data.pool && (
+            <li className="flex mb-[24px] ">
+              <div className="flex border-b border-b-[#8C8C8C]">
+                <img className="mr-[14px]" src={pool} alt="wifiIcon" />
+                <span className="text-[22px]">Бассейн</span>
+              </div>
+            </li>
+          )}
+          {data.spa &&
+            <li className="flex mb-[24px] ">
+              <div className="flex border-b border-b-[#8C8C8C]">
+                <img className="mr-[14px]" src={spa} alt="wifiIcon" />
+                <span className="text-[22px]">Спа услуги</span>
+              </div>
+            </li>
+          }
           <li className="flex mb-[24px] ">
             <div className="flex border-b border-b-[#8C8C8C]">
               <img className="mr-[14px]" src={dish} alt="wifiIcon" />
