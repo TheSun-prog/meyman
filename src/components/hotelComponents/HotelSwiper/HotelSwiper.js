@@ -66,7 +66,7 @@ const HotelSwiper = ({}) => {
                 return (<SwiperSlide>
                         <HotelCard
                             data={value}
-                            key={index}
+                            index={index}
                         />
                     </SwiperSlide>)
             })}

@@ -96,7 +96,7 @@ const HotelCatalog = () => {
                         return (
                             <HotelCard
                                 data={value}
-                                key={index}
+                                index={index}
                             />
                         )
                     })}

@@ -9,11 +9,14 @@ const initialState = {
 
 export const fetchHousingData = createAsyncThunk('housing/fetchData', async ({limit, offset}) => {
   const response = await axios.get('http://127.0.0.1:8000/housing/', {
+    headers: {
+    },
     params: {
       limit,
       offset,
     }
   });
+  console.log(response)
   return response.data;
 });
 

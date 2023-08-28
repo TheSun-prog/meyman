@@ -11,7 +11,7 @@ import {useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
 
 
-const HotelCard = ({data, key}) => {
+const HotelCard = ({data, index}) => {
 
     const firstRoomsPrice = data?.rooms[0]?.price_per_night
 
@@ -30,9 +30,10 @@ const HotelCard = ({data, key}) => {
     }
 
 
+
     return (
 
-        <div className="w-[350px] h-[540px] flex flex-col gap-[10px] relative" key={key}>
+        <div className="w-[350px] h-[540px] flex flex-col gap-[10px] relative" key={index}>
 
             <NavLink to={{
                 pathname: "/hotelcatalog/hotel",
@@ -43,7 +44,7 @@ const HotelCard = ({data, key}) => {
                     className="bg-cover bg-center bg-no-repeat w-[350px] h-[350px] rounded-[30px]"
                     style={
                         {
-                            backgroundImage: `url("${hotelImage}")`,
+                            backgroundImage: `url(${data.housing_images[0].image})`,
                         }
                     }
                 >

@@ -33,6 +33,7 @@ module.exports = {
                 'grey': 'var(--website-colors, #A1A1A1)',
                 'blue': 'var(--website-colors, #1164B4);',
                 'dropdown': "rgba(28, 32, 74, 0.40)",
+                'dark-grey': 'rgba(0, 0, 0, 0.14)',
             },
         },
     },
