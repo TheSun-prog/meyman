@@ -33,7 +33,7 @@ const ModalDefault = ({
             {isClose && (
               <img
                 onClick={handleCLickCloseModal}
-                className="absolute top-4 left-4 cursor-pointer"
+                className="absolute top-5 left-5 cursor-pointer"
                 src={clear}
                 alt="clear"
               />

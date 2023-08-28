@@ -25,13 +25,8 @@ const HotelCard = ({data}) => {
         setIsFavorite(prevState => !prevState)
     }
 
-
     return (
-
             <div className="w-[350px] h-[540px] flex flex-col gap-[10px] relative">
-
-                <NavLink to="/hotelcatalog/hotel">
-
                 <div
                     className="bg-cover bg-center bg-no-repeat w-[350px] h-[350px] rounded-[30px]"
                     style={
@@ -77,7 +72,6 @@ const HotelCard = ({data}) => {
                         />
                     </div>
                 </div>
-                </NavLink>
             </div>
 
 

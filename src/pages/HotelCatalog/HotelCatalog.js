@@ -5,6 +5,7 @@ import carIcon from "../../assets/images/car-icon.svg";
 import Button from "../../components/ui/Button/Button";
 import {useState} from "react";
 import HotelCard from "../../components/hotelComponents/HotelCard/HotelCard";
+import {NavLink} from "react-router-dom";
 
 
 const HotelCatalog = () => {
@@ -16,6 +17,7 @@ const HotelCatalog = () => {
     for (let i = 0; i < 12; i++) {
         data.push([])
     }
+    console.log(data)
 
     return (
         <>
@@ -85,9 +87,11 @@ const HotelCatalog = () => {
             </div>
             <div className="mx-auto w-[1240px]">
                 <div className="pt-[80px] pb-[100px] flex flex-wrap gap-x-[95px] gap-y-[55px]">
-                    {data.map(() => {
+                    {data.map((item, index) => {
                         return(
-                            <HotelCard/>
+                            <NavLink key={index} to={`/hotelcatalog/${index}`}>
+                                <HotelCard/>
+                            </NavLink>
                         )
                     })}
                 </div>

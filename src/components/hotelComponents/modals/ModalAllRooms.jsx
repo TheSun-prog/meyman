@@ -1,8 +1,8 @@
 import ModalDefault from './ModalDefault'
 import HotelRoomCard from '../HotelRooms/HotelRoomsCard'
 import { useSelector } from 'react-redux'
-import HotelRoomsCard from "../HotelRooms/HotelRoomsCard";
-import React from "react";
+import HotelRoomsCard from '../HotelRooms/HotelRoomsCard'
+import { NavLink } from 'react-router-dom'
 
 const ModalAllRooms = ({ handleCLickCloseModal }) => {
   const { data, isLoading, isError } = useSelector(state => state.hotel)
@@ -17,18 +17,20 @@ const ModalAllRooms = ({ handleCLickCloseModal }) => {
     >
       <div className="flex justify-center gap-5 mt-10 ">
         <div className="flex flex-wrap justify-center gap-[18px] w-[940px] ">
-          {data?.rooms?.map(room => (
-            room.room_images.map(img => (
+          {data?.rooms?.map((room, index) => (
+            <NavLink
+              key={index}
+              to={`/hotelcatalog/:hotelId/${index}`}
+              state={room}
+            >
               <HotelRoomsCard
-                key={img.id}
-                classes={'mb-[22px]'}
-                img={img.image}
-                price={room.price_per_night}
+                img={room.room_images[0].image}
                 area={room.room_area}
-                maxGuest={room.max_guest_capacity}
                 bedType={room.bed_type}
+                maxGuest={room.max_guest_capacity}
+                price={room.price_per_night}
               />
-            ))
+            </NavLink>
           ))}
         </div>
       </div>

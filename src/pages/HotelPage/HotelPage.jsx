@@ -3,15 +3,16 @@ import HotelImages from '../../components/hotelComponents/HotelImages/HotelImage
 import HotelRules from '../../components/hotelComponents/HotelRules/HotelRules'
 import HotelRooms from '../../components/hotelComponents/HotelRooms/HotelRooms'
 import HotelGrade from '../../components/hotelComponents/HotelGrade/HotelGrade'
-import { Link } from 'react-router-dom'
 import arrow from '../../assets/images/arrow2.svg'
 import ReviewSwiper from '../../components/reviewComponents/ReviewSwiper/ReviewSwiper'
-import { useState, useEffect } from 'react'
 import ModalReview from '../../components/hotelComponents/modals/ModalReview'
 import ModalAllRooms from '../../components/hotelComponents/modals/ModalAllRooms'
 import ModalAllPhotos from '../../components/hotelComponents/modals/ModalAllPhotos'
 
+import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import {useParams} from "react-router-dom";
 import { fetchHotelData } from '../../store/hotelSlice'
 import HotelDate from '../../components/hotelComponents/HotelDate/HotelDate'
 import ModalFilteredRooms from '../../components/hotelComponents/modals/ModalFilteredRooms'
@@ -25,13 +26,14 @@ const HotelPage = ({ activeModalServices }) => {
 
   const dispatch = useDispatch()
   const {data} = useSelector(state => state.hotel)
+  const {hotelId} = useParams()
 
   const openModalFilteredRoom = () => {
     setModalFilteredRoom(true)
   }
 
   useEffect(() => {
-    dispatch(fetchHotelData())
+    dispatch(fetchHotelData(hotelId))
   }, [])
 
   return (
@@ -53,6 +55,7 @@ const HotelPage = ({ activeModalServices }) => {
           <HotelDate openModalFilteredRoom={openModalFilteredRoom} />
         </div>
         <HotelRooms
+          hotelId={hotelId}
           handleActiveModal={() => {
             setActiveModalAllRooms(true)
           }}

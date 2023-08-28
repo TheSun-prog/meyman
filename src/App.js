@@ -19,10 +19,10 @@ function App() {
         <Route path="/" element={<Mainpage />} />
         <Route path="/hotelcatalog" element={<HotelCatalog />} />
         <Route
-          path="/hotelcatalog/hotel"
+          path="/hotelcatalog/:hotelId"
           element={<HotelPage activeModalServices={setActiveModalServices} />}
         />
-        <Route path="/hotelcatalog/hotel/room" element={<Room />} />
+        <Route path="/hotelcatalog/:hotelId/:roomId" element={<Room />} />
         <Route path="/hotelcatalog/hotel/room/booking" element={<Booking />} />
         <Route path="/test" element={<Test />} />
       </Routes>

@@ -28,15 +28,6 @@ const HotelRules = ({ handleClickModal }) => {
         <p className="text-[18px] mb-[20px]">
           Выезд с {data?.check_out_time_start} до {data?.check_out_time_end}
         </p>
-        <h5 className="text-[22px] mb-[10px]">Домашние животные</h5>
-        <div className="flex items-center justify-between">
-          <p className="text-[18px]">
-            Размещение доммашних животных допускается
-          </p>
-          <div className="bg-[#A1A1A1] px-[15px] h-[19px] rounded-[21px] flex justify-center">
-            <span className="text-white text-[12px]">Платно</span>
-          </div>
-        </div>
       </div>
       <h5 className="mt-[80px] mb-[25px] text-[28px]">
         Удобства и услуги отеля

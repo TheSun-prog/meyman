@@ -3,7 +3,7 @@ import room from '../../../assets/images/room-img.png'
 import { useState } from 'react'
 import 'animate.css'
 
-const ModalAllPhotos = ({ handleCLickCloseModal }) => {
+const ModalAllPhotos = ({ handleCLickCloseModal, images }) => {
   const [openImage, setOpenImage] = useState('')
   const [activeModal, setActiveModal] = useState(false)
 
@@ -35,89 +35,16 @@ const ModalAllPhotos = ({ handleCLickCloseModal }) => {
       )}
       <div className="flex justify-center gap-5 mt-10">
         <div className="flex flex-col ">
-          <div className="flex gap-2 mb-[10px]">
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-          </div>
-          <div className="flex gap-2 mb-[10px]">
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-          </div>
-          <div className="flex gap-2 mb-[10px]">
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-          </div>
-          <div className="flex gap-2 mb-[10px]">
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-          </div>
-          <div className="flex gap-2 mb-[10px]">
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-          </div>
-          <div className="flex gap-2 mb-[10px]">
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
-            <img
-              onClick={handleOpenImage}
-              className="w-[300px] h-[220px] object-cover rounded-2xl"
-              src={room}
-              alt="room"
-            />
+          <div className="flex flex-wrap justify-center gap-2 mb-[10px] w-[720px]">
+            {images?.room_images?.map(image => (
+              <img
+                key={image.id}
+                onClick={handleOpenImage}
+                className="w-[300px] h-[220px] object-cover rounded-2xl"
+                src={image.image}
+                alt="room"
+              />
+            ))}
           </div>
         </div>
       </div>
