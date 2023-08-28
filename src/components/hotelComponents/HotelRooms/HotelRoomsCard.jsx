@@ -1,0 +1,57 @@
+import room from '../../../assets/images/room.png'
+import heart from '../../../assets/images/heart2.svg'
+import persons from '../../../assets/images/persons.svg'
+import bed from '../../../assets/images/bed.svg'
+import info from '../../../assets/images/info.svg'
+import zavtrak from '../../../assets/images/zavtrak.svg'
+import done from '../../../assets/images/done.svg'
+import som from '../../../assets/images/som.svg'
+import Button from '../../ui/Button/Button'
+import { Link } from 'react-router-dom'
+
+const HotelRoomsCard = () => {
+  return (
+    <div className="shadow-2xl px-[18px] py-[14px] rounded-2xl w-[386px]">
+      <div
+        className="p-2 m-auto relative rounded-lg w-[350px] h-[320px]"
+        style={{
+          backgroundImage: `url(${room})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <img className="absolute right-2 top-2" src={heart} alt="heart" />
+      </div>
+      <p className="text-[20px]">Двухместный с 2 отдельными кроватями</p>
+      <div className="flex">
+        <img src={persons} alt="persons" />
+        <span className="px-2">2 гостя</span>
+        <img src={info} alt="info" />
+        <span>36м 2</span>
+      </div>
+      <div className="flex">
+        <img src={bed} alt="persons" />
+        <span className="pl-2">2 двуспальные кровати</span>
+      </div>
+      <div className="flex">
+        <img className="mr-1" src={zavtrak} alt="zavtrak" />
+        <span className="py-2 text-[#228B22]">Завтрак включен</span>
+      </div>
+      <div className="flex">
+        <img className="mr-1" src={done} alt="zavtrak" />
+        <span className="text-[#228B22]">Бесплатная отмена в любое время</span>
+      </div>
+      <div>
+        <p className="text-[16px] text-grey">1 ночь</p>
+        <div className="flex">
+          <h3 className="text-[24px]">3000</h3>
+          <img src={som} alt="som" />
+        </div>
+        <p className="text-[16px] mb-[20px] text-grey">Включая налоги сборы</p>
+      </div>
+    </div>
+  )
+}
+
+export default HotelRoomsCard
