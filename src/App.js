@@ -17,7 +17,7 @@ import ConfirmCode from "./pages/ConfirmCodePage/ConfirmCode";
 function App() {
     return (
         <>
-            <ConfirmCode/>
+            <RegPage/>
             {/*<Routes>*/}
             {/*    <Route path='/' element={<Layout/>}>*/}
             {/*        <Route path="/" element={<Mainpage/>}/>*/}
