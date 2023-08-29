@@ -10,6 +10,8 @@ import 'swiper/css'
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 
+import { NavLink } from 'react-router-dom';
+
 SwiperCore.use([Navigation]);
 
 const HotelSwiper = ({}) => {
@@ -48,7 +50,9 @@ const HotelSwiper = ({}) => {
                 {data.map((value, index, array) => {
                     return (
                         <SwiperSlide key={index}>
-                            <HotelCard/>
+                            <NavLink to={`hotelcatalog/${index}`}>
+                                <HotelCard/>
+                            </NavLink>
                         </SwiperSlide>
                     )
                 })}

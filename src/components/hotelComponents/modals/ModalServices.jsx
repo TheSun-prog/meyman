@@ -26,11 +26,11 @@ const Services = ({ handleCLickCloseModal }) => {
       onClick={handleBackgroundClick}
       className="absolute inset-0 z-40 w-screen bg-black bg-opacity-40 animate__animated animate__fadeIn"
     >
-      <div className="bg-white z-50 w-[957px] py-[37px] rounded-3xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="bg-white overflow-scroll overflow-x-hidden z-50 w-2/3 h-5/6 py-[37px] rounded-3xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="flex justify-center items-center border-b border-[#8C8C8C] w-full pb-[44px]">
           <img
             onClick={handleCLickCloseModal}
-            className="absolute cursor-pointer left-[92px]"
+            className="absolute cursor-pointer left-5"
             src={clear}
             alt="clear"
           />
@@ -90,10 +90,10 @@ const Services = ({ handleCLickCloseModal }) => {
             }
           </ul>
         </div>
-        <div className="flex justify-between mt-[80px] px-[64px]">
+        <div className="flex justify-between mt-[40px] px-[64px]">
           <div className="text-[18px]">
             <h4 className="text-[22px] mb-[20px]">Услуги</h4>
-            <ul className="flex flex-col gap-[20px] mb-[80px]">
+            <ul className="flex flex-col gap-[20px] mb-[40px]">
               <li>Химчистка</li>
               <li>Прачечная</li>
               <li>Уборка номеров</li>
@@ -102,14 +102,14 @@ const Services = ({ handleCLickCloseModal }) => {
               <li>Доступ людям с ограниченными возможностями</li>
             </ul>
             <h4 className="text-[22px] mb-[20px]">Питание</h4>
-            <ul className="flex flex-col gap-[20px] mb-[80px]">
+            <ul className="flex flex-col gap-[20px] mb-[40px]">
               <li>Бар у бассейна</li>
               <li>Кафе</li>
             </ul>
           </div>
           <div>
             <h4 className="text-[22px] mb-[20px]">Красота и здоровье</h4>
-            <ul className="flex flex-col gap-[20px] mb-[80px]">
+            <ul className="flex flex-col gap-[20px] mb-[40px]">
               <li>Массаж</li>
               <li>Джакузи</li>
               <li>Сауна</li>
@@ -117,7 +117,7 @@ const Services = ({ handleCLickCloseModal }) => {
               <li>Спортивный зал</li>
             </ul>
             <h4 className="text-[22px] mb-[20px]">Интернет</h4>
-            <ul className="flex flex-col gap-[20px] mb-[80px]">
+            <ul className="flex flex-col gap-[20px] mb-[40px]">
               <li>Доступ в интернет:в номерах</li>
               <li>Доступ в интернет:на всей территории отеля</li>
             </ul>

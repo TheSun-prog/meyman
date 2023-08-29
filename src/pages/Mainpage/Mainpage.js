@@ -1,6 +1,7 @@
 // React module
-import {useState} from "react";
-
+import {useState, useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchReviewsData } from "../../store/reviewsSlice";
 // components
 import Header from "../../components/Base/Header/Header";
 import Footer from "../../components/Base/Footer/Footer";
@@ -24,6 +25,11 @@ import {NavLink} from "react-router-dom";
 const Mainpage = () => {
 
     const [activeSearch, setActiveSearch] = useState('hotel')
+    const dispatch = useDispatch()
+    const {data} = useSelector(state => state.reviews)
+    useEffect(() => {
+        dispatch(fetchReviewsData())
+    }, [])
 
     const regions = [
         {
@@ -55,7 +61,6 @@ const Mainpage = () => {
             name: "Нарын",
         }
     ]
-
 
     return (
         <>
@@ -155,21 +160,18 @@ const Mainpage = () => {
                     </div>
                 </div>
             </div>
-
             <div className="mx-auto w-[1240px] pt-[100px]">
                 <div className="flex flex-col gap-[40px] items-center">
                     <p className="text-[28px] pb-[40px]">Рекомендации</p>
                 </div>
                 <HotelSwiper/>
             </div>
-
             <div className="mx-auto w-[1240px] py-[100px]">
                 <div className="flex flex-col gap-[40px] items-center">
                     <p className="text-[28px] pb-[40px]">Отзывы о сайте</p>
                 </div>
-                <ReviewSwiper/>
+                <ReviewSwiper data={data}/>
             </div>
-
             <Footer/>
         </>
     )

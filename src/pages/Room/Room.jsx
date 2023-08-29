@@ -24,9 +24,10 @@ import roomIcons from './roomIcon'
 const Room = () => {
   const [activeModalAllPhotosRooms, setActiveModalAllPhotosRooms] = useState(false)
   const [activeModalALlServices, setActiveModalAllServices] = useState(false)
+
   const dispatch = useDispatch()
 
-  const { hotelId } = useParams()
+  const { hotelId, roomId } = useParams()
 
   const { state } = useLocation()
 
@@ -45,7 +46,7 @@ const Room = () => {
       <div className="flex items-center mb-[50px]">
         <NavLink to={'/'}>Главная</NavLink>
         <img className="-rotate-90 h-4" src={arrow2} alt="arrow" />
-        <NavLink to={'/hotelcatalog/hotel'}>Отель</NavLink>
+        <NavLink to={`/hotelcatalog/${data.id}`}>Отель</NavLink>
         <img className="-rotate-90 h-4" src={arrow2} alt="arrow" />
         Номер
       </div>
@@ -54,8 +55,8 @@ const Room = () => {
           <div>
             <RoomName
               classes={'text-[32px] font-[500]'}
-              bedType={state.bed_type}
-              maxGuest={state.max_guest_capacity}
+              bedType={data?.rooms?.[roomId]?.bed_type}
+              maxGuest={data?.rooms?.[roomId]?.max_guest_capacity}
             />
             <div className="flex">
               <img src={placeIcon} alt="placeIcon" />
@@ -74,7 +75,7 @@ const Room = () => {
           <div>
             <img
               className="rounded-l-2xl h-[500px] w-[490px]"
-              src={state.room_images[0].image}
+              src={data?.rooms?.[roomId]?.room_images[0]?.image}
               alt="hotelImg"
             />
           </div>
@@ -82,24 +83,24 @@ const Room = () => {
             <div className="flex justify-between gap-[10px] mb-[10px]">
               <img
                 className="w-[365px] h-[245px]"
-                src={state.room_images[1].image}
+                src={data?.rooms?.[roomId]?.room_images[1]?.image}
                 alt="hotelImg2"
               />
               <img
                 className="w-[365px] h-[245px] rounded-tr-2xl"
-                src={state.room_images[2].image}
+                src={data?.rooms?.[roomId]?.room_images[2]?.image}
                 alt="hotelImg2"
               />
             </div>
             <div className="flex gap-[10px] relative">
               <img
                 className="w-[365px] h-[245px]"
-                src={state.room_images[3].image}
+                src={data?.rooms?.[roomId]?.room_images[3]?.image}
                 alt="hotelImg2"
               />
               <img
                 className="w-[365px] h-[245px] rounded-br-2xl"
-                src={state.room_images[4].image}
+                src={data?.rooms?.[roomId]?.room_images[4]?.image}
                 alt="hotelImg2"
               />
             </div>
@@ -121,10 +122,10 @@ const Room = () => {
               </div>
             </div>
             <div className="mt-10 w-[500px]">
-              <h3 className="text-[28px]">Удобства номера</h3>
+              <h3 className="text-[28px] mb-4">Удобства номера</h3>
               <ul className="pb-[10px] flex justify-between ">
                 <div className="max-w-[328px]">
-                  {state?.room_amenities?.slice(0, 4)?.map(item => (
+                  {data?.rooms?.[roomId]?.room_amenities?.slice(0, 4)?.map(item => (
                     <li className="flex mb-[24px] ">
                       <div className="flex border-b border-b-[#8C8C8C]">
                         <img
@@ -138,7 +139,7 @@ const Room = () => {
                   ))}
                 </div>
                 <div className="max-w-[328px]">
-                  {state?.room_amenities?.slice(4, 8)?.map(item => (
+                  {data?.rooms?.[roomId]?.room_amenities?.slice(4, 8)?.map(item => (
                     <li className="flex mb-[24px] ">
                       <div className="flex border-b border-b-[#8C8C8C]">
                         <img
@@ -162,7 +163,7 @@ const Room = () => {
               </Button>
             </div>
           </div>
-          <RoomDate />
+          <RoomDate state={state} roomId={roomId}/>
         </div>
       </div>
       {activeModalAllPhotosRooms && (
@@ -175,6 +176,7 @@ const Room = () => {
       )}
       {activeModalALlServices && (
         <ModalAllServices
+          amenities={state}
           handleCLickCloseModal={() => {
             setActiveModalAllServices(false)
           }}

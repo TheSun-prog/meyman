@@ -23,7 +23,7 @@ function App() {
           element={<HotelPage activeModalServices={setActiveModalServices} />}
         />
         <Route path="/hotelcatalog/:hotelId/:roomId" element={<Room />} />
-        <Route path="/hotelcatalog/hotel/room/booking" element={<Booking />} />
+        <Route path="/hotelcatalog/:hotelId/:roomId/booking" element={<Booking />} />
         <Route path="/test" element={<Test />} />
       </Routes>
       {activeModalServices && (

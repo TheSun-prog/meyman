@@ -1,3 +1,4 @@
+//icon
 import starFillIcon from '../../assets/images/star-fill.svg'
 import starDefaultIcon from '../../assets/images/star-default.svg'
 import placeIcon from '../../assets/images/place.svg'
@@ -9,19 +10,48 @@ import freezer from '../../assets/images/freezer.svg'
 import done from '../../assets/images/done.svg'
 import dish from '../../assets/images/dish-green.svg'
 import arrow from '../../assets/images/arrow2.svg'
-
+// ui
 import Input from '../../components/ui/Input/Input'
 import Button from '../../components/ui/Button/Button'
-import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
 import ModalSuccess from '../../components/bookingComponents/modals/ModalSuccess'
+// react
+import { NavLink } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchHotelData } from '../../store/hotelSlice'
+import { useParams, useLocation } from 'react-router-dom'
+import { Rating } from '@mui/material'
+import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
 
 const Booking = () => {
   const [activeModal, setActiveModal] = useState(false)
+  const [date, setDate] = useState()
+
+  const { hotelId } = useParams()
+
+  const dispatch = useDispatch()
+
+  const { data } = useSelector(state => state.hotel)
+
+  const { state } = useLocation()
+
+  const stars = data.stars ? data.stars : null
 
   const handleClickBooking = () => {
     setActiveModal(true)
   }
+
+  useEffect(() => {
+    dispatch(fetchHotelData(hotelId))
+    console.log(state)
+  }, [])
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('bookingData')
+    if (storedData) {
+      setDate(JSON.parse(storedData))
+    }
+  }, [])
 
   return (
     <div className="mx-auto w-[1240px]">
@@ -38,32 +68,28 @@ const Booking = () => {
         <div>
           <div className="flex gap-[13px] justify-between h-[216px] w-[590px]">
             <img
-              className="object-cover rounded-xl flex-1 "
-              src={hotelImg}
+              className="rounded-xl flex-1 "
+              src={data?.housing_images?.[0]?.image}
               alt="hotelImg"
             />
             <div className="w-[288px] flex gap-[20px] flex-col">
-              <h3 className="font-medium text-[32px]">Novotel</h3>
-              <div className="flex">
-                <div className="flex gap-[5px]">
-                  <img src={starFillIcon} alt="starFillIcon" />
-                  <img src={starFillIcon} alt="starFillIcon" />
-                  <img src={starFillIcon} alt="starFillIcon" />
-                  <img src={starFillIcon} alt="starFillIcon" />
-                  <img src={starDefaultIcon} alt="starFillIcon" />
-                </div>
-              </div>
+              <h3 className="font-medium text-[32px]">{data?.housing_name}</h3>
+              <Rating value={stars} readOnly />
               <div className="flex items-center">
                 <div className="bg-[#FFC506] pr-[2px] rounded-full mr-[5px] w-[30px] h-[28px] text-center">
-                  <span className="text-white">10</span>
+                  <span className="text-white">{data?.average_rating}</span>
                 </div>
-                <span>Замечательно</span>
+                <span>
+                  {data.average_rating > 8
+                    ? 'Замечательно'
+                    : data.average_rating > 6
+                    ? 'Нормально'
+                    : 'Ниже среднего'}
+                </span>
               </div>
               <div className="flex">
                 <img src={placeIcon} alt="placeIcon" />
-                <span className="text-[22px] text-grey">
-                  16 проспект Манаса, Бишкек 2,1 км от центра
-                </span>
+                <span className="text-[22px] text-grey">{data?.address}</span>
               </div>
             </div>
           </div>
@@ -71,28 +97,43 @@ const Booking = () => {
             <img className="mr-2 mb-4" src={calendar} alt="calendar" />
             <div className="flex">
               <div className="mr-[20px]">
-                <p className="text-[20px]">27 аперля,пт</p>
-                <p className="text-[16px]">Заезд с 15:00 до 00:00</p>
+                <p className="text-[20px]">{state[0].arrival}</p>
+                <p className="text-[16px]">
+                  Заезд с {data?.check_in_time_start} до{' '}
+                  {data?.check_in_time_end}
+                </p>
               </div>
               <div>
-                <p className="text-[20px]">28 аперля,пн</p>
-                <p className="text-[16px]">Выезд с 00:00 до 12:00</p>
+                <p className="text-[20px]">{state[0].departure}</p>
+                <p className="text-[16px]">
+                  Заезд с {data?.check_out_time_start} до{' '}
+                  {data?.check_out_time_end}
+                </p>
               </div>
             </div>
           </div>
           <div className="mt-5">
             <h2 className="text-[28px] ">Номер:</h2>
-            <p className="text-[20px] my-5">
-              Улучшенный номер с кроватью размера queensize
-            </p>
-            <div className="flex mb-2">
+            <RoomName
+              classes={'text-[20px]'}
+              bedType={state[1].bed_type}
+              maxGuest={state[1].max_guest_capacity}
+            />
+            <div className="flex my-2">
               <img className="mr-2" src={persons} alt="persons" />
-              <span className="text-[#666666] text-[18px]">2 гостя 36м2</span>
+              <span className="text-[#666666] text-[18px]">
+                {state[1].max_guest_capacity} гостей <span>&#8226;</span>{' '}
+                {state[1].room_area}м 2
+              </span>
             </div>
             <div className="flex items-center">
-              <img className="mr-2" src={bed} alt="bed" />
-              <span className="text-[#666666] text-[18px]">
-                2 двуспальные кровати
+              <img src={bed} alt="bed" />
+              <span className="pl-2">
+                {Array.isArray(state[1].bed_type) &&
+                state[1].bed_type.includes('Односпальные') &&
+                state[1].bed_type.includes('Двуспальная')
+                  ? 'Односпальная и Двуспальная'
+                  : state[1]}
               </span>
             </div>
             <div className="h-[158px] w-[403px] mt-5 justify-between flex flex-wrap">

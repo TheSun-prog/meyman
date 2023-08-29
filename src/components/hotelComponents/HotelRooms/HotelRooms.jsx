@@ -4,7 +4,7 @@ import arrow from '../../../assets/images/arrow-right.svg'
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
-const HotelRooms = ({ handleActiveModal, hotelId }) => {
+const HotelRooms = ({ handleActiveModal }) => {
   const { data, isLoading, isError } = useSelector(state => state.hotel)
 
   return (
