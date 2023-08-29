@@ -10,6 +10,7 @@ import {
     selectHotelLoadingStatus
 } from "../../store/slice/hotelSlice";
 import {useDispatch, useSelector} from "react-redux";
+import FilterModal from "../../components/hotelComponents/FilterModal/FilterModal";
 
 
 const HotelCatalog = () => {
@@ -22,8 +23,21 @@ const HotelCatalog = () => {
     const error = useSelector(selectHotelError);
 
     useEffect(() => {
-        dispatch(fetchHousingData({limit: 7, offset: 0}));
+        dispatch(fetchHousingData({limit: 12, offset: 0}));
     }, [dispatch]);
+
+    const [filterShow, setFilterShow] = useState(false)
+    const [filters, setFilters] = useState({
+        housing_type: '',
+        accommodation_type: '',
+        food_type: '',
+        stars: '',
+        rating_range: '',
+        free_internet: '',
+        park: '',
+        pool: '' ,
+
+    })
 
     return (
         <>
@@ -102,6 +116,7 @@ const HotelCatalog = () => {
                     })}
                 </div>
             </div>
+            {filterShow && <FilterModal/>}
         </>
     )
 }
