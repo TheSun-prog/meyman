@@ -13,6 +13,18 @@ import Button from '../../ui/Button/Button'
 
 import { useSelector } from "react-redux";
 
+const amenitiesData = [
+  { key: 'free_internet', icon: wifiIcon, text: 'Бесплатный интернет' },
+  // { key: 'fit', icon: fit, text: 'Спортивный зал' },
+  { key: 'bar', icon: bar, text: 'Бар/ресторан' },
+  { key: 'airport_transfer', icon: transfer, text: 'Трансфер от/до аэропорта' },
+  { key: 'park', icon: parking, text: 'Парковка', additionalText: 'Платно' },
+  { key: 'pool', icon: pool, text: 'Бассейн' },
+  { key: 'spa', icon: spa, text: 'Спа услуги' },
+  { key: 'room_service', icon: dish, text: 'Обслуживание номеров' },
+  // ... добавьте другие удобства здесь
+];
+
 const HotelRules = ({ handleClickModal }) => {
 
   const {data, isLoading, isError} = useSelector(state => state.hotel)
@@ -32,74 +44,24 @@ const HotelRules = ({ handleClickModal }) => {
       <h5 className="mt-[80px] mb-[25px] text-[28px]">
         Удобства и услуги отеля
       </h5>
-      <ul className="pb-[10px] flex justify-between max-w-[684px]">
-        <div className="max-w-[328px]">
-          {data.free_internet && (
-            <li className="flex mb-[24px] ">
-              <div className="flex border-b border-b-[#8C8C8C]">
-                <img className="mr-[14px]" src={wifiIcon} alt="wifiIcon" />
-                <span className="text-[22px]">Бесплатный интерент</span>
-              </div>
-            </li>
-          )}
-          <li className="flex mb-[24px] ">
-            <div className="flex border-b border-b-[#8C8C8C]">
-              <img className="mr-[14px]" src={fit} alt="wifiIcon" />
-              <span className="text-[22px]">Спортивный зал</span>
+      <ul className="pb-[10px] flex flex-col flex-wrap h-[300px] w-[684px]">
+      {amenitiesData.map(item => (
+          data[item.key] && (
+            <div className="max-w-[328px]" key={item.key}>
+              <li className="flex mb-[24px] ">
+                <div className="flex border-b border-b-[#8C8C8C]">
+                  <img className="mr-[14px]" src={item.icon} alt={`${item.key}Icon`} />
+                  <span className="text-[22px]">{item.text}</span>
+                </div>
+                {item.additionalText && (
+                  <div className="bg-[#A1A1A1] px-[15px] h-[19px] rounded-[21px] flex justify-center">
+                    <span className="text-white text-[12px]">{item.additionalText}</span>
+                  </div>
+                )}
+              </li>
             </div>
-          </li>
-          {data.bar && (
-            <li className="flex mb-[24px] ">
-              <div className="flex border-b border-b-[#8C8C8C]">
-                <img className="mr-[14px]" src={bar} alt="wifiIcon" />
-                <span className="text-[22px]">Бар/ресторан</span>
-              </div>
-            </li>
-          )}
-          {data.airport_transfer && (
-            <li className="flex mb-[24px] ">
-              <div className="flex border-b border-b-[#8C8C8C]">
-                <img className="mr-[14px]" src={transfer} alt="wifiIcon" />
-                <span className="text-[22px]">Трансфер от/до аэропорта</span>
-              </div>
-            </li>
-          )}
-        </div>
-        <div className="max-w-[328px]">
-          {data.park && (
-            <li className="flex items-center justify-between mb-[24px] ">
-              <div className="flex border-b border-b-[#8C8C8C]">
-                <img className="mr-[14px]" src={parking} alt="wifiIcon" />
-                <span className="text-[22px]">Парковка</span>
-              </div>
-              <div className="bg-[#A1A1A1] px-[15px] h-[19px] rounded-[21px] flex justify-center">
-                <span className="text-white text-[12px]">Платно</span>
-              </div>
-            </li>
-          )}
-          {data.pool && (
-            <li className="flex mb-[24px] ">
-              <div className="flex border-b border-b-[#8C8C8C]">
-                <img className="mr-[14px]" src={pool} alt="wifiIcon" />
-                <span className="text-[22px]">Бассейн</span>
-              </div>
-            </li>
-          )}
-          {data.spa &&
-            <li className="flex mb-[24px] ">
-              <div className="flex border-b border-b-[#8C8C8C]">
-                <img className="mr-[14px]" src={spa} alt="wifiIcon" />
-                <span className="text-[22px]">Спа услуги</span>
-              </div>
-            </li>
-          }
-          <li className="flex mb-[24px] ">
-            <div className="flex border-b border-b-[#8C8C8C]">
-              <img className="mr-[14px]" src={dish} alt="wifiIcon" />
-              <span className="text-[22px] ">Обслуживание номеров</span>
-            </div>
-          </li>
-        </div>
+          )
+        ))}
       </ul>
       <Button clickFunc={handleClickModal} classes={'py-[10px] px-[25px]'}>
         Подробнее <img className="ml-[10px]" src={arrow} alt="arrow" />

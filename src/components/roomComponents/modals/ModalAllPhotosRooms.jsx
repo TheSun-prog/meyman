@@ -15,7 +15,7 @@ const ModalAllPhotos = ({ handleCLickCloseModal, images }) => {
   return (
     <ModalDefault
       isTitle={false}
-      classes={'!fixed w-1/3 !py-0 h-screen overflow-x-hidden overflow-auto'}
+      classes={'!fixed w-1/3 !py-0 h-[80vh] overflow-x-hidden overflow-auto'}
       isBorder={false}
       handleCLickCloseModal={handleCLickCloseModal}
     >
@@ -36,7 +36,7 @@ const ModalAllPhotos = ({ handleCLickCloseModal, images }) => {
       <div className="flex justify-center gap-5 mt-10">
         <div className="flex flex-col ">
           <div className="flex flex-wrap justify-center gap-2 mb-[10px]">
-            {images?.room_images?.map(image => (
+            {images?.map(image => (
               <img
                 key={image.id}
                 onClick={handleOpenImage}

@@ -11,7 +11,6 @@ export const reservationHotelPostData = createAsyncThunk('reservation/postData',
     adults: data.persons.adult,
     children: data.persons.children
   })
-  console.log(response.data)
   return response.data
 })
 

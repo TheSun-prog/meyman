@@ -5,7 +5,7 @@ import Button from '../../ui/Button/Button'
 const ModalSuccess = ({ handleCLickCloseModal, handleSuccessClick }) => {
   return (
     <ModalDefult
-      classes={'w-[506px]'}
+      classes={'w-[506px] pb-9'}
       handleCLickCloseModal={handleCLickCloseModal}
       isClose={false}
     >

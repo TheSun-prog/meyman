@@ -1,5 +1,4 @@
 import ModalDefault from './ModalDefault'
-import room from '../../../assets/images/hotel-image.png'
 import { useState } from 'react'
 import 'animate.css'
 
@@ -19,7 +18,7 @@ const ModalAllPhotos = ({ handleCLickCloseModal }) => {
   return (
     <ModalDefault
       isTitle={false}
-      classes={'!fixed w-1/3 !py-0 h-screen  overflow-x-hidden overflow-auto'}
+      classes={'!fixed w-1/3 !py-0 h-[80vh]  overflow-x-hidden overflow-auto'}
       isBorder={false}
       handleCLickCloseModal={handleCLickCloseModal}
     >

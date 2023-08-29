@@ -9,7 +9,7 @@ const ModalFilteredRooms = ({ handleCLickCloseModal }) => {
     <ModalDefault
       isTitle={true}
       title={'Номера'}
-      classes={'!fixed w-2/3 h-5/6 overflow-y-scroll'}
+      classes={'!fixed w-2/3 h-[80vh] overflow-y-scroll'}
       isBorder={true}
       handleCLickCloseModal={handleCLickCloseModal}
     >

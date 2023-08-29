@@ -1,30 +1,49 @@
+// react
 import { ConfigProvider } from 'antd'
 import { DatePicker } from 'antd'
 import ru_RU from 'antd/locale/ru_RU'
 import arrow from '../../assets/images/arrow2.svg'
 import { NavLink } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchHotelData } from '../../store/hotelSlice'
+import { useSelector } from 'react-redux'
 // icon
 import somIcon from '../../assets/images/som.svg'
 // ui
 import Button from '../ui/Button/Button'
 
-const RoomDate = ({ state, roomId }) => {
+const RoomDate = ({ roomId }) => {
+
+  function getFormattedDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяц начинается с 0
+    const day = String(today.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  }
+
+  function getFormattedDateWithOffset(offset) {
+    const today = new Date();
+    today.setDate(today.getDate() + offset);
+    
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  }
 
   const [initialData, setInitialData] = useState(() => {
     // При загрузке компонента, сначала попробуйте получить данные из localStorage
     const storedData = localStorage.getItem('initialData');
     return storedData ? JSON.parse(storedData) : {
-      arrival: '2023-08-24',
-      departure: '2023-08-26'
+      arrival: getFormattedDate(),
+      departure: getFormattedDateWithOffset(2)
     };
   });
 
   const {data} = useSelector(state => state.hotel)
-  const dispatch = useDispatch()
-  
+
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
   const handleOpenChange = status => {
     setIsDatePickerOpen(status)
@@ -34,16 +53,38 @@ const RoomDate = ({ state, roomId }) => {
   const handleOpenChange2 = status => {
     setIsDatePickerOpen2(status)
   }
+
+  const handleArrivalChange = (date, str) => {
+    const arrivalDate = new Date(str);
+    const departureDate = new Date(initialData.departure);
+  
+    setInitialData(prev => {
+      if (arrivalDate > departureDate) {
+        return { ...prev, arrival: str, departure: str };
+      } else {
+        return { ...prev, arrival: str };
+      }
+    });
+  };
+  
+  const handleDepartureChange = (date, str) => {
+    const arrivalDate = new Date(initialData.arrival);
+    const departureDate = new Date(str);
+  
+    setInitialData(prev => {
+      if (departureDate < arrivalDate) {
+        return { ...prev, arrival: str, departure: str };
+      } else {
+        return { ...prev, departure: str };
+      }
+    });
+  };
   
   useEffect(() => {
     // При изменении initialData, обновите данные в localStorage
     localStorage.setItem('initialData', JSON.stringify(initialData));
-    console.log(initialData);
   }, [initialData]);
 
-  useEffect(() => {
-    dispatch(fetchHotelData(roomId))
-  }, [])
 
   return (
     <ConfigProvider locale={ru_RU}>
@@ -67,9 +108,7 @@ const RoomDate = ({ state, roomId }) => {
                   className="absolute top-0 right-0 left-0 bottom-0 opacity-0"
                   onOpenChange={handleOpenChange}
                   inputReadOnly={true}
-                  onChange={(date, str) => {
-                    setInitialData(prev => ({ ...prev, arrival: str }))
-                  }}
+                  onChange={handleArrivalChange}
                 />
                 <img
                   className={`${
@@ -92,9 +131,7 @@ const RoomDate = ({ state, roomId }) => {
                   className="absolute top-0 right-0 left-0 bottom-0 opacity-0"
                   onOpenChange={handleOpenChange2}
                   inputReadOnly={true}
-                  onChange={(date, str) => {
-                    setInitialData(prev => ({ ...prev, departure: str }))
-                  }}
+                  onChange={handleDepartureChange}
                 />
                 <img
                   className={`${
@@ -107,7 +144,7 @@ const RoomDate = ({ state, roomId }) => {
             </div>
           </div>
         </div>
-        <NavLink to={`/hotelcatalog/${data.id}/${roomId}/booking`} state={[initialData, state]}>
+        <NavLink to={`/hotelcatalog/${data.id}/${roomId}/booking`} state={initialData}>
           <Button classes={'w-full py-[20px] mt-[25px]'}>Забронировать</Button>
         </NavLink>
       </div>

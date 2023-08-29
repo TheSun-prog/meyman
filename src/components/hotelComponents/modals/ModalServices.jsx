@@ -24,9 +24,9 @@ const Services = ({ handleCLickCloseModal }) => {
   return (
     <div
       onClick={handleBackgroundClick}
-      className="absolute inset-0 z-40 w-screen bg-black bg-opacity-40 animate__animated animate__fadeIn"
+      className="absolute inset-0 z-40 w-screen bg-black bg-opacity-40 overflow-x-hidden animate__animated animate__fadeIn"
     >
-      <div className="bg-white overflow-scroll overflow-x-hidden z-50 w-2/3 h-5/6 py-[37px] rounded-3xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="bg-white overflow-scroll overflow-x-hidden z-50 w-2/3 h-[80vh] py-[37px] rounded-3xl fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="flex justify-center items-center border-b border-[#8C8C8C] w-full pb-[44px]">
           <img
             onClick={handleCLickCloseModal}

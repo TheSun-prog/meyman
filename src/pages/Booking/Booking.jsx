@@ -1,12 +1,8 @@
 //icon
-import starFillIcon from '../../assets/images/star-fill.svg'
-import starDefaultIcon from '../../assets/images/star-default.svg'
 import placeIcon from '../../assets/images/place.svg'
-import hotelImg from '../../assets/images/hotel-img.png'
 import calendar from '../../assets/images/calendar.svg'
 import persons from '../../assets/images/persons.svg'
 import bed from '../../assets/images/bed.svg'
-import freezer from '../../assets/images/freezer.svg'
 import done from '../../assets/images/done.svg'
 import dish from '../../assets/images/dish-green.svg'
 import arrow from '../../assets/images/arrow2.svg'
@@ -21,29 +17,115 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchHotelData } from '../../store/hotelSlice'
 import { useParams, useLocation } from 'react-router-dom'
 import { Rating } from '@mui/material'
+// components
 import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
+import roomIcons from '../Room/roomIcon'
+import { Modal } from 'antd'
 
 const Booking = () => {
   const [activeModal, setActiveModal] = useState(false)
   const [date, setDate] = useState()
+  const [initialDataForm, setInitialDataForm] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  })
 
-  const { hotelId } = useParams()
+  const { hotelId, roomId } = useParams()
 
   const dispatch = useDispatch()
-
   const { data } = useSelector(state => state.hotel)
-
   const { state } = useLocation()
-
   const stars = data.stars ? data.stars : null
 
+  const warning = () => {
+    Modal.warning({
+      title: 'Все поля должны быть заполнены',
+      autoFocusButton: true,
+      centered: true,
+      keyboard: true,
+      maskClosable: true
+    })
+  }
+
+  const handleNameChange = event => {
+    const { value } = event.target
+    setInitialDataForm(prevState => ({
+      ...prevState,
+      name: value
+    }))
+  }
+
+  const handleEmailChange = event => {
+    const { value } = event.target
+    setInitialDataForm(prevState => ({
+      ...prevState,
+      email: value
+    }))
+  }
+
+  const handlePhoneChange = event => {
+    const { value } = event.target
+    setInitialDataForm(prevState => ({
+      ...prevState,
+      phone: value
+    }))
+  }
+
+  function formatDateWithDayOfWeek(dateStr) {
+    const daysOfWeek = [
+      'воскресенье',
+      'понедельник',
+      'вторник',
+      'среда',
+      'четверг',
+      'пятница',
+      'суббота'
+    ]
+
+    const months = [
+      'января',
+      'февраля',
+      'марта',
+      'апреля',
+      'мая',
+      'июня',
+      'июля',
+      'августа',
+      'сентября',
+      'октября',
+      'ноября',
+      'декабря'
+    ]
+
+    const date = new Date(dateStr)
+    const dayOfWeek = daysOfWeek[date.getDay()]
+    const [year, month, day] = dateStr.split('-')
+    const formattedDate = `${parseInt(day)} ${months[parseInt(month) - 1]}`
+
+    return `${formattedDate}, ${dayOfWeek}`
+  }
+
+  function calculateDateDifference(arrivalDate, departureDate) {
+    const arrival = new Date(arrivalDate)
+    const departure = new Date(departureDate)
+
+    // Разница между датами в миллисекундах
+    const timeDiff = departure - arrival
+
+    // Преобразование миллисекунд в дни
+    const daysDiff = timeDiff / (1000 * 60 * 60 * 24)
+
+    return daysDiff
+  }
+
   const handleClickBooking = () => {
-    setActiveModal(true)
+    warning()
+    return
   }
 
   useEffect(() => {
     dispatch(fetchHotelData(hotelId))
-    console.log(state)
   }, [])
 
   useEffect(() => {
@@ -52,6 +134,10 @@ const Booking = () => {
       setDate(JSON.parse(storedData))
     }
   }, [])
+
+  useEffect(() => {
+    console.log(initialDataForm);
+  }, [initialDataForm])
 
   return (
     <div className="mx-auto w-[1240px]">
@@ -87,7 +173,7 @@ const Booking = () => {
                     : 'Ниже среднего'}
                 </span>
               </div>
-              <div className="flex">
+              <div className="flex w-full">
                 <img src={placeIcon} alt="placeIcon" />
                 <span className="text-[22px] text-grey">{data?.address}</span>
               </div>
@@ -97,14 +183,18 @@ const Booking = () => {
             <img className="mr-2 mb-4" src={calendar} alt="calendar" />
             <div className="flex">
               <div className="mr-[20px]">
-                <p className="text-[20px]">{state[0].arrival}</p>
+                <p className="text-[20px]">
+                  {formatDateWithDayOfWeek(state.arrival)}
+                </p>
                 <p className="text-[16px]">
                   Заезд с {data?.check_in_time_start} до{' '}
                   {data?.check_in_time_end}
                 </p>
               </div>
               <div>
-                <p className="text-[20px]">{state[0].departure}</p>
+                <p className="text-[20px]">
+                  {formatDateWithDayOfWeek(state.departure)}
+                </p>
                 <p className="text-[16px]">
                   Заезд с {data?.check_out_time_start} до{' '}
                   {data?.check_out_time_end}
@@ -113,89 +203,84 @@ const Booking = () => {
             </div>
           </div>
           <div className="mt-5">
-            <h2 className="text-[28px] ">Номер:</h2>
+            <h2 className="text-[28px]">Номер:</h2>
             <RoomName
-              classes={'text-[20px]'}
-              bedType={state[1].bed_type}
-              maxGuest={state[1].max_guest_capacity}
+              classes={'!text-[20px] !font-[500]'}
+              bedType={data?.rooms?.[roomId]?.bed_type}
+              maxGuest={data?.rooms?.[roomId]?.max_guest_capacity}
             />
-            <div className="flex my-2">
+            <div className="flex mt-4">
               <img className="mr-2" src={persons} alt="persons" />
               <span className="text-[#666666] text-[18px]">
-                {state[1].max_guest_capacity} гостей <span>&#8226;</span>{' '}
-                {state[1].room_area}м 2
+                {data?.rooms?.[roomId]?.max_guest_capacity} гостей{' '}
+                <span>&#8226;</span> {data?.rooms?.[roomId]?.room_area}м 2
               </span>
             </div>
             <div className="flex items-center">
               <img src={bed} alt="bed" />
               <span className="pl-2">
-                {Array.isArray(state[1].bed_type) &&
-                state[1].bed_type.includes('Односпальные') &&
-                state[1].bed_type.includes('Двуспальная')
+                {Array.isArray(data?.rooms?.[roomId]?.bed_type) &&
+                data?.rooms?.[roomId]?.bed_type.includes('Односпальные') &&
+                data?.rooms?.[roomId]?.bed_type.includes('Двуспальная')
                   ? 'Односпальная и Двуспальная'
-                  : state[1]}
+                  : 'Односпальная'}
               </span>
             </div>
-            <div className="h-[158px] w-[403px] mt-5 justify-between flex flex-wrap">
-              <div className="flex-col flex justify-between">
-                <div className="flex items-center">
-                  <img src={freezer} alt="freezer" />
-                  <span>Кондиционер</span>
-                </div>
-                <div className="flex items-center">
-                  <img src={freezer} alt="freezer" />
-                  <span>Кондиционер</span>
-                </div>
-                <div className="flex items-center">
-                  <img src={freezer} alt="freezer" />
-                  <span>Кондиционер</span>
-                </div>
-                <div className="flex items-center">
-                  <img src={freezer} alt="freezer" />
-                  <span>Кондиционер</span>
-                </div>
-              </div>
-              <div className="flex-col flex justify-between">
-                <div className="flex items-center">
-                  <img src={freezer} alt="freezer" />
-                  <span>Кондиционер</span>
-                </div>
-                <div className="flex items-center">
-                  <img src={freezer} alt="freezer" />
-                  <span>Кондиционер</span>
-                </div>
-                <div className="flex items-center">
-                  <img src={freezer} alt="freezer" />
-                  <span>Кондиционер</span>
-                </div>
-              </div>
-            </div>
-            <h2 className="text-[28px] mb-[40px] mt-[90px]">
+            <ul className="flex flex-col flex-wrap w-[303px] h-[600px] mt-6">
+              {data?.rooms?.[roomId]?.room_amenities?.map((item, index) => (
+                <li key={index} className="flex mb-[24px] w-full">
+                  <div className="flex ">
+                    <img
+                      className="mr-[14px]"
+                      src={roomIcons[item]}
+                      alt="wifiIcon"
+                    />
+                    <span className="text-[22px]">{item}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <h2 className="text-[28px] mb-[40px] mt-[80px]">
               Контактные данные
             </h2>
             <div className="mb-[35px]">
               <h3 className="text-[24px]">Гость</h3>
-              <p>Взрослый на которого оформляется бронь</p>
+              <p className="text-[#A1A1A1] text[20px]">
+                Взрослый на которого оформляется бронь
+              </p>
             </div>
             <form>
               <div className="mb-[30px]">
-                <label htmlFor="Имя">Имя</label>
-                <Input classes={'!w-[320px]'} text={'Введите свое имя'} />
-              </div>
-              <div className="mb-[30px]">
-                <label htmlFor="Имя">Фамилия</label>
-                <Input classes={'!w-[320px]'} text={'Введите свое фамилие'} />
-              </div>
-              <div className="mb-[30px]">
-                <label htmlFor="Имя">Номер телефона</label>
+                <label htmlFor="name">Имя и фамилия</label>
                 <Input
-                  classes={'!w-[320px]'}
-                  text={'Введите ваш номер телефона'}
+                  id="name"
+                  value={initialDataForm.name}
+                  onChange={handleNameChange}
+                  classes="w-[520px]"
+                  text={'Введите свое имя и фамилию'}
                 />
               </div>
               <div className="mb-[30px]">
-                <label htmlFor="Имя">Электронный адрес</label>
-                <Input classes={'!w-[320px]'} text={'Введите  ваш эл.адрес'} />
+                <label htmlFor="email">Электронный адрес</label>
+                <Input
+                  id="email"
+                  value={initialDataForm.email}
+                  type="email"
+                  onChange={handleEmailChange}
+                  classes="w-[520px]"
+                  text={'Введите свой адрес электронной почты'}
+                />
+              </div>
+              <div className="mb-[30px]">
+                <label htmlFor="phone">Номер телефона</label>
+                <Input
+                  id="phone"
+                  value={initialDataForm.phone}
+                  type="tel"
+                  onChange={handlePhoneChange}
+                  classes="w-[520px]"
+                  text={'+996 000 000 000'}
+                />
               </div>
             </form>
           </div>
@@ -213,14 +298,24 @@ const Booking = () => {
             <span className="text-[#59A859]">Завтрак включен</span>
           </div>
           <div className="flex justify-between text-[22px] pb-[28px] border-b">
-            <span>1 ночь</span>
-            <span>3200 сом</span>
+            <span>
+              {calculateDateDifference(state.arrival, state.departure)} дней
+            </span>
+            <span>
+              {data?.rooms?.[roomId]?.price_per_night *
+                calculateDateDifference(state.arrival, state.departure)}{' '}
+              сом
+            </span>
           </div>
           <div className="flex justify-between text-3xl items-center">
             <span className="">Итого</span>
-            <span>3200 сом</span>
+            <span>
+              {data?.rooms?.[roomId]?.price_per_night *
+                calculateDateDifference(state.arrival, state.departure)}{' '}
+              сом
+            </span>
           </div>
-          <Button clickFunc={handleClickBooking} classes={'py-[20px] w-full'}>
+          <Button clickFunc={handleClickBooking} classes={`py-[20px] w-full'}`}>
             Забронировать
           </Button>
         </div>

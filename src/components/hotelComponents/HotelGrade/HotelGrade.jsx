@@ -14,7 +14,15 @@ const HotelGrade = () => {
   ];
 
   const calculateAverageRating = (fieldName) => {
-    return Math.round(data?.reviews?.reduce((acc, curr) => acc + curr[fieldName], 0) / data?.reviews?.length);
+    const reviews = data?.reviews || []; // Ensure reviews array exists
+    if (reviews.length === 0) {
+      return 0; // Return 0 if there are no reviews
+    }
+    
+    const totalRating = reviews.reduce((acc, curr) => acc + curr[fieldName], 0);
+    const averageRating = totalRating / reviews.length;
+    
+    return Math.round(averageRating);
   };
 
   return (

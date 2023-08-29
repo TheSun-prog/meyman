@@ -6,12 +6,12 @@ const ModalAllServices = ({ handleCLickCloseModal, amenities }) => {
     <ModalDefult
       title={'Удобства номера'}
       isTitle={true}
-      classes={'w-[750px] h-screen overflow-y-scroll'}
+      classes={'w-[750px] h-[80vh] overflow-y-scroll'}
       isBorder={true}
       handleCLickCloseModal={handleCLickCloseModal}
     >
       <ul className="pl-[80px] mt-[42px]">
-        {amenities?.room_amenities?.map(item => (
+        {amenities?.map(item => (
           <li className="flex mb-[24px] ">
             <div className="flex">
               <img className="mr-[14px]" src={roomIcons[item]} alt="wifiIcon" />

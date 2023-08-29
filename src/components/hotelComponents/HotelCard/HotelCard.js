@@ -8,8 +8,6 @@ import done from '../../../assets/images/done.svg'
 import location from '../../../assets/images/location.svg'
 import hotelImage from '../../../assets/images/hotel-image.png'
 import {useState} from "react";
-import {NavLink} from "react-router-dom";
-
 
 const HotelCard = ({data}) => {
 

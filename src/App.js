@@ -25,6 +25,7 @@ function App() {
         <Route path="/hotelcatalog/:hotelId/:roomId" element={<Room />} />
         <Route path="/hotelcatalog/:hotelId/:roomId/booking" element={<Booking />} />
         <Route path="/test" element={<Test />} />
+        <Route path='/*' element={<h1 className='text-center text-red-700 text-[50px] mt-10'>Страница не найдена</h1>} />
       </Routes>
       {activeModalServices && (
         <ModalServices

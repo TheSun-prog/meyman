@@ -25,7 +25,7 @@ const HotelPage = ({ activeModalServices }) => {
   const [reviewData, setReviewData] = useState()
 
   const dispatch = useDispatch()
-  const {data} = useSelector(state => state.hotel)
+  const {data, isError, isLoading} = useSelector(state => state.hotel)
   const {hotelId} = useParams()
 
   const openModalFilteredRoom = () => {
@@ -36,6 +36,7 @@ const HotelPage = ({ activeModalServices }) => {
     dispatch(fetchHotelData(hotelId))
   }, [])
 
+  
   return (
     <div className="mx-auto w-[1240px]">
       <div className="flex items-center mb-[50px]">
@@ -45,7 +46,7 @@ const HotelPage = ({ activeModalServices }) => {
       </div>
       <div>
         <HotelName />
-        <HotelImages handleOpenModalImages={setActiveModalImages} />
+        {isError ? <h1 className='text-center text-[40px] text-red-700 mt-2'>Нет такого отеля!</h1> : <HotelImages handleOpenModalImages={setActiveModalImages} />}
         <div className="flex justify-between mt-[50px]">
           <HotelRules
             handleClickModal={() => {

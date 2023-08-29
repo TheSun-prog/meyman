@@ -13,12 +13,12 @@ import RoomDate from '../../components/roomComponents/RoomDate'
 import ModalAllPhotosRooms from '../../components/roomComponents/modals/ModalAllPhotosRooms'
 import ModalAllServices from '../../components/roomComponents/modals/ModalAllServices'
 import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
-
+// react
 import { useEffect, useState } from 'react'
 import { useLocation, NavLink, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchHotelData } from '../../store/hotelSlice'
-
+// components
 import roomIcons from './roomIcon'
 
 const Room = () => {
@@ -125,8 +125,8 @@ const Room = () => {
               <h3 className="text-[28px] mb-4">Удобства номера</h3>
               <ul className="pb-[10px] flex justify-between ">
                 <div className="max-w-[328px]">
-                  {data?.rooms?.[roomId]?.room_amenities?.slice(0, 4)?.map(item => (
-                    <li className="flex mb-[24px] ">
+                  {data?.rooms?.[roomId]?.room_amenities?.slice(0, 4)?.map((item, index) => (
+                    <li key={index} className="flex mb-[24px] ">
                       <div className="flex border-b border-b-[#8C8C8C]">
                         <img
                           className="mr-[14px]"
@@ -139,8 +139,8 @@ const Room = () => {
                   ))}
                 </div>
                 <div className="max-w-[328px]">
-                  {data?.rooms?.[roomId]?.room_amenities?.slice(4, 8)?.map(item => (
-                    <li className="flex mb-[24px] ">
+                  {data?.rooms?.[roomId]?.room_amenities?.slice(4, 8)?.map((item, index) => (
+                    <li key={index} className="flex mb-[24px] ">
                       <div className="flex border-b border-b-[#8C8C8C]">
                         <img
                           className="mr-[14px]"
@@ -168,7 +168,7 @@ const Room = () => {
       </div>
       {activeModalAllPhotosRooms && (
         <ModalAllPhotosRooms
-          images={state}
+          images={data?.rooms?.[roomId]?.room_images}
           handleCLickCloseModal={() => {
             setActiveModalAllPhotosRooms(false)
           }}
@@ -176,7 +176,7 @@ const Room = () => {
       )}
       {activeModalALlServices && (
         <ModalAllServices
-          amenities={state}
+          amenities={data?.rooms?.[roomId]?.room_amenities}
           handleCLickCloseModal={() => {
             setActiveModalAllServices(false)
           }}

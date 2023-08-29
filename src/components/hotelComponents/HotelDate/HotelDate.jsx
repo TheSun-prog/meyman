@@ -5,22 +5,54 @@ import Button from '../../ui/Button/Button'
 import { ConfigProvider } from 'antd'
 import { DatePicker } from 'antd'
 import ru_RU from 'antd/locale/ru_RU'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import 'animate.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { reservationHotelPostData } from '../../../store/reservationsSlice'
 import { postAvailabilityData } from '../../../store/availabilitySlice'
+import {Modal} from 'antd'
+
 
 const HotelDate = ({ openModalFilteredRoom }) => {
+
+  function getFormattedDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяц начинается с 0
+    const day = String(today.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  }
+
+  function getFormattedDateWithOffset(offset) {
+    const today = new Date();
+    today.setDate(today.getDate() + offset);
+    
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+  }
+
   const [data, setData] = useState({  // initial state
-    arrival: '2023-08-24',
-    departure: '2023-08-26',
+    arrival: getFormattedDate(),
+    departure: getFormattedDateWithOffset(2),
     persons: {
       adult: 0,
       children: 0,
       rooms: 0
     }
   })
+
+  const warning = () => {
+    Modal.warning({
+      title: 'Максимальное количество гостей 6',
+      autoFocusButton: true,
+      centered: true,
+      keyboard: true,
+      maskClosable: true
+    });
+  };
 
   const dispatch = useDispatch()
   const state = useSelector(state => state.hotel.data)
@@ -41,6 +73,32 @@ const HotelDate = ({ openModalFilteredRoom }) => {
     e.preventDefault()
     dispatch(postAvailabilityData(data))
   }
+
+  const handleArrivalChange = (date, str) => {
+    const arrivalDate = new Date(str);
+    const departureDate = new Date(data.departure);
+  
+    setData(prev => {
+      if (arrivalDate > departureDate) {
+        return { ...prev, arrival: str, departure: str };
+      } else {
+        return { ...prev, arrival: str };
+      }
+    });
+  };
+  
+  const handleDepartureChange = (date, str) => {
+    const arrivalDate = new Date(data.arrival);
+    const departureDate = new Date(str);
+  
+    setData(prev => {
+      if (departureDate < arrivalDate) {
+        return { ...prev, arrival: str, departure: str };
+      } else {
+        return { ...prev, departure: str };
+      }
+    });
+  };
 
   const lowestPrice =
     state?.rooms?.length > 0
@@ -75,7 +133,7 @@ const HotelDate = ({ openModalFilteredRoom }) => {
               fill={`${isAvailability ? 'red' : 'black'}`}
             />
           </svg>
-          <span className="text-[24px]">ночь</span>
+          <span className="text-[24px] ml-1">ночь</span>
         </div>
         <div
           className={`rounded-xl border border-black ${
@@ -107,9 +165,7 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                   className="absolute top-0 right-0 left-0 bottom-0 opacity-0"
                   onOpenChange={handleOpenChange}
                   inputReadOnly={true}
-                  onChange={(date, str) => {
-                    setData(prev => ({ ...prev, arrival: str }))
-                  }}
+                  onChange={handleArrivalChange}
                 />
                 <img
                   className={`${
@@ -136,9 +192,7 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                   className="absolute top-0 right-0 left-0 bottom-0 opacity-0"
                   onOpenChange={handleOpenChange2}
                   inputReadOnly={true}
-                  onChange={(date, str) => {
-                    setData(prev => ({ ...prev, departure: str }))
-                  }}
+                  onChange={handleDepartureChange}
                 />
                 <img
                   className={`${
@@ -164,8 +218,8 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                     isAvailability ? 'text-red-600' : ''
                   }`}
                 >
-                  {data.persons.adult}
-                  {data.persons.adult === 1 ? ' гость' : ' гостей'}{' '}
+                  {data.persons.adult + data.persons.children}
+                  {data.persons.adult + data.persons.children === 1 ? ' гость' : ' гостей'}{' '}
                   <span>&#8226;</span> {data.persons.rooms}{' '}
                   {data.persons.rooms === 1
                     ? 'номер'
@@ -191,13 +245,18 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        setData(prev => ({
-                          ...prev,
-                          persons: {
-                            ...prev.persons,
-                            adult: prev.persons.adult + 1
-                          }
-                        }))
+                        const totalGuests = data.persons.adult + data.persons.children;
+                        if (totalGuests < 6) {
+                          setData(prev => ({
+                            ...prev,
+                            persons: {
+                              ...prev.persons,
+                              adult: prev.persons.adult + 1,
+                            },
+                          }));
+                        } else {
+                          {warning()}
+                        }
                       }}
                       className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
                     >
@@ -227,13 +286,18 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        setData(prev => ({
-                          ...prev,
-                          persons: {
-                            ...prev.persons,
-                            children: prev.persons.children + 1
-                          }
-                        }))
+                        const totalGuests = data.persons.adult + data.persons.children;
+                        if (totalGuests < 6) {
+                          setData(prev => ({
+                            ...prev,
+                            persons: {
+                              ...prev.persons,
+                              children: prev.persons.children + 1,
+                            },
+                          }));
+                        } else {
+                          {warning()}
+                        }
                       }}
                       className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
                     >
