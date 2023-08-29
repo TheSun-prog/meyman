@@ -9,6 +9,7 @@ module.exports = {
                 'blue': 'var(--website-colors, #1164B4);',
                 'red': '#BC0000',
                 'half-opacity': 'rgba(0, 0, 0, 0.45)',
+                'sendCode': '#626262'
             },
             backgroundImage: {
                 'main': 'url("/src/assets/images/main-bg.png")',
@@ -35,9 +36,13 @@ module.exports = {
                 'dropdown': "rgba(28, 32, 74, 0.40)",
                 'dark-grey': 'rgba(0, 0, 0, 0.14)',
             },
+            fontSize: {
+                sn: ["18px", "25.2px"],
+                sm: ["24px", "33.6px"]
+            }
         },
     },
     plugins: [],
 }
 
-import image from './src/assets/images/chuy.png'
+// import image from './src/assets/images/chuy.png'
