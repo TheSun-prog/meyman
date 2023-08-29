@@ -13,7 +13,7 @@ module.exports = {
             },
             backgroundImage: {
                 'main': 'url("/src/assets/images/main-bg.png")',
-
+                'mountains': "url('/src/assets/images/mountains.png')"
             },
             backgroundColor: {
                 'blue': 'var(--website-colors, #1164B4);',
@@ -38,8 +38,11 @@ module.exports = {
             },
             fontSize: {
                 sn: ["18px", "25.2px"],
-                sm: ["24px", "33.6px"]
-            }
+                sm: ["24px", "33.6px"],
+                ab: ["18px", "normal"],
+                sx: ["16px", "22.4px"],
+                ot: ["28px", "35px"]
+            },
         },
     },
     plugins: [],

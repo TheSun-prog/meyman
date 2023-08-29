@@ -12,12 +12,13 @@ import Layout from "./components/Base/Layout/Layout";
 import AuthPage from "./pages/AuthPage/AuthPage";
 import RegPage from "./pages/RegPage/RegPage";
 import ConfirmCode from "./pages/ConfirmCodePage/ConfirmCode";
+import AboutPage from "./pages/AboutPage/AboutPage";
 
 
 function App() {
     return (
         <>
-            <ConfirmCode/>
+            <AboutPage/>
             {/*<Routes>*/}
             {/*    <Route path='/' element={<Layout/>}>*/}
             {/*        <Route path="/" element={<Mainpage/>}/>*/}
