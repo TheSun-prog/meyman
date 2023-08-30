@@ -5,10 +5,10 @@ import React, {useEffect, useState} from "react";
 import HotelCard from "../../components/hotelComponents/HotelCard/HotelCard";
 import {
     fetchHousingData,
-    selectHotelData,
-    selectHotelError,
-    selectHotelLoadingStatus
-} from "../../store/slice/hotelSlice";
+    selectHousingData,
+    selectHousingError,
+    selectHousingLoadingStatus
+} from "../../store/slice/housingSlice";
 import {useDispatch, useSelector} from "react-redux";
 import FilterModal from "../../components/hotelComponents/FilterModal/FilterModal";
 
@@ -18,9 +18,9 @@ const HotelCatalog = () => {
     const [activeSearch, setActiveSearch] = useState('hotel')
 
     const dispatch = useDispatch();
-    const hotelData = useSelector(selectHotelData);
-    const loading = useSelector(selectHotelLoadingStatus);
-    const error = useSelector(selectHotelError);
+    const hotelData = useSelector(selectHousingData);
+    const loading = useSelector(selectHousingLoadingStatus);
+    const error = useSelector(selectHousingError);
 
     useEffect(() => {
         dispatch(fetchHousingData({limit: 12, offset: 0}));

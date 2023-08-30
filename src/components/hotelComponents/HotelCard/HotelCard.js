@@ -12,6 +12,7 @@ import {NavLink} from "react-router-dom";
 
 
 const HotelCard = ({data, index}) => {
+    console.log(data)
 
     const firstRoomsPrice = data?.rooms[0]?.price_per_night
 

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 // icon
 import somIcon from '../../assets/images/som.svg'
 // ui
-import Button from '../../components/ui/Button/Button'
+import Button from '../ui/Button/Button'
 
 const RoomDate = ({ roomId }) => {
 
@@ -18,18 +18,18 @@ const RoomDate = ({ roomId }) => {
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяц начинается с 0
     const day = String(today.getDate()).padStart(2, '0');
-    
+
     return `${year}-${month}-${day}`;
   }
 
   function getFormattedDateWithOffset(offset) {
     const today = new Date();
     today.setDate(today.getDate() + offset);
-    
+
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
     const day = String(today.getDate()).padStart(2, '0');
-    
+
     return `${year}-${month}-${day}`;
   }
 
@@ -48,7 +48,7 @@ const RoomDate = ({ roomId }) => {
   const handleOpenChange = status => {
     setIsDatePickerOpen(status)
   }
-  
+
   const [isDatePickerOpen2, setIsDatePickerOpen2] = useState(false)
   const handleOpenChange2 = status => {
     setIsDatePickerOpen2(status)
@@ -57,7 +57,7 @@ const RoomDate = ({ roomId }) => {
   const handleArrivalChange = (date, str) => {
     const arrivalDate = new Date(str);
     const departureDate = new Date(initialData.departure);
-  
+
     setInitialData(prev => {
       if (arrivalDate > departureDate) {
         return { ...prev, arrival: str, departure: str };
@@ -66,11 +66,11 @@ const RoomDate = ({ roomId }) => {
       }
     });
   };
-  
+
   const handleDepartureChange = (date, str) => {
     const arrivalDate = new Date(initialData.arrival);
     const departureDate = new Date(str);
-  
+
     setInitialData(prev => {
       if (departureDate < arrivalDate) {
         return { ...prev, arrival: str, departure: str };
@@ -79,7 +79,7 @@ const RoomDate = ({ roomId }) => {
       }
     });
   };
-  
+
   useEffect(() => {
     // При изменении initialData, обновите данные в localStorage
     localStorage.setItem('initialData', JSON.stringify(initialData));
@@ -87,24 +87,6 @@ const RoomDate = ({ roomId }) => {
 
 
   return (
-<<<<<<< HEAD:src/pages/Room/RoomDate.jsx
-    <div className="max-h-[325px] w-[473px] py-10 px-10 rounded-3xl border shadow-lg">
-      <div className="flex items-center mb-7">
-        <span className="text-[18px] mt-1 mr-1">От</span>
-        <span className="text-[24px]">3000</span>
-        <img src={somIcon} alt="somIcon" />
-        <span className="text-[24px]">ночь</span>
-      </div>
-      <div className="rounded-xl border border-black">
-        <div className="flex">
-          <div className="w-1/2 px-4 py-2  border-r border-black">
-            <div className="relative flex justify-between items-center">
-              <div className="flex flex-col">
-                <p className="text-xl">Прибытие</p>
-                <span className="text-[#8C8C8C] text-[18px]">
-                  {data.arrival}
-                </span>
-=======
     <ConfigProvider locale={ru_RU}>
       <div className="max-h-[325px] w-[473px] py-10 px-10 rounded-3xl border shadow-lg">
         <div className="flex items-center mb-7">
@@ -135,7 +117,6 @@ const RoomDate = ({ roomId }) => {
                   src={arrow}
                   alt="arrow"
                 />
->>>>>>> 52d39eaa44665151f0f5f07b2c5a26db3cbe0140:src/components/roomComponents/RoomDate.jsx
               </div>
             </div>
             <div className="w-1/2 px-4 py-2 justify-between">
@@ -167,12 +148,7 @@ const RoomDate = ({ roomId }) => {
           <Button classes={'w-full py-[20px] mt-[25px]'}>Забронировать</Button>
         </NavLink>
       </div>
-<<<<<<< HEAD:src/pages/Room/RoomDate.jsx
-      <Button classes={'w-full py-[20px] mt-[25px]'}>Изменить</Button>
-    </div>
-=======
     </ConfigProvider>
->>>>>>> 52d39eaa44665151f0f5f07b2c5a26db3cbe0140:src/components/roomComponents/RoomDate.jsx
   )
 }
 

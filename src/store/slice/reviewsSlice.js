@@ -1,36 +1,36 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const fetchHotelData = createAsyncThunk('hotel/getData', async (data) => {
-  const response = await axios.get(`http://127.0.0.1:8000/housing/${data}/`, {
+export const fetchReviewsData = createAsyncThunk('reviews/getReview', async () => {
+  const response = await axios.get(`http://127.0.0.1:8000/reviews/`, {
 
   })
   return response.data
 })
 
-const hotelSlice = createSlice({
-  name: 'hotel',
+const reviewsSlice = createSlice({
+  name: 'reviews',
   initialState: {
     isLoading: false,
     isError: false,
-    data: {},
+    data: [],
   },
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(fetchHotelData.pending, state => {
+      .addCase(fetchReviewsData.pending, state => {
         state.isLoading = true
         state.isError = null
       })
-      .addCase(fetchHotelData.fulfilled, (state, action) => {
+      .addCase(fetchReviewsData.fulfilled, (state, action) => {
         state.isLoading = false
         state.data = action.payload
       })
-      .addCase(fetchHotelData.rejected, (state, action) => {
+      .addCase(fetchReviewsData.rejected, (state, action) => {
         state.isLoading = false
         state.isError = action.error.message
       })
   }
 })
 
-export default hotelSlice.reducer
+export default reviewsSlice.reducer

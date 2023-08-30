@@ -10,10 +10,10 @@ import 'swiper/css/scrollbar';
 import {useDispatch, useSelector} from "react-redux";
 import {
     fetchHousingData,
-    selectHotelData,
-    selectHotelError,
-    selectHotelLoadingStatus
-} from "../../../store/slice/hotelSlice";
+    selectHousingData,
+    selectHousingError,
+    selectHousingLoadingStatus
+} from "../../../store/slice/housingSlice";
 import HotelCard from "../HotelCard/HotelCard";
 
 SwiperCore.use([Navigation]);
@@ -21,9 +21,11 @@ SwiperCore.use([Navigation]);
 const HotelSwiper = ({}) => {
 
     const dispatch = useDispatch();
-    const hotelData = useSelector(selectHotelData);
-    const loading = useSelector(selectHotelLoadingStatus);
-    const error = useSelector(selectHotelError);
+    const hotelData = useSelector(selectHousingData);
+    const loading = useSelector(selectHousingLoadingStatus);
+    const error = useSelector(selectHousingError);
+
+    console.log(hotelData)
 
     const [slidesCount, setSlidesCount] = useState(0)
 
@@ -62,7 +64,7 @@ const HotelSwiper = ({}) => {
                 nextEl: '.swiper-button-next-hotel', prevEl: '.swiper-button-prev-hotel',
             }}
         >
-            {hotelData && hotelData.map((value, index, array) => {
+            {hotelData && hotelData.map((value, index) => {
                 return (<SwiperSlide>
                         <HotelCard
                             data={value}
