@@ -35,7 +35,7 @@ const Header = ({
     }, [pageType])
 
     return (
-        <div className="border-b-[1px] border-b-grey">
+        <div className="border-b-[1px] border-b-grey z-0">
             <div className="mx-auto w-[1240px]">
                 <div className="h-[100px] flex items-center justify-between">
                     <img src={logo} alt="Meyman"/>

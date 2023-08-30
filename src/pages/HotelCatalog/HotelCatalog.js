@@ -29,13 +29,20 @@ const HotelCatalog = () => {
     const [filterShow, setFilterShow] = useState(false)
     const [filters, setFilters] = useState({
         housing_type: '',
-        accommodation_type: '',
         food_type: '',
         stars: '',
         rating_range: '',
         free_internet: '',
+        gym: '',
+        bar: '',
+        restaurant: '',
+        airport_transfer: '',
         park: '',
-        pool: '' ,
+        pool: '',
+        spa_services: '',
+        room_service: '',
+        children_playground: '',
+
 
     })
 
