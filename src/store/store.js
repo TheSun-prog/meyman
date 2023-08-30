@@ -1,19 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-import hotelSlice, { fetchHousingData } from './slice/hotelSlice';
-import reservationsSlice from './slice/reservationsSlice';
-import availabilitySlice from "./slice/availabilitySlice";
-
-
+import hotelReducer, { fetchHousingData } from './slice/hotelSlice';
 
 const store = configureStore({
-    reducer: {
-        hotel: hotelSlice,
-        reservation: reservationsSlice,
-        availability: availabilitySlice
-    },
-    middleware: getDefaultMiddleware => getDefaultMiddleware()
-})
+  reducer: {
+    housing: hotelReducer,
+  },
+});
 
-export default store
 
+export default store;

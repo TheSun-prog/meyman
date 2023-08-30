@@ -2,7 +2,7 @@
 import React from "react";
 
 
-const ReviewCard = ({date, text}) => {
+const ReviewCard = () => {
 
 
     return (
@@ -14,9 +14,11 @@ const ReviewCard = ({date, text}) => {
         </div>
                     <p className="text-[18px]">William</p>
                 </div>
-                <p className="text-[16px]">{date}</p>
+                <p className="text-[16px]">24.07.2023</p>
             </div>
-            <p className="text-[16px]">{text}</p>
+            <p className="text-[16px]">Путешествия - это не только новые места, но <br/>и внутренние переживания.
+                Одна из самых <br/>ярких поездок в моей жизни была с <br/>сервисом "Meyman". Этот опыт
+                оказался <br/>идеальным во всех аспектах</p>
             <span className="text-[12px] absolute right-[40px] bottom-[25px] z-0">Еще....</span>
         </div>
 
