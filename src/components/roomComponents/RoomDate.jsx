@@ -5,7 +5,7 @@ import arrow from '../../assets/images/arrow2.svg'
 // icon
 import somIcon from '../../assets/images/som.svg'
 // ui
-import Button from '../../components/ui/Button/Button'
+import Button from '../ui/Button/Button'
 
 import { useState } from 'react'
 
@@ -27,6 +27,7 @@ const RoomDate = () => {
 
 
   return (
+    <ConfigProvider locale={ru_RU}>
     <div className="max-h-[325px] w-[473px] py-10 px-10 rounded-3xl border shadow-lg">
       <div className="flex items-center mb-7">
         <span className="text-[18px] mt-1 mr-1">От</span>
@@ -90,6 +91,7 @@ const RoomDate = () => {
       </div>
       <Button classes={'w-full py-[20px] mt-[25px]'}>Изменить</Button>
     </div>
+    </ConfigProvider>
   )
 }
 

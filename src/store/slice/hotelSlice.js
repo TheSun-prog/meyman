@@ -8,15 +8,14 @@ const initialState = {
 };
 
 export const fetchHousingData = createAsyncThunk('housing/fetchData', async ({limit, offset}) => {
-  const response = await axios.get('http://127.0.0.1:8000/housing/', {
-    headers: {
-    },
+  const response = await axios.get('http://meyman.tw1.ru/housing/', {
+
     params: {
       limit,
       offset,
     }
   });
-  console.log(response)
+
   return response.data;
 });
 
@@ -43,6 +42,6 @@ const hotelSlice = createSlice({
 
 export default hotelSlice.reducer;
 
-export const selectHotelData = (state) => state.housing.data?.results;
-export const selectHotelLoadingStatus = (state) => state.housing.loading;
-export const selectHotelError = (state) => state.housing.error;
+export const selectHotelData = (state) => state.hotel.data?.results;
+export const selectHotelLoadingStatus = (state) => state.hotel.loading;
+export const selectHotelError = (state) => state.hotel.error;

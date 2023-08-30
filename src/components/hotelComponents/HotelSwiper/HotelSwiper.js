@@ -20,6 +20,7 @@ SwiperCore.use([Navigation]);
 
 const HotelSwiper = ({}) => {
 
+
     const dispatch = useDispatch();
     const hotelData = useSelector(selectHotelData);
     const loading = useSelector(selectHotelLoadingStatus);
@@ -62,7 +63,7 @@ const HotelSwiper = ({}) => {
                 nextEl: '.swiper-button-next-hotel', prevEl: '.swiper-button-prev-hotel',
             }}
         >
-            {hotelData && hotelData.map((value, index, array) => {
+            {hotelData && hotelData.map((value, index) => {
                 return (<SwiperSlide>
                         <HotelCard
                             data={value}

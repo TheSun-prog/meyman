@@ -4,13 +4,11 @@ import Button from "../../components/ui/Button/Button";
 import React, {useEffect, useState} from "react";
 import HotelCard from "../../components/hotelComponents/HotelCard/HotelCard";
 import {
-    fetchHousingData,
-    selectHotelData,
-    selectHotelError,
-    selectHotelLoadingStatus
+    fetchHousingData, selectHotelData, selectHotelError, selectHotelLoadingStatus
 } from "../../store/slice/hotelSlice";
 import {useDispatch, useSelector} from "react-redux";
 import FilterModal from "../../components/hotelComponents/FilterModal/FilterModal";
+import {NavLink} from "react-router-dom";
 
 
 const HotelCatalog = () => {
@@ -46,8 +44,8 @@ const HotelCatalog = () => {
 
     })
 
-    return (
-        <>
+
+    return (<>
             <div className="bg-main bg-no-repeat bg-cover h-[550px]">
                 <div className="mx-auto w-[1240px] h-[100%] relative">
                     <div className="pt-[180px] flex flex-col gap-[50px]">
@@ -113,19 +111,18 @@ const HotelCatalog = () => {
             </div>
             <div className="mx-auto w-[1240px]">
                 <div className="pt-[80px] pb-[100px] flex flex-wrap gap-x-[95px] gap-y-[55px]">
-                    {hotelData && hotelData.map((value, index, array) => {
-                        return (
+                    {hotelData && hotelData.map((value, index) => {
+                        <NavLink key={index} to={`/hotelcatalog/${index}`} state={value}>
                             <HotelCard
                                 data={value}
-                                index={index}
                             />
-                        )
+                        </NavLink>
                     })}
                 </div>
             </div>
             {filterShow && <FilterModal/>}
-        </>
-    )
+
+        </>)
 }
 
 export default HotelCatalog
