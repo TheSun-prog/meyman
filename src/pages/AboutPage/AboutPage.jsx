@@ -4,10 +4,24 @@ import like from '../../assets/images/like.svg'
 import finger from '../../assets/images/finger.svg'
 import clock from '../../assets/images/clock.svg'
 import team from '../../assets/images/team.png'
+import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper";
+import Footer from "../../components/Base/Footer/Footer";
+import Header from "../../components/Base/Header/Header";
+import {useDispatch, useSelector} from "react-redux";
+import {setModalReview} from "../../store/slice/reviewSlice";
+import AddReview from "../../components/reviewComponents/AddReview/AddReview";
+
 
 const AboutPage = () => {
+    const { reviewModal } = useSelector(state => state.reviewSlice)
+    const dispatch = useDispatch()
+
+    console.log(reviewModal)
+
     return (
         <>
+            {reviewModal && <AddReview/>}
+            <Header/>
             <div className="bg-[url('/src/assets/images/mountains.png')] h-[690px] bg-cover bg-no-repeat ">
                 <div>
                     <div className="w-[1245px] m-auto flex justify-between ">
@@ -22,7 +36,7 @@ const AboutPage = () => {
                                 бронируя все, что вам нужно</p>
                         </div>
                         <div className="pt-[107px]">
-                            <img src={meyman} alt=""/>
+                            <img className="" src={meyman} alt=""/>
                         </div>
                     </div>
                 </div>
@@ -75,7 +89,21 @@ const AboutPage = () => {
                     </div>
                 </div>
             </div>
-
+            <div className="mx-auto w-[1240px] pt-[100px]">
+                <h5 className="text-center text-ot">Отзыв о сайте</h5>
+                <div className="pt-[80px]">
+                    <ReviewSwiper/>
+                    <div className="flex justify-end">
+                        <button
+                            className="rounded-[31px] border-blue border-[3px] flex px-[70px] py-[14px]"
+                            onClick={() => dispatch(setModalReview())}
+                        >
+                            Оставьте отзыв
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <Footer/>
         </>
 
     );
