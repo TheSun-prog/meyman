@@ -135,9 +135,6 @@ const Booking = () => {
     }
   }, [])
 
-  useEffect(() => {
-    console.log(initialDataForm);
-  }, [initialDataForm])
 
   return (
     <div className="mx-auto w-[1240px]">

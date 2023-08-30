@@ -1,9 +1,4 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-
-const HotelGrade = () => {
-  const { data } = useSelector(state => state.hotel);
-
+const HotelGrade = ({data, id}) => {
   const ratingFields = [
     { title: 'Чистота', key: 'cleanliness_rating' },
     { title: 'Комфорт', key: 'comfort_rating' },
@@ -14,7 +9,7 @@ const HotelGrade = () => {
   ];
 
   const calculateAverageRating = (fieldName) => {
-    const reviews = data?.reviews || []; // Ensure reviews array exists
+    const reviews = data?.results?.[id]?.reviews || []; // Ensure reviews array exists
     if (reviews.length === 0) {
       return 0; // Return 0 if there are no reviews
     }
@@ -29,7 +24,7 @@ const HotelGrade = () => {
     <div>
       <h2 className="text-[28px] mt-14">Отзывы</h2>
       <p className="text-[#666666] mb-[40px]">
-        Количество отзывов: {data?.reviews?.length}
+        Количество отзывов: {data?.results?.[id]?.reviews?.length}
       </p>
       <div className="flex justify-between">
         <div className="flex flex-col justify-between items-center">

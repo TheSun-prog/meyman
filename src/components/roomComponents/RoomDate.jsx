@@ -5,13 +5,15 @@ import ru_RU from 'antd/locale/ru_RU'
 import arrow from '../../assets/images/arrow2.svg'
 import { NavLink } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 // icon
 import somIcon from '../../assets/images/som.svg'
 // ui
 import Button from '../ui/Button/Button'
 
-const RoomDate = ({ roomId }) => {
+const RoomDate = ({data, roomId }) => {
+
+  const {hotelId} = useParams()
 
   function getFormattedDate() {
     const today = new Date();
@@ -41,8 +43,6 @@ const RoomDate = ({ roomId }) => {
       departure: getFormattedDateWithOffset(2)
     };
   });
-
-  const {data} = useSelector(state => state.hotel)
 
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
   const handleOpenChange = status => {
@@ -90,7 +90,7 @@ const RoomDate = ({ roomId }) => {
     <ConfigProvider locale={ru_RU}>
       <div className="max-h-[325px] w-[473px] py-10 px-10 rounded-3xl border shadow-lg">
         <div className="flex items-center mb-7">
-          <span className="text-[24px]">{data?.rooms?.[roomId]?.price_per_night}</span>
+          <span className="text-[24px]">{data?.results?.[hotelId]?.rooms?.[roomId]?.price_per_night}</span>
           <img src={somIcon} alt="somIcon" />
           <span className="text-[24px]">ночь</span>
         </div>

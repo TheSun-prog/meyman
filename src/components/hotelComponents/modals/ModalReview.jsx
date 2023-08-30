@@ -13,7 +13,7 @@ const ModalReview = ({ handleCLickCloseModal, data }) => {
 
   return (
     <ModalDefult
-      classes={'w-[634px]  !fixed'}
+      classes={'w-[634px] !fixed'}
       isBorder={false}
       handleCLickCloseModal={handleCLickCloseModal}
       isTitle={false}
