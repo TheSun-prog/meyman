@@ -43,7 +43,7 @@ const HotelPage = () => {
   }, [dispatch]);
 
   return (
-    <div className="mx-auto w-[1240px]">
+    <div className="mx-auto w-[1240px]" style={{fontFamily: 'Quicksand, sans-serif'}}>
       <div className="flex items-center mb-[50px] mt-[45px]">
         <Link to={"/"}>Главная</Link>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />

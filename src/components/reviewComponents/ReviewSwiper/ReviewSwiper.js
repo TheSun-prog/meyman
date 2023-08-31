@@ -54,7 +54,7 @@ const ReviewSwiper = ({data, id=0, handleClick}) => {
           );
         })}
       </Swiper>
-      <div className="flex gap-[50px] justify-center pt-[50px]">
+      {data?.results?.[id]?.reviews.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
         <img
           src={left}
           alt="left"
@@ -67,7 +67,7 @@ const ReviewSwiper = ({data, id=0, handleClick}) => {
           className="swiper-button-next-review"
           onClick={goNext}
         />
-      </div>
+      </div> : ''}
     </>
   );
 };

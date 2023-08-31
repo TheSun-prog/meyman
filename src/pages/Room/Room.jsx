@@ -30,7 +30,7 @@ const Room = () => {
 
   const { state } = useLocation();
 
-  const { data } = useSelector((state) => state.housing);
+  const { data, isLoading } = useSelector((state) => state.housing);
 
   const handleActiveModal = () => {
     setActiveModalAllPhotosRooms(true);
