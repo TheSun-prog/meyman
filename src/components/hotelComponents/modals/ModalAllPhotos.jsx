@@ -23,7 +23,7 @@ const ModalAllPhotos = ({data, id, handleCLickCloseModal }) => {
           onClick={() => {
             setActiveModal(false)
           }}
-          className="fixed h-[80vh] animate__animated animate__fadeIn flex justify-center items-center top-0 right-0 bottom-0 left-0 bg-neutral-950 bg-opacity-70"
+          className="fixed h-[100vh] animate__animated animate__fadeIn flex justify-center items-center top-0 right-0 bottom-0 left-0 bg-neutral-950 bg-opacity-70"
         >
           <img
             src={openImage}

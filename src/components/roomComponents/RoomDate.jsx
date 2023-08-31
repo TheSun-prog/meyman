@@ -11,9 +11,9 @@ import somIcon from '../../assets/images/som.svg'
 // ui
 import Button from '../ui/Button/Button'
 
-const RoomDate = ({data, roomId }) => {
+const RoomDate = ({data}) => {
 
-  const {hotelId} = useParams()
+  const {hotelId, roomId} = useParams()
 
   function getFormattedDate() {
     const today = new Date();
@@ -144,7 +144,7 @@ const RoomDate = ({data, roomId }) => {
             </div>
           </div>
         </div>
-        <NavLink to={`/hotelcatalog/${data.id}/${roomId}/booking`} state={initialData}>
+        <NavLink to={`/hotelcatalog/${hotelId}/${roomId}/booking`} state={initialData}>
           <Button classes={'w-full py-[20px] mt-[25px]'}>Забронировать</Button>
         </NavLink>
       </div>

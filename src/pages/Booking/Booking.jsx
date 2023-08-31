@@ -14,7 +14,7 @@ import ModalSuccess from '../../components/bookingComponents/modals/ModalSuccess
 import { NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchHotelData } from '../../store/slice/hotelSlice'
+import { fetchHousingData } from '../../store/slice/housingSlice'
 import { useParams, useLocation } from 'react-router-dom'
 import { Rating } from '@mui/material'
 // components
@@ -34,7 +34,7 @@ const Booking = () => {
   const { hotelId, roomId } = useParams()
 
   const dispatch = useDispatch()
-  const { data } = useSelector(state => state.hotel)
+  const { data } = useSelector(state => state.housing)
   const { state } = useLocation()
   const stars = data.stars ? data.stars : null
 
@@ -125,8 +125,8 @@ const Booking = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchHotelData(hotelId))
-  }, [])
+    dispatch(fetchHousingData({ limit: 12, offset: 0 }));
+  }, [dispatch]);
 
   useEffect(() => {
     const storedData = localStorage.getItem('bookingData')
@@ -134,7 +134,6 @@ const Booking = () => {
       setDate(JSON.parse(storedData))
     }
   }, [])
-
 
   return (
     <div className="mx-auto w-[1240px]">
@@ -149,30 +148,30 @@ const Booking = () => {
       </div>
       <div className="flex justify-between ">
         <div>
-          <div className="flex gap-[13px] justify-between h-[216px] w-[590px]">
+          <div className="flex gap-[13px] justify-between h-[216px] w-[650px]">
             <img
-              className="rounded-xl flex-1 "
-              src={data?.housing_images?.[0]?.image}
+              className="rounded-xl flex-1 object-cover"
+              src={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images?.[0]?.image}
               alt="hotelImg"
             />
             <div className="w-[288px] flex gap-[20px] flex-col">
-              <h3 className="font-medium text-[32px]">{data?.housing_name}</h3>
-              <Rating value={stars} readOnly />
+              <h3 className="font-medium text-[32px]">{data?.results?.[hotelId]?.housing_name}</h3>
+              <Rating value={data?.results?.[hotelId]?.stars} readOnly />
               <div className="flex items-center">
-                <div className="bg-[#FFC506] pr-[2px] rounded-full mr-[5px] w-[30px] h-[28px] text-center">
-                  <span className="text-white">{data?.average_rating}</span>
+                <div className="bg-[#FFC506] rounded-full mr-[5px] w-[30px] h-[28px] text-center">
+                  <span className="text-white">{data?.results?.[hotelId]?.average_rating}</span>
                 </div>
                 <span>
-                  {data.average_rating > 8
+                  {data?.results?.[hotelId]?.average_rating > 7
                     ? 'Замечательно'
-                    : data.average_rating > 6
+                    : data?.results?.[hotelId]?.average_rating > 5
                     ? 'Нормально'
-                    : 'Ниже среднего'}
+                    : 'Плохо'}
                 </span>
               </div>
               <div className="flex w-full">
                 <img src={placeIcon} alt="placeIcon" />
-                <span className="text-[22px] text-grey">{data?.address}</span>
+                <span className="text-[22px] text-grey">{data?.results?.[hotelId]?.address}</span>
               </div>
             </div>
           </div>
@@ -184,8 +183,8 @@ const Booking = () => {
                   {formatDateWithDayOfWeek(state.arrival)}
                 </p>
                 <p className="text-[16px]">
-                  Заезд с {data?.check_in_time_start} до{' '}
-                  {data?.check_in_time_end}
+                  Заезд с {data?.results?.[hotelId]?.check_in_time_start} до{' '}
+                  {data?.results?.[hotelId]?.check_in_time_end}
                 </p>
               </div>
               <div>
@@ -193,8 +192,8 @@ const Booking = () => {
                   {formatDateWithDayOfWeek(state.departure)}
                 </p>
                 <p className="text-[16px]">
-                  Заезд с {data?.check_out_time_start} до{' '}
-                  {data?.check_out_time_end}
+                  Заезд с {data?.results?.[hotelId]?.check_out_time_start} до{' '}
+                  {data?.results?.[hotelId]?.check_out_time_end}
                 </p>
               </div>
             </div>
@@ -203,28 +202,28 @@ const Booking = () => {
             <h2 className="text-[28px]">Номер:</h2>
             <RoomName
               classes={'!text-[20px] !font-[500]'}
-              bedType={data?.rooms?.[roomId]?.bed_type}
-              maxGuest={data?.rooms?.[roomId]?.max_guest_capacity}
+              bedType={data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type}
+              maxGuest={data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity}
             />
             <div className="flex mt-4">
               <img className="mr-2" src={persons} alt="persons" />
               <span className="text-[#666666] text-[18px]">
-                {data?.rooms?.[roomId]?.max_guest_capacity} гостей{' '}
-                <span>&#8226;</span> {data?.rooms?.[roomId]?.room_area}м 2
+                {data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity} гостей{' '}
+                <span>&#8226;</span> {data?.results?.[hotelId]?.rooms?.[roomId]?.room_area}м 2
               </span>
             </div>
             <div className="flex items-center">
               <img src={bed} alt="bed" />
               <span className="pl-2">
-                {Array.isArray(data?.rooms?.[roomId]?.bed_type) &&
-                data?.rooms?.[roomId]?.bed_type.includes('Односпальные') &&
-                data?.rooms?.[roomId]?.bed_type.includes('Двуспальная')
+                {Array.isArray(data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type) &&
+                data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type.includes('Односпальные') &&
+                data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type.includes('Двуспальная')
                   ? 'Односпальная и Двуспальная'
                   : 'Односпальная'}
               </span>
             </div>
             <ul className="flex flex-col flex-wrap w-[303px] h-[600px] mt-6">
-              {data?.rooms?.[roomId]?.room_amenities?.map((item, index) => (
+              {data?.results?.[hotelId]?.rooms?.[roomId]?.room_amenities?.map((item, index) => (
                 <li key={index} className="flex mb-[24px] w-full">
                   <div className="flex ">
                     <img
@@ -237,7 +236,7 @@ const Booking = () => {
                 </li>
               ))}
             </ul>
-            <h2 className="text-[28px] mb-[40px] mt-[80px]">
+            <h2 className="text-[28px] mb-[40px]">
               Контактные данные
             </h2>
             <div className="mb-[35px]">
@@ -299,7 +298,7 @@ const Booking = () => {
               {calculateDateDifference(state.arrival, state.departure)} дней
             </span>
             <span>
-              {data?.rooms?.[roomId]?.price_per_night *
+              {data?.results?.[hotelId]?.rooms?.[roomId]?.price_per_night *
                 calculateDateDifference(state.arrival, state.departure)}{' '}
               сом
             </span>
@@ -307,7 +306,7 @@ const Booking = () => {
           <div className="flex justify-between text-3xl items-center">
             <span className="">Итого</span>
             <span>
-              {data?.rooms?.[roomId]?.price_per_night *
+              {data?.results?.[hotelId]?.rooms?.[roomId]?.price_per_night *
                 calculateDateDifference(state.arrival, state.departure)}{' '}
               сом
             </span>
