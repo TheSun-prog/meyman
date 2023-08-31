@@ -47,6 +47,14 @@ const HotelPage = () => {
     setIsModalOpen(false)
   }
 
+  const handleOkImages = () => {
+    setActiveModalImages(false)
+  }
+
+  const handleCancelImages = () => {
+    setActiveModalImages(false)
+  }
+
   useEffect(() => {
     dispatch(fetchHousingData({ limit: 12, offset: 0 }))
   }, [dispatch])
@@ -132,15 +140,18 @@ const HotelPage = () => {
           }}
         />
       )}
-      {activeModalALlImages && (
+      
         <ModalAllPhotos
+          isOpen={activeModalALlImages}
+          handleOk={handleOkImages}
+          handleCancel={handleCancelImages}
           data={data}
           id={hotelId}
           handleCLickCloseModal={() => {
             setActiveModalImages(false)
           }}
         />
-      )}
+      
       {modalFilteredRoom && (
         <ModalFilteredRooms
           handleCLickCloseModal={() => {

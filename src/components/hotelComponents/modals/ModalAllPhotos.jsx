@@ -1,8 +1,9 @@
 import ModalDefault from './ModalDefault'
 import { useState } from 'react'
 import 'animate.css'
+import { Modal } from 'antd'
 
-const ModalAllPhotos = ({data, id, handleCLickCloseModal }) => {
+const ModalAllPhotos = ({isOpen, handleOk, handleCancel, data, id, handleCLickCloseModal }) => {
   const [openImage, setOpenImage] = useState('')
   const [activeModal, setActiveModal] = useState(false)
 
@@ -12,7 +13,11 @@ const ModalAllPhotos = ({data, id, handleCLickCloseModal }) => {
   }
 
   return (
-    <ModalDefault
+    <Modal
+      open={isOpen}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      footer={null}
       isTitle={false}
       classes={'!fixed w-1/3 !py-0 h-[80vh] overflow-x-hidden overflow-auto'}
       isBorder={false}
@@ -47,7 +52,7 @@ const ModalAllPhotos = ({data, id, handleCLickCloseModal }) => {
           </div>
         </div>
       </div>
-    </ModalDefault>
+    </Modal>
   )
 }
 
