@@ -2,19 +2,15 @@ import { Modal } from 'antd'
 import HotelSendReview from '../HotelSendReview/HotelSendReview'
 import { Rate } from 'antd/lib'
 import geo from '../../../assets/images/place.svg'
-import { useState } from 'react'
+import TextArea from 'antd/es/input/TextArea'
+import Button from '../../ui/Button/Button'
+import { useEffect, useState } from 'react'
 
-const ModalSendReview = ({data, hotelId, showModal, setIsModalOpen}) => {
+const ModalSendReview = ({isOpen, handleOk, handleCancel, data, hotelId }) => {
 
-  //const [isModalOpen, setIsModalOpen] = useState(false)
-  
-  const handleOk = () => {
-    setIsModalOpen(false)
-  }
+  const [textAreaValue, setTextAreaValue] = useState('')
 
-  const handleCancel = () => {
-    setIsModalOpen(false)
-  }
+  const [rate, setRate] = useState('')
 
   const customIcons = {
     1: <HotelSendReview num={1}/>,
@@ -29,13 +25,18 @@ const ModalSendReview = ({data, hotelId, showModal, setIsModalOpen}) => {
     10: <HotelSendReview num={10}/>,
   };
 
+  useEffect(() => {
+    console.log(rate);
+  }, [rate])
+
   return (
     <Modal
-      open={showModal}
+      open={isOpen}
       onOk={handleOk}
       onCancel={handleCancel}
       footer={null}
       width={725}
+      style={{borderRadius: '20px'}}
     >
       <h2 className="text-center text-[28px] border-b">Отзывы</h2>
       <div className="flex gap-[27px] mt-[40px]">
@@ -58,8 +59,18 @@ const ModalSendReview = ({data, hotelId, showModal, setIsModalOpen}) => {
         </div>
       </div>
       <div className="mt-[40px]">
-        <div>
+        <div className='mb-[40px]'>
           <h3 className="text-[22px]">Как все прошло?</h3>
+          <p className="text-[#1164B4] text-[18px] mb-[12px]">Замечательно</p>
+          <Rate
+            count={10}
+            style={{ fontSize: '22px', color: '#1164B4' }}
+            character={({ index }) => customIcons[index + 1]}
+            onChange={(num) => {setRate(num)}}
+          />
+        </div>
+        <div className='mb-[40px]'>
+          <h3 className="text-[22px]">Насколько вам понравился персонал?</h3>
           <p className="text-[#1164B4] text-[18px] mb-[12px]">Замечательно</p>
           <Rate
             count={10}
@@ -67,6 +78,55 @@ const ModalSendReview = ({data, hotelId, showModal, setIsModalOpen}) => {
             character={({ index }) => customIcons[index + 1]}
           />
         </div>
+        <div className='mb-[40px]'>
+          <h3 className="text-[22px]">Было ли вам комфортно в нашем отеле?</h3>
+          <p className="text-[#1164B4] text-[18px] mb-[12px]">Замечательно</p>
+          <Rate
+            count={10}
+            style={{ fontSize: '22px', color: '#1164B4' }}
+            character={({ index }) => customIcons[index + 1]}
+          />
+        </div>
+        <div className='mb-[40px]'>
+          <h3 className="text-[22px]">Довольны ли вы уровнем чистоты в отеле?</h3>
+          <p className="text-[#1164B4] text-[18px] mb-[12px]">Замечательно</p>
+          <Rate
+            count={10}
+            style={{ fontSize: '22px', color: '#1164B4' }}
+            character={({ index }) => customIcons[index + 1]}
+          />
+        </div>
+        <div className='mb-[40px]'>
+          <h3 className="text-[22px]">Вас утроило соотношение цены и качества?</h3>
+          <p className="text-[#1164B4] text-[18px] mb-[12px]">Замечательно</p>
+          <Rate
+            count={10}
+            style={{ fontSize: '22px', color: '#1164B4' }}
+            character={({ index }) => customIcons[index + 1]}
+          />
+        </div>
+        <div className='mb-[40px]'>
+          <h3 className="text-[22px]">Вам понравилось питание в нашем отеле?</h3>
+          <p className="text-[#1164B4] text-[18px] mb-[12px]">Замечательно</p>
+          <Rate
+            count={10}
+            style={{ fontSize: '22px', color: '#1164B4' }}
+            character={({ index }) => customIcons[index + 1]}
+          />
+        </div>
+        <div className='mb-[40px]'>
+          <h3 className="text-[22px]">Вас утроило месторасположение отеля?</h3>
+          <p className="text-[#1164B4] text-[18px] mb-[12px]">Замечательно</p>
+          <Rate
+            count={10}
+            style={{ fontSize: '22px', color: '#1164B4' }}
+            character={({ index }) => customIcons[index + 1]}
+          />
+        </div>
+        <h3 className="text-[22px] mb-[20px] mt-[40px]">Пожалуйста, оставьте ваш комментарий:</h3>
+        <TextArea onChange={(e) => {setTextAreaValue(e.target.value)}} value={textAreaValue} style={{borderRadius: '27px', border: '2px solid #787878'}} autoSize={{ minRows: 6, maxRows: 12 }} maxLength={500} placeholder='Напишите ваш комментарий '/>
+        <span className='block mb-[40px]'>Символов: {textAreaValue.length} из 500</span>
+        <Button classes={'py-[20px] w-full mb-[60px]'}>Отправить</Button>
       </div>
     </Modal>
   )
