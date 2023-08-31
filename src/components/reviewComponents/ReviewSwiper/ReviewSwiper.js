@@ -12,7 +12,7 @@ import ReviewCard from "../ReviewCard/ReviewCard";
 
 SwiperCore.use([Navigation]);
 
-const ReviewSwiper = ({data, id, handleClick}) => {
+const ReviewSwiper = ({data, id=0, handleClick}) => {
   const swiperRef = React.useRef(null);
 
   const goNext = () => {

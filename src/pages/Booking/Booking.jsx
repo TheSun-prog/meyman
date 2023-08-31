@@ -20,15 +20,20 @@ import { Rating } from '@mui/material'
 // components
 import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
 import roomIcons from '../Room/roomIcon'
-import { Modal } from 'antd'
 
 const Booking = () => {
   const [activeModal, setActiveModal] = useState(false)
   const [date, setDate] = useState()
+  const [nameErrorInput, setNameErrorInput] = useState(false)
+  const [emailErrorInput, setEmailErrorInput] = useState(false)
+  const [phoneErrorInput, setPhoneErrorInput] = useState(false)
   const [initialDataForm, setInitialDataForm] = useState({
     name: '',
+    nameErrorPlaceHolder: 'Введите ваше имя и фамилию',
     email: '',
-    phone: ''
+    emailErrorPlaceHolder: 'Введите ваш электронный адрес',
+    phone: '',
+    phoneErrorPlaceHolder: '+996 000 000 000'
   })
 
   const { hotelId, roomId } = useParams()
@@ -36,20 +41,21 @@ const Booking = () => {
   const dispatch = useDispatch()
   const { data } = useSelector(state => state.housing)
   const { state } = useLocation()
-  const stars = data.stars ? data.stars : null
-
-  const warning = () => {
-    Modal.warning({
-      title: 'Все поля должны быть заполнены',
-      autoFocusButton: true,
-      centered: true,
-      keyboard: true,
-      maskClosable: true
-    })
-  }
+  const stars = data?.results?.[hotelId]?.stars
+    ? data?.results?.[hotelId]?.stars
+    : null
 
   const handleNameChange = event => {
     const { value } = event.target
+
+    if (initialDataForm.name !== '') {
+      setNameErrorInput(false)
+      setInitialDataForm(prevState => ({
+        ...prevState,
+        nameErrorPlaceHolder: 'Введите ваше имя и фамилию'
+      }))
+    }
+
     setInitialDataForm(prevState => ({
       ...prevState,
       name: value
@@ -58,6 +64,15 @@ const Booking = () => {
 
   const handleEmailChange = event => {
     const { value } = event.target
+
+    if (initialDataForm.email !== '') {
+      setEmailErrorInput(false)
+      setInitialDataForm(prevState => ({
+        ...prevState,
+        emailErrorPlaceHolder: 'Введите ваш электронный адрес'
+      }))
+    }
+
     setInitialDataForm(prevState => ({
       ...prevState,
       email: value
@@ -66,6 +81,15 @@ const Booking = () => {
 
   const handlePhoneChange = event => {
     const { value } = event.target
+
+    if (initialDataForm.phone !== '') {
+      setPhoneErrorInput(false)
+      setInitialDataForm(prevState => ({
+        ...prevState,
+        phoneErrorPlaceHolder: '+996 000 000 000'
+      }))
+    }
+
     setInitialDataForm(prevState => ({
       ...prevState,
       phone: value
@@ -120,13 +144,59 @@ const Booking = () => {
   }
 
   const handleClickBooking = () => {
-    warning()
-    return
+    // Регулярное выражение для проверки имени и фамилии с пробелом между ними
+    const nameRegex = /^[A-Za-zА-Яа-я]{2,} [A-Za-zА-Яа-я]{2,}$/
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    const phoneRegex = /^\+\d{3}[- ]?\d{3}[- ]?\d{3}[- ]?\d{3}$/;
+
+    if (nameRegex.test(initialDataForm.name)) {
+      // Если формат имени и фамилии верен, выполните необходимые действия при бронировании
+    } else {
+      // Если формат не соблюдается, покажите сообщение об ошибке
+      setInitialDataForm(prevState => ({
+        ...prevState,
+        name: '',
+        nameErrorPlaceHolder: 'Не корректно введены данные'
+      }))
+      setNameErrorInput(true)
+    }
+
+    if (emailRegex.test(initialDataForm.email)) {
+      // Если формат имени и фамилии верен, выполните необходимые действия при бронировании
+    } else {
+      // Если формат не соблюдается, покажите сообщение об ошибке
+      setInitialDataForm(prevState => ({
+        ...prevState,
+        email: '',
+        emailErrorPlaceHolder: 'Не корректно введена почта'
+      }))
+      setEmailErrorInput(true)
+    }
+
+    if (phoneRegex.test(initialDataForm.phone)) {
+      // Если формат имени и фамилии верен, выполните необходимые действия при бронировании
+    } else {
+      // Если формат не соблюдается, покажите сообщение об ошибке
+      setInitialDataForm(prevState => ({
+        ...prevState,
+        phone: '',
+        phoneErrorPlaceHolder: 'Не корректно введен номер телефона'
+      }))
+      setPhoneErrorInput(true)
+    }
+
+    if (
+      nameRegex.test(initialDataForm.name) &&
+      emailRegex.test(initialDataForm.email) &&
+      phoneRegex.test(initialDataForm.phone)
+    ) {
+      setActiveModal(true)
+    }
   }
 
   useEffect(() => {
-    dispatch(fetchHousingData({ limit: 12, offset: 0 }));
-  }, [dispatch]);
+    dispatch(fetchHousingData({ limit: 12, offset: 0 }))
+  }, [dispatch])
 
   useEffect(() => {
     const storedData = localStorage.getItem('bookingData')
@@ -137,12 +207,12 @@ const Booking = () => {
 
   return (
     <div className="mx-auto w-[1240px]">
-      <div className="flex items-center mb-[50px]">
+      <div className="flex items-center mb-[50px] mt-[45px]">
         <NavLink to={'/'}>Главная</NavLink>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
-        <NavLink to={'/hotelcatalog/hotel'}>Отель</NavLink>
+        <NavLink to={`/hotelcatalog/${hotelId}`}>Отель</NavLink>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
-        <NavLink to={'hotelcatalog/hotel/room'}>Номер</NavLink>
+        <NavLink to={`/hotelcatalog/${hotelId}/${roomId}`}>Номер</NavLink>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
         Бронирование
       </div>
@@ -151,15 +221,22 @@ const Booking = () => {
           <div className="flex gap-[13px] justify-between h-[216px] w-[650px]">
             <img
               className="rounded-xl flex-1 object-cover"
-              src={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images?.[0]?.image}
+              src={
+                data?.results?.[hotelId]?.rooms?.[roomId]?.room_images?.[0]
+                  ?.image
+              }
               alt="hotelImg"
             />
-            <div className="w-[288px] flex gap-[20px] flex-col">
-              <h3 className="font-medium text-[32px]">{data?.results?.[hotelId]?.housing_name}</h3>
-              <Rating value={data?.results?.[hotelId]?.stars} readOnly />
+            <div className="w-[350px] flex gap-[20px] flex-col">
+              <h3 className="font-medium text-[32px]">
+                {data?.results?.[hotelId]?.housing_name}
+              </h3>
+              <Rating value={stars} readOnly />
               <div className="flex items-center">
                 <div className="bg-[#FFC506] rounded-full mr-[5px] w-[30px] h-[28px] text-center">
-                  <span className="text-white">{data?.results?.[hotelId]?.average_rating}</span>
+                  <span className="text-white">
+                    {data?.results?.[hotelId]?.average_rating}
+                  </span>
                 </div>
                 <span>
                   {data?.results?.[hotelId]?.average_rating > 7
@@ -171,7 +248,9 @@ const Booking = () => {
               </div>
               <div className="flex w-full">
                 <img src={placeIcon} alt="placeIcon" />
-                <span className="text-[22px] text-grey">{data?.results?.[hotelId]?.address}</span>
+                <span className="text-[22px] text-grey">
+                  {data?.results?.[hotelId]?.address}
+                </span>
               </div>
             </div>
           </div>
@@ -203,45 +282,54 @@ const Booking = () => {
             <RoomName
               classes={'!text-[20px] !font-[500]'}
               bedType={data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type}
-              maxGuest={data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity}
+              maxGuest={
+                data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity
+              }
             />
             <div className="flex mt-4">
               <img className="mr-2" src={persons} alt="persons" />
               <span className="text-[#666666] text-[18px]">
-                {data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity} гостей{' '}
-                <span>&#8226;</span> {data?.results?.[hotelId]?.rooms?.[roomId]?.room_area}м 2
+                {data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity}{' '}
+                гостей <span>&#8226;</span>{' '}
+                {data?.results?.[hotelId]?.rooms?.[roomId]?.room_area}м 2
               </span>
             </div>
             <div className="flex items-center">
               <img src={bed} alt="bed" />
               <span className="pl-2">
-                {Array.isArray(data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type) &&
-                data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type.includes('Односпальные') &&
-                data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type.includes('Двуспальная')
+                {Array.isArray(
+                  data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type
+                ) &&
+                data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type.includes(
+                  'Односпальные'
+                ) &&
+                data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type.includes(
+                  'Двуспальная'
+                )
                   ? 'Односпальная и Двуспальная'
                   : 'Односпальная'}
               </span>
             </div>
-            <ul className="flex flex-col flex-wrap w-[303px] h-[600px] mt-6">
-              {data?.results?.[hotelId]?.rooms?.[roomId]?.room_amenities?.map((item, index) => (
-                <li key={index} className="flex mb-[24px] w-full">
-                  <div className="flex ">
-                    <img
-                      className="mr-[14px]"
-                      src={roomIcons[item]}
-                      alt="wifiIcon"
-                    />
-                    <span className="text-[22px]">{item}</span>
-                  </div>
-                </li>
-              ))}
+            <ul className="flex flex-col flex-wrap w-[303px] min-h-[350px] mt-6">
+              {data?.results?.[hotelId]?.rooms?.[roomId]?.room_amenities?.map(
+                (item, index) => (
+                  <li key={index} className="flex mb-[24px] w-full">
+                    <div className="flex ">
+                      <img
+                        className="mr-[14px]"
+                        src={roomIcons[item]}
+                        alt="wifiIcon"
+                      />
+                      <span className="text-[22px]">{item}</span>
+                    </div>
+                  </li>
+                )
+              )}
             </ul>
-            <h2 className="text-[28px] mb-[40px]">
-              Контактные данные
-            </h2>
+            <h2 className="text-[28px] mb-[40px]">Контактные данные</h2>
             <div className="mb-[35px]">
               <h3 className="text-[24px]">Гость</h3>
-              <p className="text-[#A1A1A1] text[20px]">
+              <p className="text-[#A1A1A1] text[20px] ">
                 Взрослый на которого оформляется бронь
               </p>
             </div>
@@ -252,8 +340,9 @@ const Booking = () => {
                   id="name"
                   value={initialDataForm.name}
                   onChange={handleNameChange}
-                  classes="w-[520px]"
-                  text={'Введите свое имя и фамилию'}
+                  isError={nameErrorInput}
+                  classes={`w-[520px]`}
+                  text={initialDataForm.nameErrorPlaceHolder}
                 />
               </div>
               <div className="mb-[30px]">
@@ -262,9 +351,10 @@ const Booking = () => {
                   id="email"
                   value={initialDataForm.email}
                   type="email"
+                  isError={emailErrorInput}
                   onChange={handleEmailChange}
-                  classes="w-[520px]"
-                  text={'Введите свой адрес электронной почты'}
+                  classes="w-[520px] placeholder:text-red-700"
+                  text={initialDataForm.emailErrorPlaceHolder}
                 />
               </div>
               <div className="mb-[30px]">
@@ -273,9 +363,10 @@ const Booking = () => {
                   id="phone"
                   value={initialDataForm.phone}
                   type="tel"
+                  isError={phoneErrorInput}
                   onChange={handlePhoneChange}
                   classes="w-[520px]"
-                  text={'+996 000 000 000'}
+                  text={initialDataForm.phoneErrorPlaceHolder}
                 />
               </div>
             </form>

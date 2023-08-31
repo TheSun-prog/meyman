@@ -116,7 +116,7 @@ const HotelCatalog = () => {
           {hotelData &&
             hotelData.map((value, index, array) => {
               return (
-                <NavLink to={`/hotelcatalog/${index}`}>
+                <NavLink key={index} to={`/hotelcatalog/${index}`}>
                   <HotelCard data={value} index={index} />
                 </NavLink>
               );

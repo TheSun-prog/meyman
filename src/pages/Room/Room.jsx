@@ -42,10 +42,10 @@ const Room = () => {
 
   return (
     <div className="mx-auto w-[1240px] min-h-screen">
-      <div className="flex items-center mb-[50px]">
+      <div className="flex items-center mb-[50px] mt-[45px]">
         <NavLink to={"/"}>Главная</NavLink>
         <img className="-rotate-90 h-4" src={arrow2} alt="arrow" />
-        <NavLink to={`/hotelcatalog/${data.id}`}>Отель</NavLink>
+        <NavLink to={`/hotelcatalog/${hotelId}`}>Отель</NavLink>
         <img className="-rotate-90 h-4" src={arrow2} alt="arrow" />
         Номер
       </div>

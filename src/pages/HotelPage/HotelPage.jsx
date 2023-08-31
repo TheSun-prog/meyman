@@ -44,10 +44,10 @@ const HotelPage = () => {
 
   return (
     <div className="mx-auto w-[1240px]">
-      <div className="flex items-center mb-[50px]">
+      <div className="flex items-center mb-[50px] mt-[45px]">
         <Link to={"/"}>Главная</Link>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
-        <Link to={"/hotelcatalog/hotel"}>Отель</Link>
+        <Link to={`/hotelcatalog/${hotelId}`}>Отель</Link>
       </div>
       <div>
         <HotelName data={data} id={hotelId} />

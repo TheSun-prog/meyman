@@ -15,10 +15,11 @@ import {
   selectHousingLoadingStatus,
 } from "../../../store/slice/housingSlice";
 import HotelCard from "../HotelCard/HotelCard";
+import { NavLink, useParams } from "react-router-dom";
 
 SwiperCore.use([Navigation]);
 
-const HotelSwiper = ({}) => {
+const HotelSwiper = ({ }) => {
   const dispatch = useDispatch();
   const hotelData = useSelector(selectHousingData);
   const loading = useSelector(selectHousingLoadingStatus);
@@ -26,11 +27,13 @@ const HotelSwiper = ({}) => {
 
   const [slidesCount, setSlidesCount] = useState(0);
 
+  const { hotelId } = useParams()
+
   useEffect(() => {
     try {
       if (hotelData.length > 3) setSlidesCount(3.23);
       else setSlidesCount(hotelData.length);
-    } catch (e) {}
+    } catch (e) { }
   }, [hotelData]);
 
   useEffect(() => {
@@ -65,7 +68,9 @@ const HotelSwiper = ({}) => {
           hotelData.map((value, index) => {
             return (
               <SwiperSlide key={index}>
-                <HotelCard data={value} index={index} />
+                <NavLink to={`/hotelcatalog/${index}`}>
+                  <HotelCard data={value} index={index} />
+                </NavLink>
               </SwiperSlide>
             );
           })}

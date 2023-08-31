@@ -1,5 +1,5 @@
 // React module
-import {useState} from "react";
+import { useEffect, useState } from "react";
 
 // images
 import hotelIcon from '../../assets/images/hotel-icon.svg'
@@ -14,12 +14,15 @@ import talas from '../../assets/images/talas.png'
 import naryn from '../../assets/images/naryn.png'
 import HotelSwiper from "../../components/hotelComponents/HotelSwiper/HotelSwiper";
 import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper";
-import {NavLink} from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchHousingData } from "../../store/slice/housingSlice";
 
 const Mainpage = () => {
 
     const [activeSearch, setActiveSearch] = useState('hotel')
+    const { data } = useSelector(state => state.housing)
+    const dispatch = useDispatch()
 
     const regions = [
         {
@@ -52,6 +55,9 @@ const Mainpage = () => {
         }
     ]
 
+    useEffect(() => {
+        dispatch(fetchHousingData({ limit: 12, offset: 0 }));
+    }, [dispatch]);
 
     return (
         <>
@@ -122,8 +128,8 @@ const Mainpage = () => {
                         className="absolute left-0 bottom-[-80px] w-[100%] h-[164px] bg-blue rounded-[30px] flex items-center justify-center px-[10px]">
                         <p className="text-[20px] text-center text-white">
                             Добро пожаловать на нашу многофункциональную онлайн-платформу для бронирования
-                            размещения, <br/>транспорта. Полная организация вашего путешествия в одном месте. Просто,
-                            гибко и удобно. Путешествуйте с <br/>уверенностью, заранее бронируя все, что вам нужно
+                            размещения, <br />транспорта. Полная организация вашего путешествия в одном месте. Просто,
+                            гибко и удобно. Путешествуйте с <br />уверенностью, заранее бронируя все, что вам нужно
                         </p>
                     </div>
                 </div>
@@ -155,14 +161,14 @@ const Mainpage = () => {
                 <div className="flex flex-col gap-[40px] items-center">
                     <p className="text-[28px] pb-[40px]">Рекомендации</p>
                 </div>
-                <HotelSwiper/>
+                <HotelSwiper />
             </div>
 
             <div className="mx-auto w-[1240px] py-[100px]">
                 <div className="flex flex-col gap-[40px] items-center">
                     <p className="text-[28px] pb-[40px]">Отзывы о сайте</p>
                 </div>
-                <ReviewSwiper/>
+                <ReviewSwiper data={data} />
             </div>
 
         </>
