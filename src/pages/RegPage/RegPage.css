@@ -6,7 +6,6 @@ body {
 }
 
 
-
 .signIn {
     font-weight: 400;
     font-size: 24px;
@@ -22,7 +21,8 @@ body {
 
 .Login {
     width: 600px;
-    height: 778px;
+    /*height: 778px;*/
+    height: fit-content;
     top: 123px;
     padding: 40px 35px;
     box-shadow: 0 9px 16px 2px #00000040;
@@ -57,5 +57,29 @@ body {
     top: 30.5px
 }
 
+.formInput {
+    padding: 14px 25px;
+    border-radius: 34px;
+    outline: none;
+    border: 2px solid #A1A1A1;
+}
 
+.errorMessage {
+    color: #c92828;
+    gap: 0;
+}
 
+.inputBoxes {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 18px;
+}
+
+.passwordIcon {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    width: 30px;
+}

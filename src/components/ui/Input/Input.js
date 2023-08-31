@@ -8,7 +8,8 @@ const Input = ({
                    text,
                    isError,
                    classes,
-                   handleIsError=() => {}
+                   handleIsError=() => {},
+                   handleChange
                }) => {
 
     const styleNotError = 'border-grey outline-black text-black placeholder:text-grey'

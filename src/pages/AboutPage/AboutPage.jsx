@@ -1,20 +1,21 @@
-import React from 'react';
+import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper"
+import AddReview from "../../components/reviewComponents/AddReview/AddReview"
+import {setModalReview} from "../../store/slice/reviewSlice"
+import Header from "../../components/Base/Header/Header"
+import Footer from "../../components/Base/Footer/Footer"
+import {useDispatch, useSelector} from "react-redux"
 import meyman from '../../assets/images/meyman.png'
-import like from '../../assets/images/like.svg'
 import finger from '../../assets/images/finger.svg'
 import clock from '../../assets/images/clock.svg'
 import team from '../../assets/images/team.png'
-import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper";
-import Footer from "../../components/Base/Footer/Footer";
-import Header from "../../components/Base/Header/Header";
-import {useDispatch, useSelector} from "react-redux";
-import {setModalReview} from "../../store/slice/reviewSlice";
-import AddReview from "../../components/reviewComponents/AddReview/AddReview";
+import like from '../../assets/images/like.svg'
+import {useNavigate} from "react-router-dom"
+import React from 'react'
 
 
 const AboutPage = () => {
     const { reviewModal } = useSelector(state => state.reviewSlice)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch(), navigate = useNavigate()
 
     console.log(reviewModal)
 
@@ -106,7 +107,7 @@ const AboutPage = () => {
             <Footer/>
         </>
 
-    );
-};
+    )
+}
 
-export default AboutPage;
+export default AboutPage

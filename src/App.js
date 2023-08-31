@@ -13,12 +13,27 @@ import AuthPage from "./pages/AuthPage/AuthPage";
 import RegPage from "./pages/RegPage/RegPage";
 import ConfirmCode from "./pages/ConfirmCodePage/ConfirmCode";
 import AboutPage from "./pages/AboutPage/AboutPage";
+import Header from "./components/Base/Header/Header";
 
 
 function App() {
     return (
         <>
-            <AboutPage/>
+            {/*<AboutPage/>*/}
+
+            {/*<AuthPage/>*/}
+
+            {/*<ConfirmCode/>*/}
+
+            {/*<RegPage/>*/}
+
+            <Routes>
+                <Route path={'/'} element={<AboutPage/>}/>
+                <Route path={'/register'} element={<RegPage/>}/>
+                <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
+                <Route path={'/auth'} element={<AuthPage/>}/>
+            </Routes>
+
             {/*<Routes>*/}
             {/*    <Route path='/' element={<Layout/>}>*/}
             {/*        <Route path="/" element={<Mainpage/>}/>*/}

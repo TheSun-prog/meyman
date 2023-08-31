@@ -5,13 +5,20 @@ import "./AuthPage.css"
 import Input from "../../components/ui/Input/Input";
 import Button from "../../components/ui/Button/Button";
 import Google from "../../assets/images/google.svg"
+import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
+
 
 const AuthPage = () => {
+    const dispatch = useDispatch(), navigate = useNavigate()
+
     return (
         <>
             <div>
                 <span className="flex justify-self-star t ">
-                    <a href=""><img src={back} alt=""/></a>
+                    <a href="" onClick={() => navigate('/')}>
+                        <img src={back} alt=""/>
+                    </a>
                 </span>
                 <span className="flex justify-center"><img className="justify-self-center" src={logo} alt=""/></span>
             </div>
@@ -21,7 +28,10 @@ const AuthPage = () => {
                         <p className="signIn">Войти</p>
                         <div className="flex flex-col gap-[10px]">
                             <label htmlFor="email">Адрес Электронной почты</label>
-                            <Input type="email" text={"Введите адрес электронной почты"}/>
+                            <Input
+                                type="email"
+                                text={"Введите адрес электронной почты"}
+                            />
                         </div>
                         <div className="flex flex-col gap-[10px] pt-[18px]">
                             <label htmlFor="password">Пароль</label>
