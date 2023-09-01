@@ -4,6 +4,7 @@ import { Modal } from 'antd'
 import clear from '../../../assets/images/clear.svg'
 
 const ModalAllRooms = ({ isOpen, handleOk, handleCancel, data, id }) => {
+
   return (
     <Modal
       open={isOpen}
@@ -25,9 +26,10 @@ const ModalAllRooms = ({ isOpen, handleOk, handleCancel, data, id }) => {
         <div className="flex flex-wrap justify-center gap-[18px] w-[940px] ">
           {data?.results?.[id]?.rooms?.map((room, index) => (
             <NavLink
-              key={index}
-              to={`/hotelcatalog/:hotelId/${index}`}
+              key={room.id}
+              to={`/hotelcatalog/${id}/${index}`}
               state={room}
+              className={'hover:text-black'}
             >
               <HotelRoomsCard
                 img={room.room_images[0].image}

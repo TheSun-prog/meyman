@@ -284,13 +284,14 @@ const Booking = () => {
           </div>
           <div className="mt-5">
             <h2 className="text-[28px]">Номер:</h2>
-            <RoomName
+            {/* <RoomName
               classes={'!text-[20px] !font-[500]'}
               bedType={data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type}
               maxGuest={
                 data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity
               }
-            />
+            /> */}
+            <h1 className='text-[32px] font-[500]'>{data?.results?.[hotelId]?.rooms?.[roomId]?.room_name}</h1>
             <div className="flex mt-4">
               <img className="mr-2" src={persons} alt="persons" />
               <span className="text-[#666666] text-[18px]">
@@ -315,7 +316,7 @@ const Booking = () => {
                   : 'Односпальная'}
               </span>
             </div>
-            <ul className="flex flex-col flex-wrap w-[303px] min-h-[350px] mt-6">
+            <ul className="flex flex-col flex-wrap w-[303px] max-h-[650px] min-h-[350px] mt-6">
               {data?.results?.[hotelId]?.rooms?.[roomId]?.room_amenities?.map(
                 (item, index) => (
                   <li key={index} className="flex mb-[24px] w-full">

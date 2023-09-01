@@ -1,30 +1,29 @@
 import clear from '../../../assets/images/clear.svg'
-import wifi from '../../../assets/images/wifi.svg'
+import wifiIcon from '../../../assets/images/wifi.svg'
 import bar from '../../../assets/images/bar.svg'
 import transfer from '../../../assets/images/transfer.svg'
 import parking from '../../../assets/images/parking.svg'
 import dish from '../../../assets/images/dish.svg'
 import pool from '../../../assets/images/pool.svg'
 import spa from '../../../assets/images/spa.svg'
+import gym from '../../../assets/images/gym.svg'
+import playground from '../../../assets/images/children-play.svg'
+import car from '../../../assets/images/car-rental.svg'
 import { Modal } from 'antd'
 
 const Services = ({ isOpen, handleOk, handleCancel, data, id }) => {
   const amenities = [
-    { key: 'free_internet', icon: wifi, label: 'Бесплатный Интернет' },
-    { key: 'restaurant', icon: bar, label: 'Ресторан' },
-    { key: 'park', icon: parking, label: 'Парковка' },
-    {
-      key: 'airport_transfer',
-      icon: transfer,
-      label: 'Трансфер от/до аэропорта'
-    }
-  ]
-
-  const services = [
-    { key: 'spa_services', icon: spa, label: 'Спа услуги' },
-    { key: 'bar', icon: bar, label: 'Бар' },
-    { key: 'pool', icon: pool, label: 'Бассейн' },
-    { key: 'room_service', icon: dish, label: 'Обслуживание номеров' }
+  { key: 'free_internet', icon: wifiIcon, text: 'Бесплатный интернет' },
+  { key: 'bar', icon: bar, text: 'Бар/ресторан' },
+  { key: 'airport_transfer', icon: transfer, text: 'Трансфер от/до аэропорта' },
+  { key: 'park', icon: parking, text: 'Парковка', additionalText: 'Платно' },
+  { key: 'pool', icon: pool, text: 'Бассейн' },
+  { key: 'spa', icon: spa, text: 'Спа услуги' },
+  { key: 'room_service', icon: dish, text: 'Обслуживание номеров' },
+  { key: 'restaurant', icon: bar, text: 'Ресторан' },
+  { key: 'gym', icon: gym, text: 'Спорт зал'},
+  { key: 'children_playground', icon: playground, text: 'Детская площадка'},
+  { key: 'car_rental', icon: car, text: 'Аренда машины'}
   ]
 
   return (
@@ -47,34 +46,21 @@ const Services = ({ isOpen, handleOk, handleCancel, data, id }) => {
           />
           <h2 className="text-[24px]">Удобства и услуги отеля</h2>
         </div>
-        <div className="flex justify-between px-[64px] pt-[55px]">
-          <ul className="flex flex-col gap-[40px]">
-            {amenities.map(
-              item =>
-                data?.results?.[id]?.[item.key] && (
-                  <li className="relative flex" key={item.key}>
-                    <img src={item.icon} alt={item.label} />
-                    <span className="ml-2 text-2xl">{item.label}</span>
-                  </li>
-                )
-            )}
-          </ul>
-          <ul className="flex flex-col gap-[40px]">
-            {services.map(
-              item =>
-                data?.results?.[id]?.[item.key] && (
-                  <li className="relative flex" key={item.key}>
-                    <img src={item.icon} alt={item.label} />
-                    <span className="ml-2 text-2xl">{item.label}</span>
-                  </li>
-                )
-            )}
-          </ul>
-        </div>
-        <div className="flex justify-between mt-[40px] px-[64px]">
+        <ul className="flex flex-col flex-wrap gap-[40px] px-[64px] h-[244px] mt-[40px]">
+          {amenities.map(
+            item =>
+              data?.results?.[id]?.[item.key] && (
+                <li className="relative flex items-center" key={item.key}>
+                  <img src={item.icon} alt={item.label} className='h-[24px] w-[24px]'/>
+                  <span className="ml-2 text-2xl">{item.text}</span>
+                </li>
+              )
+          )}
+        </ul>
+        <div className="flex flex-col flex-wrap h-[527px] px-[64px] justify-between mt-[40px] ">
           <div className="text-[18px]">
             <h4 className="text-[22px] mb-[20px]">Услуги</h4>
-            <ul className="flex flex-col gap-[20px] mb-[40px]">
+            <ul className="flex text-[18px] flex-col gap-[20px] mb-[40px]">
               <li>Химчистка</li>
               <li>Прачечная</li>
               <li>Уборка номеров</li>
@@ -90,7 +76,7 @@ const Services = ({ isOpen, handleOk, handleCancel, data, id }) => {
           </div>
           <div>
             <h4 className="text-[22px] mb-[20px]">Красота и здоровье</h4>
-            <ul className="flex flex-col gap-[20px] mb-[40px]">
+            <ul className="flex text-[18px] flex-col gap-[20px] mb-[40px]">
               <li>Массаж</li>
               <li>Джакузи</li>
               <li>Сауна</li>
@@ -98,7 +84,7 @@ const Services = ({ isOpen, handleOk, handleCancel, data, id }) => {
               <li>Спортивный зал</li>
             </ul>
             <h4 className="text-[22px] mb-[20px]">Интернет</h4>
-            <ul className="flex flex-col gap-[20px] mb-[40px]">
+            <ul className="flex flex-col text-[18px] gap-[20px] mb-[40px]">
               <li>Доступ в интернет:в номерах</li>
               <li>Доступ в интернет:на всей территории отеля</li>
             </ul>

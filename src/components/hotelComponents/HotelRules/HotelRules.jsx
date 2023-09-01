@@ -6,8 +6,11 @@ import parking from '../../../assets/images/parking.svg'
 import pool from '../../../assets/images/pool.svg'
 import spa from '../../../assets/images/spa.svg'
 import dish from '../../../assets/images/dish.svg'
-import arrow from '../../../assets/images/arrow.svg'
+import gym from '../../../assets/images/gym.svg'
+import playground from '../../../assets/images/children-play.svg'
+import car from '../../../assets/images/car-rental.svg'
 
+import arrow from '../../../assets/images/arrow.svg'
 // ui
 import Button from '../../ui/Button/Button'
 
@@ -20,6 +23,9 @@ const amenitiesData = [
   { key: 'spa', icon: spa, text: 'Спа услуги' },
   { key: 'room_service', icon: dish, text: 'Обслуживание номеров' },
   { key: 'restaurant', icon: bar, text: 'Ресторан' },
+  { key: 'gym', icon: gym, text: 'Спорт зал'},
+  { key: 'children_playground', icon: playground, text: 'Детская площадка'},
+  { key: 'car_rental', icon: car, text: 'Аренда машины'}
 ];
 
 const HotelRules = ({data, id, handleClickModal }) => {

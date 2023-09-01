@@ -29,7 +29,7 @@ const Room = () => {
 
   const { hotelId, roomId } = useParams()
 
-  const { data, isLoading } = useSelector(state => state.housing)
+  const { data } = useSelector(state => state.housing)
 
   const handleActiveModal = () => {
     setActiveModalAllPhotosRooms(true)
@@ -59,13 +59,14 @@ const Room = () => {
       <div>
         <div className="flex justify-between">
           <div>
-            <RoomName
+            {/* <RoomName
               classes={'text-[32px] font-[500]'}
               bedType={data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type}
               maxGuest={
                 data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity
               }
-            />
+            /> */}
+            <h1 className='text-[32px] font-[500]'>{data?.results?.[hotelId]?.rooms?.[roomId]?.room_name}</h1>
             <div className="flex">
               <img src={placeIcon} alt="placeIcon" />
               <span className="text-2xl text-grey">
