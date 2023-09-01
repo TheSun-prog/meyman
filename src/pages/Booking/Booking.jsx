@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchHousingData } from '../../store/slice/housingSlice'
 import { useParams, useLocation } from 'react-router-dom'
 import { Rating } from '@mui/material'
+import "animate.css"
 // components
 import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
 import roomIcons from '../Room/roomIcon'
@@ -345,7 +346,7 @@ const Booking = () => {
                   value={initialDataForm.name}
                   onChange={handleNameChange}
                   isError={nameErrorInput}
-                  classes={`w-[520px]`}
+                  classes={`w-[520px] ${nameErrorInput ? 'animate__animated animate__headShake' : ''}`}
                   text={initialDataForm.nameErrorPlaceHolder}
                 />
               </div>
@@ -357,7 +358,7 @@ const Booking = () => {
                   type="email"
                   isError={emailErrorInput}
                   onChange={handleEmailChange}
-                  classes="w-[520px] placeholder:text-red-700"
+                  classes={`w-[520px] ${emailErrorInput ? 'animate__animated animate__headShake' : ''}`}
                   text={initialDataForm.emailErrorPlaceHolder}
                 />
               </div>
@@ -369,7 +370,7 @@ const Booking = () => {
                   type="tel"
                   isError={phoneErrorInput}
                   onChange={handlePhoneChange}
-                  classes="w-[520px]"
+                  classes={`w-[520px] ${phoneErrorInput ? 'animate__animated animate__headShake' : ''}`}
                   text={initialDataForm.phoneErrorPlaceHolder}
                 />
               </div>
