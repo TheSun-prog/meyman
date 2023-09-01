@@ -32,12 +32,13 @@ const ModalAllPhotos = ({ isOpen, handleOk, handleCancel, data, id }) => {
         footer={null}
         closeIcon={false}
         centered={true}
-        className="!w-[550px]"
+        className="!w-[80vw]"
       >
         <img
+          onClick={closeModal}
           src={openImage}
           alt="openImage"
-          className="!w-[550px] h-[420px] mx-auto rounded-2xl"
+          className="!w-[80vw] h-[85vh] object-cover mx-auto rounded-2xl shadow-xl"
         />
       </Modal>
       <img
