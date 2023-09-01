@@ -35,9 +35,9 @@ const Services = ({ isOpen, handleOk, handleCancel, data, id }) => {
       footer={null}
       closeIcon={false}
       width={957}
-      bodyStyle={{ padding: '20px , 10px' }}
+      bodyStyle={{ padding: '20px , 10px', paddingTop: '25px' }}
     >
-      <div className="=">
+      <div className="">
         <div className="flex justify-center items-center border-b  w-full pb-6">
           <img
             onClick={handleCancel}

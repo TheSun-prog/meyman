@@ -259,7 +259,7 @@ const Booking = () => {
               </div>
             </div>
           </div>
-          <div className="flex mt-6">
+          <div className="flex mt-20">
             <img className="mr-2 mb-4" src={calendar} alt="calendar" />
             <div className="flex">
               <div className="mr-[20px]">
