@@ -38,6 +38,10 @@ const Booking = () => {
 
   const { hotelId, roomId } = useParams()
 
+  const handleCloseSuccess = () => {
+    setActiveModal(false)
+  }
+
   const dispatch = useDispatch()
   const { data } = useSelector(state => state.housing)
   const { state } = useLocation()
@@ -147,7 +151,7 @@ const Booking = () => {
     // Регулярное выражение для проверки имени и фамилии с пробелом между ними
     const nameRegex = /^[A-Za-zА-Яа-я]{2,} [A-Za-zА-Яа-я]{2,}$/
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const phoneRegex = /^\+\d{3}[- ]?\d{3}[- ]?\d{3}[- ]?\d{3}$/;
+    const phoneRegex = /^\+\d{3}[- ]?\d{3}[- ]?\d{3}[- ]?\d{3}$/
 
     if (nameRegex.test(initialDataForm.name)) {
       // Если формат имени и фамилии верен, выполните необходимые действия при бронировании
@@ -407,16 +411,11 @@ const Booking = () => {
           </Button>
         </div>
       </div>
-      {activeModal && (
-        <ModalSuccess
-          handleSuccessClick={() => {
-            setActiveModal(false)
-          }}
-          handleCLickCloseModal={() => {
-            setActiveModal(false)
-          }}
-        />
-      )}
+      <ModalSuccess
+        isOpen={activeModal}
+        handleOk={handleCloseSuccess}
+        handleCancel={handleCloseSuccess}
+      />
     </div>
   )
 }

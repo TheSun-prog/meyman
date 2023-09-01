@@ -1,49 +1,56 @@
 // icons
-import placeIcon from "../../assets/images/place.svg";
-import whatsAppIcon from "../../assets/images/whats-app.svg";
-import heartIcon from "../../assets/images/heart.svg";
-import done from "../../assets/images/done.svg";
-import dish from "../../assets/images/dish-green.svg";
-import arrow from "../../assets/images/arrow.svg";
-import arrow2 from "../../assets/images/arrow2.svg";
+import placeIcon from '../../assets/images/place.svg'
+import whatsAppIcon from '../../assets/images/whats-app.svg'
+import heartIcon from '../../assets/images/heart.svg'
+import done from '../../assets/images/done.svg'
+import dish from '../../assets/images/dish-green.svg'
+import arrow from '../../assets/images/arrow.svg'
+import arrow2 from '../../assets/images/arrow2.svg'
 // ui
-import Button from "../../components/ui/Button/Button";
-import ModalAllPhotosRooms from "../../components/roomComponents/modals/ModalAllPhotosRooms";
-import ModalAllServices from "../../components/roomComponents/modals/ModalAllServices";
-import RoomName from "../../components/hotelComponents/HotelRooms/RoomName";
+import Button from '../../components/ui/Button/Button'
+import ModalAllServices from '../../components/roomComponents/modals/ModalAllServices'
+import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
 // react
-import { useEffect, useState } from "react";
-import { useLocation, NavLink, useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchHousingData } from "../../store/slice/housingSlice";
+import { useEffect, useState } from 'react'
+import { NavLink, useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchHousingData } from '../../store/slice/housingSlice'
 // components
-import roomIcons from "./roomIcon";
-import RoomDate from "../../components/roomComponents/RoomDate";
+import roomIcons from './roomIcon'
+import RoomDate from '../../components/roomComponents/RoomDate'
+import ModalAllPhotos from '../../components/hotelComponents/modals/ModalAllPhotos'
 
 const Room = () => {
-  const [activeModalAllPhotosRooms, setActiveModalAllPhotosRooms] = useState(false);
-  const [activeModalALlServices, setActiveModalAllServices] = useState(false);
+  const [activeModalAllPhotosRooms, setActiveModalAllPhotosRooms] =
+    useState(false)
+  const [activeModalALlServices, setActiveModalAllServices] = useState(false)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const { hotelId, roomId } = useParams();
+  const { hotelId, roomId } = useParams()
 
-  const { state } = useLocation();
-
-  const { data, isLoading } = useSelector((state) => state.housing);
+  const { data, isLoading } = useSelector(state => state.housing)
 
   const handleActiveModal = () => {
-    setActiveModalAllPhotosRooms(true);
-  };
+    setActiveModalAllPhotosRooms(true)
+  }
+
+  const handleCloseAllPhotosModal = () => {
+    setActiveModalAllPhotosRooms(false)
+  }
+
+  const handleCloseAllServicesModal = () => {
+    setActiveModalAllServices(false)
+  }
 
   useEffect(() => {
-    dispatch(fetchHousingData({ limit: 12, offset: 0 }));
-  }, [dispatch]);
+    dispatch(fetchHousingData({ limit: 12, offset: 0 }))
+  }, [dispatch])
 
   return (
     <div className="mx-auto w-[1240px] min-h-screen">
       <div className="flex items-center mb-[50px] mt-[45px]">
-        <NavLink to={"/"}>Главная</NavLink>
+        <NavLink to={'/'}>Главная</NavLink>
         <img className="-rotate-90 h-4" src={arrow2} alt="arrow" />
         <NavLink to={`/hotelcatalog/${hotelId}`}>Отель</NavLink>
         <img className="-rotate-90 h-4" src={arrow2} alt="arrow" />
@@ -53,13 +60,17 @@ const Room = () => {
         <div className="flex justify-between">
           <div>
             <RoomName
-              classes={"text-[32px] font-[500]"}
+              classes={'text-[32px] font-[500]'}
               bedType={data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type}
-              maxGuest={data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity}
+              maxGuest={
+                data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity
+              }
             />
             <div className="flex">
               <img src={placeIcon} alt="placeIcon" />
-              <span className="text-2xl text-grey">{data?.results?.[hotelId]?.address}</span>
+              <span className="text-2xl text-grey">
+                {data?.results?.[hotelId]?.address}
+              </span>
             </div>
           </div>
           <div className="flex">
@@ -74,7 +85,9 @@ const Room = () => {
           <div>
             <img
               className="rounded-l-2xl h-[500px] w-[490px] object-cover"
-              src={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[0]?.image}
+              src={
+                data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[0]?.image
+              }
               alt="hotelImg"
             />
           </div>
@@ -82,24 +95,36 @@ const Room = () => {
             <div className="flex justify-between gap-[10px] mb-[10px]">
               <img
                 className="w-[365px] h-[245px] object-cover"
-                src={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[1]?.image}
+                src={
+                  data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[1]
+                    ?.image
+                }
                 alt="hotelImg2"
               />
               <img
                 className="w-[365px] h-[245px] rounded-tr-2xl object-cover"
-                src={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[2]?.image}
+                src={
+                  data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[2]
+                    ?.image
+                }
                 alt="hotelImg2"
               />
             </div>
             <div className="flex gap-[10px] relative">
               <img
                 className="w-[365px] h-[245px] object-cover"
-                src={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[3]?.image}
+                src={
+                  data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[3]
+                    ?.image
+                }
                 alt="hotelImg2"
               />
               <img
                 className="w-[365px] h-[245px] rounded-br-2xl object-cover"
-                src={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[4]?.image}
+                src={
+                  data?.results?.[hotelId]?.rooms?.[roomId]?.room_images[4]
+                    ?.image
+                }
                 alt="hotelImg2"
               />
             </div>
@@ -112,7 +137,7 @@ const Room = () => {
               <div className="flex">
                 <img className="mr-2" src={done} alt="done" />
                 <span className="text-[#59A859]">
-                  Бесплатная отмена в любое время{" "}
+                  Бесплатная отмена в любое время{' '}
                 </span>
               </div>
               <div className="flex">
@@ -158,9 +183,9 @@ const Room = () => {
               </ul>
               <Button
                 clickFunc={() => {
-                  setActiveModalAllServices(true);
+                  setActiveModalAllServices(true)
                 }}
-                classes={"py-2 px-3"}
+                classes={'py-2 px-3'}
               >
                 Показать все Удобства <img src={arrow} alt="arrow" />
               </Button>
@@ -169,24 +194,21 @@ const Room = () => {
           <RoomDate data={data} roomId={roomId} />
         </div>
       </div>
-      {activeModalAllPhotosRooms && (
-        <ModalAllPhotosRooms
-          images={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images}
-          handleCLickCloseModal={() => {
-            setActiveModalAllPhotosRooms(false);
-          }}
+      <ModalAllPhotos
+        isOpen={activeModalAllPhotosRooms}
+        handleOk={handleCloseAllPhotosModal}
+        handleCancel={handleCloseAllPhotosModal}
+        data={data?.results?.[hotelId]?.rooms?.[roomId]?.room_images}
+        id={hotelId}
+      />
+      <ModalAllServices
+        isOpen={activeModalALlServices}
+        handleOk={handleCloseAllServicesModal}
+        handleCancel={handleCloseAllServicesModal}
+        amenities={data?.results?.[hotelId]?.rooms?.[roomId]?.room_amenities}
         />
-      )}
-      {activeModalALlServices && (
-        <ModalAllServices
-          amenities={data?.results?.[hotelId]?.rooms?.[roomId]?.room_amenities}
-          handleCLickCloseModal={() => {
-            setActiveModalAllServices(false);
-          }}
-        />
-      )}
     </div>
-  );
-};
+  )
+}
 
-export default Room;
+export default Room

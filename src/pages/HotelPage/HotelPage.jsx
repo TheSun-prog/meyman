@@ -1,6 +1,5 @@
 // icons
 import arrow from '../../assets/images/arrow2.svg'
-import geo from '../../assets/images/place.svg'
 // components
 import HotelName from '../../components/hotelComponents/HotelName/HotelName'
 import HotelImages from '../../components/hotelComponents/HotelImages/HotelImages'
@@ -14,45 +13,50 @@ import ModalAllPhotos from '../../components/hotelComponents/modals/ModalAllPhot
 import HotelDate from '../../components/hotelComponents/HotelDate/HotelDate'
 import ModalFilteredRooms from '../../components/hotelComponents/modals/ModalFilteredRooms'
 import ModalServices from '../../components/hotelComponents/modals/ModalServices'
+import Button from '../../components/ui/Button/Button'
+import ModalSendReview from '../../components/hotelComponents/modals/ModalSendReview'
 // modules
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { fetchHousingData } from '../../store/slice/housingSlice'
-import Button from '../../components/ui/Button/Button'
-import ModalSendReview from '../../components/hotelComponents/modals/ModalSendReview'
 
 const HotelPage = () => {
   const [activeModalReview, setActiveModalReview] = useState(false)
   const [activeModalAllRooms, setActiveModalAllRooms] = useState(false)
   const [activeModalALlImages, setActiveModalImages] = useState(false)
-  const [modalFilteredRoom, setModalFilteredRoom] = useState(false)
+  const [activeModalFilteredRoom, setActiveModalFilteredRoom] = useState(false)
   const [activeModalServices, setActiveModalServices] = useState(false)
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [activeModalSendReview, setModalSendReview] = useState(false)
   const [reviewData, setReviewData] = useState()
+
   const dispatch = useDispatch()
   const { data, isError } = useSelector(state => state.housing)
   const { hotelId } = useParams()
 
-  const openModalFilteredRoom = () => {
-    setModalFilteredRoom(true)
-  }
-
-  const handleOk = () => {
-    setIsModalOpen(false)
-  }
-  const handleCancel = () => {
-    setIsModalOpen(false)
-  }
-
-  const handleOkImages = () => {
-    setActiveModalImages(false)
+  const handleCancelSendReview = () => {
+    setModalSendReview(false)
   }
 
   const handleCancelImages = () => {
     setActiveModalImages(false)
+  }
+
+  const handleCancelServices = () => {
+    setActiveModalServices(false)
+  }
+
+  const handleCancelAllRooms = () => {
+    setActiveModalAllRooms(false)
+  }
+
+  const handleCancelReview = () => {
+    setActiveModalReview(false)
+  }
+
+  const handleCancelFilteredRoom = () => {
+    setActiveModalFilteredRoom(false)
   }
 
   useEffect(() => {
@@ -93,7 +97,9 @@ const HotelPage = () => {
           <HotelDate
             data={data}
             id={hotelId}
-            openModalFilteredRoom={openModalFilteredRoom}
+            openModalFilteredRoom={() => {
+              setActiveModalFilteredRoom(true)
+            }}
           />
         </div>
         <HotelRooms
@@ -114,7 +120,7 @@ const HotelPage = () => {
         />
         <Button
           clickFunc={() => {
-            setIsModalOpen(true)
+            setModalSendReview(true)
           }}
           classes={
             'bg-transparent !text-black !border-[#1164B4] border-[3px] py-[14px] px-[70px] text-[18px] ml-auto shadow-xl'
@@ -123,55 +129,42 @@ const HotelPage = () => {
           Оставьте отзыв
         </Button>
       </div>
-      {activeModalReview && (
-        <ModalReview
-          data={reviewData}
-          handleCLickCloseModal={() => {
-            setActiveModalReview(false)
-          }}
-        />
-      )}
-      {activeModalAllRooms && (
-        <ModalAllRooms
-          data={data}
-          id={hotelId}
-          handleCLickCloseModal={() => {
-            setActiveModalAllRooms(false)
-          }}
-        />
-      )}
-      
-        <ModalAllPhotos
-          isOpen={activeModalALlImages}
-          handleOk={handleOkImages}
-          handleCancel={handleCancelImages}
-          data={data}
-          id={hotelId}
-          handleCLickCloseModal={() => {
-            setActiveModalImages(false)
-          }}
-        />
-      
-      {modalFilteredRoom && (
-        <ModalFilteredRooms
-          handleCLickCloseModal={() => {
-            setModalFilteredRoom(false)
-          }}
-        />
-      )}
-      {activeModalServices && (
-        <ModalServices
-          data={data}
-          id={hotelId}
-          handleCLickCloseModal={() => {
-            setActiveModalServices(false)
-          }}
-        />
-      )}
+      <ModalReview
+        isOpen={activeModalReview}
+        handleOk={handleCancelReview}
+        handleCancel={handleCancelReview}
+        data={reviewData}
+      />
+      <ModalAllRooms
+        isOpen={activeModalAllRooms}
+        handleOk={handleCancelAllRooms}
+        handleCancel={handleCancelAllRooms}
+        data={data}
+        id={hotelId}
+      />
+      <ModalAllPhotos
+        isOpen={activeModalALlImages}
+        handleOk={handleCancelImages}
+        handleCancel={handleCancelImages}
+        data={data?.results?.[hotelId]?.housing_images}
+        id={hotelId}
+      />
+      <ModalFilteredRooms
+        isOpen={activeModalFilteredRoom}
+        handleOk={handleCancelFilteredRoom}
+        handleCancel={handleCancelFilteredRoom}
+      />
+      <ModalServices
+        isOpen={activeModalServices}
+        handleOk={handleCancelServices}
+        handleCancel={handleCancelServices}
+        data={data}
+        id={hotelId}
+      />
       <ModalSendReview
-        isOpen={isModalOpen}
-        handleOk={handleOk}
-        handleCancel={handleCancel}
+        isOpen={activeModalSendReview}
+        handleOk={handleCancelSendReview}
+        handleCancel={handleCancelSendReview}
         data={data}
         hotelId={hotelId}
       />

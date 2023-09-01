@@ -1,9 +1,8 @@
-import ModalDefault from './ModalDefault'
 import { useState } from 'react'
-import 'animate.css'
 import { Modal } from 'antd'
+import close from '../../../assets/images/arrow2.svg'
 
-const ModalAllPhotos = ({isOpen, handleOk, handleCancel, data, id, handleCLickCloseModal }) => {
+const ModalAllPhotos = ({ isOpen, handleOk, handleCancel, data, id }) => {
   const [openImage, setOpenImage] = useState('')
   const [activeModal, setActiveModal] = useState(false)
 
@@ -12,35 +11,45 @@ const ModalAllPhotos = ({isOpen, handleOk, handleCancel, data, id, handleCLickCl
     setOpenImage(e.target.src)
   }
 
+  const closeModal = () => {
+    setActiveModal(false)
+  }
+
   return (
     <Modal
       open={isOpen}
       onOk={handleOk}
       onCancel={handleCancel}
       footer={null}
-      isTitle={false}
-      classes={'!fixed w-1/3 !py-0 h-[80vh] overflow-x-hidden overflow-auto'}
-      isBorder={false}
-      handleCLickCloseModal={handleCLickCloseModal}
+      closeIcon={false}
+      bodyStyle={{ padding: '20px' }}
+      width={720}
     >
-      {activeModal && (
-        <div
-          onClick={() => {
-            setActiveModal(false)
-          }}
-          className="fixed h-[100vh] animate__animated animate__fadeIn flex justify-center items-center top-0 right-0 bottom-0 left-0 bg-neutral-950 bg-opacity-70"
-        >
-          <img
-            src={openImage}
-            alt="openImage"
-            className="w-[400px] h-[320px] rounded-2xl"
-          />
-        </div>
-      )}
+      <Modal
+        open={activeModal}
+        onOk={closeModal}
+        onCancel={closeModal}
+        footer={null}
+        closeIcon={false}
+        centered={true}
+        className="!w-[550px]"
+      >
+        <img
+          src={openImage}
+          alt="openImage"
+          className="!w-[550px] h-[420px] mx-auto rounded-2xl"
+        />
+      </Modal>
+      <img
+        onClick={handleCancel}
+        className="absolute cursor-pointer left-5 rotate-90"
+        src={close}
+        alt="clear"
+      />
       <div className="flex justify-center gap-5 mt-10">
         <div className="flex flex-col ">
           <div className="flex flex-wrap justify-center gap-2 mb-[10px]">
-            {data?.results?.[id]?.housing_images.map(img => (
+            {data?.map(img => (
               <img
                 key={img.id}
                 onClick={handleOpenImage}

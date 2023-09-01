@@ -26,6 +26,11 @@ input[type=password]::-ms-reveal, input[type=password]::-ms-clear {
     border-radius: 45px;
 }
 
+.ant-modal-content {
+    padding: 0 !important;
+    border-radius: 45px;
+}
+
 
 @tailwind base;
 @tailwind components;
