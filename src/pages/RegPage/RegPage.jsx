@@ -37,15 +37,13 @@ const RegPage = () => {
             passRegExp.test(password) && nameRegExp.test(name)
         ) {
             const userData = {email: email, username: name, user_type: 'client', password: password}
-            console.log(userData)
+            console.log(userData) // Собираем обьект из инпутов и передаем его в запрос
             localStorage.setItem('userData', JSON.stringify(userData))
             dispatch(asyncSignUp({ userData }))
             setEmail('')
             setName('')
             setPassword('')
             setPassword2('')
-            status && status === 'Created' && navigate('/confirmCode')
-            navigate('/confirmCode')
         }
         if (!gmailRegExp.test(email)) setEmailError(true)
         if (!nameRegExp.test(name)) setNameError(true)
@@ -53,15 +51,22 @@ const RegPage = () => {
         if (password !== password2) setPassConfirmError(true)
     }
 
+    // Функции для смены видимости пароля
     const handlePassShow1 = () => setPassShow1(passShow1 => passShow1 = !passShow1)
     const handlePassShow2 = () => setPassShow2(passShow2 => passShow2 = !passShow2)
 
-    nameError && setTimeout(() => setNameError(false), 10000)
-    passError && setTimeout(() => setPassError(false), 10000)
-    emailError && setTimeout(() => setEmailError(false), 10000)
-    passConfirmError && setTimeout(() => setPassConfirmError(false), 10000)
+    // Убираем ошибки которые вышли через 8 секунд
+    nameError && setTimeout(() => setNameError(false), 8000)
+    passError && setTimeout(() => setPassError(false), 8000)
+    emailError && setTimeout(() => setEmailError(false), 8000)
+    passConfirmError && setTimeout(() => setPassConfirmError(false), 8000)
 
-    status && status === 'Created' && navigate('/confirmCode')
+    // Если запрос успешен то перекидываем в страницу Confirm
+    useEffect(() => {
+        if (status) {
+            navigate('/confirmCode')
+        }
+    }, [status])
 
     return (
         <>

@@ -58,9 +58,7 @@ const handleTokenRefreshError = () => {
 
 const selectToken = async (response) => {
     const token = getToken()
-    token
-        ? setToken(response.data?.access)
-        : sessionStorage.setItem('tokenSession', response.data?.access)
+    token ? setToken(response.data?.access) : sessionStorage.setItem('tokenSession', response.data?.access)
 }
 
 $authApi.interceptors.request.use(authInterceptor)

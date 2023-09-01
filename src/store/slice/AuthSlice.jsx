@@ -2,16 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { $authApi, $mainApi } from '../../axios/axios'
 import decode from 'jwt-decode'
 
-
+// ЗАПРОС ДЛЯ РЕГИСАТРЦИИ ( СОЗДАНИЕ АККАУНТА )
 export const asyncSignUp = createAsyncThunk(
     'AuthSlice/asyncSignUp', async ({ userData }) => {
         try {
             const response = await $mainApi.post(`/api/users/signup/`, userData)
             console.log(response)
-
-            if (response?.status === 200 && response?.status === 201) {
-                console.log(response?.statusText)
-                return await response?.statusText
+            if (response.status >= 200 && response.status <=204) {
+                return response.data
+            }
+            else {
+                throw Error(`Error: ${response.status}`)
             }
         }
         catch (error){
@@ -21,7 +22,7 @@ export const asyncSignUp = createAsyncThunk(
     }
 )
 
-
+// ЗАПРОС ДЛЯ ПОДТВЕРЖДЕНИЯ КОДА && ЗАПРОС НА ВХОД В АККАУНТ
 export const asyncConfirmCode = createAsyncThunk(
     'AuthSlice/asyncConfirmCode', async ({ code, user }) => {
         try {
@@ -43,6 +44,15 @@ export const asyncConfirmCode = createAsyncThunk(
 
             const response2 = await $authApi.post(`/api/users/verify/`, form2)
             console.log(response2)
+
+            if (response.status >= 200 && response.status <=204 &&
+                response2.status >= 200 && response2.status <=204)
+            {
+                return response.data
+            }
+            else {
+                throw Error(`Error: ${response.status}`)
+            }
         }
         catch (error){
             console.error(error)
@@ -56,7 +66,9 @@ const AuthSlice = createSlice({
     name: 'AuthSlice',
     initialState: {
         status: '',
-        error: ''
+        error: '',
+        status2: '',
+        error2: ''
     },
     reducers: {
         setStatus: (state, action) => {
@@ -68,13 +80,19 @@ const AuthSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            // SIGN UP
             .addCase(asyncSignUp.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.status = action.payload
             })
             .addCase(asyncSignUp.rejected, (state, action) => {
-                console.log(action.payload)
-                state.status = action.payload
+                state.error = action.payload
+            })
+            // CONFIRM CODE
+            .addCase(asyncConfirmCode.fulfilled, (state, action) => {
+                state.status2 = action.payload
+            })
+            .addCase(asyncConfirmCode.rejected, (state, action) => {
+                state.error2 = action.payload
             })
     }
 })

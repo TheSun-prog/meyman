@@ -5,11 +5,12 @@ import React, {useEffect, useState} from 'react'
 import logo from '../../assets/images/logo.svg'
 import lock from '../../assets/images/lock.svg'
 import {useNavigate} from "react-router-dom"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import './ConfirmCode.css'
 
 
 const ConfirmCode = () => {
+    const { status2, error2 } = useSelector(state => state.authSlice)
     const dispatch = useDispatch(), navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem('userData'))
     const [ codeError, setCodeError ] = useState(false)
@@ -32,6 +33,13 @@ const ConfirmCode = () => {
     }
 
     codeError && setTimeout(() => setCodeError(false), 6500)
+
+    useEffect(() => {
+        if (status2) {
+            navigate('/')
+            alert('REGISTER DONE!!!')
+        }
+    }, [status2])
 
     useEffect(() => {
         console.log(user)

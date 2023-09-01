@@ -22,7 +22,7 @@ const AboutPage = () => {
     return (
         <>
             {reviewModal && <AddReview/>}
-            <Header/>
+            {/*<Header/>*/}
             <div className="bg-[url('/src/assets/images/mountains.png')] h-[690px] bg-cover bg-no-repeat ">
                 <div>
                     <div className="w-[1245px] m-auto flex justify-between ">
@@ -104,7 +104,7 @@ const AboutPage = () => {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            {/*<Footer/>*/}
         </>
 
     )

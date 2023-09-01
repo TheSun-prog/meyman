@@ -14,24 +14,21 @@ import RegPage from "./pages/RegPage/RegPage";
 import ConfirmCode from "./pages/ConfirmCodePage/ConfirmCode";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import Header from "./components/Base/Header/Header";
+import ScrollToTop from "./components/Base/ScrollToTop/ScrollToTop";
 
 
 function App() {
     return (
         <>
-            {/*<AboutPage/>*/}
-
-            {/*<AuthPage/>*/}
-
-            {/*<ConfirmCode/>*/}
-
-            {/*<RegPage/>*/}
-
+            <ScrollToTop/>
             <Routes>
-                <Route path={'/'} element={<AboutPage/>}/>
-                <Route path={'/register'} element={<RegPage/>}/>
-                <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
-                <Route path={'/auth'} element={<AuthPage/>}/>
+                <Route path={'/'} element={<Layout/>}>
+                    <Route path={'/'} element={<Mainpage/>}/>
+                    <Route path={'/about'} element={<AboutPage/>}/>
+                    <Route path={'/register'} element={<RegPage/>}/>
+                    <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
+                    <Route path={'/auth'} element={<AuthPage/>}/>
+                </Route>
             </Routes>
 
             {/*<Routes>*/}
