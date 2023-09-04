@@ -1,6 +1,5 @@
 @import "./assets/fonts/Quicksand/stylesheet.css";
 
-
 * {
     padding: 0;
     margin: 0;
@@ -15,14 +14,21 @@ html {
     line-height: 140%;
 }
 
-
 h1, h2, h3, h4, h5, h6 {
     font-family: Quicksand, sans-serif;
 }
 
-
 input[type=password]::-ms-reveal, input[type=password]::-ms-clear {
     display: none;
+}
+
+:where(.css-dev-only-do-not-override-17a39f8).ant-modal .ant-modal-content {
+    border-radius: 45px;
+}
+
+.ant-modal-content {
+    padding: 0 !important;
+    border-radius: 45px;
 }
 
 

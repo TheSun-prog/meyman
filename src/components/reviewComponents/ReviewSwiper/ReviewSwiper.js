@@ -12,7 +12,7 @@ import ReviewCard from "../ReviewCard/ReviewCard";
 
 SwiperCore.use([Navigation]);
 
-const ReviewSwiper = ({data, id=0, handleClick}) => {
+const ReviewSwiper = ({ data, id = 0, handleClick, setReviewDataProp }) => {
   const swiperRef = React.useRef(null);
 
   const goNext = () => {
@@ -49,12 +49,12 @@ const ReviewSwiper = ({data, id=0, handleClick}) => {
         {data?.results?.[id]?.reviews.map((value, index, array) => {
           return (
             <SwiperSlide onClick={() => {handleClick(value)}} key={index}>
-              <ReviewCard data={value}/>
+              <ReviewCard data={value} />
             </SwiperSlide>
           );
         })}
       </Swiper>
-      <div className="flex gap-[50px] justify-center pt-[50px]">
+      {data?.results?.[id]?.reviews.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
         <img
           src={left}
           alt="left"
@@ -67,7 +67,7 @@ const ReviewSwiper = ({data, id=0, handleClick}) => {
           className="swiper-button-next-review"
           onClick={goNext}
         />
-      </div>
+      </div> : ''}
     </>
   );
 };

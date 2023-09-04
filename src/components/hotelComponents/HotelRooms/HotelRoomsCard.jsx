@@ -5,10 +5,9 @@ import info from "../../../assets/images/info.svg";
 import zavtrak from "../../../assets/images/zavtrak.svg";
 import done from "../../../assets/images/done.svg";
 import som from "../../../assets/images/som.svg";
-import RoomName from "./RoomName";
 
 const HotelRoomsCard = ({
-  data,
+  name,
   img,
   price,
   area,
@@ -18,7 +17,8 @@ const HotelRoomsCard = ({
 }) => {
   return (
     <div
-      className={`${classes} shadow-2xl px-[18px] py-[14px] rounded-2xl w-[386px]`}
+      className={`${classes} h-[678px] shadow-2xl px-[18px] py-[14px] rounded-2xl w-[386px]`}
+      style={{fontFamily: 'Quicksand, sans-serif'}}
     >
       <div
         className="p-2 m-auto relative rounded-lg w-[350px] h-[320px]"
@@ -31,7 +31,7 @@ const HotelRoomsCard = ({
       >
         <img className="absolute right-2 top-2" src={heart} alt="heart" />
       </div>
-      <RoomName bedType={bedType} maxGuest={maxGuest} />
+      <h2 className="mt-[20px] mb-[12px] text-[20px]">{name}</h2>
       <div className="flex">
         <img src={persons} alt="persons" />
         <span className="px-2">

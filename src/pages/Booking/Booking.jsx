@@ -17,6 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { fetchHousingData } from '../../store/slice/housingSlice'
 import { useParams, useLocation } from 'react-router-dom'
 import { Rating } from '@mui/material'
+import "animate.css"
 // components
 import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
 import roomIcons from '../Room/roomIcon'
@@ -37,6 +38,10 @@ const Booking = () => {
   })
 
   const { hotelId, roomId } = useParams()
+
+  const handleCloseSuccess = () => {
+    setActiveModal(false)
+  }
 
   const dispatch = useDispatch()
   const { data } = useSelector(state => state.housing)
@@ -147,7 +152,7 @@ const Booking = () => {
     // Регулярное выражение для проверки имени и фамилии с пробелом между ними
     const nameRegex = /^[A-Za-zА-Яа-я]{2,} [A-Za-zА-Яа-я]{2,}$/
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    const phoneRegex = /^\+\d{3}[- ]?\d{3}[- ]?\d{3}[- ]?\d{3}$/;
+    const phoneRegex = /^\+\d{3}[- ]?\d{3}[- ]?\d{3}[- ]?\d{3}$/
 
     if (nameRegex.test(initialDataForm.name)) {
       // Если формат имени и фамилии верен, выполните необходимые действия при бронировании
@@ -254,7 +259,7 @@ const Booking = () => {
               </div>
             </div>
           </div>
-          <div className="flex mt-6">
+          <div className="flex mt-20">
             <img className="mr-2 mb-4" src={calendar} alt="calendar" />
             <div className="flex">
               <div className="mr-[20px]">
@@ -279,13 +284,14 @@ const Booking = () => {
           </div>
           <div className="mt-5">
             <h2 className="text-[28px]">Номер:</h2>
-            <RoomName
+            {/* <RoomName
               classes={'!text-[20px] !font-[500]'}
               bedType={data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type}
               maxGuest={
                 data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity
               }
-            />
+            /> */}
+            <h1 className='text-[32px] font-[500]'>{data?.results?.[hotelId]?.rooms?.[roomId]?.room_name}</h1>
             <div className="flex mt-4">
               <img className="mr-2" src={persons} alt="persons" />
               <span className="text-[#666666] text-[18px]">
@@ -310,7 +316,7 @@ const Booking = () => {
                   : 'Односпальная'}
               </span>
             </div>
-            <ul className="flex flex-col flex-wrap w-[303px] min-h-[350px] mt-6">
+            <ul className="flex flex-col flex-wrap w-[303px] max-h-[650px] min-h-[350px] mt-6">
               {data?.results?.[hotelId]?.rooms?.[roomId]?.room_amenities?.map(
                 (item, index) => (
                   <li key={index} className="flex mb-[24px] w-full">
@@ -341,7 +347,7 @@ const Booking = () => {
                   value={initialDataForm.name}
                   onChange={handleNameChange}
                   isError={nameErrorInput}
-                  classes={`w-[520px]`}
+                  classes={`w-[520px] ${nameErrorInput ? 'animate__animated animate__headShake' : ''}`}
                   text={initialDataForm.nameErrorPlaceHolder}
                 />
               </div>
@@ -353,7 +359,7 @@ const Booking = () => {
                   type="email"
                   isError={emailErrorInput}
                   onChange={handleEmailChange}
-                  classes="w-[520px] placeholder:text-red-700"
+                  classes={`w-[520px] ${emailErrorInput ? 'animate__animated animate__headShake' : ''}`}
                   text={initialDataForm.emailErrorPlaceHolder}
                 />
               </div>
@@ -365,7 +371,7 @@ const Booking = () => {
                   type="tel"
                   isError={phoneErrorInput}
                   onChange={handlePhoneChange}
-                  classes="w-[520px]"
+                  classes={`w-[520px] ${phoneErrorInput ? 'animate__animated animate__headShake' : ''}`}
                   text={initialDataForm.phoneErrorPlaceHolder}
                 />
               </div>
@@ -407,16 +413,11 @@ const Booking = () => {
           </Button>
         </div>
       </div>
-      {activeModal && (
-        <ModalSuccess
-          handleSuccessClick={() => {
-            setActiveModal(false)
-          }}
-          handleCLickCloseModal={() => {
-            setActiveModal(false)
-          }}
-        />
-      )}
+      <ModalSuccess
+        isOpen={activeModal}
+        handleOk={handleCloseSuccess}
+        handleCancel={handleCloseSuccess}
+      />
     </div>
   )
 }

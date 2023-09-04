@@ -17,10 +17,13 @@ import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewS
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHousingData } from "../../store/slice/housingSlice";
+import ModalReview from "../../components/hotelComponents/modals/ModalReview";
 
 const Mainpage = () => {
 
     const [activeSearch, setActiveSearch] = useState('hotel')
+    const [activeModalReview, setActiveModalReview] = useState(false)
+    const [reviewDataProp, setReviewDataProp] = useState('')
     const { data } = useSelector(state => state.housing)
     const dispatch = useDispatch()
 
@@ -156,21 +159,24 @@ const Mainpage = () => {
                     </div>
                 </div>
             </div>
-
             <div className="mx-auto w-[1240px] pt-[100px]">
                 <div className="flex flex-col gap-[40px] items-center">
                     <p className="text-[28px] pb-[40px]">Рекомендации</p>
                 </div>
                 <HotelSwiper />
             </div>
-
             <div className="mx-auto w-[1240px] py-[100px]">
                 <div className="flex flex-col gap-[40px] items-center">
                     <p className="text-[28px] pb-[40px]">Отзывы о сайте</p>
                 </div>
-                <ReviewSwiper data={data} />
+                <ReviewSwiper data={data} handleClick={(value) => {
+                    setReviewDataProp(value)
+                    setActiveModalReview(true);
+                }} />
             </div>
-
+            {activeModalReview && <ModalReview handleCLickCloseModal={() => {
+                setActiveModalReview(false);
+            }} data={reviewDataProp} />}
         </>
     )
 }

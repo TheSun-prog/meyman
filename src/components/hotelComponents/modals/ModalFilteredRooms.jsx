@@ -1,18 +1,28 @@
-import ModalDefault from './ModalDefault'
 import HotelRoomCard from '../HotelRooms/HotelRoomsCard'
 import { useSelector } from 'react-redux'
+import { Modal } from 'antd'
+import clear from '../../../assets/images/clear.svg'
 
-const ModalFilteredRooms = ({ handleCLickCloseModal }) => {
+const ModalFilteredRooms = ({isOpen, handleOk, handleCancel}) => {
   const { data, isLoading, isError } = useSelector(state => state.hotel)
 
   return (
-    <ModalDefault
-      isTitle={true}
-      title={'Номера'}
-      classes={'!fixed w-2/3 h-[80vh] overflow-y-scroll'}
-      isBorder={true}
-      handleCLickCloseModal={handleCLickCloseModal}
+    <Modal
+      open={isOpen}
+      onOk={handleOk}
+      onCancel={handleCancel}
+      footer={null}
+      closeIcon={false}
+      width={957}
+      bodyStyle={{ paddingTop: 20 }}
     >
+      <h1 className='text-center text-[28px]'>Номера</h1>
+      <img
+            onClick={handleCancel}
+            className="absolute cursor-pointer top-5 left-5"
+            src={clear}
+            alt="clear"
+          />
       <div className="flex justify-center gap-5 mt-10 ">
         <div className="flex flex-col ">
           {data?.results?.[0]?.rooms?.[0]?.room_images.map(room => (
@@ -23,7 +33,7 @@ const ModalFilteredRooms = ({ handleCLickCloseModal }) => {
           ))}
         </div>
       </div>
-    </ModalDefault>
+    </Modal>
   )
 }
 

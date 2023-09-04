@@ -9,7 +9,7 @@ const HotelRooms = ({data, id, handleActiveModal }) => {
       <h5 className="py-6 text-[28px]">Номера</h5>
       <div className="flex gap-[40px] justify-between flex-wrap">
         {data?.results?.[id]?.rooms?.map((room, index) => (
-          <NavLink key={index} to={`/hotelcatalog/${id}/${index}`} state={room}>
+          <NavLink key={room.id} to={`/hotelcatalog/${id}/${index}`} state={room}>
             <HotelRoomsCard
               data={data}
               img={room.room_images[0].image}
@@ -17,6 +17,7 @@ const HotelRooms = ({data, id, handleActiveModal }) => {
               bedType={room.bed_type}
               maxGuest={room.max_guest_capacity}
               price={room.price_per_night}
+              name={room.room_name}
             />
           </NavLink>
         ))}

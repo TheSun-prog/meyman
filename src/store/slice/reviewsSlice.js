@@ -8,6 +8,14 @@ export const fetchReviewsData = createAsyncThunk('reviews/getReview', async () =
   return response.data
 })
 
+export const postReviewsData = createAsyncThunk('reviews', async (data) => {
+  const response = await axios.post(`http://127.0.0.1:8000/reviews/`, {
+    data,
+  })
+  console.log(response);
+  return response.data
+})
+
 const reviewsSlice = createSlice({
   name: 'reviews',
   initialState: {
