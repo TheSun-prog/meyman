@@ -7,13 +7,7 @@ import NotUserMenu from "../DropdownMenues/NotUserMenu/NotUserMenu";
 import IsUserMenu from "../DropdownMenues/IsUserMenu/IsUserMenu";
 
 
-const HeaderProfile = ({
-                           userType,
-                           showModal,
-                           handleShowModal,
-                       }) => {
-
-
+const HeaderProfile = ({userType, showModal, handleShowModal,}) => {
     const [isReg, setIsReg] = useState(false)
 
 
@@ -37,11 +31,11 @@ const HeaderProfile = ({
 
     const nonRegProfile =(<img className="w-[28px] h-[28px]" src={profile} alt="profile"/>)
 
-    const isRegProfile =(
+    const isRegProfile = (
         <div className="w-[28px] h-[28px] bg-blue rounded-full flex items-center justify-center">
             <p className="uppercase text-[16px] text-white">A</p>
         </div>
-)
+    )
 
     return (
         <div className="relative">
