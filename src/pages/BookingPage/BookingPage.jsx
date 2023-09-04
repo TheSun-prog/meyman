@@ -19,8 +19,8 @@ import { useParams, useLocation } from 'react-router-dom'
 import { Rating } from '@mui/material'
 import "animate.css"
 // components
-import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
-import roomIcons from '../Room/roomIcon'
+//import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
+import roomIcons from '../RoomPage/roomIcon'
 
 const Booking = () => {
   const [activeModal, setActiveModal] = useState(false)

@@ -1,4 +1,4 @@
-import roomIcons from '../../../pages/Room/roomIcon'
+import roomIcons from '../../../pages/RoomPage/roomIcon'
 import { Modal } from 'antd'
 import clear from '../../../assets/images/clear.svg'
 

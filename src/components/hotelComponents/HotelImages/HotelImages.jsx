@@ -4,7 +4,7 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
   return (
     <div
       onClick={handleOpenModalImages}
-      className="flex justify-between mt-[20px]"
+      className="flex justify-between mt-[20px] cursor-pointer"
     >
       <div>
         {data?.results?.[id]?.housing_images?.[0]?.image ? (
