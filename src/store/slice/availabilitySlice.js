@@ -9,7 +9,6 @@ export const postAvailabilityData = createAsyncThunk(
       housing: 1,
       date: data.arrival
     })
-    console.log(data)
     return response
   }
 )

@@ -7,19 +7,17 @@ import { DatePicker } from 'antd'
 import ru_RU from 'antd/locale/ru_RU'
 import { useState } from 'react'
 import 'animate.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { postAvailabilityData } from '../../../store/slice/availabilitySlice'
 import {Modal} from 'antd'
 
-
-const HotelDate = ({ openModalFilteredRoom }) => {
+const HotelDate = ({data, id, openModalFilteredRoom }) => {
 
   function getFormattedDate() {
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяц начинается с 0
     const day = String(today.getDate()).padStart(2, '0');
-
     return `${year}-${month}-${day}`;
   }
 
@@ -34,7 +32,7 @@ const HotelDate = ({ openModalFilteredRoom }) => {
     return `${year}-${month}-${day}`;
   }
 
-  const [data, setData] = useState({  // initial state
+  const [initialData, setInitialData] = useState({  // initial state
     arrival: getFormattedDate(),
     departure: getFormattedDateWithOffset(2),
     persons: {
@@ -55,7 +53,6 @@ const HotelDate = ({ openModalFilteredRoom }) => {
   };
 
   const dispatch = useDispatch()
-  const state = useSelector(state => state.hotel.data)
 
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
   const [isDatePickerOpen2, setIsDatePickerOpen2] = useState(false)
@@ -71,14 +68,14 @@ const HotelDate = ({ openModalFilteredRoom }) => {
 
   const handleSubmitForm = e => {
     e.preventDefault()
-    dispatch(postAvailabilityData(data))
+    dispatch(postAvailabilityData(initialData))
   }
 
   const handleArrivalChange = (date, str) => {
     const arrivalDate = new Date(str);
-    const departureDate = new Date(data.departure);
+    const departureDate = new Date(initialData.departure);
 
-    setData(prev => {
+    setInitialData(prev => {
       if (arrivalDate > departureDate) {
         return { ...prev, arrival: str, departure: str };
       } else {
@@ -88,10 +85,10 @@ const HotelDate = ({ openModalFilteredRoom }) => {
   };
 
   const handleDepartureChange = (date, str) => {
-    const arrivalDate = new Date(data.arrival);
+    const arrivalDate = new Date(initialData.arrival);
     const departureDate = new Date(str);
 
-    setData(prev => {
+    setInitialData(prev => {
       if (departureDate < arrivalDate) {
         return { ...prev, arrival: str, departure: str };
       } else {
@@ -101,8 +98,8 @@ const HotelDate = ({ openModalFilteredRoom }) => {
   };
 
   const lowestPrice =
-    state?.rooms?.length > 0
-      ? Math.min(...state.rooms.map(room => parseFloat(room.price_per_night)))
+    data?.results?.[id]?.rooms?.length > 0
+      ? Math.min(...data?.results?.[id]?.rooms?.map(room => parseFloat(room.price_per_night)))
       : 0
 
   return (
@@ -158,7 +155,7 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                       isAvailability ? 'text-red-600' : ''
                     }`}
                   >
-                    {data.arrival}
+                    {initialData.arrival}
                   </span>
                 </div>
                 <DatePicker
@@ -185,7 +182,7 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                       isAvailability ? 'text-red-600' : ''
                     }`}
                   >
-                    {data.departure}
+                    {initialData.departure}
                   </span>
                 </div>
                 <DatePicker
@@ -218,14 +215,14 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                     isAvailability ? 'text-red-600' : ''
                   }`}
                 >
-                  {data.persons.adult + data.persons.children}
-                  {data.persons.adult + data.persons.children === 1 ? ' гость' : ' гостей'}{' '}
-                  <span>&#8226;</span> {data.persons.rooms}{' '}
-                  {data.persons.rooms === 1
+                  {initialData.persons.adult + initialData.persons.children}
+                  {initialData.persons.adult + initialData.persons.children === 1 ? ' гость' : ' гостей'}{' '}
+                  <span>&#8226;</span> {initialData.persons.rooms}{' '}
+                  {initialData.persons.rooms === 1
                     ? 'номер'
-                    : data.persons.rooms > 1 && data.persons.rooms < 5
+                    : initialData.persons.rooms > 1 && initialData.persons.rooms < 5
                     ? 'номера'
-                    : data.persons.rooms >= 5
+                    : initialData.persons.rooms >= 5
                     ? 'номеров'
                     : ''}
                 </span>
@@ -245,9 +242,9 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        const totalGuests = data.persons.adult + data.persons.children;
+                        const totalGuests = initialData.persons.adult + initialData.persons.children;
                         if (totalGuests < 6) {
-                          setData(prev => ({
+                          setInitialData(prev => ({
                             ...prev,
                             persons: {
                               ...prev.persons,
@@ -263,11 +260,11 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                       <span>+</span>
                     </div>
                     <span className="px-4 text-[24px]">
-                      {data.persons.adult}
+                      {initialData.persons.adult}
                     </span>
                     <div
                       onClick={() => {
-                        setData(prev => ({
+                        setInitialData(prev => ({
                           ...prev,
                           persons: {
                             ...prev.persons,
@@ -286,9 +283,9 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        const totalGuests = data.persons.adult + data.persons.children;
+                        const totalGuests = initialData.persons.adult + initialData.persons.children;
                         if (totalGuests < 6) {
-                          setData(prev => ({
+                          setInitialData(prev => ({
                             ...prev,
                             persons: {
                               ...prev.persons,
@@ -304,11 +301,11 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                       <span>+</span>
                     </div>
                     <span className="px-4 text-[24px]">
-                      {data.persons.children}
+                      {initialData.persons.children}
                     </span>
                     <div
                       onClick={() => {
-                        setData(prev => ({
+                        setInitialData(prev => ({
                           ...prev,
                           persons: {
                             ...prev.persons,
@@ -327,7 +324,7 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        setData(prev => ({
+                        setInitialData(prev => ({
                           ...prev,
                           persons: {
                             ...prev.persons,
@@ -340,11 +337,11 @@ const HotelDate = ({ openModalFilteredRoom }) => {
                       <span>+</span>
                     </div>
                     <span className="px-4 text-[24px]">
-                      {data.persons.rooms}
+                      {initialData.persons.rooms}
                     </span>
                     <div
                       onClick={() => {
-                        setData(prev => ({
+                        setInitialData(prev => ({
                           ...prev,
                           persons: {
                             ...prev.persons,

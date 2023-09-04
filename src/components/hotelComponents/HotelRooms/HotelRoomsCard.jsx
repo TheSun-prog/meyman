@@ -1,16 +1,21 @@
-import room from '../../../assets/images/room.png'
-import heart from '../../../assets/images/heart2.svg'
-import persons from '../../../assets/images/persons.svg'
-import bed from '../../../assets/images/bed.svg'
-import info from '../../../assets/images/info.svg'
-import zavtrak from '../../../assets/images/zavtrak.svg'
-import done from '../../../assets/images/done.svg'
-import som from '../../../assets/images/som.svg'
-import Button from '../../ui/Button/Button'
-import { Link } from 'react-router-dom'
-import RoomName from './RoomName'
+import heart from "../../../assets/images/heart2.svg";
+import persons from "../../../assets/images/persons.svg";
+import bed from "../../../assets/images/bed.svg";
+import info from "../../../assets/images/info.svg";
+import zavtrak from "../../../assets/images/zavtrak.svg";
+import done from "../../../assets/images/done.svg";
+import som from "../../../assets/images/som.svg";
+import RoomName from "./RoomName";
 
-const HotelRoomsCard = ({ img, price, area, maxGuest, bedType, classes }) => {
+const HotelRoomsCard = ({
+  data,
+  img,
+  price,
+  area,
+  maxGuest,
+  bedType,
+  classes,
+}) => {
   return (
     <div
       className={`${classes} shadow-2xl px-[18px] py-[14px] rounded-2xl w-[386px]`}
@@ -19,18 +24,18 @@ const HotelRoomsCard = ({ img, price, area, maxGuest, bedType, classes }) => {
         className="p-2 m-auto relative rounded-lg w-[350px] h-[320px]"
         style={{
           backgroundImage: `url(${img})`,
-          backgroundPosition: 'center',
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat'
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
         }}
       >
         <img className="absolute right-2 top-2" src={heart} alt="heart" />
       </div>
-      <RoomName bedType={bedType} maxGuest={maxGuest}/>
+      <RoomName bedType={bedType} maxGuest={maxGuest} />
       <div className="flex">
         <img src={persons} alt="persons" />
         <span className="px-2">
-          {maxGuest} {maxGuest > 1 ? 'гостей' : 'гость'}
+          {maxGuest} {maxGuest > 1 ? "гостей" : "гость"}
         </span>
         <img src={info} alt="info" />
         <span>{area}</span>
@@ -39,9 +44,9 @@ const HotelRoomsCard = ({ img, price, area, maxGuest, bedType, classes }) => {
         <img src={bed} alt="persons" />
         <span className="pl-2">
           {Array.isArray(bedType) &&
-          bedType.includes('Односпальные') &&
-          bedType.includes('Двуспальная')
-            ? 'Односпальная и Двуспальная'
+          bedType.includes("Односпальные") &&
+          bedType.includes("Двуспальная")
+            ? "Односпальная и Двуспальная"
             : bedType}
         </span>
       </div>
@@ -62,7 +67,7 @@ const HotelRoomsCard = ({ img, price, area, maxGuest, bedType, classes }) => {
         <p className="text-[16px] mb-[20px] text-grey">Включая налоги сборы</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HotelRoomsCard
+export default HotelRoomsCard;
