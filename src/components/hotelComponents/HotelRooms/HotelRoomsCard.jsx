@@ -17,7 +17,7 @@ const HotelRoomsCard = ({
 }) => {
   return (
     <div
-      className={`${classes} shadow-2xl px-[18px] py-[14px] rounded-2xl w-[386px]`}
+      className={`${classes} h-[678px] shadow-2xl px-[18px] py-[14px] rounded-2xl w-[386px]`}
       style={{fontFamily: 'Quicksand, sans-serif'}}
     >
       <div
@@ -31,7 +31,6 @@ const HotelRoomsCard = ({
       >
         <img className="absolute right-2 top-2" src={heart} alt="heart" />
       </div>
-      {/* <RoomName bedType={bedType} maxGuest={maxGuest} /> */}
       <h2 className="mt-[20px] mb-[12px] text-[20px]">{name}</h2>
       <div className="flex">
         <img src={persons} alt="persons" />
