@@ -1,0 +1,71 @@
+.wrapper_addPhoto {
+    width: 1240px;
+    height: 480px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border: solid #A1A1A1 2px;
+    border-radius: 30px;
+    margin-bottom: 80px;
+}
+
+.wrapper_addPhoto2 {
+    width: 285px;
+    height: 40px;
+    border-radius: 34px;
+    display: flex;
+    justify-content: space-between;
+}
+.buttonAddPhoto {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: solid 2px #202020;
+    border-radius: 34px;
+    padding: 8px 30px;
+}
+.wrapper_addPhoto p {
+    cursor: pointer;
+}
+.wrapper_addPhoto  img{
+    cursor: pointer;
+}
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.input-filed {
+    display: none;
+}
+
+
+
+.flex.items-center {
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.photosContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+
+
+}
+
+.uploadedPhoto {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+    border: #202020 solid 4px;
+    border-radius: 30px;
+}
+.photosContainer img:first-child {
+    border: 6px solid #18d048;
+
+}

@@ -8,6 +8,9 @@ import HotelPage from "./pages/HotelPage/HotelPage";
 import Room from "./pages/Room/Room";
 import Booking from "./pages/Booking/Booking";
 import Layout from "./components/Base/Layout/Layout";
+import BusinessOwnerNotification from "./pages/BusinessOwnerNotification/BusinessOwnerNotification";
+import React from "react";
+import FillingRoomDetails from "./pages/FillingRoomDetails/FillingRoomDetails";
 
 function App() {
   return (
@@ -22,6 +25,19 @@ function App() {
             path="/hotelcatalog/:hotelId/:roomId/booking"
             element={<Booking />}
           />
+
+
+
+          <Route
+                path="/FillingRoomDetails"
+                element={<FillingRoomDetails/>}
+          />
+          <Route
+            path="/BusinessOwnerNotification"
+            element={<BusinessOwnerNotification/>}
+          />
+
+
           <Route path="/test" element={<Test />} />
           <Route
             path="/*"
