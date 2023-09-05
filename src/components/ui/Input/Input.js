@@ -8,7 +8,12 @@ const Input = ({
   isError,
   classes,
   onChange,
+  onFocus,
+  onBlur,
   value,
+  min,
+  max,
+  id,
   handleIsError = () => {}
 }) => {
   const styleNotError =
@@ -37,11 +42,16 @@ const Input = ({
   return (
     <div className="relative w-[520px]">
       <input
+        id={id}
         type={inputType}
         value={value}
         className={`${classes} w-[520px] h-[50px] px-[25px] flex items-center rounded-full border-[2px] hover:border-blue text-[16px] -ms-clear ${inputStyle}`}
         placeholder={text}
         onChange={onChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        min={min}
+        max={max}
         onClick={() => {
           handleIsError()
         }}

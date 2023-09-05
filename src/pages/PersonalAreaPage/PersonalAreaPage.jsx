@@ -15,7 +15,7 @@ const PersonalAreaPage = () => {
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
         <NavLink to={`/personal-area`}>Личный кабинет</NavLink>
       </div>
-      <h1 className='text-[28px]'>Личный кабинет</h1>
+      <h1 className="text-[28px]">Личный кабинет</h1>
       <div className="flex items-center mb-[5px] mt-[14px] text-[20px]">
         <img className="mr-[10px]" src={user} alt="user" />
         <span>Аку Жалилова</span>
@@ -24,19 +24,21 @@ const PersonalAreaPage = () => {
         <img className="mr-[10px]" src={email} alt="email" />
         <span>akuzalilova@gmail.com</span>
       </div>
-      <div className='flex gap-5 mt-[80px]'>
-        <div className='shadow-xl w-[420px] rounded-xl py-[17px] px-5 cursor-pointer'>
-          <img src={person} alt="person" />
-          <h3 className="text-[22px] mt-5 ">Личная информация</h3>
-          <span className="text-[18px] text-[#A1A1A1]">
-            Предоставьте личные контактные данные
-          </span>
-        </div>
-        <div className='shadow-xl w-[420px] rounded-xl py-[17px] px-5 cursor-pointer'>
+      <div className="flex gap-5 mt-[80px]">
+        <NavLink to={'/personal-area/personal-info'}>
+          <div className="shadow-xl w-[420px] rounded-xl py-[17px] px-5 cursor-pointer">
+            <img src={person} alt="person" />
+            <h3 className="text-[22px] mt-5 ">Личная информация</h3>
+            <span className="text-[18px] text-[#A1A1A1]">
+              Предоставьте личные контактные данные
+            </span>
+          </div>
+        </NavLink>
+        <div className="shadow-xl w-[420px] rounded-xl py-[17px] px-5 cursor-pointer">
           <img src={booking} alt="booking" />
           <h3 className="text-[22px] mt-5 ">Бронирования</h3>
           <span className="text-[18px] text-[#A1A1A1]">
-          Здесь будут размещены ваши бронирования
+            Здесь будут размещены ваши бронирования
           </span>
         </div>
       </div>
