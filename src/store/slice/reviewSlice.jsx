@@ -15,4 +15,5 @@ const reviewSlice = createSlice({
 })
 
 export const { setModalReview } = reviewSlice.actions
+export const selectReviewModal = state => state.reviewSlice.reviewModal
 export default reviewSlice.reducer

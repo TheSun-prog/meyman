@@ -1,34 +1,33 @@
 import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper"
 import AddReview from "../../components/reviewComponents/AddReview/AddReview"
-import {setModalReview} from "../../store/slice/reviewSlice"
-import Header from "../../components/Base/Header/Header"
-import Footer from "../../components/Base/Footer/Footer"
-import {useDispatch, useSelector} from "react-redux"
 import meyman from '../../assets/images/meyman.png'
 import finger from '../../assets/images/finger.svg'
 import clock from '../../assets/images/clock.svg'
 import team from '../../assets/images/team.png'
 import like from '../../assets/images/like.svg'
-import {useNavigate} from "react-router-dom"
-import React from 'react'
+import React, {useEffect, useState} from 'react'
+import {useDispatch, useSelector} from "react-redux";
+import {fetchReviewsData} from "../../store/slice/reviewsSlice";
 
 
 const AboutPage = () => {
-    const { reviewModal } = useSelector(state => state.reviewSlice)
-    const dispatch = useDispatch(), navigate = useNavigate()
 
-    console.log(reviewModal)
+    const [modalShow, setModalShow] = useState(true)
 
-    return (
-        <>
-            {reviewModal && <AddReview/>}
-            {/*<Header/>*/}
-            <div className="bg-[url('/src/assets/images/mountains.png')] h-[690px] bg-cover bg-no-repeat ">
-                <div>
-                    <div className="w-[1245px] m-auto flex justify-between ">
+    const openModal = () => {
+        setModalShow(true)
+    }
+
+    return (<>
+
+            {modalShow && <AddReview setModalShow={() => setModalShow(false)} modalShow={modalShow}/>}
+            <div
+                className="bg-[url('/src/assets/images/mountains.png')] h-[calc(100vh-100px)] bg-cover bg-no-repeat ">
+
+                    <div className="w-[1245px] h-[100%] m-auto flex justify-between items-center">
                         <div className="w-[590px] h-[229px] gap-[20px]">
-                            <h2 className="pt-[107px] text-white">О компании</h2>
-                            <p className=" pt-[20px] text-sn font-normal text-white">Мейман - многофункциональная
+                            <h2 className="text-white">О компании</h2>
+                            <p className="text-sn font-normal text-white pt-[20px]">Мейман - многофункциональная
                                 онлайн-платформа для бронирования
                                 размещения и транспорта. Мы
                                 предлагаем отели и объекты размещения по всем 7 регионам Кыргызстана, чтобы вы могли
@@ -36,11 +35,9 @@ const AboutPage = () => {
                                 гостеприимства и природы этой удивительной страны. Путешествуйте с уверенностью, заранее
                                 бронируя все, что вам нужно</p>
                         </div>
-                        <div className="pt-[107px]">
-                            <img className="" src={meyman} alt=""/>
-                        </div>
+                        <img className="" src={meyman} alt=""/>
                     </div>
-                </div>
+
             </div>
             <div className="flex justify-center mt-[80px]">
                 <div className="w-[1064px] flex justify-center m-auto flex-col flex-wrap text-center">
@@ -91,18 +88,10 @@ const AboutPage = () => {
                 </div>
             </div>
             <div className="mx-auto w-[1240px] pt-[100px]">
-                <h5 className="text-center text-ot">Отзыв о сайте</h5>
-                <div className="pt-[80px]">
-                    <ReviewSwiper/>
-                    <div className="flex justify-end">
-                        <button
-                            className="rounded-[31px] border-blue border-[3px] flex px-[70px] py-[14px]"
-                            onClick={() => dispatch(setModalReview())}
-                        >
-                            Оставьте отзыв
-                        </button>
-                    </div>
-                </div>
+                    <ReviewSwiper
+                        openModal={openModal}
+                    />
+
             </div>
             {/*<Footer/>*/}
         </>

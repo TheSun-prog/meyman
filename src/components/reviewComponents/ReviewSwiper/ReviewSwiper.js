@@ -1,7 +1,7 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import SwiperCore from "swiper";
-import { Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import {Navigation} from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/react";
 import left from "../../../assets/images/arrow-left.svg";
 import right from "../../../assets/images/arrow-right.svg";
 
@@ -9,66 +9,94 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import ReviewCard from "../ReviewCard/ReviewCard";
+import {useDispatch, useSelector} from "react-redux";
+import {
+    fetchReviewsData,
+    selectReviewsData,
+    selectReviewsError,
+    selectReviewsLoadingStatus
+} from "../../../store/slice/reviewsSlice";
+
 
 SwiperCore.use([Navigation]);
 
-const ReviewSwiper = ({ data, id = 0, handleClick, setReviewDataProp }) => {
-  const swiperRef = React.useRef(null);
+const ReviewSwiper = ({id = 0, handleClick, text = 'Отзыв о сайте', openModal}) => {
 
-  const goNext = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slideNext();
-    }
-  };
+    const dispatch = useDispatch();
+    const reviewData = useSelector(selectReviewsData);
+    const loading = useSelector(selectReviewsLoadingStatus);
+    const error = useSelector(selectReviewsError);
 
-  const goPrev = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slidePrev();
-    }
-  };
+    const [slidesCount, setSlidesCount] = useState(0);
 
-  // let data = [];
+    useEffect(() => {
+    try {
+      if (reviewData.length > 2) setSlidesCount(2.5);
+      else setSlidesCount(reviewData.length);
+    } catch (e) { }
+  }, [reviewData]);
 
-  // for (let i = 0; i < 7; i++) {
-  //   data.push([]);
-  // }
+    useEffect(() => {
+    dispatch(fetchReviewsData({ limit: 7, offset: 0 }));
+  }, [dispatch]);
 
-  return (
-    <>
-      <Swiper
-        spaceBetween={40}
-        slidesPerView={2.5}
-        onInit={(swiper) => {
-          swiperRef.current = swiper;
-        }}
-        navigation={{
-          nextEl: ".swiper-button-next-review",
-          prevEl: ".swiper-button-prev-review",
-        }}
-      >
-        {data?.results?.[id]?.reviews.map((value, index, array) => {
-          return (
-            <SwiperSlide onClick={() => {handleClick(value)}} key={index}>
-              <ReviewCard data={value} />
-            </SwiperSlide>
-          );
-        })}
-      </Swiper>
-      {data?.results?.[id]?.reviews.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
-        <img
-          src={left}
-          alt="left"
-          className="swiper-button-prev-review"
-          onClick={goPrev}
-        />
-        <img
-          src={right}
-          alt="right"
-          className="swiper-button-next-review"
-          onClick={goNext}
-        />
-      </div> : ''}
-    </>
-  );
+    const swiperRef = React.useRef(null);
+
+    const goNext = () => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slideNext();
+        }
+    };
+
+    const goPrev = () => {
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.slidePrev();
+        }
+    };
+
+    if (!error) return (<>
+        <h5 className="text-center text-ot">{text}</h5>
+        <Swiper
+            className="pt-[40px]"
+            spaceBetween={40}
+            slidesPerView={slidesCount}
+            onInit={(swiper) => {
+                swiperRef.current = swiper;
+            }}
+            navigation={{
+                nextEl: ".swiper-button-next-review", prevEl: ".swiper-button-prev-review",
+            }}
+        >
+            {reviewData ? (reviewData?.results?.[id]?.reviews.map((value, index, array) => {
+                return (<SwiperSlide onClick={() => {
+                    handleClick(value)
+                }} key={index}>
+                    <ReviewCard reviewData={value}/>
+                </SwiperSlide>);
+            })) : false}
+        </Swiper>
+        {reviewData?.results?.[id]?.reviews.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
+            <img
+                src={left}
+                alt="left"
+                className="swiper-button-prev-review"
+                onClick={goPrev}
+            />
+            <img
+                src={right}
+                alt="right"
+                className="swiper-button-next-review"
+                onClick={goNext}
+            />
+        </div> : ''}
+        {openModal && <div className="flex justify-end">
+            <button
+                className="rounded-[31px] border-blue border-[3px] flex px-[70px] py-[14px]"
+                onClick={openModal}
+            >
+                Оставьте отзыв
+            </button>
+        </div>}
+    </>);
 };
 export default ReviewSwiper;

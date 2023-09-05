@@ -1,5 +1,5 @@
 // React modules
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useLocation} from "react-router-dom";
 // Pages
 import Test from "./pages/Test/Test";
 import Mainpage from "./pages/Mainpage/Mainpage";
@@ -13,10 +13,13 @@ import RegPage from "./pages/RegPage/RegPage";
 import ConfirmCode from "./pages/ConfirmCodePage/ConfirmCode";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import ScrollToTop from "./components/Base/ScrollToTop/ScrollToTop";
+import {useEffect} from "react";
 
 
 function App() {
+
     return (<>
+        <ScrollToTop/>
         <Routes>
             <Route path="/" element={<Layout/>}>
                 <Route path="/" element={<Mainpage/>}/>

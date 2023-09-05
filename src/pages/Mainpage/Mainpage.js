@@ -24,8 +24,6 @@ const Mainpage = () => {
     const [activeSearch, setActiveSearch] = useState('hotel')
     const [activeModalReview, setActiveModalReview] = useState(false)
     const [reviewDataProp, setReviewDataProp] = useState('')
-    const { data } = useSelector(state => state.housing)
-    const dispatch = useDispatch()
 
     const regions = [
         {
@@ -58,16 +56,13 @@ const Mainpage = () => {
         }
     ]
 
-    useEffect(() => {
-        dispatch(fetchHousingData({ limit: 12, offset: 0 }));
-    }, [dispatch]);
 
     return (
         <>
-            <div className="bg-main bg-no-repeat bg-cover h-[550px]">
+            <div className="bg-main bg-no-repeat bg-cover h-[550px] z-0 pt-[180px]">
                 <div className="mx-auto w-[1240px] h-[100%] relative">
-                    <div className="pt-[180px] flex flex-col gap-[50px]">
-                        <div className="flex gap-[20px]">
+                    <div className="flex flex-col gap-[50px] z-0">
+                        <div className="flex gap-[20px] z-0">
                             <div
                                 className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === 'hotel' ? 'bg-grey border-[1px] border-white' : 'bg-dark-blue'}`}>
                                 <img
@@ -128,7 +123,7 @@ const Mainpage = () => {
                         </div>
                     </div>
                     <div
-                        className="absolute left-0 bottom-[-80px] w-[100%] h-[164px] bg-blue rounded-[30px] flex items-center justify-center px-[10px]">
+                        className="absolute left-0 bottom-[-80px] w-[100%] h-[164px] bg-blue rounded-[30px] flex items-center justify-center px-[10px] z-5">
                         <p className="text-[20px] text-center text-white">
                             Добро пожаловать на нашу многофункциональную онлайн-платформу для бронирования
                             размещения, <br />транспорта. Полная организация вашего путешествия в одном месте. Просто,
@@ -160,16 +155,10 @@ const Mainpage = () => {
                 </div>
             </div>
             <div className="mx-auto w-[1240px] pt-[100px]">
-                <div className="flex flex-col gap-[40px] items-center">
-                    <p className="text-[28px] pb-[40px]">Рекомендации</p>
-                </div>
                 <HotelSwiper />
             </div>
             <div className="mx-auto w-[1240px] py-[100px]">
-                <div className="flex flex-col gap-[40px] items-center">
-                    <p className="text-[28px] pb-[40px]">Отзывы о сайте</p>
-                </div>
-                <ReviewSwiper data={data} handleClick={(value) => {
+                <ReviewSwiper handleClick={(value) => {
                     setReviewDataProp(value)
                     setActiveModalReview(true);
                 }} />

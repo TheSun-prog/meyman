@@ -20,16 +20,16 @@ function FilterModal({filters, setFilters}) {
 
     return (<div className="flex justify-center">
         <div className="fixed top-0 left-0 z-40 w-[100vw] h-[100vh] bg-black bg-opacity-40"
-
+            onClick={() => {setFilters(false)}}
         >
 
         </div>
         <div
-            className="fixed bg-white w-[1100px] h-[600px] z-50 rounded-[45px] overflow-hidden flex flex-col justify-between">
+            className="fixed top-[10vh] bg-white w-[1100px] h-[600px] z-50 rounded-[45px] overflow-hidden flex flex-col justify-between">
             <div className="h-[70px] border-b-[1px] border-b-grey py-[20px]">
                 <div className="px-[100px] h-[100%] flex justify-between items-center">
                     <img className="w-[32px] h-[32px] cursor-pointer" src={close} alt="close"
-
+                        onClick={setFilters(false)}
                     />
                     <p className='text-[30px]'>Фильтры</p>
                     <span></span>
@@ -37,7 +37,7 @@ function FilterModal({filters, setFilters}) {
             </div>
 
 
-            <div className="overflow-auto px-[80px]">
+            <div className={`${filters && "overflow-auto"} px-[80px]`}>
                 <div className="">
                     <p></p>
                     <div className="">

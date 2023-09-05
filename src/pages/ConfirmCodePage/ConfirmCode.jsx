@@ -4,17 +4,18 @@ import Input from "../../components/ui/Input/Input"
 import React, {useEffect, useState} from 'react'
 import logo from '../../assets/images/logo.svg'
 import lock from '../../assets/images/lock.svg'
-import {useNavigate} from "react-router-dom"
+import {NavLink, useNavigate} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
+import back from '../../assets/images/back.svg'
 import './ConfirmCode.css'
 
 
 const ConfirmCode = () => {
-    const { status2, error2 } = useSelector(state => state.authSlice)
+    const {status2, error2} = useSelector(state => state.authSlice)
     const dispatch = useDispatch(), navigate = useNavigate()
     const user = JSON.parse(localStorage.getItem('userData'))
-    const [ codeError, setCodeError ] = useState(false)
-    const [ code, setCode ] = useState('')
+    const [codeError, setCodeError] = useState(false)
+    const [code, setCode] = useState('')
     const numRegExp = /[0-9]{4}/
 
     const handleChange = (event) => {
@@ -26,7 +27,7 @@ const ConfirmCode = () => {
     const addCode = () => {
         if (numRegExp.test(code)) {
             console.log(code)
-            dispatch(asyncConfirmCode({ code, user }))
+            dispatch(asyncConfirmCode({code, user}))
             setCode('')
         }
         if (!numRegExp.test(code)) setCodeError(true)
@@ -45,10 +46,11 @@ const ConfirmCode = () => {
         console.log(user)
     }, [])
 
-    return (
-        <>
-            <div>
-                <span className="flex justify-center"><img className="pt-[45px]" src={logo} alt=""/></span>
+    return (<>
+            <div className="flex justify-center">
+                <NavLink to={'/register'}><img src={back} alt="back"/></NavLink>
+                <NavLink to={'/'}><img className="pt-[45px]" src={logo} alt="logo"/></NavLink>
+                <span></span>
             </div>
             <div className="pt-[80px] w-[421px] h-[496px] m-auto">
                 <div className="flex justify-center">
@@ -83,8 +85,7 @@ const ConfirmCode = () => {
                     </div>
                 </div>
             </div>
-        </>
-    )
+        </>)
 }
 
 export default ConfirmCode

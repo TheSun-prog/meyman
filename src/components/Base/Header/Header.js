@@ -5,11 +5,11 @@ import {useEffect, useState} from "react";
 import logo from '../../../assets/images/logo.svg'
 import HeaderUserNavbar from "../../ui/Header/HeaderUserNavbar/HeaderUserNavbar";
 import HeaderProfile from "../../ui/Header/HeaderProfile/HeaderProfile";
+import {NavLink} from "react-router-dom";
 
 
 const Header = ({
-                    userType = 'user',
-                    pageType = 'mainpage',
+                    userType = 'user', pageType = 'mainpage',
                 }) => {
 
     const [isMainPage, setIsMainPage] = useState(false)
@@ -34,17 +34,15 @@ const Header = ({
         }
     }, [pageType])
 
-    return (
-        <div className="border-b-[1px] border-b-grey z-0">
+    return (<div className="border-b-[1px] border-b-grey z-0">
             <div className="mx-auto w-[1240px]">
                 <div className="h-[100px] flex items-center justify-between">
-                    <img src={logo} alt="Meyman"/>
-
-                    {
-                        !isMainPage && <HeaderUserNavbar
-                            pageType={pageType}
-                        />
-                    }
+                    <NavLink to={'/'}>
+                        <img src={logo} alt="Meyman" className="cursor-pointer"/>
+                    </NavLink>
+                    {!isMainPage && <HeaderUserNavbar
+                        pageType={pageType}
+                    />}
 
                     <div className="flex gap-[20px]">
 
@@ -63,8 +61,7 @@ const Header = ({
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        </div>)
 }
 
 export default Header

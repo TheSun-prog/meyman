@@ -56,6 +56,7 @@ export const asyncConfirmCode = createAsyncThunk(
         }
         catch (error){
             console.error(error)
+            console.log(error)
             alert(error.response.data.error)
         }
     }

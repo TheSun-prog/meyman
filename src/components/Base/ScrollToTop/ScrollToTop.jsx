@@ -1,14 +1,29 @@
-import { useLocation } from 'react-router-dom'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
+function ScrollToTop() {
+  const navigate = useNavigate();
+  const location = useLocation();
 
-export default function ScrollToTop() {
+  useEffect(() => {
 
-    const { pathname } = useLocation()
+    window.scrollTo(0, 0);
+  }, [location]);
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [pathname])
+  useEffect(() => {
 
-    return null
+    const handleBeforeUnload = () => {
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  return null;
 }
+
+export default ScrollToTop;

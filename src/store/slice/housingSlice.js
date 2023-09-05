@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import {$mainApi} from "../../axios/axios";
 
 const initialState = {
   data: [],
@@ -8,7 +9,7 @@ const initialState = {
 };
 
 export const fetchHousingData = createAsyncThunk('housing/fetchData', async ({limit, offset}) => {
-  const response = await axios.get('http://127.0.0.1:8000/housing/', {
+  const response = await $mainApi.get('/housing/', {
     headers: {
     },
     params: {
@@ -22,7 +23,8 @@ export const fetchHousingData = createAsyncThunk('housing/fetchData', async ({li
 const housingSlice = createSlice({
   name: 'housing',
   initialState,
-  reducers: {},
+  reducers: {
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchHousingData.pending, (state) => {
