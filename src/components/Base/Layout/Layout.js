@@ -1,6 +1,7 @@
 import Header from "../Header/Header"
 import Footer from "../Footer/Footer"
 import { Outlet } from "react-router-dom"
+import FillingRoomDetails from "../../../pages/FillingRoomDetails/FillingRoomDetails";
 
 const Layout = () => {
   return (
