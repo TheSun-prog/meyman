@@ -4,7 +4,7 @@ import close from '../../../assets/images/close.svg'
 import Button from "../../ui/Button/Button";
 
 
-export default function AddReview({modalShow = true, setModalShow}) {
+export default function AddReview({modalShow, setModalShow}) {
 
     const [lenght, setLenght] = useState(0)
 
@@ -19,10 +19,8 @@ export default function AddReview({modalShow = true, setModalShow}) {
         height={612}
     >
         <div className="">
-            <div className="flex justify-between items-center">
-                <img className="w-[32px] h-[32px]" src={close} alt="close" onClick={() => setModalShow(false)}/>
+            <div className="flex justify-center items-center">
                 <p className="text-[24px]">Отзыв о сайте</p>
-                <span></span>
             </div>
             <div className="pt-[20px] flex flex-col gap-[20px]">
                 <p className="text-[22px]">Пожалуйста, оставьте ваш комментарий:</p>
