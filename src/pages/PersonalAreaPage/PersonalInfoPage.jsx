@@ -110,7 +110,7 @@ const PersonalInfoPage = () => {
     }
   }
   const handleSubmitPass = e => {
-    const regex = /^[a-zA-Zа-яА-Я]{6,}$/
+    const regex = /^[a-zA-Zа-яА-Я]{6,20}$/
     e.preventDefault()
     if (newPass.newPass === newPass.confPass) {
       console.log('good')
@@ -288,7 +288,7 @@ const PersonalInfoPage = () => {
               errorNewPass
                 ? 'Пароли не совпадают'
                 : 'Введите ваш новый пароль' && errorLengthPass
-                ? 'Только буквы и не менее 6 символов'
+                ? 'Только буквы и от 6 до 20 символов'
                 : 'Введите ваш новый пароль'
             }`}
             classes={`mb-[20px] ${
