@@ -56,5 +56,105 @@ body {
 
 }
 
+.AuthForm {
+    margin-top: 5px;
+    width: 600px;
+    height: fit-content;
+    padding: 35px 45px;
+    border-radius: 50px;
+    background-color: white;
+    box-shadow: 0 9px 16px 2px rgba(0, 0, 0, 0.25);
+    transition: 200ms;
+}
 
+.AuthForm h3 {
+    color: #000;
+    font-size: 24px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 55px;
+}
 
+.AuthP {
+    color: #000;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    font-style: normal;
+}
+
+.AuthInput {
+    width: 100%;
+    border-radius: 50px;
+    padding: 14px 75px 14px 25px;
+    border: 2px solid #A1A1A1;
+    margin-bottom: 20px;
+    outline: none;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.AuthInput::placeholder {
+    color: #A1A1A1;
+}
+
+.losePassword {
+    color: #1164B4;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.logButton {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    padding: 14px 132px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 31px;
+    background: #1164B4;
+    box-shadow: 0 9px 16px 2px rgba(0, 0, 0, 0.25);
+    color: #FFF;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.AuthAnd {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.AuthAndDivider {
+    width: 178px;
+    height: 1px;
+    background-color: black;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.25);
+}
+
+.AuthLogDivider {
+    text-align: center;
+    margin: 10px 0 20px;
+}
+
+.AuthGoogleImage {
+    margin: 0 auto;
+}
+
+.AuthLabel {
+    position: relative;
+}
+
+.AuthLabel img {
+    position: absolute;
+    top: 0;
+    right: 20px;
+}
+
+.AuthEmailError {
+    color: red;
+    margin-bottom: 20px;
+}

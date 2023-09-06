@@ -15,10 +15,12 @@ import naryn from '../../assets/images/naryn.png'
 import HotelSwiper from "../../components/hotelComponents/HotelSwiper/HotelSwiper";
 import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper";
 import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import AuthDoneModal from "../../components/objectRegisterComponents/AuthDoneModal/AuthDoneModal";
 
 
 const Mainpage = () => {
-
+    const { AuthModal } = useSelector(state => state.authSlice)
     const [activeSearch, setActiveSearch] = useState('hotel')
 
     const regions = [
@@ -55,6 +57,7 @@ const Mainpage = () => {
 
     return (
         <>
+            {AuthModal && <AuthDoneModal/>}
             <div className="bg-main bg-no-repeat bg-cover h-[550px]">
                 <div className="mx-auto w-[1240px] h-[100%] relative">
                     <div className="pt-[180px] flex flex-col gap-[50px]">

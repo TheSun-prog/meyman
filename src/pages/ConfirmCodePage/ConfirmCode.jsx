@@ -1,4 +1,4 @@
-import {asyncConfirmCode} from "../../store/slice/AuthSlice"
+import {asyncConfirmCode, setAuthModal} from "../../store/slice/AuthSlice"
 import Button from "../../components/ui/Button/Button"
 import Input from "../../components/ui/Input/Input"
 import React, {useEffect, useState} from 'react'
@@ -37,7 +37,7 @@ const ConfirmCode = () => {
     useEffect(() => {
         if (status2) {
             navigate('/')
-            alert('REGISTER DONE!!!')
+            dispatch(setAuthModal())
         }
     }, [status2])
 
