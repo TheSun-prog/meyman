@@ -57,12 +57,10 @@ export const asyncLogin = createAsyncThunk(
         try {
             const response = await $mainApi.post(`/api/users/login/`, user)
             console.log(response)
-
             localStorage.setItem('access', response.data.tokens.access)
             localStorage.setItem('refresh', response.data.tokens.refresh)
             const userID = decode(response.data.tokens.access)
             localStorage.setItem('user_id', userID.user_id)
-
             if (response.status >= 200 && response.status <= 204) return response.data
         }
         catch (error) {
