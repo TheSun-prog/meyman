@@ -8,9 +8,13 @@ import { useEffect, useState } from 'react'
 import clear from '../../../assets/images/clear.svg'
 import { useDispatch } from 'react-redux'
 import { postReviewsData } from '../../../store/slice/reviewsSlice'
+import jwtDecode from 'jwt-decode'
 
 const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
+
   const dispatch = useDispatch();
+
+  
 
   const [initialDataRate, setInitialDataRate] = useState({
     housing: parseInt(hotelId),

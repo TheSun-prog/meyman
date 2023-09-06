@@ -2,6 +2,13 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const reservationHotelPostData = createAsyncThunk('reservation/postData', async (data) => {
+
+  const token = localStorage.getItem('access'); // Получаем токен из Local Storage
+  const headers = {
+    'Authorization': `Bearer ${token}`, // Добавляем токен в заголовок запроса
+    'Content-Type': 'application/json',
+  };
+
   const response = await axios.get(`http://127.0.0.1:8000/housing_reservations/`, {
     user: 1,
     housing: 'test',
@@ -10,7 +17,8 @@ export const reservationHotelPostData = createAsyncThunk('reservation/postData',
     check_out_date: data.departure,
     adults: data.persons.adult,
     children: data.persons.children
-  })
+  }, headers)
+  console.log(response);
   return response.data
 })
 

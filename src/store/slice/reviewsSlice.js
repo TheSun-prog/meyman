@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+import { $authApi } from '../../axios/axios'
 
 export const fetchReviewsData = createAsyncThunk('reviews/getReview', async () => {
   const response = await axios.get(`http://meyman.tw1.ru/reviews/`, {
@@ -9,12 +10,17 @@ export const fetchReviewsData = createAsyncThunk('reviews/getReview', async () =
 })
 
 export const postReviewsData = createAsyncThunk('reviews', async (data) => {
-  const response = await axios.post(`http://127.0.0.1:8000/reviews/`, {
-    data,
-  })
+  const token = localStorage.getItem('access'); // Получаем токен из Local Storage
+  const headers = {
+    'Authorization': `Bearer ${token}`, // Добавляем токен в заголовок запроса
+    'Content-Type': 'application/json',
+  };
+
+  const response = await $authApi.post('http://127.0.0.1:8000/reviews/', data, { headers });
+
   console.log(response);
-  return response.data
-})
+  return response.data;
+});
 
 const reviewsSlice = createSlice({
   name: 'reviews',
