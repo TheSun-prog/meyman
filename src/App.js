@@ -19,6 +19,7 @@ import ScrollToTop from "./components/Base/ScrollToTop/ScrollToTop";
 function App() {
     return (<>
             <ScrollToTop/>
+
             <Routes>
                 <Route path="/" element={<Layout/>}>
                     <Route path="/" element={<Mainpage/>}/>

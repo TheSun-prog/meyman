@@ -14,14 +14,15 @@ import talas from '../../assets/images/talas.png'
 import naryn from '../../assets/images/naryn.png'
 import HotelSwiper from "../../components/hotelComponents/HotelSwiper/HotelSwiper";
 import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper";
-import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import {NavLink} from "react-router-dom";
+import {useSelector} from "react-redux";
+import AuthDoneModal from "../../components/objectRegisterComponents/AuthDoneModal/AuthDoneModal";
 import { fetchHousingData } from "../../store/slice/housingSlice";
 import ModalReview from "../../components/hotelComponents/modals/ModalReview";
 import SiteReviewSwiper from "../../components/reviewComponents/SiteReviewSwiper/SiteReviewSwiper";
 
 const Mainpage = () => {
-
+    const { AuthModal } = useSelector(state => state.authSlice)
     const [activeSearch, setActiveSearch] = useState('hotel')
     const [activeModalReview, setActiveModalReview] = useState(false)
     const [reviewDataProp, setReviewDataProp] = useState('')
@@ -60,7 +61,8 @@ const Mainpage = () => {
 
     return (
         <>
-            <div className="bg-main bg-no-repeat bg-cover h-[550px] z-0 pt-[180px]">
+            {AuthModal && <AuthDoneModal/>}
+            <div className="bg-main bg-no-repeat bg-cover h-[550px]">
                 <div className="mx-auto w-[1240px] h-[100%] relative">
                     <div className="flex flex-col gap-[50px] z-0">
                         <div className="flex gap-[20px] z-0">

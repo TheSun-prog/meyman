@@ -1,6 +1,6 @@
 import passwordHide from '../../assets/images/password-hide.svg'
 import passwordShow from '../../assets/images/password-show.svg'
-import AuthSlice, {asyncSignUp, setStatus} from '../../store/slice/AuthSlice'
+import AuthSlice, {asyncSignUp, setError, setRegError, setStatus} from '../../store/slice/AuthSlice'
 import Button from '../../components/ui/Button/Button'
 import Input from '../../components/ui/Input/Input'
 import Google from '../../assets/images/google.svg'
@@ -10,10 +10,11 @@ import logo from '../../assets/images/logo.svg'
 import {useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import './RegPage.css'
+import RegErrorModal from "../../components/objectRegisterComponents/RegErrorModal/RegErrorModal";
 
 
 const RegPage = () => {
-    const { status, error } = useSelector(state => state.authSlice)
+    const { status, regErrorModal, error } = useSelector(state => state.authSlice)
     const dispatch = useDispatch(), navigate = useNavigate()
 
     const [ password2, setPassword2 ] = useState(''),
@@ -30,7 +31,7 @@ const RegPage = () => {
 
     const gmailRegExp = /^[a-zA-Z0-9.]{3,60}@gmail.com$/
     const nameRegExp = /^[a-zA-Z0-9]{3,60}$/
-    const passRegExp = /^[a-zA-Z0-9]{3,60}$/
+    const passRegExp = /^[a-zA-Z0-9]{6,60}$/
 
     const addSignUp = () => {
         if (gmailRegExp.test(email) && password === password2 &&
@@ -65,11 +66,20 @@ const RegPage = () => {
     useEffect(() => {
         if (status) {
             navigate('/confirmCode')
+            dispatch(setStatus(''))
         }
     }, [status])
 
+    useEffect(() => {
+        if (error) {
+            dispatch(setRegError())
+            dispatch(setError(''))
+        }
+    }, [error])
+
     return (
         <>
+            {regErrorModal && <RegErrorModal/>}
             <div>
                 <span className='flex justify-self-start '>
                     <a href='' onClick={() => navigate('/')}>
@@ -130,7 +140,7 @@ const RegPage = () => {
                                     className={'passwordIcon'}
                                 />
                             }
-                            {passError && <p className={'errorMessage'}>Пароль должен содержать минимум 3 символа!</p>}
+                            {passError && <p className={'errorMessage'}>Пароль должен содержать минимум 6 символа!</p>}
                         </div>
                         <div className='inputBoxes'>
                             <label htmlFor='password'>Подтвердите пароль</label>
