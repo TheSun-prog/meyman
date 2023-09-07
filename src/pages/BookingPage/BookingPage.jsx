@@ -10,50 +10,63 @@ import arrow from '../../assets/images/arrow2.svg'
 import Input from '../../components/ui/Input/Input'
 import Button from '../../components/ui/Button/Button'
 import ModalSuccess from '../../components/bookingComponents/modals/ModalSuccess'
-// react
+// modules
 import { NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchHousingData } from '../../store/slice/housingSlice'
 import { useParams, useLocation } from 'react-router-dom'
 import { Rating } from '@mui/material'
+import { Modal } from 'antd'
 import "animate.css"
 // components
-import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
-import roomIcons from '../Room/roomIcon'
+import roomIcons from '../RoomPage/roomIcon'
+import { reservationHotelPostData } from '../../store/slice/reservationsSlice'
 
 const Booking = () => {
+  const dispatch = useDispatch()
+  const { data } = useSelector(state => state.housing)
+  const reservationData = useSelector(state => state.reservation.data)
+  const {isError} = useSelector(state => state.reservation)
+  const {isLoading} = useSelector(state => state.reservation)
+  const { state } = useLocation()
+  const { hotelId, roomId } = useParams()
+
+  const stars = data?.results?.[hotelId]?.stars
+    ? data?.results?.[hotelId]?.stars
+    : null
+
+  const id = useSelector(state => state?.housing?.data?.results?.[hotelId]?.id)
+
   const [activeModal, setActiveModal] = useState(false)
   const [date, setDate] = useState()
   const [nameErrorInput, setNameErrorInput] = useState(false)
   const [emailErrorInput, setEmailErrorInput] = useState(false)
   const [phoneErrorInput, setPhoneErrorInput] = useState(false)
+
   const [initialDataForm, setInitialDataForm] = useState({
-    name: '',
-    nameErrorPlaceHolder: 'Введите ваше имя и фамилию',
-    email: '',
-    emailErrorPlaceHolder: 'Введите ваш электронный адрес',
-    phone: '',
-    phoneErrorPlaceHolder: '+996 000 000 000'
+    housing: null,
+    check_in_date: state.arrival,
+    check_out_date: state.departure,
+    username: '',
+    client_email: '',
+    phone_number: '',
   })
 
-  const { hotelId, roomId } = useParams()
+  const [errorDataForm, setErrorDataForm] = useState({
+    nameErrorPlaceHolder: 'Введите ваше имя и фамилию',
+    emailErrorPlaceHolder: 'Введите ваш электронный адрес',
+    phoneErrorPlaceHolder: '+996 000 000 000'
+  })
 
   const handleCloseSuccess = () => {
     setActiveModal(false)
   }
 
-  const dispatch = useDispatch()
-  const { data } = useSelector(state => state.housing)
-  const { state } = useLocation()
-  const stars = data?.results?.[hotelId]?.stars
-    ? data?.results?.[hotelId]?.stars
-    : null
-
   const handleNameChange = event => {
     const { value } = event.target
 
-    if (initialDataForm.name !== '') {
+    if (initialDataForm.username !== '') {
       setNameErrorInput(false)
       setInitialDataForm(prevState => ({
         ...prevState,
@@ -63,14 +76,14 @@ const Booking = () => {
 
     setInitialDataForm(prevState => ({
       ...prevState,
-      name: value
+      username: value
     }))
   }
 
   const handleEmailChange = event => {
     const { value } = event.target
 
-    if (initialDataForm.email !== '') {
+    if (initialDataForm.client_email !== '') {
       setEmailErrorInput(false)
       setInitialDataForm(prevState => ({
         ...prevState,
@@ -80,14 +93,14 @@ const Booking = () => {
 
     setInitialDataForm(prevState => ({
       ...prevState,
-      email: value
+      client_email: value
     }))
   }
 
   const handlePhoneChange = event => {
     const { value } = event.target
 
-    if (initialDataForm.phone !== '') {
+    if (initialDataForm.phone_number !== '') {
       setPhoneErrorInput(false)
       setInitialDataForm(prevState => ({
         ...prevState,
@@ -97,9 +110,18 @@ const Booking = () => {
 
     setInitialDataForm(prevState => ({
       ...prevState,
-      phone: value
+      phone_number: value
     }))
   }
+
+  const error = () => {
+    Modal.error({
+      title: isError,
+      bodyStyle: {padding: '30px'},
+      maskClosable: true,
+      footer: null
+    });
+  };
 
   function formatDateWithDayOfWeek(dateStr) {
     const daysOfWeek = [
@@ -154,47 +176,48 @@ const Booking = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     const phoneRegex = /^\+\d{3}[- ]?\d{3}[- ]?\d{3}[- ]?\d{3}$/
 
-    if (nameRegex.test(initialDataForm.name)) {
+    if (nameRegex.test(initialDataForm.username)) {
       // Если формат имени и фамилии верен, выполните необходимые действия при бронировании
     } else {
       // Если формат не соблюдается, покажите сообщение об ошибке
       setInitialDataForm(prevState => ({
         ...prevState,
-        name: '',
+        username: '',
         nameErrorPlaceHolder: 'Не корректно введены данные'
       }))
       setNameErrorInput(true)
     }
 
-    if (emailRegex.test(initialDataForm.email)) {
+    if (emailRegex.test(initialDataForm.client_email)) {
       // Если формат имени и фамилии верен, выполните необходимые действия при бронировании
     } else {
       // Если формат не соблюдается, покажите сообщение об ошибке
       setInitialDataForm(prevState => ({
         ...prevState,
-        email: '',
+        client_email: '',
         emailErrorPlaceHolder: 'Не корректно введена почта'
       }))
       setEmailErrorInput(true)
     }
 
-    if (phoneRegex.test(initialDataForm.phone)) {
+    if (phoneRegex.test(initialDataForm.phone_number)) {
       // Если формат имени и фамилии верен, выполните необходимые действия при бронировании
     } else {
       // Если формат не соблюдается, покажите сообщение об ошибке
       setInitialDataForm(prevState => ({
         ...prevState,
-        phone: '',
+        phone_number: '',
         phoneErrorPlaceHolder: 'Не корректно введен номер телефона'
       }))
       setPhoneErrorInput(true)
     }
 
     if (
-      nameRegex.test(initialDataForm.name) &&
-      emailRegex.test(initialDataForm.email) &&
-      phoneRegex.test(initialDataForm.phone)
+      nameRegex.test(initialDataForm.username) &&
+      emailRegex.test(initialDataForm.client_email) &&
+      phoneRegex.test(initialDataForm.phone_number)
     ) {
+      dispatch(reservationHotelPostData(initialDataForm))
       setActiveModal(true)
     }
   }
@@ -204,11 +227,25 @@ const Booking = () => {
   }, [dispatch])
 
   useEffect(() => {
+    if (id !== null) {
+      // Если id не равно null, значит данные загружены, и мы можем его установить
+      setInitialDataForm(prev => ({
+        ...prev,
+        housing: id
+      }))
+    }
+  }, [id])
+
+  useEffect(() => {
     const storedData = localStorage.getItem('bookingData')
     if (storedData) {
       setDate(JSON.parse(storedData))
     }
   }, [])
+
+  if (isError) {
+    return error()
+  }
 
   return (
     <div className="mx-auto w-[1240px]">
@@ -284,13 +321,6 @@ const Booking = () => {
           </div>
           <div className="mt-5">
             <h2 className="text-[28px]">Номер:</h2>
-            {/* <RoomName
-              classes={'!text-[20px] !font-[500]'}
-              bedType={data?.results?.[hotelId]?.rooms?.[roomId]?.bed_type}
-              maxGuest={
-                data?.results?.[hotelId]?.rooms?.[roomId]?.max_guest_capacity
-              }
-            /> */}
             <h1 className='text-[32px] font-[500]'>{data?.results?.[hotelId]?.rooms?.[roomId]?.room_name}</h1>
             <div className="flex mt-4">
               <img className="mr-2" src={persons} alt="persons" />
@@ -341,38 +371,41 @@ const Booking = () => {
             </div>
             <form>
               <div className="mb-[30px]">
-                <label htmlFor="name">Имя и фамилия</label>
+                <label htmlFor="username">Имя и фамилия</label>
                 <Input
-                  id="name"
-                  value={initialDataForm.name}
+                  id="username"
+                  value={initialDataForm.username}
                   onChange={handleNameChange}
+                  onFocus={() => {setNameErrorInput(false)}}
                   isError={nameErrorInput}
                   classes={`w-[520px] ${nameErrorInput ? 'animate__animated animate__headShake' : ''}`}
-                  text={initialDataForm.nameErrorPlaceHolder}
+                  text={errorDataForm.nameErrorPlaceHolder}
                 />
               </div>
               <div className="mb-[30px]">
-                <label htmlFor="email">Электронный адрес</label>
+                <label htmlFor="client_email">Электронный адрес</label>
                 <Input
-                  id="email"
-                  value={initialDataForm.email}
-                  type="email"
+                  id="client_email"
+                  value={initialDataForm.client_email}
+                  type="client_email"
                   isError={emailErrorInput}
                   onChange={handleEmailChange}
+                  onFocus={() => {setEmailErrorInput(false)}}
                   classes={`w-[520px] ${emailErrorInput ? 'animate__animated animate__headShake' : ''}`}
-                  text={initialDataForm.emailErrorPlaceHolder}
+                  text={errorDataForm.emailErrorPlaceHolder}
                 />
               </div>
               <div className="mb-[30px]">
-                <label htmlFor="phone">Номер телефона</label>
+                <label htmlFor="phone_number">Номер телефона</label>
                 <Input
-                  id="phone"
-                  value={initialDataForm.phone}
+                  id="phone_number"
+                  value={initialDataForm.phone_number}
                   type="tel"
                   isError={phoneErrorInput}
                   onChange={handlePhoneChange}
+                  onFocus={() => {setPhoneErrorInput(false)}}
                   classes={`w-[520px] ${phoneErrorInput ? 'animate__animated animate__headShake' : ''}`}
-                  text={initialDataForm.phoneErrorPlaceHolder}
+                  text={errorDataForm.phoneErrorPlaceHolder}
                 />
               </div>
             </form>

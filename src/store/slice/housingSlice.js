@@ -23,8 +23,7 @@ export const fetchHousingData = createAsyncThunk('housing/fetchData', async ({li
 const housingSlice = createSlice({
   name: 'housing',
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchHousingData.pending, (state) => {
