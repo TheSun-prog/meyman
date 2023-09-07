@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
 import { $authApi } from '../../axios/axios'
+import { $mainApi } from '../../axios/axios'
 
 export const fetchReviewsData = createAsyncThunk('reviews/getReview', async () => {
-  const response = await axios.get(`http://meyman.tw1.ru/reviews/`, {
+  const response = await $mainApi.get(`http://meyman.tw1.ru/reviews/`, {
 
   })
   return response.data

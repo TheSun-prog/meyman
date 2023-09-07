@@ -44,8 +44,8 @@ const HotelRules = ({data, id, handleClickModal }) => {
       <h5 className="mt-[80px] mb-[25px] text-[28px]">
         Удобства и услуги отеля
       </h5>
-      <ul className="pb-[10px] flex flex-col flex-wrap h-[300px] w-[684px]">
-      {amenitiesData.map(item => (
+      <ul className="pb-[10px] flex flex-col flex-wrap h-[300px] max-w-[684px]">
+      {amenitiesData.slice(0, 9).map(item => (
           data?.results?.[id][item.key] && (
             <div className="max-w-[328px]" key={item.key}>
               <li className="flex mb-[24px] ">

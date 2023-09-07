@@ -6,18 +6,15 @@ import TextArea from 'antd/es/input/TextArea'
 import Button from '../../ui/Button/Button'
 import { useEffect, useState } from 'react'
 import clear from '../../../assets/images/clear.svg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { postReviewsData } from '../../../store/slice/reviewsSlice'
-import jwtDecode from 'jwt-decode'
 
 const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
-
-  const dispatch = useDispatch();
-
-  
+  const id = useSelector(state => state?.housing?.data?.results?.[hotelId]?.id)
+  const dispatch = useDispatch()
 
   const [initialDataRate, setInitialDataRate] = useState({
-    housing: parseInt(hotelId),
+    housing: null,
     staff_rating: 0,
     comfort_rating: 0,
     cleanliness_rating: 0,
@@ -25,38 +22,40 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
     food_rating: 0,
     location_rating: 0,
     comment: ''
-  });
+  })
+
+  const [errorText, setErrorText] = useState(false)
 
   const customIcons = Array.from({ length: 10 }, (_, i) => (
     <HotelSendReview key={i} num={i + 1} />
-  ));
+  ))
 
   const fields = [
     {
       field: 'staff_rating',
-      label: 'Насколько вам понравился персонал?',
+      label: 'Насколько вам понравился персонал?'
     },
     {
       field: 'comfort_rating',
-      label: 'Было ли вам комфортно в нашем отеле?',
+      label: 'Было ли вам комфортно в нашем отеле?'
     },
     {
       field: 'cleanliness_rating',
-      label: 'Довольны ли вы уровнем чистоты в отеле?',
+      label: 'Довольны ли вы уровнем чистоты в отеле?'
     },
     {
       field: 'value_for_money_rating',
-      label: 'Вас устроило соотношение цены и качества?',
+      label: 'Вас устроило соотношение цены и качества?'
     },
     {
       field: 'food_rating',
-      label: 'Вам понравилось питание в нашем отеле?',
+      label: 'Вам понравилось питание в нашем отеле?'
     },
     {
       field: 'location_rating',
-      label: 'Вас устроило месторасположение отеля?',
-    },
-  ];
+      label: 'Вас устроило месторасположение отеля?'
+    }
+  ]
 
   const ratingDescriptions = {
     1: { text: 'Плохо', color: '#660000' },
@@ -68,24 +67,58 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
     7: { text: 'Очень хорошо', color: '#A3C140' },
     8: { text: 'Отлично', color: '#7AC15F' },
     9: { text: 'Замечательно', color: '#51C17E' },
-    10: { text: 'Превосходно', color: '#00B700' },
-  };
+    10: { text: 'Превосходно', color: '#00B700' }
+  }
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postReviewsData(initialDataRate));
-  };
+  const warning = () => {
+    Modal.warning({
+      title: 'Все поля должны быть заполнены!',
+      bodyStyle: { padding: '50px' },
+      footer: null,
+      centered: true,
+      keyboard: true,
+      maskClosable: true
+    })
+  }
+
+  const handleFormSubmit = e => {
+    e.preventDefault()
+    // Проверяем, что все рейтинги не равны 0 и комментарий не пуст и длина комментария больше 5 символов
+    if (
+      Object.values(initialDataRate).every(value => value !== 0) &&
+      initialDataRate.comment.trim() !== '' &&
+      initialDataRate.comment.length >= 5
+    ) {
+      // Если все условия выполняются, то диспатчим данные
+      dispatch(postReviewsData(initialDataRate))
+      window.location.reload();
+    } else if (initialDataRate.comment.length < 5) {
+      setErrorText(true) // Устанавливаем errorText в true
+    } else {
+      warning()
+    }
+  }
 
   const handleRateChange = (field, rate) => {
-    setInitialDataRate((prev) => ({
+    setInitialDataRate(prev => ({
       ...prev,
-      [field]: rate,
-    }));
-  };
+      [field]: rate
+    }))
+  }
 
   useEffect(() => {
-    console.log(initialDataRate);
-  }, [initialDataRate]);
+    if (id !== null) {
+      // Если id не равно null, значит данные загружены, и мы можем его установить
+      setInitialDataRate(prev => ({
+        ...prev,
+        housing: id
+      }))
+    }
+  }, [id])
+
+  useEffect(() => {
+    console.log(initialDataRate)
+  }, [initialDataRate])
 
   return (
     <Modal
@@ -109,13 +142,13 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
         <img
           src={data?.results?.[hotelId]?.housing_images?.[0]?.image}
           alt="hotel"
-          className="object-cover w-[270px] h-[250px] rounded-xl"
+          className="object-cover w-[270px] h-[250px] rounded-[30px]  border-2 border-black"
         />
         <div>
           <h3 className="text-[32px] font-[500]">
             {data?.results?.[hotelId]?.housing_name}
           </h3>
-          <Rate defaultValue={5} disabled />
+          <Rate defaultValue={5} disabled style={{ fontSize: '25px' }} />
           <div className="flex gap-2 mt-3">
             <img src={geo} alt="geo" />
             <span className="text-[22px] text-[#787878]">
@@ -131,42 +164,66 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
               {label}
             </label>
             <p
-              className="text-[22px] mb-[12px] font-[500]"
-              style={{ color: ratingDescriptions[initialDataRate[field]]?.color }}
+              className="text-[22px] h-[30px] mb-[12px] font-[500]"
+              style={{
+                color: ratingDescriptions[initialDataRate[field]]?.color
+              }}
             >
               {ratingDescriptions[initialDataRate[field]]?.text}
             </p>
             <Rate
-              onChange={(rate) => handleRateChange(field, rate)}
+              onChange={rate => handleRateChange(field, rate)}
               count={10}
               style={{ fontSize: '22px', color: '#1164B4' }}
               character={({ index }) => customIcons[index]}
             />
           </div>
         ))}
-        <h3 className="text-[22px] mb-[20px] mt-[40px]">
+        <p className="text-[22px] mb-[20px] mt-[40px]">
           Пожалуйста, оставьте ваш комментарий:
-        </h3>
+        </p>
         <TextArea
-          onChange={(e) =>
-            setInitialDataRate((prev) => ({
+          status={errorText ? 'error' : ''}
+          required
+          minLength={5}
+          onChange={e =>
+            setInitialDataRate(prev => ({
               ...prev,
-              comment: e.target.value,
+              comment: e.target.value
             }))
           }
+          onFocus={() => {
+            setErrorText(false)
+          }}
+          className={'placeholder-text-red-700'}
           value={initialDataRate.comment}
-          style={{ borderRadius: '27px', border: '2px solid #787878', padding: "10px" }}
+          style={{
+            fontSize: '24px',
+            borderRadius: '27px',
+            padding: '15px'
+          }}
           autoSize={{ minRows: 6, maxRows: 12 }}
           maxLength={500}
-          placeholder="Напишите ваш комментарий "
+          placeholder={'Напишите ваш комментарий'}
         />
-        <span className="block mb-[40px]">
-          Символов: {initialDataRate.comment.length} из 500
-        </span>
-        <Button classes={'py-[20px] w-full mb-[60px]'}>Отправить</Button>
+        {errorText ? (
+          <div className="mb-[40px] flex gap-1 text-red">
+            <div className="rounded-full text-white text-lg flex items-center justify-center bg-red w-5 h-5">
+              <span>!</span>
+            </div>{' '}
+            Комментарий должен быть больше 5 символов!
+          </div>
+        ) : (
+          <span className="block mb-[40px]">
+            Символов: {initialDataRate.comment.length} из 500
+          </span>
+        )}
+        <Button classes={'py-[20px] text-[28px] w-full mb-[60px]'}>
+          Отправить
+        </Button>
       </form>
     </Modal>
-  );
-};
+  )
+}
 
 export default ModalSendReview

@@ -22,13 +22,9 @@ input[type=password]::-ms-reveal, input[type=password]::-ms-clear {
     display: none;
 }
 
-:where(.css-dev-only-do-not-override-17a39f8).ant-modal .ant-modal-content {
-    border-radius: 45px;
-}
-
 .ant-modal-content {
     padding: 0 !important;
-    border-radius: 45px;
+    border-radius: 45px !important;
 }
 
 

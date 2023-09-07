@@ -46,7 +46,7 @@ const Services = ({ isOpen, handleOk, handleCancel, data, id }) => {
           />
           <h2 className="text-[24px]">Удобства и услуги отеля</h2>
         </div>
-        <ul className="flex flex-col flex-wrap gap-[40px] px-[64px] h-[244px] mt-[40px]">
+        <ul className="flex flex-col flex-wrap gap-[40px] px-[64px] h-[444px] mt-[40px]">
           {amenities.map(
             item =>
               data?.results?.[id]?.[item.key] && (
