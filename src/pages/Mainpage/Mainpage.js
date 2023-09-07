@@ -18,6 +18,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHousingData } from "../../store/slice/housingSlice";
 import ModalReview from "../../components/hotelComponents/modals/ModalReview";
+import SiteReviewSwiper from "../../components/reviewComponents/SiteReviewSwiper/SiteReviewSwiper";
 
 const Mainpage = () => {
 
@@ -158,7 +159,7 @@ const Mainpage = () => {
                 <HotelSwiper />
             </div>
             <div className="mx-auto w-[1240px] py-[100px]">
-                <ReviewSwiper handleClick={(value) => {
+                <SiteReviewSwiper handleClick={(value) => {
                     setReviewDataProp(value)
                     setActiveModalReview(true);
                 }} />

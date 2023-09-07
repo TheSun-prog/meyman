@@ -1,12 +1,25 @@
 import React, {useState} from 'react'
 import {Modal} from "antd";
-import close from '../../../assets/images/close.svg'
 import Button from "../../ui/Button/Button";
+import {fetchReviewData, postReviewData} from "../../../store/slice/reviewSlice";
+import {useDispatch} from "react-redux";
 
 
 export default function AddReview({modalShow, setModalShow}) {
 
+    const dispatch = useDispatch()
+
     const [lenght, setLenght] = useState(0)
+    const [content, setContent] = useState('')
+
+    const handleClick = async () => {
+        const formData = new FormData()
+        await formData.append("content", content)
+        dispatch(fetchReviewData({limit: 7, offset: 0}))
+        dispatch(postReviewData(formData))
+        setModalShow(false)
+        setContent('')
+    }
 
     return (<Modal
         open={modalShow}
@@ -28,13 +41,17 @@ export default function AddReview({modalShow, setModalShow}) {
                     name="review" id="" cols="23" rows="50" placeholder="Напишите ваш комментарий"
                     maxLength={500}
                     className="w-[520px] h-[234px] px-[25px] py-[14px] rounded-[34px] border-grey border-[1px] resize-none text-[16px]"
-                    onChange={event => setLenght(event.target.value.length)}
+                    onChange={event => {
+                        setLenght(event.target.value.length)
+                        setContent(event.target.value)
+                    }}
                 ></textarea>
                 <p className="text-[16px] text-grey">Символов: {lenght} из 500</p>
                 <Button
                     width={520}
                     height={53}
                     text={'Отправить'}
+                    clickFunc={handleClick}
                 />
             </div>
         </div>

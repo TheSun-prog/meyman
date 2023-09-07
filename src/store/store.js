@@ -12,7 +12,7 @@ import reviewsSlice from './slice/reviewsSlice';
 const store = configureStore({
     reducer: {
         hotel: hotelSlice, reservation: reservationsSlice, // availability: availabilitySlice,
-        reviews: reviewsSlice, housing: housingReducer, authSlice: AuthSlice
+        reviews: reviewsSlice, housing: housingReducer, authSlice: AuthSlice, review: reviewSlice,
     }, middleware: getDefaultMiddleware => getDefaultMiddleware()
 })
 

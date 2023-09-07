@@ -8,11 +8,12 @@ import like from '../../assets/images/like.svg'
 import React, {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from "react-redux";
 import {fetchReviewsData} from "../../store/slice/reviewsSlice";
+import SiteReviewSwiper from "../../components/reviewComponents/SiteReviewSwiper/SiteReviewSwiper";
 
 
 const AboutPage = () => {
 
-    const [modalShow, setModalShow] = useState(true)
+    const [modalShow, setModalShow] = useState(false)
 
     const openModal = () => {
         setModalShow(true)
@@ -88,7 +89,7 @@ const AboutPage = () => {
                 </div>
             </div>
             <div className="mx-auto w-[1240px] pt-[100px]">
-                    <ReviewSwiper
+                    <SiteReviewSwiper
                         openModal={openModal}
                     />
 

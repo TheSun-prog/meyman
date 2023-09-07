@@ -11,21 +11,21 @@ import "swiper/css/scrollbar";
 import ReviewCard from "../ReviewCard/ReviewCard";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    fetchReviewsData,
-    selectReviewsData,
-    selectReviewsError,
-    selectReviewsLoadingStatus
-} from "../../../store/slice/reviewsSlice";
+    fetchReviewData,
+    selectReviewData,
+    selectReviewError,
+    selectReviewLoadingStatus
+} from "../../../store/slice/reviewSlice";
 
 
 SwiperCore.use([Navigation]);
 
-const ReviewSwiper = ({id = 0, handleClick, openModal}) => {
+const ReviewSwiper = ({id = 0, handleClick=()=>{}, openModal}) => {
 
     const dispatch = useDispatch();
-    const reviewData = useSelector(selectReviewsData);
-    const loading = useSelector(selectReviewsLoadingStatus);
-    const error = useSelector(selectReviewsError);
+    const reviewData = useSelector(selectReviewData);
+    const loading = useSelector(selectReviewLoadingStatus);
+    const error = useSelector(selectReviewError);
 
     const [slidesCount, setSlidesCount] = useState(0);
 
@@ -37,7 +37,7 @@ const ReviewSwiper = ({id = 0, handleClick, openModal}) => {
   }, [reviewData]);
 
     useEffect(() => {
-    dispatch(fetchReviewsData({ limit: 7, offset: 0 }));
+    dispatch(fetchReviewData({ limit: 7, offset: 0 }));
   }, [dispatch]);
 
     const swiperRef = React.useRef(null);
@@ -55,6 +55,7 @@ const ReviewSwiper = ({id = 0, handleClick, openModal}) => {
     };
 
     if (!error) return (<>
+        <h5 className="text-center text-ot">Отзыв о сайте</h5>
         <Swiper
             className="pt-[40px]"
             spaceBetween={40}
@@ -66,15 +67,15 @@ const ReviewSwiper = ({id = 0, handleClick, openModal}) => {
                 nextEl: ".swiper-button-next-review", prevEl: ".swiper-button-prev-review",
             }}
         >
-            {reviewData ? (reviewData?.results?.[id]?.reviews.map((value, index, array) => {
+            {reviewData?.map((value, index, array) => {
                 return (<SwiperSlide onClick={() => {
                     handleClick(value)
                 }} key={index}>
                     <ReviewCard reviewData={value}/>
                 </SwiperSlide>);
-            })) : false}
+            })}
         </Swiper>
-        {reviewData?.results?.[id]?.reviews.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
+        {reviewData?.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
             <img
                 src={left}
                 alt="left"
