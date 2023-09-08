@@ -258,7 +258,7 @@ const Booking = () => {
         <div>
           <div className="flex gap-[13px] justify-between h-[216px] w-[650px]">
             <img
-              className="rounded-xl flex-1 object-cover"
+              className="rounded-xl flex-1 object-cover w-[289px]"
               src={data?.housing_images?.[0]?.image}
               alt="hotelImg"
             />
@@ -283,7 +283,7 @@ const Booking = () => {
               </div>
             </div>
           </div>
-          <div className="flex mt-20">
+          <div className="flex mt-[40px]">
             <img className="mr-2 mb-4" src={calendar} alt="calendar" />
             <div className="flex">
               <div className="mr-[20px]">
@@ -307,7 +307,7 @@ const Booking = () => {
             </div>
           </div>
           <div className="mt-5">
-            <h2 className="text-[28px]">Номер:</h2>
+            <h2 className="text-[28px] mb-5">Номер:</h2>
             <h1 className="text-[20px] font-[500]">{roomData?.room_name}</h1>
             <div className="flex mt-4">
               <img className="mr-2" src={persons} alt="persons" />
@@ -318,7 +318,7 @@ const Booking = () => {
             </div>
             <div className="flex items-center">
               <img src={bed} alt="bed" />
-              <span className="pl-2">
+              <span className="pl-2 text-[#666666]">
                 {Array.isArray(roomData?.bed_type) &&
                 roomData.bed_type.includes('Односпальные') &&
                 roomData?.bed_type.includes('Двуспальная')
@@ -391,6 +391,10 @@ const Booking = () => {
                   onChange={handlePhoneChange}
                   onFocus={() => {
                     setPhoneErrorInput(false)
+                    setInitialDataForm(prev => ({
+                      ...prev,
+                      phone_number: '+996'
+                    }))
                   }}
                   classes={`w-[520px] ${
                     phoneErrorInput
@@ -403,17 +407,17 @@ const Booking = () => {
             </form>
           </div>
         </div>
-        <div className="flex flex-col rounded-xl justify-between px-[25px] py-[40px] w-[475px] h-[475px] shadow-lg">
+        <div className="flex flex-col rounded-[24px] justify-between px-[25px] py-[40px] w-[475px] h-[475px] shadow-lg">
           <p className="text-[24px]">Детализация цена</p>
           <div className="flex">
             <img className="mr-2" src={done} alt="done" />
-            <span className="text-[#59A859]">
+            {roomData.Free_cancellation_anytime && <span className="text-[#59A859] text-[18px]">
               Бесплатная отмена в любое время{' '}
-            </span>
+            </span>}
           </div>
           <div className="flex">
             <img className="mr-2" src={dish} alt="done" />
-            <span className="text-[#59A859]">Завтрак включен</span>
+            <span className="text-[#59A859] text-[18px]">Завтрак включен</span>
           </div>
           <div className="flex justify-between text-[22px] pb-[28px] border-b">
             <span>
@@ -433,7 +437,7 @@ const Booking = () => {
               сом
             </span>
           </div>
-          <Button clickFunc={handleClickBooking} classes={`py-[20px] w-full'}`}>
+          <Button clickFunc={handleClickBooking} classes={`py-[20px] w-full'} shadow-xl`}>
             Забронировать
           </Button>
         </div>
