@@ -26,9 +26,7 @@ import { reservationHotelPostData } from '../../store/slice/reservationsSlice'
 const Booking = () => {
   const dispatch = useDispatch()
   const { data } = useSelector(state => state.housing)
-  const reservationData = useSelector(state => state.reservation.data)
   const {isError} = useSelector(state => state.reservation)
-  const {isLoading} = useSelector(state => state.reservation)
   const { state } = useLocation()
   const { hotelId, roomId } = useParams()
 
@@ -65,14 +63,6 @@ const Booking = () => {
 
   const handleNameChange = event => {
     const { value } = event.target
-
-    if (initialDataForm.username !== '') {
-      setNameErrorInput(false)
-      setInitialDataForm(prevState => ({
-        ...prevState,
-        nameErrorPlaceHolder: 'Введите ваше имя и фамилию'
-      }))
-    }
 
     setInitialDataForm(prevState => ({
       ...prevState,

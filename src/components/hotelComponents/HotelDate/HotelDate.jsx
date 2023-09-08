@@ -5,34 +5,41 @@ import Button from '../../ui/Button/Button'
 import { ConfigProvider } from 'antd'
 import { DatePicker } from 'antd'
 import ru_RU from 'antd/locale/ru_RU'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import 'animate.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { postAvailabilityData } from '../../../store/slice/availabilitySlice'
-import {Modal} from 'antd'
+import { Modal } from 'antd'
 
-const HotelDate = ({data, id, openModalFilteredRoom }) => {
+const HotelDate = ({ data, id, openModalFilteredRoom }) => {
+  const { hotelId } = useParams()
+
+  const housingId = useSelector(
+    state => state?.housing?.data?.results?.[hotelId]?.id
+  )
 
   function getFormattedDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяц начинается с 0
-    const day = String(today.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0') // Месяц начинается с 0
+    const day = String(today.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
   }
 
   function getFormattedDateWithOffset(offset) {
-    const today = new Date();
-    today.setDate(today.getDate() + offset);
+    const today = new Date()
+    today.setDate(today.getDate() + offset)
 
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0')
+    const day = String(today.getDate()).padStart(2, '0')
 
-    return `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`
   }
 
-  const [initialData, setInitialData] = useState({  // initial state
+  const [initialData, setInitialData] = useState({
+    // initial state
     arrival: getFormattedDate(),
     departure: getFormattedDateWithOffset(2),
     persons: {
@@ -42,6 +49,12 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
     }
   })
 
+  const [availabilityData, setAvailabilityPostData] = useState({
+    housing: 1,
+    date: initialData.arrival,
+
+  })
+
   const warning = () => {
     Modal.warning({
       title: 'Максимальное количество гостей 6',
@@ -49,8 +62,8 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
       centered: true,
       keyboard: true,
       maskClosable: true
-    });
-  };
+    })
+  }
 
   const dispatch = useDispatch()
 
@@ -68,39 +81,49 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
 
   const handleSubmitForm = e => {
     e.preventDefault()
-    dispatch(postAvailabilityData(initialData))
+    dispatch(postAvailabilityData(availabilityData))
   }
 
   const handleArrivalChange = (date, str) => {
-    const arrivalDate = new Date(str);
-    const departureDate = new Date(initialData.departure);
+    const arrivalDate = new Date(str)
+    const departureDate = new Date(initialData.departure)
 
     setInitialData(prev => {
       if (arrivalDate > departureDate) {
-        return { ...prev, arrival: str, departure: str };
+        return { ...prev, arrival: str, departure: str }
       } else {
-        return { ...prev, arrival: str };
+        return { ...prev, arrival: str }
       }
-    });
-  };
+    })
+  }
 
   const handleDepartureChange = (date, str) => {
-    const arrivalDate = new Date(initialData.arrival);
-    const departureDate = new Date(str);
+    const arrivalDate = new Date(initialData.arrival)
+    const departureDate = new Date(str)
 
     setInitialData(prev => {
       if (departureDate < arrivalDate) {
-        return { ...prev, arrival: str, departure: str };
+        return { ...prev, arrival: str, departure: str }
       } else {
-        return { ...prev, departure: str };
+        return { ...prev, departure: str }
       }
-    });
-  };
+    })
+  }
 
   const lowestPrice =
     data?.results?.[id]?.rooms?.length > 0
-      ? Math.min(...data?.results?.[id]?.rooms?.map(room => parseFloat(room.price_per_night)))
+      ? Math.min(
+          ...data?.results?.[id]?.rooms?.map(room =>
+            parseFloat(room.price_per_night)
+          )
+        )
       : 0
+
+  
+
+  useEffect(() => {
+    console.log(availabilityData);
+  }, [availabilityData])
 
   return (
     <ConfigProvider locale={ru_RU}>
@@ -216,11 +239,15 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
                   }`}
                 >
                   {initialData.persons.adult + initialData.persons.children}
-                  {initialData.persons.adult + initialData.persons.children === 1 ? ' гость' : ' гостей'}{' '}
+                  {initialData.persons.adult + initialData.persons.children ===
+                  1
+                    ? ' гость'
+                    : ' гостей'}{' '}
                   <span>&#8226;</span> {initialData.persons.rooms}{' '}
                   {initialData.persons.rooms === 1
                     ? 'номер'
-                    : initialData.persons.rooms > 1 && initialData.persons.rooms < 5
+                    : initialData.persons.rooms > 1 &&
+                      initialData.persons.rooms < 5
                     ? 'номера'
                     : initialData.persons.rooms >= 5
                     ? 'номеров'
@@ -242,17 +269,21 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        const totalGuests = initialData.persons.adult + initialData.persons.children;
+                        const totalGuests =
+                          initialData.persons.adult +
+                          initialData.persons.children
                         if (totalGuests < 6) {
                           setInitialData(prev => ({
                             ...prev,
                             persons: {
                               ...prev.persons,
-                              adult: prev.persons.adult + 1,
-                            },
-                          }));
+                              adult: prev.persons.adult + 1
+                            }
+                          }))
                         } else {
-                          {warning()}
+                          {
+                            warning()
+                          }
                         }
                       }}
                       className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
@@ -283,17 +314,21 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        const totalGuests = initialData.persons.adult + initialData.persons.children;
+                        const totalGuests =
+                          initialData.persons.adult +
+                          initialData.persons.children
                         if (totalGuests < 6) {
                           setInitialData(prev => ({
                             ...prev,
                             persons: {
                               ...prev.persons,
-                              children: prev.persons.children + 1,
-                            },
-                          }));
+                              children: prev.persons.children + 1
+                            }
+                          }))
                         } else {
-                          {warning()}
+                          {
+                            warning()
+                          }
                         }
                       }}
                       className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"

@@ -13,7 +13,10 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
   const id = useSelector(state => state?.housing?.data?.results?.[hotelId]?.id)
   const dispatch = useDispatch()
 
+  const [userId, setUserId] = useState('');
+
   const [initialDataRate, setInitialDataRate] = useState({
+    user: '',
     housing: null,
     staff_rating: 0,
     comfort_rating: 0,
@@ -91,7 +94,7 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
     ) {
       // Если все условия выполняются, то диспатчим данные
       dispatch(postReviewsData(initialDataRate))
-      window.location.reload();
+      //window.location.reload();
     } else if (initialDataRate.comment.length < 5) {
       setErrorText(true) // Устанавливаем errorText в true
     } else {
@@ -107,6 +110,24 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
   }
 
   useEffect(() => {
+    // Получаем данные из локального хранилища при монтировании компонента
+    const storedUserId = localStorage.getItem('user_id');
+    if (storedUserId) {
+      setUserId(storedUserId); // Устанавливаем userId в состоянии
+    }
+  }, []);
+  
+  // ...
+  
+  useEffect(() => {
+    // После установки userId в состоянии, можно его использовать в initialDataRate
+    setInitialDataRate(prev => ({
+      ...prev,
+      user: userId // Устанавливаем userId в initialDataRate
+    }));
+  }, [userId]);
+
+  useEffect(() => {
     if (id !== null) {
       // Если id не равно null, значит данные загружены, и мы можем его установить
       setInitialDataRate(prev => ({
@@ -115,10 +136,6 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
       }))
     }
   }, [id])
-
-  useEffect(() => {
-    console.log(initialDataRate)
-  }, [initialDataRate])
 
   return (
     <Modal
