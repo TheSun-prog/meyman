@@ -46,7 +46,7 @@ const ReviewSwiper = ({ data, id = 0, handleClick, setReviewDataProp }) => {
           prevEl: ".swiper-button-prev-review",
         }}
       >
-        {data?.results?.[id]?.reviews.map((value, index, array) => {
+        {data?.reviews?.map((value, index, array) => {
           return (
             <SwiperSlide onClick={() => {handleClick(value)}} key={index}>
               <ReviewCard data={value} />
@@ -54,7 +54,7 @@ const ReviewSwiper = ({ data, id = 0, handleClick, setReviewDataProp }) => {
           );
         })}
       </Swiper>
-      {data?.results?.[id]?.reviews.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
+      {data?.reviews?.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
         <img
           src={left}
           alt="left"

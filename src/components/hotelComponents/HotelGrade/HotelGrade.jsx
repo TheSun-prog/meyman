@@ -11,7 +11,7 @@ const HotelGrade = ({ data, id }) => {
   ]
 
   const calculateAverageRating = fieldName => {
-    const reviews = data?.results?.[id]?.reviews || [] // Ensure reviews array exists
+    const reviews = data?.reviews || [] // Ensure reviews array exists
     if (reviews.length === 0) {
       return 0 // Return 0 if there are no reviews
     }
@@ -26,9 +26,9 @@ const HotelGrade = ({ data, id }) => {
     <div>
       <h2 className="text-[28px] mt-14">Отзывы</h2>
       <p className="text-[#666666] mb-[40px]">
-        Количество отзывов: {data?.results?.[id]?.reviews?.length}
+        Количество отзывов: {data?.reviews?.length}
       </p>
-      {data?.results?.[id]?.reviews?.length ? (
+      {data?.reviews?.length ? (
         <div className="flex justify-between">
           <div className="flex flex-col justify-between items-center">
             {ratingFields.slice(0, 3).map((field, index) => (

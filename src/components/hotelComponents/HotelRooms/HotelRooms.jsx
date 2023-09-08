@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import HotelRoomsCard from './HotelRoomsCard'
 import arrow from '../../../assets/images/arrow-right.svg'
 import { NavLink } from 'react-router-dom'
 
 const HotelRooms = ({data, id, handleActiveModal }) => {
+
+  useEffect(() => {
+    console.log(data);
+  }, [data])
+
   return (
     <div>
       <h5 className="py-6 text-[28px]">Номера</h5>
       <div className="flex gap-[40px] justify-between flex-wrap">
-        {data?.results?.[id]?.rooms?.map((room, index) => (
-          <NavLink key={room.id} to={`/hotelcatalog/${id}/${index}`} state={room}>
+        {data?.rooms?.map((room, index) => (
+          <NavLink key={room.id} to={`/hotelcatalog/${id}/${room.id}`} state={room}>
             <HotelRoomsCard
               data={data}
               img={room.room_images[0].image}

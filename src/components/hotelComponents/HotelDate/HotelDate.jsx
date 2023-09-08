@@ -111,9 +111,9 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
   }
 
   const lowestPrice =
-    data?.results?.[id]?.rooms?.length > 0
+    data?.rooms?.length > 0
       ? Math.min(
-          ...data?.results?.[id]?.rooms?.map(room =>
+          ...data?.rooms?.map(room =>
             parseFloat(room.price_per_night)
           )
         )

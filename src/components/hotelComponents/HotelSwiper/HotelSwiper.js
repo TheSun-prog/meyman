@@ -54,6 +54,10 @@ const HotelSwiper = ({ }) => {
     }
   };
 
+  useEffect(() => {
+    console.log(hotelData);
+  }, [hotelData])
+
   return (
     <>
       <Swiper
@@ -68,7 +72,7 @@ const HotelSwiper = ({ }) => {
           hotelData.map((value, index) => {
             return (
               <SwiperSlide key={index}>
-                <NavLink to={`/hotelcatalog/${index}`}>
+                <NavLink to={`/hotelcatalog/${value?.id}`}>
                   <HotelCard data={value} index={index} />
                 </NavLink>
               </SwiperSlide>
