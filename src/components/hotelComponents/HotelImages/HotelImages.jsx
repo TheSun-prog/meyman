@@ -40,7 +40,7 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
           )}
           {data?.housing_images?.[2]?.image ? (
             <img
-              className="w-[365px] h-[245px] object-cover"
+              className="w-[365px] h-[245px] object-cover rounded-tr-2xl"
               src={data?.housing_images?.[2]?.image}
               alt="hotelImg2"
             />
@@ -56,7 +56,7 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
         <div className="flex gap-[10px] relative">
         {data?.housing_images?.[3]?.image ? (
             <img
-              className="w-[365px] h-[245px] object-cover"
+              className="w-[365px] h-[245px] object-cover "
               src={data?.housing_images?.[3]?.image}
               alt="hotelImg2"
             />
@@ -70,7 +70,7 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
           )}
           {data?.housing_images?.[4]?.image ? (
             <img
-              className="w-[365px] h-[245px] object-cover"
+              className="w-[365px] h-[245px] rounded-br-2xl  -2xl object-cover"
               src={data?.housing_images?.[4]?.image}
               alt="hotelImg2"
             />

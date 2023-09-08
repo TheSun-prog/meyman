@@ -51,8 +51,7 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
 
   const [availabilityData, setAvailabilityPostData] = useState({
     housing: 1,
-    date: initialData.arrival,
-
+    date: initialData.arrival
   })
 
   const warning = () => {
@@ -112,17 +111,11 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
 
   const lowestPrice =
     data?.rooms?.length > 0
-      ? Math.min(
-          ...data?.rooms?.map(room =>
-            parseFloat(room.price_per_night)
-          )
-        )
+      ? Math.min(...data?.rooms?.map(room => parseFloat(room.price_per_night)))
       : 0
 
-  
-
   useEffect(() => {
-    console.log(availabilityData);
+    console.log(availabilityData)
   }, [availabilityData])
 
   return (
@@ -395,7 +388,7 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
           </div>
         </div>
         <Button
-          classes={`w-full py-[20px] mt-[25px] ${
+          classes={`w-full py-[20px] mt-[25px] shadow-xl text-[18px] ${
             isAvailability ? 'bg-red-600' : ''
           }`}
           clickFunc={openModalFilteredRoom}

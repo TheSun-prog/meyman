@@ -308,12 +308,12 @@ const Booking = () => {
           </div>
           <div className="mt-5">
             <h2 className="text-[28px]">Номер:</h2>
-            <h1 className="text-[32px] font-[500]">{roomData?.room_name}</h1>
+            <h1 className="text-[20px] font-[500]">{roomData?.room_name}</h1>
             <div className="flex mt-4">
               <img className="mr-2" src={persons} alt="persons" />
               <span className="text-[#666666] text-[18px]">
                 {roomData?.max_guest_capacity} гостей <span>&#8226;</span>{' '}
-                {roomData?.room_area}м 2
+                {roomData?.room_area}м²
               </span>
             </div>
             <div className="flex items-center">
@@ -326,17 +326,15 @@ const Booking = () => {
                   : 'Односпальная'}
               </span>
             </div>
-            <ul className="flex flex-col flex-wrap w-[303px] max-h-[650px] min-h-[350px] mt-6">
-              {roomData?.room_amenities?.map((item, index) => (
-                <li key={index} className="flex mb-[24px] w-full">
-                  <div className="flex ">
-                    <img
-                      className="mr-[14px]"
-                      src={roomIcons[item]}
-                      alt="wifiIcon"
-                    />
-                    <span className="text-[22px]">{item}</span>
-                  </div>
+            <ul className="flex flex-col gap-[20px] flex-wrap w-[403px] h-[158px] mt-6 mb-[80px]">
+              {roomData?.room_amenities?.slice(0, 8).map((item, index) => (
+                <li key={index} className="flex">
+                  <img
+                    className="mr-[14px] w-[18px] h-[18px]"
+                    src={roomIcons[item]}
+                    alt={roomIcons[item]}
+                  />
+                  <span className="text-[16px]">{item}</span>
                 </li>
               ))}
             </ul>

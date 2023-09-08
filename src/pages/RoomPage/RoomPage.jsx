@@ -9,12 +9,10 @@ import arrow2 from '../../assets/images/arrow2.svg'
 // ui
 import Button from '../../components/ui/Button/Button'
 import ModalAllServices from '../../components/roomComponents/modals/ModalAllServices'
-import RoomName from '../../components/hotelComponents/HotelRooms/RoomName'
 // react
 import { useEffect, useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchHousingData } from '../../store/slice/housingSlice'
 // components
 import roomIcons from './roomIcon'
 import RoomDate from '../../components/roomComponents/RoomDate'
@@ -32,7 +30,7 @@ const RoomPage = () => {
   const { hotelId, roomId } = useParams()
 
   const { data } = useSelector(state => state.room)
-  const address = useSelector(state => state.hotel.data.address)
+  const hotelData = useSelector(state => state.hotel.data)
 
   const handleActiveModal = () => {
     setActiveModalAllPhotosRooms(true)
@@ -70,7 +68,7 @@ const RoomPage = () => {
             <div className="flex">
               <img src={placeIcon} alt="placeIcon" />
               <span className="text-2xl text-grey">
-                {address}
+                {hotelData?.address}/{hotelData?.location}
               </span>
             </div>
           </div>
@@ -123,9 +121,9 @@ const RoomPage = () => {
               <h3 className="text-[28px]">Условия бронирования</h3>
               <div className="flex">
                 <img className="mr-2" src={done} alt="done" />
-                <span className="text-[#59A859]">
+                {data.Free_cancellation_anytime && <span className="text-[#59A859]">
                   Бесплатная отмена в любое время{' '}
-                </span>
+                </span>}
               </div>
               <div className="flex">
                 <img className="mr-2" src={dish} alt="done" />
@@ -154,7 +152,7 @@ const RoomPage = () => {
                 clickFunc={() => {
                   setActiveModalAllServices(true)
                 }}
-                classes={'py-2 px-3'}
+                classes={'py-2 px-3 shadow-xl'}
               >
                 Показать все Удобства <img src={arrow} alt="arrow" />
               </Button>
@@ -174,7 +172,7 @@ const RoomPage = () => {
         isOpen={activeModalALlServices}
         handleOk={handleCloseAllServicesModal}
         handleCancel={handleCloseAllServicesModal}
-        amenities={data?.room_amenities}
+        amenities={data}
       />
     </div>
   )

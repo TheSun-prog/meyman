@@ -145,7 +145,7 @@ const RoomDate = ({data}) => {
           </div>
         </div>
         <NavLink to={`/hotelcatalog/${hotelId}/${roomId}/booking`} state={initialData}>
-          <Button classes={'w-full py-[20px] mt-[25px]'}>Забронировать</Button>
+          <Button classes={'w-full py-[20px] mt-[25px] shadow-xl'}>Забронировать</Button>
         </NavLink>
       </div>
     </ConfigProvider>

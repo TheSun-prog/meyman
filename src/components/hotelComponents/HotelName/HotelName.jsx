@@ -28,7 +28,7 @@ const HotelName = ({ data, id }) => {
         </div>
         <div className="flex">
           <img src={placeIcon} alt="placeIcon" />
-          <span className="text-2xl text-grey">{data?.address}</span>
+          <span className="text-2xl text-grey">{data?.address}/{data?.location}</span>
         </div>
       </div>
       <div className="flex">

@@ -20,7 +20,6 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchHousingData } from '../../store/slice/housingSlice'
 import { fetchHotelData } from '../../store/slice/hotelSlice'
 
 const HotelPage = () => {

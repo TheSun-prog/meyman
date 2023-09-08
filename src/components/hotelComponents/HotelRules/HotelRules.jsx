@@ -44,12 +44,11 @@ const HotelRules = ({ data, id, handleClickModal }) => {
       <h5 className="mt-[80px] mb-[25px] text-[28px]">
         Удобства и услуги отеля
       </h5>
-      <ul className="pb-[10px] flex flex-col flex-wrap h-[300px] max-w-[684px]">
-        {amenitiesData.slice(0, 10).map(
+      <ul className="pb-[10px] flex flex-col gap-[24px] flex-wrap h-[236px] max-w-[684px]">
+        {amenitiesData.slice(0, 9).map(
           item =>
             data[item.key] && (
-              <div className="max-w-[328px]" key={item.key}>
-                <li className="flex mb-[24px] ">
+                <li key={item.key} className="flex items-center justify-between  ">
                   <div className="flex border-b border-b-[#8C8C8C]">
                     <img
                       className="mr-[14px]"
@@ -59,18 +58,18 @@ const HotelRules = ({ data, id, handleClickModal }) => {
                     <span className="text-[22px]">{item.text}</span>
                   </div>
                   {item.additionalText && (
-                    <div className="bg-[#A1A1A1] px-[15px] h-[19px] rounded-[21px] flex justify-center">
+                    <div className="bg-[#A1A1A1] px-[15px] h-[19px] rounded-[21px] items-center flex">
                       <span className="text-white text-[12px]">
                         {item.additionalText}
                       </span>
                     </div>
                   )}
                 </li>
-              </div>
+              
             )
         )}
       </ul>
-      <Button clickFunc={handleClickModal} classes={'py-[10px] px-[25px]'}>
+      <Button clickFunc={handleClickModal} classes={'py-[10px] px-[25px] shadow-xl text-[18px]'}>
         Подробнее <img className="ml-[10px]" src={arrow} alt="arrow" />
       </Button>
     </div>
