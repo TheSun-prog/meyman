@@ -15,6 +15,9 @@ import ConfirmCode from "./pages/ConfirmCodePage/ConfirmCode";
 import RegPage from "./pages/RegPage/RegPage";
 import AboutPage from "./pages/AboutPage/AboutPage";
 import ScrollToTop from "./components/Base/ScrollToTop/ScrollToTop";
+import BusinessMainPage from "./pages/BusinessMainPage/BusinessMainPage";
+import BusinessAccountData from "./pages/BusinessAccountData/BusinessAccountData";
+import FillingHotelDetails from "./pages/FillingHotelDetails/FillingHotelDetails";
 
 function App() {
     return (<>
@@ -34,11 +37,23 @@ function App() {
                     <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
                     <Route path={'/auth'} element={<AuthPage/>}/>
                     <Route
-                        path="/FillingRoomDetails"
+                        path="/businessMainPage"
+                        element={<BusinessMainPage/>}
+                    />
+                    <Route
+                        path="/businessAccountData"
+                        element={<BusinessAccountData/>}
+                    />
+                    <Route
+                        path="/fillingHotelDetails"
+                        element={<FillingHotelDetails/>}
+                    />
+                    <Route
+                        path="/fillingRoomDetails"
                         element={<FillingRoomDetails/>}
                     />
                     <Route
-                        path="/BusinessOwnerNotification"
+                        path="/businessOwnerNotification"
                         element={<BusinessOwnerNotification/>}
                     />
 

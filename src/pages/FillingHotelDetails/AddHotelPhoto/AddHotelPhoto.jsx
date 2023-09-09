@@ -1,28 +1,26 @@
 import React, {useState} from 'react';
-import logoAddPhoto from '../../../assets/images/addPhoto.svg'
-import warning from '../../../assets/images/vnimanie.svg'
-import plus from '../../../assets/images/plus.svg'
-import styles from './AddPhotoRoom.module.scss';
-
-import Button from "../../../components/ui/Button/Button";
+import styles from "../../FillingRoomDetails/AddPhoto/AddPhotoRoom.module.scss";
 import {Link} from "react-router-dom";
+import Button from "../../../components/ui/Button/Button";
+import warning from "../../../assets/images/vnimanie.svg";
+import plus from "../../../assets/images/plus.svg";
+import logoAddPhoto from "../../../assets/images/addPhoto.svg";
 
+function AddHotelPhoto() {
 
-function AddPhotoRoom(props) {
-
-    const [photos, setPhotos] = useState([]);
+    const [photos2, setPhotos2] = useState([]);
 
     const handleFileChange = (e) => {
         const files = e.target.files;
 
-        if (files.length + photos.length <= 6) {
-            const newPhotos = [...photos];
+        if (files.length + photos2.length <= 6) {
+            const newPhotos = [...photos2];
 
             for (let i = 0; i < files.length; i++) {
                 newPhotos.push(URL.createObjectURL(files[i]));
             }
 
-            setPhotos(newPhotos);
+            setPhotos2(newPhotos);
         } else {
             alert('Максимально количество фотографий 6');
         }
@@ -34,7 +32,7 @@ function AddPhotoRoom(props) {
     let minPhotoText;
 
 
-    if (photos.length >=1)
+    if (photos2.length >=1)
     {
         photoAddText = (
             <div>
@@ -46,7 +44,7 @@ function AddPhotoRoom(props) {
     }
 
 
-    if (photos.length <5)
+    if (photos2.length <5)
     {
         minPhotoText = (
             <div className="flex items-center mt-[41px]">
@@ -58,25 +56,25 @@ function AddPhotoRoom(props) {
 
         )
     }
-    if (photos.length >= 1) {
+    if (photos2.length >= 1) {
         uploadForm = (
             <div className="flex left-0">
-                <form action="#" onClick={() => document.querySelector('#inputFile2').click()}>
+                <form action="#" onClick={() => document.querySelector('#inputFile').click()}>
                     <input
                         type="file"
-                        id="inputFile2"
+                        id="inputFile"
                         className="input-filed hidden"
                         accept="image/*"
                         multiple
                         onChange={handleFileChange}
                     />
 
-                        <button className={styles.buttonAddPhoto} type="button">
-                            <img src={plus} alt="plusLogo" />
-                            <p className="text-base font-normal leading-relaxed">
-                                Загрузите фотографии
-                            </p>
-                        </button>
+                    <button className={styles.buttonAddPhoto} type="button">
+                        <img src={plus} alt="plusLogo" />
+                        <p className="text-base font-normal leading-relaxed">
+                            Загрузите фотографии
+                        </p>
+                    </button>
 
 
                 </form>
@@ -85,10 +83,10 @@ function AddPhotoRoom(props) {
     } else {
         uploadForm = (
             <div className={styles.wrapper_addPhoto}>
-                <form action="#" onClick={() => document.querySelector('#inputFile2').click()}>
+                <form action="#" onClick={() => document.querySelector('#inputFile').click()}>
                     <input
                         type="file"
-                        id="inputFile2"
+                        id="inputFile"
                         className="input-filed hidden"
                         accept="image/*"
                         multiple
@@ -106,12 +104,10 @@ function AddPhotoRoom(props) {
         );
     }
 
-
     return (
-        <>
         <div className="mx-auto w-[1240px]">
             <h1 className='font-quicksand text-xl font-normal mt-[100px] mb-[40px]'>
-                Загрузите фотографии вашего номера
+                Загрузите фотографии вашего отеля
             </h1>
             <p className="text-base font-normal leading-relaxed mb-[5px]">
                 Загрузите не менее 5 фотографий вашего объекта размещения
@@ -124,7 +120,7 @@ function AddPhotoRoom(props) {
             {photoAddText}
 
             <div className={styles.photosContainer}>
-                {photos.map((photo, index) => (
+                {photos2.map((photo, index) => (
                     <img
                         key={index}
                         src={photo}
@@ -133,16 +129,16 @@ function AddPhotoRoom(props) {
                     />
                 ))}
             </div>
-                {uploadForm}
-                {minPhotoText}
-            <Link to={photos.length >= 5 ? '/businessOwnerNotification' : '#'}>
+            {uploadForm}
+            {minPhotoText}
+            <Link to={photos2.length >= 5 ? '/fillingRoomDetails' : '#'}>
                 <Button classes={'py-[20px] mt-[25px] w-[295px] h-[53px] hover:bg-[#1178B4] mb-[100px] mt-[100px]'}>
                     Сохранить
                 </Button>
             </Link>
+
         </div>
-        </>
     );
 }
 
-export default AddPhotoRoom;
+export default AddHotelPhoto;
