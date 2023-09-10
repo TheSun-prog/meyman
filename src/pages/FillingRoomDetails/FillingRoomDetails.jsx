@@ -1,10 +1,8 @@
 import React from 'react';
-import './FillingRoomDetails.css'
 import MainRoom from "./MainRoom/MainRoom";
 import Room from "./Room/Room";
 import PriceSetting from "./PriceSetting/PriceSetting";
 import AddPhotoRoom from "./AddPhoto/AddPhotoRoom";
-import BusinessOwnerNotification from "../BusinessOwnerNotification/BusinessOwnerNotification";
 
 
 function FillingRoomDetails(props) {
