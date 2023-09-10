@@ -17,50 +17,54 @@ import AboutPage from "./pages/AboutPage/AboutPage";
 import ScrollToTop from "./components/Base/ScrollToTop/ScrollToTop";
 import PersonalAreaPage from "./pages/PersonalAreaPage/PersonalAreaPage";
 import PersonalInfoPage from "./pages/PersonalAreaPage/PersonalInfoPage";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
+import WishListPage from "./pages/WishListPage/WishListPage";
 
 
 function App() {
 
 
-
     return (<>
-            <ScrollToTop/>
+        <ScrollToTop/>
 
-            <Routes>
-                <Route path="/" element={<Layout/>}>
-                    <Route path="/" element={<Mainpage/>}/>
-                    <Route path="/hotelcatalog" element={<HotelCatalog/>}/>
-                    <Route path="/hotelcatalog/:hotelId" element={<HotelPage/>}/>
-                    <Route path="/hotelcatalog/:hotelId/:roomId" element={<RoomPage/>}/>
-                    <Route
-                        path="/hotelcatalog/:hotelId/:roomId/booking"
-                        element={<BookingPage/>}
-                    />
-                    <Route path="/personal-area" element={<PersonalAreaPage />}/>
-                <Route path="/personal-area/personal-info" element={<PersonalInfoPage />}/>
-                    <Route path={'/about'} element={<AboutPage/>}/>
-                    <Route path={'/register'} element={<RegPage/>}/>
-                    <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
-                    <Route path={'/auth'} element={<AuthPage/>}/>
-                    <Route
-                        path="/FillingRoomDetails"
-                        element={<FillingRoomDetails/>}
-                    />
-                    <Route
-                        path="/BusinessOwnerNotification"
-                        element={<BusinessOwnerNotification/>}
-                    />
+        <Routes>
+            <Route path="/" element={<Layout/>}>
+                <Route path="/" element={<Mainpage/>}/>
+                <Route path="/hotelcatalog" element={<HotelCatalog/>}/>
+                <Route path="/hotelcatalog/:hotelId" element={<HotelPage/>}/>
+                <Route path="/hotelcatalog/:hotelId/:roomId" element={<RoomPage/>}/>
+                <Route
+                    path="/hotelcatalog/:hotelId/:roomId/booking"
+                    element={<BookingPage/>}
+                />
+                <Route path="/personal-area" element={<PersonalAreaPage/>}/>
+                <Route path="/personal-area/personal-info" element={<PersonalInfoPage/>}/>
+                <Route path={'/about'} element={<AboutPage/>}/>
+                <Route path={'/register'} element={<RegPage/>}/>
+                <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
+                <Route path={'/auth'} element={<AuthPage/>}/>
+                <Route
+                    path="/FillingRoomDetails"
+                    element={<FillingRoomDetails/>}
+                />
+                <Route
+                    path="/BusinessOwnerNotification"
+                    element={<BusinessOwnerNotification/>}
+                />
 
-                    <Route path="/test" element={<Test/>}/>
-                    <Route
-                        path="/*"
-                        element={<h1 className="text-center text-red-700 text-[50px] mt-10">
-                            Страница не найдена
-                        </h1>}
-                    />
-                </Route>
-            </Routes>
-        </>);
+                <Route path="/test" element={<Test/>}/>
+                <Route path="/favorites" element={<FavoritesPage/>}/>
+                <Route path="/favorites/:id" element={<WishListPage/>}/>
+
+                <Route
+                    path="/*"
+                    element={<h1 className="text-center text-red-700 text-[50px] mt-10">
+                        Страница не найдена
+                    </h1>}
+                />
+            </Route>
+        </Routes>
+    </>);
 }
 
 export default App;
