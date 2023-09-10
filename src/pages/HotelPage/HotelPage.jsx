@@ -112,7 +112,6 @@ const HotelPage = () => {
         <HotelGrade data={data} id={hotelId} />
         <ReviewSwiper
           data={data}
-          id={hotelId}
           handleClick={value => {
             setReviewData(value)
             setActiveModalReview(true)
