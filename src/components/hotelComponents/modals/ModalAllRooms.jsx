@@ -24,7 +24,7 @@ const ModalAllRooms = ({ isOpen, handleOk, handleCancel, data, id }) => {
           alt="clear"
         />
         <div className="flex flex-wrap justify-center gap-[18px] w-[940px] ">
-          {data?.results?.[id]?.rooms?.map((room, index) => (
+          {data?.rooms?.map((room, index) => (
             <NavLink
               key={room.id}
               to={`/hotelcatalog/${id}/${index}`}

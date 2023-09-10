@@ -49,7 +49,7 @@ const Services = ({ isOpen, handleOk, handleCancel, data, id }) => {
         <ul className="flex flex-col flex-wrap gap-[40px] px-[64px] h-[444px] mt-[40px]">
           {amenities.map(
             item =>
-              data?.results?.[id]?.[item.key] && (
+              data?.[item.key] && (
                 <li className="relative flex items-center" key={item.key}>
                   <img src={item.icon} alt={item.label} className='h-[24px] w-[24px]'/>
                   <span className="ml-2 text-2xl">{item.text}</span>

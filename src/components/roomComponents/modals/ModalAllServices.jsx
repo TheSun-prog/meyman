@@ -23,7 +23,31 @@ const ModalAllServices = ({ isOpen, handleOk, handleCancel, amenities }) => {
         <h1 className="text-center text-[28px]">Удобства номера</h1>
       </div>
       <ul className="mt-[42px]">
-        {amenities?.map((item, index) => (
+        {amenities?.room_amenities?.map((item, index) => (
+          <li key={index} className="flex mb-[24px] ">
+            <div className="flex">
+              <img className="mr-[14px]" src={roomIcons[item]} alt="wifiIcon" />
+              <span className="text-[22px]">{item}</span>
+            </div>
+          </li>
+        ))}
+        {amenities?.kitchen?.map((item, index) => (
+          <li key={index} className="flex mb-[24px] ">
+            <div className="flex">
+              <img className="mr-[14px]" src={roomIcons[item]} alt="wifiIcon" />
+              <span className="text-[22px]">{item}</span>
+            </div>
+          </li>
+        ))}
+        {amenities?.outside?.map((item, index) => (
+          <li key={index} className="flex mb-[24px] ">
+            <div className="flex">
+              <img className="mr-[14px]" src={roomIcons[item]} alt="wifiIcon" />
+              <span className="text-[22px]">{item}</span>
+            </div>
+          </li>
+        ))}
+        {amenities?.bathroom?.map((item, index) => (
           <li key={index} className="flex mb-[24px] ">
             <div className="flex">
               <img className="mr-[14px]" src={roomIcons[item]} alt="wifiIcon" />

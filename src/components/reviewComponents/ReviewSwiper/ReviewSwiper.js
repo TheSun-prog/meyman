@@ -42,11 +42,11 @@ const ReviewSwiper = ({id = 0, handleClick, openModal}) => {
 
     const swiperRef = React.useRef(null);
 
-    const goNext = () => {
-        if (swiperRef.current && swiperRef.current.swiper) {
-            swiperRef.current.swiper.slideNext();
-        }
-    };
+  const goNext = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
 
     const goPrev = () => {
         if (swiperRef.current && swiperRef.current.swiper) {

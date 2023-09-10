@@ -20,7 +20,7 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { fetchHousingData } from '../../store/slice/housingSlice'
+import { fetchHotelData } from '../../store/slice/hotelSlice'
 
 const HotelPage = () => {
   const [activeModalReview, setActiveModalReview] = useState(false)
@@ -32,7 +32,7 @@ const HotelPage = () => {
   const [reviewData, setReviewData] = useState()
 
   const dispatch = useDispatch()
-  const { data, isError } = useSelector(state => state.housing)
+  const { data, isError } = useSelector(state => state.hotel)
   const { hotelId } = useParams()
 
   const handleCancelSendReview = () => {
@@ -60,7 +60,7 @@ const HotelPage = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchHousingData({ limit: 12, offset: 0 }))
+    dispatch(fetchHotelData(hotelId))
   }, [dispatch])
 
   return (
@@ -68,7 +68,7 @@ const HotelPage = () => {
       className="mx-auto w-[1240px]"
       style={{ fontFamily: 'Quicksand, sans-serif' }}
     >
-      <div className="flex items-center mb-[50px] mt-[45px]">
+      <div className="flex text-[16px] items-center mb-[50px] mt-[45px]">
         <Link to={'/'}>Главная</Link>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
         <Link to={`/hotelcatalog/${hotelId}`}>Отель</Link>
@@ -146,7 +146,7 @@ const HotelPage = () => {
         isOpen={activeModalALlImages}
         handleOk={handleCancelImages}
         handleCancel={handleCancelImages}
-        data={data?.results?.[hotelId]?.housing_images}
+        data={data?.housing_images}
         id={hotelId}
       />
       <ModalFilteredRooms
