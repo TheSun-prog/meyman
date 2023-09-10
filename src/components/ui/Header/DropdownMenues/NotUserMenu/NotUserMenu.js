@@ -14,7 +14,7 @@ const NotUserMenu = ({}) => {
                 Зарегестрироватья
             </p>
         </NavLink>
-        <NavLink to={'/login'}>
+        <NavLink to={'/auth'}>
             <p
                 className="text-[16px] py-[10px] border-b-grey border-b-[1px] cursor-pointer"
             >

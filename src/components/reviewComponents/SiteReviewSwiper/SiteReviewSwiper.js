@@ -37,7 +37,7 @@ const ReviewSwiper = ({id = 0, handleClick=()=>{}, openModal}) => {
   }, [reviewData]);
 
     useEffect(() => {
-    dispatch(fetchReviewData({ limit: 7, offset: 0 }));
+    dispatch(fetchReviewData({ limit: 10, offset: 0 }));
   }, [dispatch]);
 
     const swiperRef = React.useRef(null);

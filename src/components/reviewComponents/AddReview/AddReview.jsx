@@ -15,6 +15,7 @@ export default function AddReview({modalShow, setModalShow}) {
     const handleClick = async () => {
         const formData = new FormData()
         await formData.append("content", content)
+        console.log(formData)
         dispatch(fetchReviewData({limit: 7, offset: 0}))
         dispatch(postReviewData(formData))
         setModalShow(false)

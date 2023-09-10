@@ -64,7 +64,7 @@ const Mainpage = () => {
             {AuthModal && <AuthDoneModal/>}
             <div className="bg-main bg-no-repeat bg-cover h-[550px]">
                 <div className="mx-auto w-[1240px] h-[100%] relative">
-                    <div className="flex flex-col gap-[50px] z-0">
+                    <div className="flex flex-col gap-[50px] pt-[180px] z-0">
                         <div className="flex gap-[20px] z-0">
                             <div
                                 className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === 'hotel' ? 'bg-grey border-[1px] border-white' : 'bg-dark-blue'}`}>

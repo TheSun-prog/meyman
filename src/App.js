@@ -20,6 +20,9 @@ import PersonalInfoPage from "./pages/PersonalAreaPage/PersonalInfoPage";
 
 
 function App() {
+
+
+
     return (<>
             <ScrollToTop/>
 
@@ -28,10 +31,10 @@ function App() {
                     <Route path="/" element={<Mainpage/>}/>
                     <Route path="/hotelcatalog" element={<HotelCatalog/>}/>
                     <Route path="/hotelcatalog/:hotelId" element={<HotelPage/>}/>
-                    <Route path="/hotelcatalog/:hotelId/:roomId" element={<Room/>}/>
+                    <Route path="/hotelcatalog/:hotelId/:roomId" element={<RoomPage/>}/>
                     <Route
                         path="/hotelcatalog/:hotelId/:roomId/booking"
-                        element={<Booking/>}
+                        element={<BookingPage/>}
                     />
                     <Route path="/personal-area" element={<PersonalAreaPage />}/>
                 <Route path="/personal-area/personal-info" element={<PersonalInfoPage />}/>

@@ -146,6 +146,7 @@ body {
 
 .AuthLabel {
     position: relative;
+    width: 100%;
 }
 
 .AuthLabel img {

@@ -12,10 +12,9 @@ export const fetchReviewData = createAsyncThunk('review/getReview', async ({ lim
   return response.data;
 });
 
-export const postReviewData = createAsyncThunk('review/postReview', async ({content}) => {
-  const response = await $authApi.post('/review/', {
-    content
-  })
+export const postReviewData = createAsyncThunk('review/postReview', async (data) => {
+  console.log(data)
+  const response = await $authApi.post('/review/', data)
   return response.data;
 });
 

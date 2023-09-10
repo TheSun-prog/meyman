@@ -103,8 +103,8 @@ const AuthPage = () => {
                             required
                         />
                         {isShow
-                            ? <img src={passHide} alt='passHide' onClick={() => setIsShow(false)}/>
-                            : <img src={passShow} alt='passShow' onClick={() => setIsShow(true)}/>
+                            ? <img className='pt-[15px]' src={passHide} alt='passHide' onClick={() => setIsShow(false)}/>
+                            : <img className='pt-[15px]' src={passShow} alt='passShow' onClick={() => setIsShow(true)}/>
                         }
                     </label>
                     <p className={'losePassword'}>Забыли пароль?</p>
