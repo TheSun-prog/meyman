@@ -119,12 +119,14 @@ const RoomPage = () => {
           <div>
             <div>
               <h3 className="text-[28px]">Условия бронирования</h3>
-              <div className="flex">
-                <img className="mr-2" src={done} alt="done" />
-                {data.Free_cancellation_anytime && <span className="text-[#59A859]">
-                  Бесплатная отмена в любое время{' '}
-                </span>}
-              </div>
+              {data.Free_cancellation_anytime && (
+                <div className="flex">
+                  <img className="mr-2" src={done} alt="done" />
+                  <span className="text-[#59A859]">
+                    Бесплатная отмена в любое время{' '}
+                  </span>
+                </div>
+              )}
               <div className="flex">
                 <img className="mr-2" src={dish} alt="done" />
                 <span className="text-[#59A859]">Завтрак включен</span>
