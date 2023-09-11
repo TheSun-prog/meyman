@@ -4,12 +4,12 @@ import heartIcon from "../../../assets/images/heart.svg";
 import Rating from "@mui/material/Rating";
 import { Skeleton } from "antd";
 
-const HotelName = ({ data, id }) => {
+const HotelName = ({ data }) => {
   const stars = data?.stars ? data?.stars : null;
   
   return (
     <div className="flex justify-between">
-      {data?.housing_name && data?.average_rating && data?.address && data?.location ? <div>
+      {data?.housing_name ? <div>
         <h3 className="font-medium text-[32px]">{data?.housing_name}</h3>
         <div className="flex">
           <Rating value={stars} readOnly />

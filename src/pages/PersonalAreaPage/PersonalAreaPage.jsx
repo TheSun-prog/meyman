@@ -12,7 +12,7 @@ import { getChangeUserName } from '../../store/slice/changeUserNameSlice'
 
 const PersonalAreaPage = () => {
   const dispatch = useDispatch()
-  const {getData} = useSelector(state => state.changeUserName)
+  const { getData } = useSelector(state => state.changeUserName)
 
   useEffect(() => {
     dispatch(getChangeUserName())
@@ -43,13 +43,15 @@ const PersonalAreaPage = () => {
             </span>
           </div>
         </NavLink>
-        <div className="shadow-xl w-[420px] rounded-xl py-[17px] px-5 cursor-pointer">
-          <img src={booking} alt="booking" />
-          <h3 className="text-[22px] mt-5 ">Бронирования</h3>
-          <span className="text-[18px] text-[#A1A1A1]">
-            Здесь будут размещены ваши бронирования
-          </span>
-        </div>
+        <NavLink to={'/personal-area/history-reservation'}>
+          <div className="shadow-xl w-[420px] rounded-xl py-[17px] px-5 cursor-pointer">
+            <img src={booking} alt="booking" />
+            <h3 className="text-[22px] mt-5 ">Бронирования</h3>
+            <span className="text-[18px] text-[#A1A1A1]">
+              Здесь будут размещены ваши бронирования
+            </span>
+          </div>
+        </NavLink>
       </div>
     </div>
   )
