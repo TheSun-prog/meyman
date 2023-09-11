@@ -1,24 +1,18 @@
 import React, {useEffect, useState} from 'react'
-import classes from "./WishListItem.module.sass"
-import clear from "../../../assets/images/clear_wish_list.svg"
+import classes from "./WishListAddItem.module.sass"
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {setError} from "../../../store/slice/wishListSlice";
 import {$mainApi} from "../../../axios/axios";
-import ModalDeleteWishlist from "../modals/ModalDeleteWishlist";
 
 
-function WishListItem({wishList}) {
-
-    console.log('wishList',wishList)
+function WishListAddItem({wishList}) {
 
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
 
     const [img, setImg] = useState('')
-
-    const [modalDeleteActive, setModalDeleteActive] = useState(false)
 
     const clickHandler = () => {
         navigate(`/favorites/${wishList.id}/`)
@@ -43,10 +37,6 @@ function WishListItem({wishList}) {
 
     return (
         <div className={classes.wishListItem}>
-            <img src={clear} alt="delete_img" onClick={() => {
-                setModalDeleteActive(true)
-            }}
-                 className={classes.wishListItem_delete}/>
             <div className={classes.wishListItem_box} onClick={clickHandler}>
                 <div className={classes.wishListItem_box_img}>
                     <img src={img} alt="img"/>
@@ -56,9 +46,8 @@ function WishListItem({wishList}) {
                     <p className={classes.favorite_count}>Сохраненные объекты: {wishList.favorite_count}</p>
                 </div>
             </div>
-            <ModalDeleteWishlist active={modalDeleteActive} setActive={setModalDeleteActive} title={wishList.title} id={wishList.id}/>
         </div>
     );
 }
 
-export default WishListItem;
+export default WishListAddItem;

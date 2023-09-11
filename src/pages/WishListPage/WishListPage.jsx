@@ -3,7 +3,7 @@ import classes from "./wishListPage.module.sass";
 import {Link, NavLink, useParams} from "react-router-dom";
 import arrow from "../../assets/images/arrow2.svg";
 import {useDispatch, useSelector} from "react-redux";
-import {getWishList} from "../../store/slice/wishListSlice";
+import {getOneWishList} from "../../store/slice/wishListSlice";
 
 
 function WishListPage() {
@@ -12,10 +12,8 @@ function WishListPage() {
 
     const {oneWishList} = useSelector(state => state.wishList)
 
-    console.log(oneWishList)
-
     useEffect(() => {
-        dispatch(getWishList(id))
+        dispatch(getOneWishList(id))
     }, [dispatch, id])
 
     return (
@@ -31,9 +29,7 @@ function WishListPage() {
                 <p className={classes.wishList_title}>Избранное</p>
                 {
                     oneWishList.houseFavorite?.map(house  => <p key={house.id}>{house.housing}</p>)
-
                 }
-
             </div>
         </div>
     );

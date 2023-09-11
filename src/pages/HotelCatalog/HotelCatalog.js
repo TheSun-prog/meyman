@@ -11,9 +11,11 @@ import FilterModal from "../../components/hotelComponents/FilterModal/FilterModa
 import {NavLink} from "react-router-dom";
 import sort from '../../assets/images/sort.svg'
 import filter from '../../assets/images/filter.svg'
+import ModalAddWishlist from "../../components/wishListComponents/modals/ModalAddWishlist";
 
 const HotelCatalog = () => {
     const [activeSearch, setActiveSearch] = useState("hotel");
+    const [modalAddActive, setModalAddActive] = useState(true)
 
     const dispatch = useDispatch();
     const hotelData = useSelector(selectHousingData);
@@ -125,13 +127,15 @@ const HotelCatalog = () => {
         <div className="mx-auto w-[1240px]">
             <div className="pt-[80px] pb-[100px] flex flex-wrap gap-x-[95px] gap-y-[55px]">
                 {hotelData && hotelData.map((value, index, array) => {
-                    return (<NavLink key={index} to={`/hotelcatalog/${index}`}>
-                        <HotelCard data={value} index={index}/>
-                    </NavLink>);
+                    return <HotelCard data={value} index={index}/>
                 })}
             </div>
         </div>
         {filterShow && <FilterModal filters={filterShow} setFilters={setFilterShow}/>}
+        <button onClick={() => {
+            setModalAddActive(true)
+        }}>модал</button>
+        <ModalAddWishlist active={modalAddActive} setActive={setModalAddActive}/>
     </>);
 };
 

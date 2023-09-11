@@ -1,23 +1,22 @@
 import {createSlice} from '@reduxjs/toolkit'
-import {$authApi, $mainApi} from '../../axios/axios'
+import {$authApi} from '../../axios/axios'
+
+const user = localStorage.getItem('user_id')
 
 export const getUserWishList = () => {
-
-    const user = localStorage.getItem('user_id')
-
     return async (dispatch) => {
         try {
-            const {data} = await $mainApi.get(`api/favorite/wishlist/`, {params: {user}})
+            const {data} = await $authApi.get(`api/favorite/wishlist/`, {params: {user}})
             dispatch(setWishLists(data))
         } catch (e) {
             dispatch(setError(e))
         }
     }
 }
-export const getWishList = (id) => {
+export const getOneWishList = (id) => {
     return async (dispatch) => {
         try {
-            const {data} = await $mainApi.get(`api/favorite/wishlist/${id}/`)
+            const {data} = await $authApi.get(`api/favorite/wishlist/${id}/`)
             dispatch(setOneWishList(data))
         } catch (e) {
             dispatch(setError(e))
@@ -30,7 +29,21 @@ export const deleteWishList = (id) => {
         try {
             const data = await $authApi.delete(`api/favorite/wishlist/${id}/`)
             if (data.status === 204 ) {
-                alert("Успешно удалено")
+                // alert("Успешно удалено")
+                dispatch(getUserWishList())
+            }
+        } catch (e) {
+            dispatch(setError(e))
+        }
+    }
+}
+
+export const addWishList = (title) => {
+    return async (dispatch) => {
+        try {
+            const data = await $authApi.post(`api/favorite/wishlist/`, {user, title})
+            if (data.status === 201 ) {
+                alert("Успешно создано и добавлено")
                 dispatch(getUserWishList())
             }
         } catch (e) {

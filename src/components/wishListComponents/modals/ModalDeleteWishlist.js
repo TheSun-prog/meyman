@@ -1,12 +1,10 @@
 import React from 'react';
-import classes from "./modalWishlist.module.sass";
-import clear from "../../../assets/images/clear18.svg"
+import classes from "./modalDeleteWishlist.module.sass";
+import close from "../../../assets/images/clear18.svg"
 import {deleteWishList} from "../../../store/slice/wishListSlice";
 import {useDispatch} from "react-redux";
 
-function ModalWishlist({active, setActive, title, id}) {
-    console.log(id, 'id')
-
+function ModalDeleteWishlist({active, setActive, title, id}) {
     const dispatch = useDispatch()
 
     const clickDeleteWishlist = () => {
@@ -19,7 +17,7 @@ function ModalWishlist({active, setActive, title, id}) {
              onClick={() => setActive(false)}>
             <div className={active ? `${classes.modal__content} ${classes.active}` : `${classes.modal__content}`}
                  onClick={e => e.stopPropagation()}>
-                <img src={clear} alt="delete_img" onClick={() => {
+                <img src={close} alt="close" onClick={() => {
                     setActive(false)
                 }}
                      className={classes.clear}
@@ -42,4 +40,4 @@ function ModalWishlist({active, setActive, title, id}) {
     );
 }
 
-export default ModalWishlist;
+export default ModalDeleteWishlist;
