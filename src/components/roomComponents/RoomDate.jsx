@@ -90,7 +90,7 @@ const RoomDate = ({data}) => {
     <ConfigProvider locale={ru_RU}>
       <div className="max-h-[325px] w-[473px] py-10 px-10 rounded-3xl border shadow-lg">
         <div className="flex items-center mb-7">
-          <span className="text-[24px]">{data?.price_per_night}</span>
+          <span className="text-[24px]">{Math.round(data?.price_per_night)}</span>
           <img src={somIcon} alt="somIcon" />
           <span className="text-[24px]">ночь</span>
         </div>

@@ -61,7 +61,7 @@ const HotelRoomsCard = ({
       <div>
         <p className="text-[16px] text-grey">1 ночь</p>
         <div className="flex">
-          <h3 className="text-[24px]">{price}</h3>
+          <h3 className="text-[24px]">{Math.round(price)}</h3>
           <img src={som} alt="som" />
         </div>
         <p className="text-[16px] mb-[20px] text-grey">Включая налоги сборы</p>

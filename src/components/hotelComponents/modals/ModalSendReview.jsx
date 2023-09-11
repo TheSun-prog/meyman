@@ -93,7 +93,7 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
     ) {
       // Если все условия выполняются, то диспатчим данные
       dispatch(postReviewsData(initialDataRate))
-      //window.location.reload();
+      window.location.reload();
     } else if (initialDataRate.comment.length < 5) {
       setErrorText(true) // Устанавливаем errorText в true
     } else {
