@@ -9,7 +9,7 @@ import {NavLink} from "react-router-dom";
 
 
 const Header = ({
-                    userType = 'client', pageType = 'mainpage',
+                    userType = 'user', pageType = 'mainpage',
                 }) => {
 
     const [isMainPage, setIsMainPage] = useState(false)
