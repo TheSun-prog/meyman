@@ -36,7 +36,7 @@ function FavoritesPage() {
                         </>
                         :
                         <div className={classes.favorites_item}>
-                            {wishLists.map(wishList => <WishListItem key={wishList.id} wishList={wishList}/>)}
+                            {wishLists?.map(wishList => <WishListItem key={wishList.id} wishList={wishList}/>)}
                         </div>
                 }
             </div>

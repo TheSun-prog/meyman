@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import classes from "./modalAddWishlist.module.sass";
 import close from "../../../assets/images/clear18.svg"
-import {addWishList, getUserWishList} from "../../../store/slice/wishListSlice";
+import {addNewWishList, getUserWishList} from "../../../store/slice/wishListSlice";
 import {useDispatch, useSelector} from "react-redux";
 import WishListAddItem from "../WishListItem/WishListAddItem";
 
@@ -17,13 +17,14 @@ function ModalAddWishlist({active, setActive, id}) {
     const [name, setName] = useState('')
 
 
-    const clickAddWishlist = () => {
-        dispatch(addWishList(name))
+    const clickAddNewWishlist = () => {
+        dispatch(addNewWishList(name, id))
+        dispatch(getUserWishList())
         setActive(false)
         setAddWishlist(true)
         setName('')
     }
-    const clickAddNewWishlist = () => {
+    const clickNewWishlist = () => {
         setAddWishlist(false)
     }
 
@@ -47,11 +48,12 @@ function ModalAddWishlist({active, setActive, id}) {
                     (addWishlist && wishListIsEmpty)
                         ?
                         <>
-                            <div className={classes.favorites_item}>
-                                {wishLists.map(wishList => <WishListAddItem key={wishList.id} wishList={wishList}/>)}
+                            <div className={classes.favorites_item} >
+                                {wishLists?.map(wishList => <WishListAddItem key={wishList.id} wishList={wishList} id={id} setActive={setActive}/>
+                                )}
                             </div>
                             <div className={classes.btn_box}>
-                                <button className={classes.btn} onClick={clickAddNewWishlist}>
+                                <button className={classes.btn} onClick={clickNewWishlist}>
                                     Добавить свой вишлист
                                 </button>
                             </div>
@@ -72,7 +74,7 @@ function ModalAddWishlist({active, setActive, id}) {
                                 </p>
                             </div>
                             <div className={classes.btn_box}>
-                                <button className={classes.btn} onClick={clickAddWishlist}>
+                                <button className={classes.btn} onClick={clickAddNewWishlist}>
                                     Создать свой вишлист
                                 </button>
                             </div>

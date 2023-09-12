@@ -8,15 +8,11 @@ import {
 } from "../../store/slice/housingSlice";
 import {useDispatch, useSelector} from "react-redux";
 import FilterModal from "../../components/hotelComponents/FilterModal/FilterModal";
-import {NavLink} from "react-router-dom";
 import sort from '../../assets/images/sort.svg'
 import filter from '../../assets/images/filter.svg'
-import ModalAddWishlist from "../../components/wishListComponents/modals/ModalAddWishlist";
 
 const HotelCatalog = () => {
     const [activeSearch, setActiveSearch] = useState("hotel");
-    const [modalAddActive, setModalAddActive] = useState(true)
-
     const dispatch = useDispatch();
     const hotelData = useSelector(selectHousingData);
     const loading = useSelector(selectHousingLoadingStatus);
@@ -132,10 +128,6 @@ const HotelCatalog = () => {
             </div>
         </div>
         {filterShow && <FilterModal filters={filterShow} setFilters={setFilterShow}/>}
-        <button onClick={() => {
-            setModalAddActive(true)
-        }}>модал</button>
-        <ModalAddWishlist active={modalAddActive} setActive={setModalAddActive}/>
     </>);
 };
 

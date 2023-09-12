@@ -28,7 +28,7 @@ export const deleteWishList = (id) => {
     return async (dispatch) => {
         try {
             const data = await $authApi.delete(`api/favorite/wishlist/${id}/`)
-            if (data.status === 204 ) {
+            if (data.status === 204) {
                 // alert("Успешно удалено")
                 dispatch(getUserWishList())
             }
@@ -38,11 +38,28 @@ export const deleteWishList = (id) => {
     }
 }
 
-export const addWishList = (title) => {
+export const addToWishList = (wishlist_album, housing) => {
     return async (dispatch) => {
         try {
-            const data = await $authApi.post(`api/favorite/wishlist/`, {user, title})
-            if (data.status === 201 ) {
+            const data = await $authApi.post(`api/favorite/favorites/`, {wishlist_album, housing})
+            if (data.status === 201) {
+                alert("Успешно добавлено")
+                dispatch(getUserWishList())
+            }
+        } catch (e) {
+            dispatch(setError(e))
+        }
+    }
+}
+
+export const addNewWishList = (title, housing) => {
+    return async (dispatch) => {
+        try {
+            const wishlistResponse = await $authApi.post(`api/favorite/wishlist/`, { user, title });
+            const wishlist_album = wishlistResponse.data.id;
+            const favoriteResponse = await $authApi.post(`api/favorite/favorites/`, { wishlist_album, housing });
+            console.log('favoriteResponse.status',favoriteResponse.status)
+            if (favoriteResponse.status === 201) {
                 alert("Успешно создано и добавлено")
                 dispatch(getUserWishList())
             }
@@ -52,13 +69,25 @@ export const addWishList = (title) => {
     }
 }
 
+export const getOneHouse = (id) => {
+    return async (dispatch) => {
+        try {
+            const {data} = await $authApi.get(`housing/${id}/`)
+            dispatch(setOneWishList(data))
+        } catch (e) {
+            dispatch(setError(e))
+        }
+    }
+}
+
+
+
 const wishListSlice = createSlice({
     name: 'wishListSlice',
     initialState: {
         wishLists: [],
         oneWishList: {},
-        housing: [],
-        wishListModal: false,
+        oneHouse: {},
         error: ''
     },
     reducers: {
@@ -68,11 +97,8 @@ const wishListSlice = createSlice({
         setOneWishList: (state, action) => {
             state.oneWishList = action.payload
         },
-        setHousing: (state, action) => {
-            state.housing = action.payload
-        },
-        setWishListModal: (state, action) => {
-            state.wishListModal = action.payload
+        setOneHouse: (state, action) => {
+            state.oneHouse = action.payload
         },
         setError: (state, action) => {
             state.error = action.payload
@@ -84,8 +110,7 @@ const wishListSlice = createSlice({
 export const {
     setWishLists,
     setOneWishList,
-    setWishListModal,
     setError,
-    setHousing
+    setOneHouse
 } = wishListSlice.actions
 export default wishListSlice.reducer

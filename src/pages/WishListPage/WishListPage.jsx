@@ -4,6 +4,7 @@ import {Link, NavLink, useParams} from "react-router-dom";
 import arrow from "../../assets/images/arrow2.svg";
 import {useDispatch, useSelector} from "react-redux";
 import {getOneWishList} from "../../store/slice/wishListSlice";
+import HotelCardWishlist from "../../components/hotelComponents/HotelCardWishlist/HotelCardWishlist";
 
 
 function WishListPage() {
@@ -26,10 +27,12 @@ function WishListPage() {
                 <NavLink to={`/favorites/${id}/`}>{oneWishList.title}</NavLink>
             </div>
             <div className={classes.wishList}>
-                <p className={classes.wishList_title}>Избранное</p>
-                {
-                    oneWishList.houseFavorite?.map(house  => <p key={house.id}>{house.housing}</p>)
-                }
+                <p className={classes.wishList_title}>{oneWishList.title}</p>
+                <div className={classes.wishList_wrapper}>
+                    {
+                        oneWishList.houseFavorite?.map((house, index)  => <HotelCardWishlist key={house.id} data={house} index={index}/>)
+                    }
+                </div>
             </div>
         </div>
     );

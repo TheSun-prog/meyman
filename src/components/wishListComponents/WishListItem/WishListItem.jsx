@@ -9,9 +9,6 @@ import ModalDeleteWishlist from "../modals/ModalDeleteWishlist";
 
 
 function WishListItem({wishList}) {
-
-    console.log('wishList',wishList)
-
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
@@ -39,7 +36,7 @@ function WishListItem({wishList}) {
 
     useEffect(() => {
         dispatch(getHousingImg(housingId))
-    },[housingId])
+    }, [housingId])
 
     return (
         <div className={classes.wishListItem}>
@@ -56,7 +53,8 @@ function WishListItem({wishList}) {
                     <p className={classes.favorite_count}>Сохраненные объекты: {wishList.favorite_count}</p>
                 </div>
             </div>
-            <ModalDeleteWishlist active={modalDeleteActive} setActive={setModalDeleteActive} title={wishList.title} id={wishList.id}/>
+            <ModalDeleteWishlist active={modalDeleteActive} setActive={setModalDeleteActive} title={wishList.title}
+                                 id={wishList.id}/>
         </div>
     );
 }

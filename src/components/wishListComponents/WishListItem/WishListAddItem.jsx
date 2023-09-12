@@ -1,24 +1,22 @@
 import React, {useEffect, useState} from 'react'
 import classes from "./WishListAddItem.module.sass"
 import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import {setError} from "../../../store/slice/wishListSlice";
+import {addToWishList, setError} from "../../../store/slice/wishListSlice";
 import {$mainApi} from "../../../axios/axios";
 
 
-function WishListAddItem({wishList}) {
-
-    const navigate = useNavigate()
+function WishListAddItem({wishList, id, setActive}) {
 
     const dispatch = useDispatch()
 
     const [img, setImg] = useState('')
 
-    const clickHandler = () => {
-        navigate(`/favorites/${wishList.id}/`)
-    }
-
     const housingId = wishList.houseFavorite[0]?.housing
+
+    const clickHandler = () => {
+        dispatch(addToWishList(wishList.id, id))
+        setActive(false)
+    }
 
     const getHousingImg = (housingId) => {
         return async (dispatch) => {
