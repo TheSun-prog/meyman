@@ -20,6 +20,7 @@ import BusinessAccountData from "./pages/BusinessAccountData/BusinessAccountData
 import FillingHotelDetails from "./pages/FillingHotelDetails/FillingHotelDetails";
 import PersonalAreaPage from "./pages/PersonalAreaPage/PersonalAreaPage";
 import PersonalInfoPage from "./pages/PersonalAreaPage/PersonalInfoPage";
+import HistoryReservationPage from "./pages/PersonalAreaPage/HistoryReservationPage";
 
 
 function App() {
@@ -36,7 +37,8 @@ function App() {
                         element={<BookingPage/>}
                     />
                     <Route path="/personal-area" element={<PersonalAreaPage />}/>
-                <Route path="/personal-area/personal-info" element={<PersonalInfoPage />}/>
+                    <Route path="/personal-area/history-reservation" element={<HistoryReservationPage />}/>
+                    <Route path="/personal-area/personal-info" element={<PersonalInfoPage />}/>
                     <Route path={'/about'} element={<AboutPage/>}/>
                     <Route path={'/register'} element={<RegPage/>}/>
                     <Route path={'/confirmCode'} element={<ConfirmCode/>}/>

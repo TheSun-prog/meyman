@@ -1,137 +1,149 @@
-// modules
-import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
-import 'animate.css'
-// icons
-import arrow from '../../assets/images/arrow2.svg'
-// components
-import Input from '../../components/ui/Input/Input'
-import Button from '../../components/ui/Button/Button'
+import { NavLink } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { message } from 'antd';
+import 'animate.css';
+import arrow from '../../assets/images/arrow2.svg';
+import Input from '../../components/ui/Input/Input';
+import Button from '../../components/ui/Button/Button';
+import { postChangePassword } from '../../store/slice/changePasswordSlice'
+import { getChangeUserName } from '../../store/slice/changeUserNameSlice'
+import { patchChangeUserName } from '../../store/slice/changeUserNameSlice'
+import { patchChangePhone } from '../../store/slice/changePhoneSlice'
 
 const PersonalInfoPage = () => {
-  const [newName, setNewName] = useState('')
-  const [newPhone, setNewPhone] = useState('')
+  const { getData, isLoading, isError } = useSelector((state) => state.changeUserName);
+  const dispatch = useDispatch();
+
+  const [newName, setNewName] = useState(getData?.username);
+  const [newPhone, setNewPhone] = useState(getData?.phone);
   const [newPass, setNewPass] = useState({
     currPass: '',
     newPass: '',
-    confPass: ''
-  })
+    confPass: '',
+  });
 
-  const [dropDownName, setDropDownName] = useState(false)
-  const [dropDownPhone, setDropDownPhone] = useState(false)
-  const [dropDownPass, setDropDownPass] = useState(false)
+  const [dropDownName, setDropDownName] = useState(false);
+  const [dropDownPhone, setDropDownPhone] = useState(false);
+  const [dropDownPass, setDropDownPass] = useState(false);
 
-  const [errorName, setErrorName] = useState(false)
-  const [errorPhone, setErrorPhone] = useState(false)
-  const [errorCurrPass, setErrorCurrPass] = useState(false)
-  const [errorNewPass, setErrorNewPass] = useState(false)
-  const [errorConfPass, setErrorConfPass] = useState(false)
-  const [errorLengthPass, setErrorLengthPass] = useState(false)
+  const [errorName, setErrorName] = useState(false);
+  const [errorPhone, setErrorPhone] = useState(false);
+  const [errorCurrPass, setErrorCurrPass] = useState(false);
+  const [errorNewPass, setErrorNewPass] = useState(false);
+  const [errorConfPass, setErrorConfPass] = useState(false);
+  const [errorLengthPass, setErrorLengthPass] = useState(false);
 
-  const activeDropDownMenu = () => {
-    setDropDownName(prev => !prev)
-  }
-  const activeDropDownPhone = () => {
-    setDropDownPhone(prev => !prev)
-  }
-  const activeDropDownPass = () => {
-    setDropDownPass(prev => !prev)
-  }
+  const successMessage = (messageText) => {
+    message.success(messageText, 5);
+  };
 
-  const handleChangeName = e => {
-    setNewName(e.target.value)
-  }
-  const handleChangePhone = e => {
-    setNewPhone(e.target.value)
-  }
-  const handleChangeCurrPass = e => {
-    setNewPass(prev => ({
-      ...prev,
-      currPass: e.target.value
-    }))
-  }
-  const handleChangeNewPass = e => {
-    setNewPass(prev => ({
-      ...prev,
-      newPass: e.target.value
-    }))
-  }
-  const handleChangeConfPass = e => {
-    setNewPass(prev => ({
-      ...prev,
-      confPass: e.target.value
-    }))
-  }
+  const errorMessage = (messageText) => {
+    message.error(messageText, 5);
+  };
 
-  const handleFocusName = () => {
-    setErrorName(false)
-  }
-  const handleFocusPhone = () => {
-    setErrorPhone(false)
-    if (newPhone === '') {
-      setNewPhone('+996')
-    }
-  }
-  const handleFocusNewPass = () => {
-    setErrorNewPass(false)
-    setErrorConfPass(false)
-    setErrorLengthPass(false)
-  }
-  const handleFocusConfPass = () => {
-    setErrorNewPass(false)
-    setErrorConfPass(false)
-  }
+  const toggleDropDown = (stateSetter) => {
+    stateSetter((prev) => !prev);
+  };
+
+  const handleChange = (stateSetter, value) => {
+    stateSetter(value);
+  };
+
+  const handleFocus = (stateSetter) => {
+    stateSetter(false);
+  };
 
   const handleBlurInput = () => {
     if (newPhone === '+996') {
-      setNewPhone('')
+      setNewPhone('');
     }
-  }
+  };
 
-  const handleSubmitName = e => {
-    e.preventDefault()
-    const regex = /^\s*[a-zA-Zа-яА-Я]+\s+[a-zA-Zа-яА-Я]+\s*$/
+  const handleSubmitName = async (e) => {
+    e.preventDefault();
+    const regex = /^[a-zA-Zа-яА-Я\s]{3,}$/;
+
     if (regex.test(newName)) {
-      setErrorName(false)
+      setErrorName(false);
+      try {
+        const response = await dispatch(patchChangeUserName(newName));
+
+        if (patchChangeUserName.fulfilled.match(response)) {
+          successMessage('Имя успешно изменено!');
+          dispatch(getChangeUserName())
+        } else {
+          errorMessage('Ошибка при изменении имени пользователя');
+          console.error('Ошибка при смене имени:', response.error.message);
+        }
+      } catch (error) {
+        errorMessage('Ошибка при изменении имени пользователя');
+        console.error('Ошибка при смене имени:', error);
+      }
     } else {
-      setErrorName(true)
-      setNewName('')
+      setErrorName(true);
+      setNewName('');
     }
-  }
-  const handleSubmitPhone = e => {
-    e.preventDefault()
+  };
+
+  const handleSubmitPhone = async (e) => {
+    e.preventDefault();
     const regex =
-      /^((8|\+374|\+994|\+995|\+375|\+7|\+380|\+38|\+996|\+998|\+993)[\- ]?)?\(?\d{3,5}\)?[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}(([\- ]?\d{1})?[\- ]?\d{1})?$/
+      /^((8|\+374|\+994|\+995|\+375|\+7|\+380|\+38|\+996|\+998|\+993)[\- ]?)?\(?\d{3,5}\)?[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}[\- ]?\d{1}(([\- ]?\d{1})?[\- ]?\d{1})?$/;
+
     if (regex.test(newPhone)) {
-      setErrorPhone(false)
+      setErrorPhone(false);
+      try {
+        const response = await dispatch(patchChangePhone(newPhone));
+
+        if (patchChangePhone.fulfilled.match(response)) {
+          successMessage('Номер телефона успешно изменен!');
+        } else {
+          errorMessage('Ошибка при изменении Номера телефона');
+          console.error('Ошибка при смене номера телефона:', response.error.message);
+        }
+      } catch (error) {
+        errorMessage('Ошибка при изменении Номера телефона');
+        console.error('Ошибка при смене номера телефона:', error);
+      }
     } else {
-      setErrorPhone(true)
-      setNewPhone('')
+      setErrorPhone(true);
+      setNewPhone('');
     }
-  }
-  const handleSubmitPass = e => {
-    const regex = /^[a-zA-Zа-яА-Я]{6,20}$/
-    e.preventDefault()
-    if (newPass.newPass === newPass.confPass) {
-      console.log('good')
+  };
+
+  const handleSubmitPass = async (e) => {
+    e.preventDefault();
+    const regex = /^[a-zA-Zа-яА-Я]{6,20}$/;
+
+    if (newPass.newPass === newPass.confPass && regex.test(newPass.newPass)) {
+      try {
+        const response = await dispatch(postChangePassword(newPass));
+
+        if (postChangePassword.fulfilled.match(response)) {
+          successMessage('Пароль успешно изменен!');
+        } else {
+          errorMessage('Неверный старый пароль!');
+          console.error('Ошибка при смене пароля:', response.error.message);
+        }
+      } catch (error) {
+        errorMessage('Неверный старый пароль!');
+        console.error('Ошибка при смене пароля:', error);
+      }
     } else {
-      console.log('wrong')
-      setErrorNewPass(true)
-      setErrorConfPass(true)
-      setNewPass(prev => ({
-        ...prev,
+      setErrorNewPass(true);
+      setErrorConfPass(true);
+      setNewPass({
+        currPass: '',
         newPass: '',
-        confPass: ''
-      }))
+        confPass: '',
+      });
     }
-    if (!regex.test(newPass.newPass)) {
-      setNewPass(prev => ({
-        ...prev,
-        newPass: ''
-      }))
-      setErrorLengthPass(true)
-    }
-  }
+  };
+
+  useEffect(() => {
+    dispatch(getChangeUserName());
+  }, []);
 
   return (
     <div className="mx-auto w-[1240px] pb-[263px]">
@@ -140,9 +152,7 @@ const PersonalInfoPage = () => {
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
         <NavLink to={`/personal-area`}>Личный кабинет</NavLink>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
-        <NavLink to={`/personal-area/personal-information`}>
-          Личная информация
-        </NavLink>
+        <NavLink to={`/personal-area/personal-info`}>Личная информация</NavLink>
       </div>
       <h1 className="text-[28px]">Личная информация</h1>
       <div className="mt-[50px] pb-[25px] border-b border-[#A1A1A1]">
@@ -150,11 +160,11 @@ const PersonalInfoPage = () => {
           <div>
             <h2 className="text-[22px] mb-[6px]">Имя</h2>
             <span className="text-[18px] text-[#8C8C8C]">
-              {dropDownName ? 'Укажите ваше имя и фамилию' : 'Арууке Жалилова'}
+              {dropDownName ? 'Укажите ваше имя и фамилию' : getData?.username}
             </span>
           </div>
           <p
-            onClick={activeDropDownMenu}
+            onClick={() => toggleDropDown(setDropDownName)}
             className="text-[22px] px-[10px] border-b border-black h-[41px] cursor-pointer"
           >
             {dropDownName ? 'Отменить' : 'Редактировать'}
@@ -171,41 +181,28 @@ const PersonalInfoPage = () => {
           </label>
           <Input
             value={newName}
-            onChange={handleChangeName}
-            onFocus={handleFocusName}
+            onChange={(e) => handleChange(setNewName, e.target.value)}
+            onFocus={() => handleFocus(setErrorName)}
             isError={errorName}
             id={'nameInput'}
-            text={`${
-              errorName
-                ? 'Введите имя и фамилию через пробел'
-                : 'Арууке Жалилова'
-            }`}
-            classes={`mb-[52px] ${
-              errorName ? 'animate__animated animate__headShake' : ''
-            }`}
+            text={errorName ? 'Имя и фамилия, не менее 3ех символов' : getData?.username}
+            classes={`mb-[52px] ${errorName ? 'animate__animated animate__headShake' : ''}`}
           />
-          <Button
-            text={'Сохранить'}
-            classes={'px-[70px] py-[14px] w-[235px] shadow-lg z-50'}
-          />
+          <Button text={'Сохранить'} classes={'px-[70px] py-[14px] w-[235px] shadow-lg z-50'} />
         </form>
       </div>
       <div className="mt-[50px] pb-[25px] border-b border-[#A1A1A1]">
         <h2 className="text-[22px] mb-[6px]">Электронный адрес</h2>
-        <span className="text-[18px] text-[#8C8C8C]">
-          akuzalilova@gmail.com
-        </span>
+        <span className="text-[18px] text-[#8C8C8C]">{getData?.email}</span>
       </div>
       <div className="mt-[50px] pb-[25px] border-b border-[#A1A1A1]">
         <div className="flex justify-between items-center">
           <div>
             <h2 className="text-[22px] mb-[6px]">Номер телефона</h2>
-            <span className="text-[18px] text-[#8C8C8C]">
-              Добавьте свой номер телефона
-            </span>
+            <span className="text-[18px] text-[#8C8C8C]">Добавьте свой номер телефона</span>
           </div>
           <p
-            onClick={activeDropDownPhone}
+            onClick={() => toggleDropDown(setDropDownPhone)}
             className="text-[22px] px-[10px] border-b border-black h-[41px] cursor-pointer"
           >
             {dropDownPhone ? 'Отменить' : 'Редактировать'}
@@ -223,24 +220,15 @@ const PersonalInfoPage = () => {
           <Input
             value={newPhone}
             type="tel"
-            onChange={handleChangePhone}
-            onFocus={handleFocusPhone}
+            onChange={(e) => handleChange(setNewPhone, e.target.value)}
+            onFocus={() => handleFocus(setErrorPhone)}
             onBlur={handleBlurInput}
             isError={errorPhone}
             id={'phoneInput'}
-            text={`${
-              errorPhone
-                ? 'Введите номер в формате +996-XXX-XXX-XXX'
-                : '+996-XXX-XXX-XXX'
-            }`}
-            classes={`mb-[52px] ${
-              errorPhone ? 'animate__animated animate__headShake' : ''
-            }`}
+            text={errorPhone ? 'Введите номер в формате +996-XXX-XXX-XXX' : '+996-XXX-XXX-XXX'}
+            classes={`mb-[52px] ${errorPhone ? 'animate__animated animate__headShake' : ''}`}
           />
-          <Button
-            text={'Сохранить'}
-            classes={'px-[70px] py-[14px] w-[235px] shadow-lg z-50'}
-          />
+          <Button text={'Сохранить'} classes={'px-[70px] py-[14px] w-[235px] shadow-lg z-50'} />
         </form>
       </div>
       <div className="mt-[50px] pb-[25px] border-b border-[#A1A1A1]">
@@ -250,7 +238,7 @@ const PersonalInfoPage = () => {
             <span className="text-[18px] text-[#8C8C8C]">Ваш пароль</span>
           </div>
           <p
-            onClick={activeDropDownPass}
+            onClick={() => toggleDropDown(setDropDownPass)}
             className="text-[22px] px-[10px] border-b border-black h-[41px] cursor-pointer"
           >
             {dropDownPass ? 'Отменить' : 'Редактировать'}
@@ -270,11 +258,9 @@ const PersonalInfoPage = () => {
             id={'currentPass'}
             type="password"
             text={'Введите ваш текущий пароль'}
-            classes={`mb-[20px]  ${
-              errorCurrPass ? 'animate__animated animate__headShake' : ''
-            }`}
+            classes={`mb-[20px] ${errorCurrPass ? 'animate__animated animate__headShake' : ''}`}
             min={6}
-            onChange={handleChangeCurrPass}
+            onChange={(e) => handleChange(setNewPass, { ...newPass, currPass: e.target.value })}
           />
           <label className={`text-[18px] mb-[8px]`} htmlFor="newPass">
             Новый пароль
@@ -284,23 +270,21 @@ const PersonalInfoPage = () => {
             isError={errorNewPass || errorLengthPass}
             id={'newPass'}
             type="password"
-            text={`${
+            text={
               errorNewPass
                 ? 'Пароли не совпадают'
-                : 'Введите ваш новый пароль' && errorLengthPass
+                : errorLengthPass
                 ? 'Только буквы и от 6 до 20 символов'
                 : 'Введите ваш новый пароль'
-            }`}
+            }
             classes={`mb-[20px] ${
-              errorNewPass
-                ? 'animate__animated animate__headShake'
-                : '' || errorLengthPass
+              errorNewPass || errorLengthPass
                 ? 'animate__animated animate__headShake'
                 : ''
             }`}
             min={6}
-            onChange={handleChangeNewPass}
-            onFocus={handleFocusNewPass}
+            onChange={(e) => handleChange(setNewPass, { ...newPass, newPass: e.target.value })}
+            onFocus={() => handleFocus(setErrorNewPass)}
           />
           <label className="text-[18px] mb-[8px]" htmlFor="confirmPass">
             Подтвердите пароль
@@ -310,26 +294,19 @@ const PersonalInfoPage = () => {
             isError={errorConfPass}
             id={'confirmPass'}
             type="password"
-            text={`${
-              errorConfPass
-                ? 'Пароли не совпадают'
-                : 'Подтвердите ваш новый пароль'
-            }`}
+            text={errorConfPass ? 'Пароли не совпадают' : 'Подтвердите ваш новый пароль'}
             classes={`mb-[52px] ${
               errorNewPass ? 'animate__animated animate__headShake' : ''
             }`}
             min={6}
-            onChange={handleChangeConfPass}
-            onFocus={handleFocusConfPass}
+            onChange={(e) => handleChange(setNewPass, { ...newPass, confPass: e.target.value })}
+            onFocus={() => handleFocus(setErrorConfPass)}
           />
-          <Button
-            text={'Сохранить'}
-            classes={'px-[70px] py-[14px] w-[235px] shadow-lg z-50'}
-          />
+          <Button text={'Сохранить'} classes={'px-[70px] py-[14px] w-[235px] shadow-lg z-50'} />
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default PersonalInfoPage
+export default PersonalInfoPage;

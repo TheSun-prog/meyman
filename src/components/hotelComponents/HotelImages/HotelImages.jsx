@@ -1,6 +1,6 @@
-import { Skeleton } from "@mui/material";
+import SkeletonImage from "antd/es/skeleton/Image";
 
-const HotelImages = ({ data, id, handleOpenModalImages }) => {
+const HotelImages = ({ data, handleOpenModalImages }) => {
   return (
     <div
       onClick={handleOpenModalImages}
@@ -14,11 +14,8 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
             alt="hotelImg"
           />
         ) : (
-          <Skeleton
-            variant="rectangular"
-            width={490}
-            height={500}
-            animation="pulse"
+          <SkeletonImage
+          style={{width: '490px', height: '500px'}}
           />
         )}
       </div>
@@ -31,11 +28,8 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
               alt="hotelImg2"
             />
           ) : (
-            <Skeleton
-              variant="rectangular"
-              width={365}
-              height={245}
-              animation="pulse"
+            <SkeletonImage
+            style={{width: '365px', height: '245px'}}
             />
           )}
           {data?.housing_images?.[2]?.image ? (
@@ -45,11 +39,8 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
               alt="hotelImg2"
             />
           ) : (
-            <Skeleton
-              variant="rectangular"
-              width={365}
-              height={245}
-              animation="pulse"
+            <SkeletonImage
+            style={{width: '365px', height: '245px'}}
             />
           )}
         </div>
@@ -61,11 +52,8 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
               alt="hotelImg2"
             />
           ) : (
-            <Skeleton
-              variant="rectangular"
-              width={365}
-              height={245}
-              animation="pulse"
+            <SkeletonImage
+            style={{width: '365px', height: '245px'}}
             />
           )}
           {data?.housing_images?.[4]?.image ? (
@@ -75,11 +63,8 @@ const HotelImages = ({ data, id, handleOpenModalImages }) => {
               alt="hotelImg2"
             />
           ) : (
-            <Skeleton
-              variant="rectangular"
-              width={365}
-              height={245}
-              animation="pulse"
+            <SkeletonImage
+              style={{width: '365px', height: '245px'}}
             />
           )}
         </div>

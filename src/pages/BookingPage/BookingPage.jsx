@@ -409,12 +409,13 @@ const Booking = () => {
         </div>
         <div className="flex flex-col rounded-[24px] justify-between px-[25px] py-[40px] w-[475px] h-[475px] shadow-lg">
           <p className="text-[24px]">Детализация цена</p>
+          {roomData.Free_cancellation_anytime && 
           <div className="flex">
             <img className="mr-2" src={done} alt="done" />
-            {roomData.Free_cancellation_anytime && <span className="text-[#59A859] text-[18px]">
+            <span className="text-[#59A859] text-[18px]">
               Бесплатная отмена в любое время{' '}
-            </span>}
-          </div>
+            </span>
+          </div>}
           <div className="flex">
             <img className="mr-2" src={dish} alt="done" />
             <span className="text-[#59A859] text-[18px]">Завтрак включен</span>

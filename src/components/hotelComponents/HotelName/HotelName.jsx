@@ -2,15 +2,15 @@ import placeIcon from "../../../assets/images/place.svg";
 import whatsAppIcon from "../../../assets/images/whats-app.svg";
 import heartIcon from "../../../assets/images/heart.svg";
 import Rating from "@mui/material/Rating";
-import { Skeleton } from "@mui/material";
+import { Skeleton } from "antd";
 
-const HotelName = ({ data, id }) => {
+const HotelName = ({ data }) => {
   const stars = data?.stars ? data?.stars : null;
   
   return (
     <div className="flex justify-between">
-      <div>
-        {data?.housing_name ? <h3 className="font-medium text-[32px]">{data?.housing_name}</h3> : <Skeleton variant="text" height={50}/>}
+      {data?.housing_name ? <div>
+        <h3 className="font-medium text-[32px]">{data?.housing_name}</h3>
         <div className="flex">
           <Rating value={stars} readOnly />
           <div className="ml-[10px] flex items-center">
@@ -30,7 +30,7 @@ const HotelName = ({ data, id }) => {
           <img src={placeIcon} alt="placeIcon" />
           <span className="text-2xl text-grey">{data?.address}/{data?.location}</span>
         </div>
-      </div>
+      </div> : <Skeleton />}
       <div className="flex">
         <img className="mr-[20px]" src={whatsAppIcon} alt="whatsAppIcon" />
         <img src={heartIcon} alt="heartIcon" />

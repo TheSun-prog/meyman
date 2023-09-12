@@ -19,6 +19,9 @@ import RoomDate from '../../components/roomComponents/RoomDate'
 import ModalAllPhotos from '../../components/hotelComponents/modals/ModalAllPhotos'
 import { fetchRoomData } from '../../store/slice/roomSlice'
 import { fetchHotelData } from '../../store/slice/hotelSlice'
+import SkeletonImage from 'antd/es/skeleton/Image'
+import SkeletonNode from 'antd/es/skeleton/Node'
+import { Skeleton } from 'antd'
 
 const RoomPage = () => {
   const [activeModalAllPhotosRooms, setActiveModalAllPhotosRooms] =
@@ -63,7 +66,7 @@ const RoomPage = () => {
       </div>
       <div>
         <div className="flex justify-between">
-          <div>
+          {data?.room_name && hotelData?.address &&  hotelData?.location ?<div>
             <h1 className="text-[32px] font-[500]">{data?.room_name}</h1>
             <div className="flex">
               <img src={placeIcon} alt="placeIcon" />
@@ -71,7 +74,7 @@ const RoomPage = () => {
                 {hotelData?.address}/{hotelData?.location}
               </span>
             </div>
-          </div>
+          </div> : <Skeleton />}
           <div className="flex">
             <img className="mr-[20px]" src={whatsAppIcon} alt="whatsAppIcon" />
             <img src={heartIcon} alt="heartIcon" />
@@ -81,37 +84,37 @@ const RoomPage = () => {
           onClick={handleActiveModal}
           className="flex justify-between mt-[20px] cursor-pointer"
         >
-          <div>
+          {data?.room_images?.[0]?.image ? <div>
             <img
               className="rounded-l-2xl h-[500px] w-[490px] object-cover"
               src={data?.room_images?.[0]?.image}
               alt="hotelImg"
             />
-          </div>
+          </div> : <SkeletonImage style={{width: '490px', height: '500px'}}/>}
           <div className="">
             <div className="flex justify-between gap-[10px] mb-[10px]">
-              <img
+              {data?.room_images?.[1]?.image ? <img
                 className="w-[365px] h-[245px] object-cover"
                 src={data?.room_images?.[1]?.image}
                 alt="hotelImg2"
-              />
-              <img
+              /> : <SkeletonImage style={{width: '365px', height: '245px'}}/>}
+              {data?.room_images?.[2]?.image? <img
                 className="w-[365px] h-[245px] rounded-tr-2xl object-cover"
                 src={data?.room_images?.[2]?.image}
                 alt="hotelImg2"
-              />
+              /> : <SkeletonImage style={{width: '365px', height: '245px'}}/>}
             </div>
             <div className="flex gap-[10px] relative">
-              <img
+              {data?.room_images?.[3]?.image ? <img
                 className="w-[365px] h-[245px] object-cover"
                 src={data?.room_images?.[3]?.image}
                 alt="hotelImg2"
-              />
-              <img
+              /> : <SkeletonImage style={{width: '365px', height: '245px'}}/>}
+              {data?.room_images?.[4]?.image? <img
                 className="w-[365px] h-[245px] rounded-br-2xl object-cover"
                 src={data?.room_images?.[4]?.image}
                 alt="hotelImg2"
-              />
+              /> : <SkeletonImage style={{width: '365px', height: '245px'}}/>}
             </div>
           </div>
         </div>
