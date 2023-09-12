@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const fetchHotelData = createAsyncThunk('hotel/getData', async (data) => {
   const response = await axios.get(`http://127.0.0.1:8000/housing/${data}/`, {
-
+    currency: 'EUR'
   })
   return response.data
 })

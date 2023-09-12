@@ -1,137 +1,174 @@
-// React modules
-import {useState} from "react";
+import React, { useEffect, useState } from 'react'
+import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-// components
-import Button from "../../Button/Button";
+import Button from '../../Button/Button'
+import LanguageMenu from '../DropdownMenues/LanguageMenu/LanguageMenu'
+import MoneyMenu from '../DropdownMenues/MoneyMenu/MoneyMenu'
 
-// images
 import som from '../../../../assets/images/som.svg'
+import eur from '../../../../assets/images/euro.svg'
+import usd from '../../../../assets/images/usd.svg'
 import language from '../../../../assets/images/language.svg'
-import LanguageMenu from "../DropdownMenues/LanguageMenu/LanguageMenu";
-import MoneyMenu from "../DropdownMenues/MoneyMenu/MoneyMenu";
-import {NavLink} from "react-router-dom";
 
-const HeaderUserNavbar = ({
-                              pageType,
-                              showModal,
-                              handleShowModal,
-                          }) => {
+const HeaderUserNavbar = ({ pageType, showModal, handleShowModal }) => {
+  const [isActive, setIsActive] = useState(1)
+  const [activeCurrency, setActiveCurrency] = useState()
 
-    const [isActive, setIsActive] = useState(1)
+  const currency = useSelector(state => state.currency)
 
+  const handleActiveLink = index => {
+    setIsActive(index)
+  }
 
-    const handleActiveLink = (index) => {
-        setIsActive(index)
-    }
+  useEffect(() => {
+    setActiveCurrency(localStorage.getItem('currency'))
+  }, [])
 
+  const currencies = {
+    KGS: som,
+    EUR: eur,
+    USD: usd
+  }
 
-    const mainpageNavbar = (
-        <div className="flex gap-[57px] items-center justify-self-end">
-            <div className="flex gap-[21px] items-center">
-                <div className="relative">
-                    <div
-                        className="flex gap-[12px] items-center cursor-pointer relative"
-                        onClick={() => {
-                            if (showModal !== 'language') handleShowModal('language')
-                            else handleShowModal('')
-                        }}
-                    >
-                        <img src={language} alt="language"/>
-                        <p className="text-[16px]">Русский</p>
-                    </div>
-                    {showModal === 'language' && <LanguageMenu handleMenu={handleShowModal}/>}
-                </div>
+  const getCurrencyImage = () => {
+    return currency ? currencies[currency] : currencies[activeCurrency]
+  }
 
-
-                <div className="relative">
-                    <div
-                        className="flex gap-[12px] items-center cursor-pointer"
-                        onClick={() => {
-                            if (showModal !== 'money') handleShowModal('money')
-                            else handleShowModal('')
-                        }}
-                    >
-                        <img src={som} alt="som"/>
-                        <p className="text-[16px]">Сом</p>
-
-                    </div>
-                    {showModal === 'money' && <MoneyMenu handleMenu={handleShowModal}/>}
-                </div>
-
-
+  const navigationLinks = {
+    mainpage: (
+      <div className="flex gap-[57px] items-center justify-self-end">
+        <div className="flex gap-[21px] items-center">
+          <div className="relative">
+            <div
+              className="flex gap-[12px] items-center cursor-pointer relative"
+              onClick={() =>
+                handleShowModal(showModal !== 'language' ? 'language' : '')
+              }
+            >
+              <img src={language} alt="language" />
+              <p className="text-[16px]">Русский</p>
             </div>
-            <NavLink to={'/businessMainPage'}>
-            <Button
-                width={237}
-                height={44}
-                text={'Сдать жилье на Meyman'}
-            />
-                </NavLink>
+            {showModal === 'language' && (
+              <LanguageMenu handleMenu={handleShowModal} />
+            )}
+          </div>
+
+          <div className="relative">
+            <div
+              className="flex gap-[12px] items-center cursor-pointer"
+              onClick={() =>
+                handleShowModal(showModal !== 'money' ? 'money' : '')
+              }
+            >
+              <img src={getCurrencyImage()} alt="currency" />
+              <p className="text-[16px]">{currency || activeCurrency}</p>
+            </div>
+            {showModal === 'money' && (
+              <MoneyMenu handleMenu={handleShowModal} />
+            )}
+          </div>
         </div>
+        <NavLink to="/businessMainPage">
+          <Button width={237} height={44} text="Сдать жилье на Meyman" />
+        </NavLink>
+      </div>
+    ),
+    hotel: (
+      <ul className="flex gap-[39px]">
+        <li>
+          <p
+            className={`text-[18px] p-[10px] cursor-pointer ${
+              isActive === 1
+                ? 'text-black border-b-[2px] border-b-black'
+                : 'text-grey'
+            }`}
+            onClick={() => handleActiveLink(1)}
+          >
+            Объект размещения
+          </p>
+        </li>
+        <li>
+          <p
+            className={`text-[18px] p-[10px] cursor-pointer ${
+              isActive === 2
+                ? 'text-black border-b-[2px] border-b-black'
+                : 'text-grey'
+            }`}
+            onClick={() => handleActiveLink(2)}
+          >
+            Номера
+          </p>
+        </li>
+        <li>
+          <p
+            className={`text-[18px] p-[10px] cursor-pointer ${
+              isActive === 3
+                ? 'text-black border-b-[2px] border-b-black'
+                : 'text-grey'
+            }`}
+            onClick={() => handleActiveLink(3)}
+          >
+            Календарь
+          </p>
+        </li>
+        <li>
+          <p
+            className={`text-[18px] p-[10px] cursor-pointer ${
+              isActive === 4
+                ? 'text-black border-b-[2px] border-b-black'
+                : 'text-grey'
+            }`}
+            onClick={() => handleActiveLink(4)}
+          >
+            Бронирования
+          </p>
+        </li>
+      </ul>
+    ),
+    car: (
+      <ul className="flex gap-[39px]">
+        <li>
+          <p
+            className={`text-[18px] p-[10px] cursor-pointer ${
+              isActive === 1
+                ? 'text-black border-b-[2px] border-b-black'
+                : 'text-grey'
+            }`}
+            onClick={() => handleActiveLink(1)}
+          >
+            Авто размещения
+          </p>
+        </li>
+        <li>
+          <p
+            className={`text-[18px] p-[10px] cursor-pointer ${
+              isActive === 2
+                ? 'text-black border-b-[2px] border-b-black'
+                : 'text-grey'
+            }`}
+            onClick={() => handleActiveLink(2)}
+          >
+            Календарь
+          </p>
+        </li>
+        <li>
+          <p
+            className={`text-[18px] p-[10px] cursor-pointer ${
+              isActive === 3
+                ? 'text-black border-b-[2px] border-b-black'
+                : 'text-grey'
+            }`}
+            onClick={() => handleActiveLink(3)}
+          >
+            Арендования
+          </p>
+        </li>
+      </ul>
     )
+  }
 
-
-    const hotelNavbar = (
-        <ul className="flex gap-[39px]">
-            <li>
-                <p
-                    className={`text-[18px] p-[10px] cursor-pointer ${isActive === 1 ? 'text-black border-b-[2px] border-b-black' : 'text-grey'}`}
-                    onClick={() => handleActiveLink(1)}
-                >Объект размещения</p>
-            </li>
-            <li>
-                <p
-                    className={`text-[18px] p-[10px] cursor-pointer ${isActive === 2 ? 'text-black border-b-[2px] border-b-black' : 'text-grey'}`}
-                    onClick={() => handleActiveLink(2)}
-                >Номера</p>
-            </li>
-            <li>
-                <p
-                    className={`text-[18px] p-[10px] cursor-pointer ${isActive === 3 ? 'text-black border-b-[2px] border-b-black' : 'text-grey'}`}
-                    onClick={() => handleActiveLink(3)}
-                >Календарь</p>
-            </li>
-            <li>
-                <p
-                    className={`text-[18px] p-[10px] cursor-pointer ${isActive === 4 ? 'text-black border-b-[2px] border-b-black' : 'text-grey'}`}
-                    onClick={() => handleActiveLink(4)}
-                >Бронирования</p>
-            </li>
-        </ul>
-    )
-
-
-    const carNavbar = (
-        <ul className="flex gap-[39px]">
-            <li>
-                <p
-                    className={`text-[18px] p-[10px] cursor-pointer ${isActive === 1 ? 'text-black border-b-[2px] border-b-black' : 'text-grey'}`}
-                    onClick={() => handleActiveLink(1)}
-                >Авто размещения</p>
-            </li>
-            <li>
-                <p
-                    className={`text-[18px] p-[10px] cursor-pointer ${isActive === 2 ? 'text-black border-b-[2px] border-b-black' : 'text-grey'}`}
-                    onClick={() => handleActiveLink(2)}
-                >Календарь</p>
-            </li>
-            <li>
-                <p
-                    className={`text-[18px] p-[10px] cursor-pointer ${isActive === 3 ? 'text-black border-b-[2px] border-b-black' : 'text-grey'}`}
-                    onClick={() => handleActiveLink(3)}
-                >Арендования</p>
-            </li>
-        </ul>
-    )
-
-
-    return (
-        <>
-            {pageType === 'mainpage' && mainpageNavbar}
-            {pageType === 'hotel' && hotelNavbar}
-            {pageType === 'car' && carNavbar}
-        </>
-    )
+  return navigationLinks[pageType]
 }
 
 export default HeaderUserNavbar
