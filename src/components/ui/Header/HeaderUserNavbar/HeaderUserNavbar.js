@@ -9,6 +9,7 @@ import som from '../../../../assets/images/som.svg'
 import language from '../../../../assets/images/language.svg'
 import LanguageMenu from "../DropdownMenues/LanguageMenu/LanguageMenu";
 import MoneyMenu from "../DropdownMenues/MoneyMenu/MoneyMenu";
+import {NavLink} from "react-router-dom";
 
 const HeaderUserNavbar = ({
                               pageType,
@@ -59,12 +60,13 @@ const HeaderUserNavbar = ({
 
 
             </div>
-
+            <NavLink to={'/businessMainPage'}>
             <Button
                 width={237}
                 height={44}
                 text={'Сдать жилье на Meyman'}
             />
+                </NavLink>
         </div>
     )
 

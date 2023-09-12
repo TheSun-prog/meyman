@@ -9,6 +9,7 @@ import logoAddPhoto from "../../../assets/images/addPhoto.svg";
 function AddHotelPhoto() {
 
     const [photos2, setPhotos2] = useState([]);
+    console.log(photos2)
 
     const handleFileChange = (e) => {
         const files = e.target.files;

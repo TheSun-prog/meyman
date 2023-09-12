@@ -1,8 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import arrow_back from '../../assets/images/arrow2.svg'
 import Button from "../../components/ui/Button/Button";
 import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {setOwnerState} from "../../store/slice/ownerSlice";
 function BusinessAccountData(props) {
+    const dispatch = useDispatch()
+
+    const [ownerData, setOwnerData] = useState("")
+
     return (
         <div className="mx-auto w-[1240px]">
             <button className='mt-[40px]'>
@@ -39,13 +45,17 @@ function BusinessAccountData(props) {
                 </p>
                 <input
                     className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12"
-                    type="number" placeholder="Введите номер телефона"/>
+                    type="number" placeholder="Введите номер телефона" value={ownerData} onChange={(event) => {
+                    setOwnerData(event.target.value)
+                }}/>
             </div>
-            <Link to='/fillingHotelDetails'>
+            <div onClick={() => {
+                dispatch(setOwnerState())
+            }}>
                 <Button classes='w-[392px] h-[61px] hover:bg-[#1178B4]'>
                     Продолжить
                 </Button>
-            </Link>
+                </div>
         </div>
     );
 }
