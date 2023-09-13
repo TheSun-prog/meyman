@@ -27,7 +27,7 @@ const LanguageMenu = ({ closeMenu }) => {
 
   return (
     <div
-      className={`absolute top-[42px] right-0 w-[224px] min-h-[276px] rounded-[18px] shadow-dropdown-menu border-light-white border-[1px] py-[20px] px-[30px] flex flex-col gap-[25px] bg-white`}
+    className={`absolute top-[42px] right-0 w-[204px] min-h-[206px] rounded-[18px] shadow-dropdown-menu border-light-white border-[1px] py-[10px] px-[20px] flex flex-col gap-[15px] bg-white`}
     >
       <div className="flex justify-between">
         <p>Валюта</p>
