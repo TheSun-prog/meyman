@@ -13,6 +13,7 @@ import changeUserNameSlice from './slice/changeUserNameSlice'
 import changePhoneSlice from './slice/changePhoneSlice'
 import historyReservationSlice from './slice/historyReservationSlice'
 import ownerSlice from "./slice/ownerSlice";
+import RestoreSlice from "./slice/RestoreSlice";
 
 const store = configureStore({
   reducer: {
@@ -28,6 +29,7 @@ const store = configureStore({
     changePhone: changePhoneSlice,
     historyReservation: historyReservationSlice,
     owner: ownerSlice,
+    restore: RestoreSlice
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware()
 })

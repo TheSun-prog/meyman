@@ -41,10 +41,6 @@ const RegPage = () => {
             console.log(userData) // Собираем обьект из инпутов и передаем его в запрос
             localStorage.setItem('userData', JSON.stringify(userData))
             dispatch(asyncSignUp({ userData }))
-            setEmail('')
-            setName('')
-            setPassword('')
-            setPassword2('')
         }
         if (!gmailRegExp.test(email)) setEmailError(true)
         if (!nameRegExp.test(name)) setNameError(true)
@@ -65,6 +61,10 @@ const RegPage = () => {
     // Если запрос успешен то перекидываем в страницу Confirm
     useEffect(() => {
         if (status) {
+            setEmail('')
+            setName('')
+            setPassword('')
+            setPassword2('')
             navigate('/confirmCode')
             dispatch(setStatus(''))
         }
