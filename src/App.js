@@ -21,6 +21,9 @@ import FillingHotelDetails from "./pages/FillingHotelDetails/FillingHotelDetails
 import PersonalAreaPage from "./pages/PersonalAreaPage/PersonalAreaPage";
 import PersonalInfoPage from "./pages/PersonalAreaPage/PersonalInfoPage";
 import HistoryReservationPage from "./pages/PersonalAreaPage/HistoryReservationPage";
+import RestorePassEmail from "./pages/RestorePassEmail/RestorePassEmail";
+import RestorePassCode from "./pages/RestorePassCode/RestorePassCode";
+import RestorePassNewPass from "./pages/RestorePassNewPass/RestorePassNewPass";
 
 
 function App() {
@@ -65,6 +68,11 @@ function App() {
                     />
 
                     <Route path="/test" element={<Test/>}/>
+
+                    <Route path="/restorePassEmail" element={<RestorePassEmail/>}/>
+                    <Route path="/restorePassCode" element={<RestorePassCode/>}/>
+                    <Route path="/restorePassNewPass" element={<RestorePassNewPass/>}/>
+
                     <Route
                         path="/*"
                         element={<h1 className="text-center text-red-700 text-[50px] mt-10">

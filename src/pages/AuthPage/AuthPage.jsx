@@ -107,7 +107,9 @@ const AuthPage = () => {
                             : <img className='pt-[15px]' src={passShow} alt='passShow' onClick={() => setIsShow(true)}/>
                         }
                     </label>
-                    <p className={'losePassword'}>Забыли пароль?</p>
+                    <p className={'losePassword'} onClick={() => navigate('/restorePassEmail')}>
+                        Забыли пароль?
+                    </p>
                     <button className={'logButton'}>Войти</button>
                     <div className={'AuthAnd'}>
                         <div className={'AuthAndDivider'}></div>

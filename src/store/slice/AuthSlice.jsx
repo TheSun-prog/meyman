@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { $authApi, $mainApi } from '../../axios/axios'
 import decode from 'jwt-decode'
+import Swal from 'sweetalert2'
 
-// ЗАПРОС ДЛЯ РЕГИСАТРЦИИ ( СОЗДАНИЕ АККАУНТА )
+// ЗАПРОС ДЛЯ РЕГИСТРАЦИИ ( СОЗДАНИЕ АККАУНТА )
 export const asyncSignUp = createAsyncThunk(
     'AuthSlice/asyncSignUp', async ({ userData }) => {
         try {
@@ -22,32 +23,30 @@ export const asyncConfirmCode = createAsyncThunk(
     'AuthSlice/asyncConfirmCode', async ({ code, user }) => {
         try {
             const form = new FormData
+            form.append('verify_code', code)
             form.append('email', user.email)
-            form.append('password', user.password)
-
-            const response = await $mainApi.post(`/api/users/login/`, form)
+            const response = await $mainApi.post(`/api/users/verify/`, form)
             console.log(response)
-
-            localStorage.setItem('access', response.data.tokens.access)
-            localStorage.setItem('refresh', response.data.tokens.refresh)
-            const userID = decode(response.data.tokens.access)
-            localStorage.setItem('user_id', userID.user_id)
 
             const form2 = new FormData
             form2.append('email', user.email)
-            form2.append('verify_code', code)
-
-            const response2 = await $authApi.post(`/api/users/verify/`, form2)
+            form2.append('password', user.password)
+            const response2 = await $mainApi.post(`/api/users/login/`, form2)
             console.log(response2)
+            localStorage.setItem('access', response2.data.tokens.access)
+            localStorage.setItem('refresh', response2.data.tokens.refresh)
 
-            if (response.status >= 200 && response.status <=204 && response2.status >= 200 && response2.status <=204) {
+            if (response.status >= 200 && response.status <=204 && response2.status >= 200 && response2.status <= 204) {
                 return response.data
             }
         }
         catch (error){
-            console.error(error)
             console.log(error)
-            alert(error.response.data.error)
+            await Swal.fire({
+                icon: `error`,
+                title: `${error.response.status}`,
+                text: `${error.response.data.error}`,
+            })
         }
     }
 )
@@ -116,7 +115,7 @@ const AuthSlice = createSlice({
             // CONFIRM CODE
             .addCase(asyncConfirmCode.fulfilled, (state, action) => {
                 state.status2 = action.payload
-                setTimeout(() => window.location.reload(), 500)
+                // setTimeout(() => window.location.reload(), 500)
             })
             .addCase(asyncConfirmCode.rejected, (state, action) => {
                 state.error2 = action.payload

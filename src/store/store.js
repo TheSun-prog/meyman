@@ -13,6 +13,7 @@ import changeUserNameSlice from './slice/changeUserNameSlice'
 import changePhoneSlice from './slice/changePhoneSlice'
 import historyReservationSlice from './slice/historyReservationSlice'
 import ownerSlice from "./slice/ownerSlice";
+import RestoreSlice from "./slice/RestoreSlice";
 import currencySlice from './slice/currencySlice'
 
 const store = configureStore({
@@ -29,6 +30,7 @@ const store = configureStore({
     changePhone: changePhoneSlice,
     historyReservation: historyReservationSlice,
     owner: ownerSlice,
+    restore: RestoreSlice
     currency: currencySlice,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware()
