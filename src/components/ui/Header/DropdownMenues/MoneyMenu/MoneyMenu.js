@@ -11,11 +11,13 @@ const LanguageMenu = ({ closeMenu }) => {
     { code: 'USD', name: 'Доллар' },
     { code: 'EUR', name: 'Евро' }
   ]
-  const [dataLocalStorage, setDataLocalStorage] = useState('')
-  const [activeCurrency, setActiveCurrency] = useState(dataLocalStorage)
+  const [activeCurrency, setActiveCurrency] = useState()
 
   useEffect(() => {
-    setDataLocalStorage(localStorage.getItem('currency'))
+    const local = localStorage.getItem('currency')
+    if (local) {
+      setActiveCurrency(local)
+    }
   }, [])
 
   useEffect(() => {
@@ -33,14 +35,14 @@ const LanguageMenu = ({ closeMenu }) => {
           src={close}
           alt="close"
           className="cursor-pointer"
-          onClick={() => closeMenu('')}
+          onClick={closeMenu}
         />
       </div>
       <div className="flex flex-col gap-[12px]">
         {currencies.map(currency => (
           <div
           key={currency.code}
-          className={`w-[164px] h-[54px] rounded-[10px] px-[20px] py-[4px] text-[16px] flex flex-col items-between border-blue border-[1px] cursor-pointer ${
+          className={`w-[164px] h-[54px] rounded-[10px] px-[20px] text-[16px] flex flex-col items-between border-blue border-[1px] cursor-pointer ${
             activeCurrency === currency.code ? 'bg-blue text-white' : ''
           }`}
           onClick={() => {

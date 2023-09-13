@@ -6,33 +6,33 @@ import Button from '../../Button/Button'
 import LanguageMenu from '../DropdownMenues/LanguageMenu/LanguageMenu'
 import MoneyMenu from '../DropdownMenues/MoneyMenu/MoneyMenu'
 
+import language from '../../../../assets/images/language.svg'
 import som from '../../../../assets/images/som.svg'
 import eur from '../../../../assets/images/euro.svg'
 import usd from '../../../../assets/images/usd.svg'
-import language from '../../../../assets/images/language.svg'
 
 const HeaderUserNavbar = ({ pageType, showModal, handleShowModal }) => {
   const [isActive, setIsActive] = useState(1)
-  const [activeCurrency, setActiveCurrency] = useState()
-
-  const currency = useSelector(state => state.currency)
-
   const handleActiveLink = index => {
     setIsActive(index)
   }
+  
+  const [localStorageCurrency, setlocalStorageCurrency] = useState('')
 
+  const currency = useSelector(state => state.currency)
+
+  // Сохраняем в localStorage при изменении localStorageCurrency
   useEffect(() => {
-    setActiveCurrency(localStorage.getItem('currency'))
+    const localData = localStorage.getItem('currency')
+    if (localData) {
+      setlocalStorageCurrency(localData)
+    }
   }, [])
 
   const currencies = {
-    KGS: som,
-    EUR: eur,
-    USD: usd
-  }
-
-  const getCurrencyImage = () => {
-    return currency ? currencies[currency] : currencies[activeCurrency]
+    'KGS': som,
+    'EUR': eur,
+    'USD': usd
   }
 
   const navigationLinks = {
@@ -54,18 +54,18 @@ const HeaderUserNavbar = ({ pageType, showModal, handleShowModal }) => {
             )}
           </div>
 
-          <div className="relative">
+          <div className="relative w-[70px]">
             <div
-              className="flex gap-[12px] items-center cursor-pointer"
+              className="flex items-center cursor-pointer"
               onClick={() =>
                 handleShowModal(showModal !== 'money' ? 'money' : '')
               }
             >
-              <img src={getCurrencyImage()} alt="currency" />
-              <p className="text-[16px]">{currency || activeCurrency}</p>
+              <img className='mr-[5px] object-cover' src={currency ? currencies[currency] : currencies[localStorageCurrency]} alt="currency" />
+              <p className="text-[16px]">{currency || localStorageCurrency}</p>
             </div>
             {showModal === 'money' && (
-              <MoneyMenu handleMenu={handleShowModal} />
+              <MoneyMenu closeMenu={handleShowModal} handleMenu={handleShowModal} />
             )}
           </div>
         </div>

@@ -33,6 +33,7 @@ const Booking = () => {
   const { hotelId, roomId } = useParams()
 
   const stars = data?.stars ? data?.stars : null
+  const localStorageCurrency = localStorage.getItem('currency')
 
   const [activeModal, setActiveModal] = useState(false)
   const [date, setDate] = useState()
@@ -245,7 +246,7 @@ const Booking = () => {
 
   return (
     <div className="mx-auto w-[1240px]">
-      <div className="flex items-center mb-[50px] mt-[45px]">
+      <div className="flex text-[16px] items-center mb-[50px] mt-[45px]">
         <NavLink to={'/'}>Главная</NavLink>
         <img className="-rotate-90 h-4" src={arrow} alt="arrow" />
         <NavLink to={`/hotelcatalog/${hotelId}`}>Отель</NavLink>
@@ -427,7 +428,7 @@ const Booking = () => {
             <span>
               {roomData?.price_per_night *
                 calculateDateDifference(state.arrival, state.departure)}{' '}
-              сом
+              {state.currency}
             </span>
           </div>
           <div className="flex justify-between text-3xl items-center">
@@ -435,7 +436,7 @@ const Booking = () => {
             <span>
               {roomData?.price_per_night *
                 calculateDateDifference(state.arrival, state.departure)}{' '}
-              сом
+              {state.currency}
             </span>
           </div>
           <Button clickFunc={handleClickBooking} classes={`py-[20px] w-full'} shadow-xl`}>

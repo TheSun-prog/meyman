@@ -6,14 +6,23 @@ import arrow from '../../assets/images/arrow2.svg'
 import { NavLink } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 // icon
-import somIcon from '../../assets/images/som.svg'
+import som from '../../assets/images/som.svg'
+import eur from '../../assets/images/euro.svg'
+import usd from '../../assets/images/usd.svg'
 // ui
 import Button from '../ui/Button/Button'
 
 const RoomDate = ({data}) => {
-
   const {hotelId, roomId} = useParams()
+  const localStorageCurrency = localStorage.getItem('currency')
+  const currency = useSelector(state => state.currency)
+  const currencys = {
+    'KGS': som,
+    'EUR': eur,
+    'USD': usd
+  }
 
   function getFormattedDate() {
     const today = new Date();
@@ -40,7 +49,8 @@ const RoomDate = ({data}) => {
     const storedData = localStorage.getItem('initialData');
     return storedData ? JSON.parse(storedData) : {
       arrival: getFormattedDate(),
-      departure: getFormattedDateWithOffset(2)
+      departure: getFormattedDateWithOffset(2),
+      currency: currency
     };
   });
 
@@ -85,13 +95,44 @@ const RoomDate = ({data}) => {
     localStorage.setItem('initialData', JSON.stringify(initialData));
   }, [initialData]);
 
+  useEffect(() => {
+    if (currency) {
+      setInitialData(prev => ({
+        ...prev,
+        currency: currency
+      }))
+    } else {
+      setInitialData(prev => ({
+        ...prev,
+        currency: currency
+      }))
+    }
+  }, [])
+
+  // useEffect(() => {
+  //   dispatch(fetchRoomData({
+  //     roomId: roomId,
+  //     currency:currency
+  //   }))
+  // }, [dispatch, currency])
 
   return (
     <ConfigProvider locale={ru_RU}>
       <div className="max-h-[325px] w-[473px] py-10 px-10 rounded-3xl border shadow-lg">
         <div className="flex items-center mb-7">
           <span className="text-[24px]">{Math.round(data?.price_per_night)}</span>
-          <img src={somIcon} alt="somIcon" />
+          <img
+            src={
+              currency === 'KGS'
+                ? som
+                : currency === 'USD'
+                ? usd
+                : currency === 'EUR'
+                ? eur
+                : currencys[localStorageCurrency]
+            }
+            alt="currency"
+          />
           <span className="text-[24px]">ночь</span>
         </div>
         <div className="rounded-xl border border-black">

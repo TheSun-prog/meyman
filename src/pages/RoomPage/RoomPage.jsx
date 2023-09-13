@@ -6,6 +6,9 @@ import done from '../../assets/images/done.svg'
 import dish from '../../assets/images/dish-green.svg'
 import arrow from '../../assets/images/arrow.svg'
 import arrow2 from '../../assets/images/arrow2.svg'
+import kgs from '../../assets/images/som.svg'
+import usd from '../../assets/images/usd.svg'
+import eur from '../../assets/images/euro.svg'
 // ui
 import Button from '../../components/ui/Button/Button'
 import ModalAllServices from '../../components/roomComponents/modals/ModalAllServices'
@@ -20,7 +23,6 @@ import ModalAllPhotos from '../../components/hotelComponents/modals/ModalAllPhot
 import { fetchRoomData } from '../../store/slice/roomSlice'
 import { fetchHotelData } from '../../store/slice/hotelSlice'
 import SkeletonImage from 'antd/es/skeleton/Image'
-import SkeletonNode from 'antd/es/skeleton/Node'
 import { Skeleton } from 'antd'
 
 const RoomPage = () => {
@@ -34,6 +36,8 @@ const RoomPage = () => {
 
   const { data } = useSelector(state => state.room)
   const hotelData = useSelector(state => state.hotel.data)
+  const currency = useSelector(state => state.currency)
+  
 
   const handleActiveModal = () => {
     setActiveModalAllPhotosRooms(true)
@@ -48,12 +52,18 @@ const RoomPage = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchRoomData(roomId))
-  }, [dispatch])
+    dispatch(fetchRoomData({
+      roomId: roomId,
+      currency: currency
+    }))
+  }, [dispatch, currency])
 
   useEffect(() => {
-    dispatch(fetchHotelData(hotelId))
-  }, [dispatch])
+    dispatch(fetchHotelData({
+      hotelId: hotelId,
+      currency:currency
+    }))
+  }, [dispatch, currency])
 
   return (
     <div className="mx-auto w-[1240px] min-h-screen">

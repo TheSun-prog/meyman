@@ -33,6 +33,7 @@ const HotelPage = () => {
 
   const dispatch = useDispatch()
   const { data, isError } = useSelector(state => state.hotel)
+  const currency = useSelector(state => state.currency)
   const { hotelId } = useParams()
 
   const handleCancelSendReview = () => {
@@ -60,8 +61,11 @@ const HotelPage = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchHotelData(hotelId))
-  }, [dispatch])
+    dispatch(fetchHotelData({
+      hotelId: hotelId,
+      currency:currency
+    }))
+  }, [currency])
 
   return (
     <div

@@ -1,9 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
-export const fetchRoomData = createAsyncThunk('room/getData', async (data) => {
-  const response = await axios.get(`http://127.0.0.1:8000/rooms/${data}/`, {
+const localStorageCurrency = localStorage.getItem('currency')
 
+export const fetchRoomData = createAsyncThunk('room/getData', async (data) => {
+  const response = await axios.get(`http://127.0.0.1:8000/rooms/${data.roomId}/`, {
+    params: {
+      currency: data.currency || localStorageCurrency
+    }
   })
   return response.data
 })
