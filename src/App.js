@@ -24,6 +24,8 @@ import HistoryReservationPage from "./pages/PersonalAreaPage/HistoryReservationP
 import RestorePassEmail from "./pages/RestorePassEmail/RestorePassEmail";
 import RestorePassCode from "./pages/RestorePassCode/RestorePassCode";
 import RestorePassNewPass from "./pages/RestorePassNewPass/RestorePassNewPass";
+import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
+import WishListPage from "./pages/WishListPage/WishListPage";
 
 
 function App() {
@@ -72,6 +74,8 @@ function App() {
                     <Route path="/restorePassEmail" element={<RestorePassEmail/>}/>
                     <Route path="/restorePassCode" element={<RestorePassCode/>}/>
                     <Route path="/restorePassNewPass" element={<RestorePassNewPass/>}/>
+                    <Route path="/favorites" element={<FavoritesPage/>}/>
+                    <Route path="/favorites/:id" element={<WishListPage/>}/>
 
                     <Route
                         path="/*"
@@ -85,3 +89,4 @@ function App() {
 }
 
 export default App;
+

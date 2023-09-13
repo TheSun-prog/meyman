@@ -15,6 +15,7 @@ import historyReservationSlice from './slice/historyReservationSlice'
 import ownerSlice from "./slice/ownerSlice";
 import RestoreSlice from "./slice/RestoreSlice";
 import currencySlice from './slice/currencySlice'
+import wishListSlice from "./slice/wishListSlice";
 
 const store = configureStore({
   reducer: {
@@ -30,10 +31,12 @@ const store = configureStore({
     changePhone: changePhoneSlice,
     historyReservation: historyReservationSlice,
     owner: ownerSlice,
-    restore: RestoreSlice
+    restore: RestoreSlice,
     currency: currencySlice,
+      wishList: wishListSlice,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware()
 })
 
-export default store
+
+export default store;

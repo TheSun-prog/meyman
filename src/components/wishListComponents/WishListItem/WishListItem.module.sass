@@ -1,0 +1,46 @@
+%fontQuicksand
+  font-family: 'Quicksand', sans-serif
+  font-style: normal
+  font-weight: 400
+  line-height: 140%
+.wishListItem
+  width: 294px
+  height: 367px
+  display: flex
+  padding: 20px 22px
+  flex-direction: column
+  align-items: flex-start
+  gap: 20px
+  border-radius: 18px
+  border: 1px solid #d1d2d2
+  background: #FFF
+  box-shadow: 0 9px 16px 2px #b8b8b8
+  &_delete
+    cursor: pointer
+  &_box
+    display: flex
+    flex-direction: column
+    cursor: pointer
+    gap: 20px
+    &_img
+      width: 250px
+      height: 200px
+      border-radius: 18px
+      overflow: hidden
+      img
+        width: 100%
+        height: 100%
+        object-fit: cover
+    &_desciption
+      .title
+        @extend %fontQuicksand
+        font-size: 22px
+        width: 250px
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+        margin-bottom: 7px
+      .favorite_count
+        @extend %fontQuicksand
+        font-size: 18px
+        color: #a1a1a1

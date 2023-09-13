@@ -8,13 +8,11 @@ import {
 } from "../../store/slice/housingSlice";
 import {useDispatch, useSelector} from "react-redux";
 import FilterModal from "../../components/hotelComponents/FilterModal/FilterModal";
-import {NavLink} from "react-router-dom";
 import sort from '../../assets/images/sort.svg'
 import filter from '../../assets/images/filter.svg'
 
 const HotelCatalog = () => {
     const [activeSearch, setActiveSearch] = useState("hotel");
-
     const dispatch = useDispatch();
     const hotelData = useSelector(selectHousingData);
     const loading = useSelector(selectHousingLoadingStatus);
@@ -125,9 +123,7 @@ const HotelCatalog = () => {
         <div className="mx-auto w-[1240px]">
             <div className="pt-[80px] pb-[100px] flex flex-wrap gap-x-[95px] gap-y-[55px]">
                 {hotelData && hotelData.map((value, index, array) => {
-                    return (<NavLink key={index} to={`/hotelcatalog/${value.id}`}>
-                        <HotelCard data={value} index={index}/>
-                    </NavLink>);
+                    return <HotelCard data={value} index={index}/>
                 })}
             </div>
         </div>
