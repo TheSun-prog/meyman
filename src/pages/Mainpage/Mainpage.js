@@ -1,6 +1,6 @@
 // React module
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
+import { useSelector } from "react-redux";
 // images
 import hotelIcon from '../../assets/images/hotel-icon.svg'
 import carIcon from '../../assets/images/car-icon.svg'
@@ -13,11 +13,8 @@ import batken from '../../assets/images/batken.png'
 import talas from '../../assets/images/talas.png'
 import naryn from '../../assets/images/naryn.png'
 import HotelSwiper from "../../components/hotelComponents/HotelSwiper/HotelSwiper";
-import ReviewSwiper from "../../components/reviewComponents/ReviewSwiper/ReviewSwiper";
 import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
 import AuthDoneModal from "../../components/objectRegisterComponents/AuthDoneModal/AuthDoneModal";
-import { fetchHousingData } from "../../store/slice/housingSlice";
 import ModalReview from "../../components/hotelComponents/modals/ModalReview";
 import SiteReviewSwiper from "../../components/reviewComponents/SiteReviewSwiper/SiteReviewSwiper";
 
@@ -64,8 +61,8 @@ const Mainpage = () => {
             {AuthModal && <AuthDoneModal/>}
             <div className="bg-main bg-no-repeat bg-cover h-[550px] pt-[180px] z-0">
                 <div className="mx-auto w-[1240px] h-[100%] relative z-0">
-
-                        <div className="flex gap-[20px] z-0 w-[300px]">
+                    <div className="flex flex-col gap-[50px] mt-10 z-0 ">
+                        <div className="flex gap-[20px] z-0">
                             <div
                                 className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] z-0 ${activeSearch === 'hotel' ? 'bg-grey border-[1px] border-white' : 'bg-dark-blue'}`}>
                                 <img
@@ -83,7 +80,7 @@ const Mainpage = () => {
                                 <p className="text-[20px] text-white">Транспорт</p>
                             </div>
                         </div>
-                        <div className="mt-[50px] flex h-[80px] bg-white rounded-full pl-[75px] pr-[20px] py-[13px] z-0">
+                        <div className="flex h-[80px] bg-white rounded-full pl-[75px] pr-[20px] py-[13px] z-0">
                             <div className="w-[422px] h-[100%]">
                                 <p>Куда</p>
                                 <input
@@ -124,7 +121,7 @@ const Mainpage = () => {
                                 />
                             </NavLink>
                         </div>
-
+                    </div>
                     <div
                         className="absolute left-0 bottom-[-80px] w-[100%] h-[164px] bg-blue rounded-[30px] flex items-center justify-center px-[10px] z-5">
                         <p className="text-[20px] text-center text-white">

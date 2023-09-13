@@ -22,6 +22,8 @@ const HotelSwiper = ({}) => {
     const loading = useSelector(selectHousingLoadingStatus);
     const error = useSelector(selectHousingError);
 
+    const currency = useSelector(state => state.currency)
+
     const [slidesCount, setSlidesCount] = useState(0);
 
     const {hotelId} = useParams()
@@ -34,8 +36,8 @@ const HotelSwiper = ({}) => {
     }, [hotelData]);
 
     useEffect(() => {
-        dispatch(fetchHousingData({limit: 7, offset: 0}));
-    }, [dispatch]);
+        dispatch(fetchHousingData({limit: 7, offset: 0, currency: currency}));
+    }, [dispatch, currency]);
 
     const swiperRef = React.useRef(null);
 
