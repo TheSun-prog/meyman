@@ -27,7 +27,7 @@ const LanguageMenu = ({ closeMenu }) => {
 
   return (
     <div
-      className={`absolute top-[42px] right-0 w-[224px] min-h-[276px] rounded-[18px] shadow-dropdown-menu border-light-white border-[1px] py-[20px] px-[30px] flex flex-col gap-[25px] bg-white`}
+      className={`absolute top-[42px] right-0 w-[204px] min-h-[206px] rounded-[18px] shadow-dropdown-menu border-light-white border-[1px] py-[10px] px-[20px] flex flex-col gap-[15px] bg-white`}
     >
       <div className="flex justify-between">
         <p>Валюта</p>
@@ -38,11 +38,11 @@ const LanguageMenu = ({ closeMenu }) => {
           onClick={closeMenu}
         />
       </div>
-      <div className="flex flex-col gap-[12px]">
+      <div className="flex flex-col gap-[6px]">
         {currencies.map(currency => (
           <div
           key={currency.code}
-          className={`w-[164px] h-[54px] rounded-[10px] px-[20px] text-[16px] flex flex-col items-between border-blue border-[1px] cursor-pointer ${
+          className={`w-[164px] h-[44px] rounded-[10px] px-[20px] text-[14px] flex flex-col items-between border-blue border-[1px] cursor-pointer ${
             activeCurrency === currency.code ? 'bg-blue text-white' : ''
           }`}
           onClick={() => {
