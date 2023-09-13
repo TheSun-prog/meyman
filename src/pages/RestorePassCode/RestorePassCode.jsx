@@ -1,4 +1,4 @@
-import {asyncRestoreCode, asyncRestoreEmail} from '../../store/slice/RestoreSlice'
+import {asyncRestoreCode, asyncRestoreEmail, setStatus2} from '../../store/slice/RestoreSlice'
 import restorePass from '../../assets/images/restorePassword/restorePass.svg'
 import {useDispatch, useSelector} from 'react-redux'
 import classes from './RestorePassCode.module.sass'
@@ -37,6 +37,7 @@ export default function RestorePassCode() {
         if (status2) {
             localStorage.setItem('restore_code', code)
             navigate(`restorePassNewPass`)
+            dispatch(setStatus2(''))
         }
     }, [status2])
 
