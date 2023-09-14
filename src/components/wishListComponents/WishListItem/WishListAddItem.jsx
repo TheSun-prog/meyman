@@ -30,7 +30,11 @@ function WishListAddItem({wishList, id, setActive}) {
     }
 
     useEffect(() => {
-        dispatch(getHousingImg(housingId))
+        if (typeof housingId !== 'undefined') {
+            dispatch(getHousingImg(housingId))
+        } else {
+            setImg('')
+        }
     },[housingId])
 
     return (

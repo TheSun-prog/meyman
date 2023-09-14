@@ -10,12 +10,13 @@ function ModalAddWishlist({active, setActive, id}) {
     const dispatch = useDispatch()
     const {wishLists} = useSelector(state => state.wishList)
 
-    const wishListIsEmpty = wishLists.length === 0 ? false : true
+    const wishListIsEmpty = wishLists.length === 0 ? true : false
 
     const [addWishlist, setAddWishlist] = useState(true)
 
     const [name, setName] = useState('')
 
+    const {userType} = useSelector(state => state.authSlice)
 
     const clickAddNewWishlist = () => {
         dispatch(addNewWishList(name, id))
@@ -29,8 +30,12 @@ function ModalAddWishlist({active, setActive, id}) {
     }
 
     useEffect(() => {
-        dispatch(getUserWishList())
-    }, [dispatch])
+        if (active && userType === 'client') {
+            if (wishListIsEmpty) {
+                dispatch(getUserWishList());
+            }
+        }
+    }, [active, wishListIsEmpty, dispatch, userType]);
 
     return (
         <div className={active ? `${classes.modal} ${classes.active}` : `${classes.modal}`}>
@@ -45,11 +50,12 @@ function ModalAddWishlist({active, setActive, id}) {
                     </p>
                 </div>
                 {
-                    (addWishlist && wishListIsEmpty)
+                    (addWishlist && !wishListIsEmpty)
                         ?
                         <>
-                            <div className={classes.favorites_item} >
-                                {wishLists?.map(wishList => <WishListAddItem key={wishList.id} wishList={wishList} id={id} setActive={setActive}/>
+                            <div className={classes.favorites_item}>
+                                {wishLists?.map(wishList => <WishListAddItem key={wishList.id} wishList={wishList}
+                                                                             id={id} setActive={setActive}/>
                                 )}
                             </div>
                             <div className={classes.btn_box}>

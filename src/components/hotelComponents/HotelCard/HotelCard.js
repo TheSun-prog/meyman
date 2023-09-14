@@ -5,40 +5,72 @@ import star from "../../../assets/images/star.svg";
 import som from "../../../assets/images/som.svg";
 import done from "../../../assets/images/done.svg";
 import location from "../../../assets/images/location.svg";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import ModalAddWishlist from "../../wishListComponents/modals/ModalAddWishlist";
+import {useDispatch, useSelector} from "react-redux";
+import {deleteFavorite, getFavorites, getUserWishList} from "../../../store/slice/wishListSlice";
 
-const HotelCard = ({data, index}) => {
+const HotelCard = ({data, id}) => {
+
+    const dispatch = useDispatch()
     const firstRoomsPrice = parseInt(data?.rooms[0]?.price_per_night)
+    const {wishLists} = useSelector(state => state.wishList)
+    const {favorites} = useSelector(state => state.wishList)
 
-    const [isFavorite, setIsFavorite] = useState(false);
+
     const [hotelPrice, setHotelPrice] = useState(
         firstRoomsPrice ? firstRoomsPrice : 0
     );
 
     const [modalAddActive, setModalAddActive] = useState(false)
+    const {userType} = useSelector(state => state.authSlice)
+
+    const wishListIsEmpty = wishLists.length === 0 ? true : false
 
     const navigate = useNavigate()
+
     const clickNavigate = () => {
-        navigate(`/hotelcatalog/${index}`)
+        navigate(`/hotelcatalog/${id}`)
     }
 
-    const handleIsFavorite = () => {
-        // setIsFavorite((prevState) => !prevState);
-        setModalAddActive(true)
+    const findFavoriteIdByHousing = (data, housing) => {
+        const foundItem = data.find(item => item.housing === housing);
+        return foundItem ? foundItem.id : null;
     };
-    console.log('typeof hotelPrice',typeof parseInt(hotelPrice))
+
+    const isFavorite = favorites.some(item => item.housing === id)
+
+    const favoriteId = findFavoriteIdByHousing(favorites, id)
+
+    const handleIsFavorite = () => {
+        if (userType !== 'client') return alert('Войдите как гость')
+        if (!isFavorite) {
+            setModalAddActive(true)
+        } else {
+            dispatch(deleteFavorite(favoriteId))
+        }
+    };
 
     for (const room of data.rooms) {
         const price = parseInt(room.price_per_night)
         if (price < hotelPrice) setHotelPrice(price);
     }
 
+
+    useEffect(() => {
+        if (userType === 'client') {
+            if (wishListIsEmpty) {
+                dispatch(getUserWishList());
+                dispatch(getFavorites())
+            }
+        }
+    }, [wishListIsEmpty, dispatch, userType]);
+
     return (
         <div
             className="w-[350px] h-[540px] flex flex-col gap-[10px] relative "
-            key={index}
+            key={id}
             onClick={clickNavigate}
         >
             <div

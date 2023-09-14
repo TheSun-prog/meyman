@@ -62,6 +62,7 @@ export const asyncLogin = createAsyncThunk(
             localStorage.setItem('refresh', response.data.tokens.refresh)
             const userID = decode(response.data.tokens.access)
             localStorage.setItem('user_id', userID.user_id)
+            dispatch(getUserApi(userID))
             if (response.status >= 200 && response.status <= 204) return response.data
         }
         catch (error) {
@@ -70,6 +71,18 @@ export const asyncLogin = createAsyncThunk(
         }
     }
 )
+
+export const getUserApi = (id) => {
+    return async (dispatch) => {
+        try {
+            const {data} = await $authApi.get(`/api/users/profile/${id}/`)
+            localStorage.setItem('user_type', data.user_type)
+            dispatch(setUserType(data.user_type))
+        } catch (e) {
+            dispatch(setError(e.message))
+        }
+    }
+}
 
 
 const AuthSlice = createSlice({
@@ -83,6 +96,7 @@ const AuthSlice = createSlice({
         error3: false,
         AuthModal: false,
         regErrorModal: false,
+        userType: localStorage.getItem('user_type') ?? ''
     },
     reducers: {
         setStatus: (state, action) => {
@@ -102,6 +116,9 @@ const AuthSlice = createSlice({
         },
         setError3: (state, action) => {
             state.error3 = action.payload
+        },
+        setUserType: (state, action) => {
+            state.userType = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -127,5 +144,5 @@ const AuthSlice = createSlice({
     }
 })
 
-export const { setStatus, setError, setAuthModal, setRegError, setError3, setStatus3 } = AuthSlice.actions
+export const { setStatus, setError, setAuthModal, setRegError, setError3, setStatus3 ,setUserType} = AuthSlice.actions
 export default AuthSlice.reducer

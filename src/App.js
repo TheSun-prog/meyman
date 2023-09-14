@@ -51,44 +51,6 @@ function App() {
                     path="/BusinessOwnerNotification"
                     element={<BusinessOwnerNotification/>}
                 />
-            <ScrollToTop/>
-            <Routes>
-                <Route path="/" element={<Layout/>}>
-                    <Route path="/" element={<Mainpage/>}/>
-                    <Route path="/hotelcatalog" element={<HotelCatalog/>}/>
-                    <Route path="/hotelcatalog/:hotelId" element={<HotelPage/>}/>
-                    <Route path="/hotelcatalog/:hotelId/:roomId" element={<RoomPage/>}/>
-                    <Route
-                        path="/hotelcatalog/:hotelId/:roomId/booking"
-                        element={<BookingPage/>}
-                    />
-                    <Route path="/personal-area" element={<PersonalAreaPage />}/>
-                    <Route path="/personal-area/history-reservation" element={<HistoryReservationPage />}/>
-                    <Route path="/personal-area/personal-info" element={<PersonalInfoPage />}/>
-                    <Route path={'/about'} element={<AboutPage/>}/>
-                    <Route path={'/register'} element={<RegPage/>}/>
-                    <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
-                    <Route path={'/auth'} element={<AuthPage/>}/>
-                    <Route
-                        path="/businessMainPage"
-                        element={<BusinessMainPage/>}
-                    />
-                    <Route
-                        path="/businessAccountData"
-                        element={<BusinessAccountData/>}
-                    />
-                    <Route
-                        path="/fillingHotelDetails"
-                        element={<FillingHotelDetails/>}
-                    />
-                    <Route
-                        path="/fillingRoomDetails"
-                        element={<FillingRoomDetails/>}
-                    />
-                    <Route
-                        path="/businessOwnerNotification"
-                        element={<BusinessOwnerNotification/>}
-                    />
 
                 <Route path="/test" element={<Test/>}/>
                 <Route path="/favorites" element={<FavoritesPage/>}/>
@@ -106,3 +68,4 @@ function App() {
 }
 
 export default App;
+

@@ -30,7 +30,7 @@ function WishListPage() {
                 <p className={classes.wishList_title}>{oneWishList.title}</p>
                 <div className={classes.wishList_wrapper}>
                     {
-                        oneWishList.houseFavorite?.map((house, index)  => <HotelCardWishlist key={house.id} data={house} index={index}/>)
+                        oneWishList.houseFavorite?.map((house)  => <HotelCardWishlist key={house.id} data={house} id={house.housing} wishlist_id={id}/>)
                     }
                 </div>
             </div>
