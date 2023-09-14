@@ -27,6 +27,8 @@ import RestorePassNewPass from "./pages/RestorePassNewPass/RestorePassNewPass";
 
 
 function App() {
+
+    console.log(123)
     return (<>
             <ScrollToTop/>
             <Routes>
