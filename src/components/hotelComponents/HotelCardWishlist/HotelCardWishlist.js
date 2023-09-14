@@ -14,10 +14,7 @@ const HotelCardWishlist = ({data, id, wishlist_id}) => {
     const dispatch = useDispatch()
     const hotelPrice = isNaN(parseInt(data?.cheapest_room_price)) ? 0 : parseInt(data?.cheapest_room_price)
     const {favorites} = useSelector(state => state.wishList)
-    const {oneWishList} = useSelector(state => state.wishList)
-    console.log('favorites', favorites)
-    console.log('data', oneWishList.favorite_count)
-    if (oneWishList.favorite_count === 0) alert('asdfasdfasdf')
+
     const {userType} = useSelector(state => state.authSlice)
     const navigate = useNavigate()
     const clickNavigate = () => {
@@ -30,8 +27,6 @@ const HotelCardWishlist = ({data, id, wishlist_id}) => {
     };
 
     const isFavorite = favorites.some(item => item.housing === id)
-
-    console.log('isFavorite', isFavorite)
 
     const favoriteId = findFavoriteIdByHousing(favorites, id)
 
