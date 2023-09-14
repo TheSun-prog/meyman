@@ -5,23 +5,29 @@ import Button from "../../../components/ui/Button/Button";
 import warning from "../../../assets/images/vnimanie.svg";
 import plus from "../../../assets/images/plus.svg";
 import logoAddPhoto from "../../../assets/images/addPhoto.svg";
+import {postHousing1} from "../../../axios/test";
 
 function AddHotelPhoto() {
 
     const [photos2, setPhotos2] = useState([]);
-    console.log(photos2)
+
+
 
     const handleFileChange = (e) => {
         const files = e.target.files;
 
         if (files.length + photos2.length <= 6) {
             const newPhotos = [...photos2];
+            const filePhoto = []
 
             for (let i = 0; i < files.length; i++) {
+                filePhoto.push({image: files[i]})
                 newPhotos.push(URL.createObjectURL(files[i]));
             }
 
             setPhotos2(newPhotos);
+
+            postHousing1(filePhoto)
         } else {
             alert('Максимально количество фотографий 6');
         }
