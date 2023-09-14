@@ -38,5 +38,4 @@ const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware()
 })
 
-
-export default store;
+export default store

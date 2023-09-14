@@ -38,13 +38,37 @@ export const deleteWishList = (id) => {
     }
 }
 
+export const getFavorites = () => {
+    return async (dispatch) => {
+        try {
+            const {data} = await $authApi.get(`api/favorite/favorites/`)
+            dispatch(setFavorites(data))
+        } catch (e) {
+            dispatch(setError(e))
+        }
+    }
+}
+export const deleteFavorite = (id) => {
+    return async (dispatch) => {
+        try {
+            const data = await $authApi.delete(`api/favorite/favorites/${id}/`)
+            if (data.status === 204) {
+                dispatch(getUserWishList())
+                dispatch(getFavorites())
+            }
+        } catch (e) {
+            dispatch(setError(e))
+        }
+    }
+}
+
 export const addToWishList = (wishlist_album, housing) => {
     return async (dispatch) => {
         try {
             const data = await $authApi.post(`api/favorite/favorites/`, {wishlist_album, housing})
             if (data.status === 201) {
-                alert("Успешно добавлено")
                 dispatch(getUserWishList())
+                dispatch(getFavorites())
             }
         } catch (e) {
             dispatch(setError(e))
@@ -58,10 +82,9 @@ export const addNewWishList = (title, housing) => {
             const wishlistResponse = await $authApi.post(`api/favorite/wishlist/`, { user, title });
             const wishlist_album = wishlistResponse.data.id;
             const favoriteResponse = await $authApi.post(`api/favorite/favorites/`, { wishlist_album, housing });
-            console.log('favoriteResponse.status',favoriteResponse.status)
             if (favoriteResponse.status === 201) {
-                alert("Успешно создано и добавлено")
                 dispatch(getUserWishList())
+                dispatch(getFavorites())
             }
         } catch (e) {
             dispatch(setError(e))
@@ -69,25 +92,12 @@ export const addNewWishList = (title, housing) => {
     }
 }
 
-export const getOneHouse = (id) => {
-    return async (dispatch) => {
-        try {
-            const {data} = await $authApi.get(`housing/${id}/`)
-            dispatch(setOneWishList(data))
-        } catch (e) {
-            dispatch(setError(e))
-        }
-    }
-}
-
-
-
 const wishListSlice = createSlice({
     name: 'wishListSlice',
     initialState: {
         wishLists: [],
         oneWishList: {},
-        oneHouse: {},
+        favorites: [],
         error: ''
     },
     reducers: {
@@ -97,8 +107,8 @@ const wishListSlice = createSlice({
         setOneWishList: (state, action) => {
             state.oneWishList = action.payload
         },
-        setOneHouse: (state, action) => {
-            state.oneHouse = action.payload
+        setFavorites: (state, action) => {
+            state.favorites = action.payload
         },
         setError: (state, action) => {
             state.error = action.payload
@@ -111,6 +121,6 @@ export const {
     setWishLists,
     setOneWishList,
     setError,
-    setOneHouse
+    setFavorites,
 } = wishListSlice.actions
 export default wishListSlice.reducer
