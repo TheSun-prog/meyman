@@ -29,6 +29,8 @@ import WishListPage from "./pages/WishListPage/WishListPage";
 
 
 function App() {
+
+    console.log(123)
     return (<>
             <ScrollToTop/>
             <Routes>
