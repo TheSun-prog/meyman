@@ -9,7 +9,7 @@ const SupportCard = ({ img, title, subTitle, link }) => {
         <h3 className="text-[22px] font-medium">{title}</h3>
         <p className="text-[18px] text-[#A1A1A1]">{subTitle}</p>
       </div>
-      <a href={link}>
+      <a href={link} target="_blank">
         <Button classes={'py-[14px] w-full text-[18px]'}>Связаться</Button>
       </a>
     </div>
