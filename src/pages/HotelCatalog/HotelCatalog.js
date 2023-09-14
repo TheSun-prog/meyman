@@ -13,6 +13,7 @@ import filter from '../../assets/images/filter.svg'
 
 const HotelCatalog = () => {
     const [activeSearch, setActiveSearch] = useState("hotel");
+
     const dispatch = useDispatch();
     const hotelData = useSelector(selectHousingData);
     const loading = useSelector(selectHousingLoadingStatus);
@@ -123,7 +124,9 @@ const HotelCatalog = () => {
         <div className="mx-auto w-[1240px]">
             <div className="pt-[80px] pb-[100px] flex flex-wrap gap-x-[95px] gap-y-[55px]">
                 {hotelData && hotelData.map((value, index, array) => {
-                    return <HotelCard data={value} index={index}/>
+                    return (<NavLink key={index} to={`/hotelcatalog/${index}`}>
+                        <HotelCard data={value} index={index}/>
+                    </NavLink>);
                 })}
             </div>
         </div>

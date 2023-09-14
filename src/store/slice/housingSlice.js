@@ -8,7 +8,7 @@ const initialState = {
   error: null,
 };
 
-export const fetchHousingData = createAsyncThunk('housing/fetchData', async ({limit, offset}) => {
+export const fetchHousingData = createAsyncThunk('housing/fetchData/', async ({limit, offset}) => {
   const response = await $mainApi.get('/housing/', {
     headers: {
     },

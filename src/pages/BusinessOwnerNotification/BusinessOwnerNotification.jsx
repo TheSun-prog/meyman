@@ -51,9 +51,7 @@ function BusinessOwnerNotification(props) {
                     </div>
                 ))
             }
-
-            <Button classes={'w-full py-[20px] mt-[80px] w-[312px] h-[53px] hover:bg-[#1178B4]'}>Продолжить</Button>
-
+            <Button classes={'py-[20px] mt-[80px] w-[312px] h-[53px] hover:bg-[#1178B4]'}>Продолжить</Button>
         </div>
     );
 }

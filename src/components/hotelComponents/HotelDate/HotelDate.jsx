@@ -1,38 +1,57 @@
 import arrow from '../../../assets/images/arrow2.svg'
+import kgs from '../../../assets/images/som.svg'
+import eur from '../../../assets/images/eur.svg'
+import usd from '../../../assets/images/usd.svg'
 // ui
 import Button from '../../ui/Button/Button'
 // modules
 import { ConfigProvider } from 'antd'
 import { DatePicker } from 'antd'
 import ru_RU from 'antd/locale/ru_RU'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import 'animate.css'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { postAvailabilityData } from '../../../store/slice/availabilitySlice'
-import {Modal} from 'antd'
+import { Modal } from 'antd'
 
-const HotelDate = ({data, id, openModalFilteredRoom }) => {
+const HotelDate = ({ data, id, openModalFilteredRoom }) => {
+  const { hotelId } = useParams()
+
+  const housingId = useSelector(
+    state => state?.housing?.data?.results?.[hotelId]?.id
+  )
+
+  const currency = useSelector(state => state.currency)
+  const localStorageCurrency = localStorage.getItem('currency')
+
+  const currencys = {
+    'KGS': kgs,
+    'EUR': eur,
+    'USD': usd
+  }
 
   function getFormattedDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Месяц начинается с 0
-    const day = String(today.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    const today = new Date()
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0') // Месяц начинается с 0
+    const day = String(today.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
   }
 
   function getFormattedDateWithOffset(offset) {
-    const today = new Date();
-    today.setDate(today.getDate() + offset);
+    const today = new Date()
+    today.setDate(today.getDate() + offset)
 
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
+    const year = today.getFullYear()
+    const month = String(today.getMonth() + 1).padStart(2, '0')
+    const day = String(today.getDate()).padStart(2, '0')
 
-    return `${year}-${month}-${day}`;
+    return `${year}-${month}-${day}`
   }
 
-  const [initialData, setInitialData] = useState({  // initial state
+  const [initialData, setInitialData] = useState({
+    // initial state
     arrival: getFormattedDate(),
     departure: getFormattedDateWithOffset(2),
     persons: {
@@ -42,6 +61,11 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
     }
   })
 
+  const [availabilityData, setAvailabilityPostData] = useState({
+    housing: 1,
+    date: initialData.arrival
+  })
+
   const warning = () => {
     Modal.warning({
       title: 'Максимальное количество гостей 6',
@@ -49,8 +73,8 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
       centered: true,
       keyboard: true,
       maskClosable: true
-    });
-  };
+    })
+  }
 
   const dispatch = useDispatch()
 
@@ -68,39 +92,43 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
 
   const handleSubmitForm = e => {
     e.preventDefault()
-    dispatch(postAvailabilityData(initialData))
+    dispatch(postAvailabilityData(availabilityData))
   }
 
   const handleArrivalChange = (date, str) => {
-    const arrivalDate = new Date(str);
-    const departureDate = new Date(initialData.departure);
+    const arrivalDate = new Date(str)
+    const departureDate = new Date(initialData.departure)
 
     setInitialData(prev => {
       if (arrivalDate > departureDate) {
-        return { ...prev, arrival: str, departure: str };
+        return { ...prev, arrival: str, departure: str }
       } else {
-        return { ...prev, arrival: str };
+        return { ...prev, arrival: str }
       }
-    });
-  };
+    })
+  }
 
   const handleDepartureChange = (date, str) => {
-    const arrivalDate = new Date(initialData.arrival);
-    const departureDate = new Date(str);
+    const arrivalDate = new Date(initialData.arrival)
+    const departureDate = new Date(str)
 
     setInitialData(prev => {
       if (departureDate < arrivalDate) {
-        return { ...prev, arrival: str, departure: str };
+        return { ...prev, arrival: str, departure: str }
       } else {
-        return { ...prev, departure: str };
+        return { ...prev, departure: str }
       }
-    });
-  };
+    })
+  }
 
   const lowestPrice =
-    data?.results?.[id]?.rooms?.length > 0
-      ? Math.min(...data?.results?.[id]?.rooms?.map(room => parseFloat(room.price_per_night)))
+    data?.rooms?.length > 0
+      ? Math.min(...data?.rooms?.map(room => parseFloat(room.price_per_night)))
       : 0
+
+  useEffect(() => {
+    console.log(availabilityData)
+  }, [availabilityData])
 
   return (
     <ConfigProvider locale={ru_RU}>
@@ -113,24 +141,19 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
         <div className="flex items-center mb-7">
           <span className="text-[18px] mt-1 mr-1">От</span>
           <span className="text-[24px]">{lowestPrice}</span>
-          <svg
-            className="mt-1"
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="32"
-            viewBox="0 0 18 32"
-            fill="none"
-          >
-            <path
-              d="M8.62709 7.18769C5.88198 8.00256 4.07508 9.72284 3.24112 12.3259C2.93997 13.2652 2.91681 15.3816 3.19479 16.2871C3.85501 18.46 5.2681 20.1464 7.22558 21.0744C9.10198 21.9685 11.3606 22.0704 13.4339 21.3347C14.3258 21.0291 15.9821 19.9087 15.9821 19.6257C15.9821 19.5805 15.6231 19.1844 15.1945 18.7656L14.4069 17.996L13.9551 18.3808C11.9745 20.0558 8.83558 19.92 6.93601 18.0752C6.31054 17.4754 5.91673 16.8982 5.61558 16.106C5.30285 15.3024 5.30285 13.4916 5.604 12.7107C6.12522 11.3978 7.075 10.334 8.22169 9.80206C9.86644 9.04378 11.5575 9.0551 13.0864 9.84733C13.4918 10.051 14.1752 10.5377 14.2215 10.6396C14.3142 10.832 14.5343 10.6962 15.2408 10.0284C15.8779 9.42858 16.179 8.91929 15.8895 8.91929C15.8431 8.91929 15.681 8.80611 15.5188 8.65898C14.9049 8.11574 13.8277 7.56117 12.681 7.21033C11.8008 6.9387 9.50738 6.92739 8.62709 7.18769Z"
-              fill={`${isAvailability ? 'red' : 'black'}`}
-            />
-            <path
-              d="M3 23.9411V25H9.5H16V23.9411V22.8823H9.5H3V23.9411Z"
-              fill={`${isAvailability ? 'red' : 'black'}`}
-            />
-          </svg>
-          <span className="text-[24px] ml-1">ночь</span>
+          <img
+            src={
+              currency === 'KGS'
+                ? kgs
+                : currency === 'USD'
+                ? usd
+                : currency === 'EUR'
+                ? eur
+                : currencys[localStorageCurrency]
+            }
+            alt="currency"
+          />
+          <span className='text-[18px]'>ночь</span>
         </div>
         <div
           className={`rounded-xl border border-black ${
@@ -216,11 +239,15 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
                   }`}
                 >
                   {initialData.persons.adult + initialData.persons.children}
-                  {initialData.persons.adult + initialData.persons.children === 1 ? ' гость' : ' гостей'}{' '}
+                  {initialData.persons.adult + initialData.persons.children ===
+                  1
+                    ? ' гость'
+                    : ' гостей'}{' '}
                   <span>&#8226;</span> {initialData.persons.rooms}{' '}
                   {initialData.persons.rooms === 1
                     ? 'номер'
-                    : initialData.persons.rooms > 1 && initialData.persons.rooms < 5
+                    : initialData.persons.rooms > 1 &&
+                      initialData.persons.rooms < 5
                     ? 'номера'
                     : initialData.persons.rooms >= 5
                     ? 'номеров'
@@ -242,17 +269,21 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        const totalGuests = initialData.persons.adult + initialData.persons.children;
+                        const totalGuests =
+                          initialData.persons.adult +
+                          initialData.persons.children
                         if (totalGuests < 6) {
                           setInitialData(prev => ({
                             ...prev,
                             persons: {
                               ...prev.persons,
-                              adult: prev.persons.adult + 1,
-                            },
-                          }));
+                              adult: prev.persons.adult + 1
+                            }
+                          }))
                         } else {
-                          {warning()}
+                          {
+                            warning()
+                          }
                         }
                       }}
                       className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
@@ -283,17 +314,21 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
                   <div className="flex">
                     <div
                       onClick={() => {
-                        const totalGuests = initialData.persons.adult + initialData.persons.children;
+                        const totalGuests =
+                          initialData.persons.adult +
+                          initialData.persons.children
                         if (totalGuests < 6) {
                           setInitialData(prev => ({
                             ...prev,
                             persons: {
                               ...prev.persons,
-                              children: prev.persons.children + 1,
-                            },
-                          }));
+                              children: prev.persons.children + 1
+                            }
+                          }))
                         } else {
-                          {warning()}
+                          {
+                            warning()
+                          }
                         }
                       }}
                       className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
@@ -360,7 +395,7 @@ const HotelDate = ({data, id, openModalFilteredRoom }) => {
           </div>
         </div>
         <Button
-          classes={`w-full py-[20px] mt-[25px] ${
+          classes={`w-full py-[20px] mt-[25px] shadow-xl text-[18px] ${
             isAvailability ? 'bg-red-600' : ''
           }`}
           clickFunc={openModalFilteredRoom}

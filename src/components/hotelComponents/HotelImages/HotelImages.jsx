@@ -1,85 +1,70 @@
-import { Skeleton } from "@mui/material";
+import SkeletonImage from "antd/es/skeleton/Image";
 
-const HotelImages = ({ data, id, handleOpenModalImages }) => {
+const HotelImages = ({ data, handleOpenModalImages }) => {
   return (
     <div
       onClick={handleOpenModalImages}
       className="flex justify-between mt-[20px] cursor-pointer"
     >
       <div>
-        {data?.results?.[id]?.housing_images?.[0]?.image ? (
+        {data?.housing_images?.[0]?.image ? (
           <img
             className="rounded-l-2xl h-[500px] w-[490px] object-cover"
-            src={data?.results?.[id]?.housing_images?.[0]?.image}
+            src={data?.housing_images?.[0]?.image}
             alt="hotelImg"
           />
         ) : (
-          <Skeleton
-            variant="rectangular"
-            width={490}
-            height={500}
-            animation="pulse"
+          <SkeletonImage
+          style={{width: '490px', height: '500px'}}
           />
         )}
       </div>
       <div className="">
         <div className="flex justify-between gap-[10px] mb-[10px]">
-          {data?.results?.[id]?.housing_images?.[1]?.image ? (
+          {data?.housing_images?.[1]?.image ? (
             <img
               className="w-[365px] h-[245px] object-cover"
-              src={data?.results?.[id]?.housing_images?.[1]?.image}
+              src={data?.housing_images?.[1]?.image}
               alt="hotelImg2"
             />
           ) : (
-            <Skeleton
-              variant="rectangular"
-              width={365}
-              height={245}
-              animation="pulse"
+            <SkeletonImage
+            style={{width: '365px', height: '245px'}}
             />
           )}
-          {data?.results?.[id]?.housing_images?.[2]?.image ? (
+          {data?.housing_images?.[2]?.image ? (
             <img
-              className="w-[365px] h-[245px] object-cover"
-              src={data?.results?.[id]?.housing_images?.[2]?.image}
+              className="w-[365px] h-[245px] object-cover rounded-tr-2xl"
+              src={data?.housing_images?.[2]?.image}
               alt="hotelImg2"
             />
           ) : (
-            <Skeleton
-              variant="rectangular"
-              width={365}
-              height={245}
-              animation="pulse"
+            <SkeletonImage
+            style={{width: '365px', height: '245px'}}
             />
           )}
         </div>
         <div className="flex gap-[10px] relative">
-        {data?.results?.[id]?.housing_images?.[3]?.image ? (
+        {data?.housing_images?.[3]?.image ? (
             <img
-              className="w-[365px] h-[245px] object-cover"
-              src={data?.results?.[id]?.housing_images?.[3]?.image}
+              className="w-[365px] h-[245px] object-cover "
+              src={data?.housing_images?.[3]?.image}
               alt="hotelImg2"
             />
           ) : (
-            <Skeleton
-              variant="rectangular"
-              width={365}
-              height={245}
-              animation="pulse"
+            <SkeletonImage
+            style={{width: '365px', height: '245px'}}
             />
           )}
-          {data?.results?.[id]?.housing_images?.[4]?.image ? (
+          {data?.housing_images?.[4]?.image ? (
             <img
-              className="w-[365px] h-[245px] object-cover"
-              src={data?.results?.[id]?.housing_images?.[4]?.image}
+              className="w-[365px] h-[245px] rounded-br-2xl  -2xl object-cover"
+              src={data?.housing_images?.[4]?.image}
               alt="hotelImg2"
             />
           ) : (
-            <Skeleton
-              variant="rectangular"
-              width={365}
-              height={245}
-              animation="pulse"
+            <SkeletonImage
+              style={{width: '365px', height: '245px'}}
             />
           )}
         </div>

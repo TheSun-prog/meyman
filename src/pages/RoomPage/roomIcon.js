@@ -17,6 +17,21 @@ import snacks from '../../assets/images/services_room/snacks.svg'
 import tv from '../../assets/images/services_room/tv.svg'
 import two_rooms from '../../assets/images/services_room/two_rooms.svg'
 import washing from '../../assets/images/services_room/washing.svg'
+import kettle from '../../assets/images/services_room/kettle.svg'
+import microwave from '../../assets/images/services_room/microwave.svg'
+import dinner_table from '../../assets/images/services_room/dinner_table.svg'
+import coffee_maker from '../../assets/images/services_room/coffee_maker.svg'
+import mini_bar from '../../assets/images/services_room/mini_bar.svg'
+import balcony from '../../assets/images/services_room/balcony.svg'
+import terrace from '../../assets/images/services_room/terrace.svg'
+import view_from_the_window from '../../assets/images/services_room/view_from_the_window.svg'
+import shower from '../../assets/images/services_room/shower.svg'
+import toilet_paper from '../../assets/images/services_room/toilet_paper.svg'
+import toilet from '../../assets/images/services_room/toilet.svg'
+import free_skin_care_products from '../../assets/images/services_room/free_skin_care_products.svg'
+import bidet from '../../assets/images/services_room/bidet.svg'
+import bath from '../../assets/images/services_room/bath.svg'
+
 
 const roomIcons = {
   'Двуспальная кровать': double_bed,
@@ -37,7 +52,21 @@ const roomIcons = {
   "Тапочки": slippers,
   "Халат": robe,
   "Закуски": snacks,
-  'Камин': fireplace
+  'Камин': fireplace,
+  'Электрический чайник': kettle,
+  'Микроволновка': microwave,
+  'Обеденный стол': dinner_table,
+  'Кофеварка': coffee_maker,
+  'Mini-bar': mini_bar,
+  'Балкон': balcony,
+  'Терраса': terrace,
+  'Вид из окна': view_from_the_window,
+  'Душ': shower,
+  'Туалетная бумага': toilet_paper,
+  'Туалет': toilet,
+  'Бесплатные уходовые средства': free_skin_care_products,
+  'Биде': bidet,
+  'Ванна': bath
 }
 
 export default roomIcons

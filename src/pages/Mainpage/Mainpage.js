@@ -62,17 +62,17 @@ const Mainpage = () => {
     return (
         <>
             {AuthModal && <AuthDoneModal/>}
-            <div className="bg-main bg-no-repeat bg-cover h-[550px]">
-                <div className="mx-auto w-[1240px] h-[100%] relative">
-                    <div className="flex flex-col gap-[50px] pt-[180px] z-0">
-                        <div className="flex gap-[20px] z-0">
+            <div className="bg-main bg-no-repeat bg-cover h-[550px] pt-[180px] z-0">
+                <div className="mx-auto w-[1240px] h-[100%] relative z-0">
+
+                        <div className="flex gap-[20px] z-0 w-[300px]">
                             <div
-                                className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === 'hotel' ? 'bg-grey border-[1px] border-white' : 'bg-dark-blue'}`}>
+                                className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] z-0 ${activeSearch === 'hotel' ? 'bg-grey border-[1px] border-white' : 'bg-dark-blue'}`}>
                                 <img
-                                    className="w-[32px] h-[32px]"
+                                    className="w-[32px] h-[32px] z-0"
                                     src={hotelIcon} alt="hotel"
                                 />
-                                <p className="text-[20px] text-white">Жилье</p>
+                                <p className="text-[20px] text-white z-0">Жилье</p>
                             </div>
                             <div
                                 className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === 'car' ? 'bg-grey border-[1px] border-white' : 'bg-dark-blue'}`}>
@@ -83,7 +83,7 @@ const Mainpage = () => {
                                 <p className="text-[20px] text-white">Транспорт</p>
                             </div>
                         </div>
-                        <div className="flex h-[80px] bg-white rounded-full pl-[75px] pr-[20px] py-[13px]">
+                        <div className="mt-[50px] flex h-[80px] bg-white rounded-full pl-[75px] pr-[20px] py-[13px] z-0">
                             <div className="w-[422px] h-[100%]">
                                 <p>Куда</p>
                                 <input
@@ -124,7 +124,7 @@ const Mainpage = () => {
                                 />
                             </NavLink>
                         </div>
-                    </div>
+
                     <div
                         className="absolute left-0 bottom-[-80px] w-[100%] h-[164px] bg-blue rounded-[30px] flex items-center justify-center px-[10px] z-5">
                         <p className="text-[20px] text-center text-white">

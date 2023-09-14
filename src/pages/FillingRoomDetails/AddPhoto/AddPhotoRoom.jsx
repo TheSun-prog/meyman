@@ -6,6 +6,8 @@ import styles from './AddPhotoRoom.module.scss';
 
 import Button from "../../../components/ui/Button/Button";
 import {Link} from "react-router-dom";
+
+
 function AddPhotoRoom(props) {
 
     const [photos, setPhotos] = useState([]);
@@ -59,10 +61,10 @@ function AddPhotoRoom(props) {
     if (photos.length >= 1) {
         uploadForm = (
             <div className="flex left-0">
-                <form action="#" onClick={() => document.querySelector('#inputFile').click()}>
+                <form action="#" onClick={() => document.querySelector('#inputFile2').click()}>
                     <input
                         type="file"
-                        id="inputFile"
+                        id="inputFile2"
                         className="input-filed hidden"
                         accept="image/*"
                         multiple
@@ -83,10 +85,10 @@ function AddPhotoRoom(props) {
     } else {
         uploadForm = (
             <div className={styles.wrapper_addPhoto}>
-                <form action="#" onClick={() => document.querySelector('#inputFile').click()}>
+                <form action="#" onClick={() => document.querySelector('#inputFile2').click()}>
                     <input
                         type="file"
-                        id="inputFile"
+                        id="inputFile2"
                         className="input-filed hidden"
                         accept="image/*"
                         multiple
@@ -103,6 +105,7 @@ function AddPhotoRoom(props) {
             </div>
         );
     }
+
 
     return (
         <>
@@ -132,12 +135,11 @@ function AddPhotoRoom(props) {
             </div>
                 {uploadForm}
                 {minPhotoText}
-            <Link to={photos.length >= 5 ? '/BusinessOwnerNotification' : '#'}>
-                <Button classes={'w-full py-[20px] mt-[25px] w-[295px] h-[53px] hover:bg-[#1178B4] mb-[100px] mt-[100px]'}>
+            <Link to={photos.length >= 5 ? '/businessOwnerNotification' : '#'}>
+                <Button classes={'py-[20px] mt-[25px] w-[295px] h-[53px] hover:bg-[#1178B4] mb-[100px] mt-[100px]'}>
                     Сохранить
                 </Button>
             </Link>
-
         </div>
         </>
     );

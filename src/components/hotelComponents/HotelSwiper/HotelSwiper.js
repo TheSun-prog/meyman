@@ -52,39 +52,45 @@ const HotelSwiper = ({}) => {
     };
 
     if (!error)
-    return (<>
-            <div className="flex flex-col gap-[40px] items-center">
+  return (
+    <>
+        <div className="flex flex-col gap-[40px] items-center">
                 <p className="text-[28px] pb-[40px]">Рекомендации</p>
             </div>
-            <Swiper
-                spaceBetween={40}
-                slidesPerView={3.23}
-                navigation={{
-                    nextEl: ".swiper-button-next-hotel", prevEl: ".swiper-button-prev-hotel",
-                }}
-            >
-                {hotelData && hotelData.map((value, index) => {
-                    return (<SwiperSlide key={index}>
-                            <NavLink to={`/hotelcatalog/${index}`}>
-                                <HotelCard data={value} index={index}/>
-                            </NavLink>
-                        </SwiperSlide>);
-                })}
-            </Swiper>
-            <div className="flex gap-[50px] justify-center pt-[50px]">
-                <img
-                    src={left}
-                    alt="left"
-                    className="swiper-button-prev-hotel"
-                    onClick={goPrev}
-                />
-                <img
-                    src={right}
-                    alt="right"
-                    className="swiper-button-next-hotel"
-                    onClick={goNext}
-                />
-            </div>
-        </>);
+      <Swiper
+        spaceBetween={40}
+        slidesPerView={slidesCount}
+        navigation={{
+          nextEl: ".swiper-button-next-hotel",
+          prevEl: ".swiper-button-prev-hotel",
+        }}
+      >
+        {hotelData &&
+          hotelData.map((value, index) => {
+            return (
+              <SwiperSlide key={index}>
+                <NavLink to={`/hotelcatalog/${value?.id}`}>
+                  <HotelCard data={value} index={index} />
+                </NavLink>
+              </SwiperSlide>
+            );
+          })}
+      </Swiper>
+      <div className="flex gap-[50px] justify-center pt-[50px]">
+        <img
+          src={left}
+          alt="left"
+          className="swiper-button-prev-hotel"
+          onClick={goPrev}
+        />
+        <img
+          src={right}
+          alt="right"
+          className="swiper-button-next-hotel"
+          onClick={goNext}
+        />
+      </div>
+    </>
+  );
 };
 export default HotelSwiper;

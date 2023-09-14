@@ -6,14 +6,16 @@ import TextArea from 'antd/es/input/TextArea'
 import Button from '../../ui/Button/Button'
 import { useEffect, useState } from 'react'
 import clear from '../../../assets/images/clear.svg'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { postReviewsData } from '../../../store/slice/reviewsSlice'
 
 const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
-  const id = useSelector(state => state?.housing?.data?.results?.[hotelId]?.id)
   const dispatch = useDispatch()
 
+  const [userId, setUserId] = useState('');
+
   const [initialDataRate, setInitialDataRate] = useState({
+    user: '',
     housing: null,
     staff_rating: 0,
     comfort_rating: 0,
@@ -107,18 +109,30 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
   }
 
   useEffect(() => {
-    if (id !== null) {
+    // Получаем данные из локального хранилища при монтировании компонента
+    const storedUserId = localStorage.getItem('user_id');
+    if (storedUserId) {
+      setUserId(storedUserId); // Устанавливаем userId в состоянии
+    }
+  }, []);
+  
+  useEffect(() => {
+    // После установки userId в состоянии, можно его использовать в initialDataRate
+    setInitialDataRate(prev => ({
+      ...prev,
+      user: userId // Устанавливаем userId в initialDataRate
+    }));
+  }, [userId]);
+
+  useEffect(() => {
+    if (data.id !== null) {
       // Если id не равно null, значит данные загружены, и мы можем его установить
       setInitialDataRate(prev => ({
         ...prev,
-        housing: id
+        housing: data.id
       }))
     }
-  }, [id])
-
-  useEffect(() => {
-    console.log(initialDataRate)
-  }, [initialDataRate])
+  }, [data])
 
   return (
     <Modal
@@ -140,19 +154,19 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
       <h2 className="text-center text-[28px] border-b pb-4">Отзывы</h2>
       <div className="flex gap-[27px] mt-[40px]">
         <img
-          src={data?.results?.[hotelId]?.housing_images?.[0]?.image}
+          src={data?.housing_images?.[0]?.image}
           alt="hotel"
           className="object-cover w-[270px] h-[250px] rounded-[30px]  border-2 border-black"
         />
         <div>
           <h3 className="text-[32px] font-[500]">
-            {data?.results?.[hotelId]?.housing_name}
+            {data?.housing_name}
           </h3>
           <Rate defaultValue={5} disabled style={{ fontSize: '25px' }} />
           <div className="flex gap-2 mt-3">
             <img src={geo} alt="geo" />
             <span className="text-[22px] text-[#787878]">
-              {data?.results?.[hotelId]?.address}
+              {data?.address}
             </span>
           </div>
         </div>
