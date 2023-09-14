@@ -16,7 +16,7 @@ const Footer = ({}) => {
                         <NavLink to={'/about'}>
                             <p>О нас</p>
                         </NavLink>
-                        <p>Служба поддержки</p>
+                        <NavLink to={'/support'}>Служба поддержки</NavLink>
                     </div>
                 </div>
                 <div className="flex flex-col gap-[30px] text-[22px]">
