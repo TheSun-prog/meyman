@@ -43,9 +43,9 @@ const HotelCatalog = () => {
     console.log(filterShow)
 
     return (<>
-        <div className="bg-main bg-no-repeat bg-cover h-[550px] pt-[180px]">
+        <div className="bg-main bg-no-repeat bg-cover h-[550px]">
             <div className="mx-auto w-[1240px] h-[100%] relative">
-                <div className="flex flex-col gap-[50px]">
+                <div className="pt-[180px] flex flex-col gap-[50px]">
                     <div className="flex gap-[20px]">
                         <div
                             className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === "hotel" ? "bg-grey border-[1px] border-white" : "bg-dark-blue"}`}
