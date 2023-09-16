@@ -1,5 +1,5 @@
 // React modules
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 // Pages
 import Test from "./pages/Test/Test";
 import Mainpage from "./pages/Mainpage/Mainpage";
@@ -29,8 +29,6 @@ import WishListPage from "./pages/WishListPage/WishListPage";
 
 
 function App() {
-
-    console.log(123)
     return (<>
             <ScrollToTop/>
             <Routes>
@@ -70,6 +68,8 @@ function App() {
                         path="/businessOwnerNotification"
                         element={<BusinessOwnerNotification/>}
                     />
+
+                    <Route path="/support" element={<Support />} />
 
                     <Route path="/test" element={<Test/>}/>
 

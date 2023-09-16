@@ -1,3 +1,4 @@
+// icons
 import arrow from '../../../assets/images/arrow2.svg'
 import kgs from '../../../assets/images/som.svg'
 import eur from '../../../assets/images/eur.svg'
@@ -8,27 +9,27 @@ import Button from '../../ui/Button/Button'
 import { ConfigProvider } from 'antd'
 import { DatePicker } from 'antd'
 import ru_RU from 'antd/locale/ru_RU'
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import 'animate.css'
+import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { postAvailabilityData } from '../../../store/slice/availabilitySlice'
 import { Modal } from 'antd'
 
-const HotelDate = ({ data, id, openModalFilteredRoom }) => {
-  const { hotelId } = useParams()
-
-  const housingId = useSelector(
-    state => state?.housing?.data?.results?.[hotelId]?.id
-  )
-
+const HotelDate = ({ data, openModalFilteredRoom }) => {
   const currency = useSelector(state => state.currency)
   const localStorageCurrency = localStorage.getItem('currency')
+  const dropdownRef = useRef(null)
 
   const currencys = {
-    'KGS': kgs,
-    'EUR': eur,
-    'USD': usd
+    KGS: kgs,
+    EUR: eur,
+    USD: usd
+  }
+
+  const handleDocumentClick = e => {
+    if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+      // Клик был выполнен вне меню, сбрасываем состояние
+      setIsDatePickerOpen3(false)
+    }
   }
 
   function getFormattedDate() {
@@ -72,7 +73,9 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
       autoFocusButton: true,
       centered: true,
       keyboard: true,
-      maskClosable: true
+      maskClosable: true,
+      bodyStyle: { padding: '20px' },
+      footer: null
     })
   }
 
@@ -130,6 +133,15 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
     console.log(availabilityData)
   }, [availabilityData])
 
+  useEffect(() => {
+    document.addEventListener('click', handleDocumentClick)
+
+    // Удаляем обработчик при размонтировании компонента
+    return () => {
+      document.removeEventListener('click', handleDocumentClick)
+    }
+  }, [])
+
   return (
     <ConfigProvider locale={ru_RU}>
       <form
@@ -153,7 +165,7 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
             }
             alt="currency"
           />
-          <span className='text-[18px]'>ночь</span>
+          <span className="text-[18px]">ночь</span>
         </div>
         <div
           className={`rounded-xl border border-black ${
@@ -224,12 +236,12 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
               </div>
             </div>
           </div>
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <div
               onClick={() => {
                 setIsDatePickerOpen3(prev => !prev)
               }}
-              className="flex relative justify-between w-full px-4 py-2"
+              className="flex cursor-pointer relative justify-between w-full px-4 py-2"
             >
               <div className="flex flex-col">
                 <p className="text-xl">Для кого</p>
@@ -262,136 +274,136 @@ const HotelDate = ({ data, id, openModalFilteredRoom }) => {
                 alt="arrow"
               />
             </div>
-            {isDatePickerOpen3 && (
-              <div className="absolute h-[232px] rounded-xl w-full border top-16 right-0 p-10 bg-white select-none shadow-md animate__animated animate__fadeInDown">
-                <div className="flex justify-between mb-5">
-                  <span className="text-[20px]">Взрослые</span>
-                  <div className="flex">
-                    <div
-                      onClick={() => {
-                        const totalGuests =
-                          initialData.persons.adult +
-                          initialData.persons.children
-                        if (totalGuests < 6) {
-                          setInitialData(prev => ({
-                            ...prev,
-                            persons: {
-                              ...prev.persons,
-                              adult: prev.persons.adult + 1
-                            }
-                          }))
-                        } else {
-                          {
-                            warning()
+            <div
+              className={`absolute rounded-xl w-full transform transition-all top-16 right-0 bg-white select-none shadow-md max-h-0 overflow-hidden ${
+                isDatePickerOpen3 ? 'max-h-[180px] shadow-lg p-4 bg-white ' : ''
+              }`}
+            >
+              <div className="flex justify-between mb-5">
+                <span className="text-[20px]">Взрослые</span>
+                <div className="flex justify-between w-[120px]">
+                  <div
+                    onClick={() => {
+                      const totalGuests =
+                        initialData.persons.adult + initialData.persons.children
+                      if (totalGuests < 6) {
+                        setInitialData(prev => ({
+                          ...prev,
+                          persons: {
+                            ...prev.persons,
+                            adult: prev.persons.adult + 1
                           }
+                        }))
+                      } else {
+                        {
+                          warning()
                         }
-                      }}
-                      className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
-                    >
-                      <span>+</span>
-                    </div>
-                    <span className="px-4 text-[24px]">
-                      {initialData.persons.adult}
-                    </span>
-                    <div
-                      onClick={() => {
-                        setInitialData(prev => ({
-                          ...prev,
-                          persons: {
-                            ...prev.persons,
-                            adult: Math.max(prev.persons.adult - 1, 0)
-                          }
-                        }))
-                      }}
-                      className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
-                    >
-                      <span>-</span>
-                    </div>
+                      }
+                    }}
+                    className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
+                  >
+                    <span>+</span>
                   </div>
-                </div>
-                <div className="flex justify-between mb-5">
-                  <span className="text-[20px]">Дети</span>
-                  <div className="flex">
-                    <div
-                      onClick={() => {
-                        const totalGuests =
-                          initialData.persons.adult +
-                          initialData.persons.children
-                        if (totalGuests < 6) {
-                          setInitialData(prev => ({
-                            ...prev,
-                            persons: {
-                              ...prev.persons,
-                              children: prev.persons.children + 1
-                            }
-                          }))
-                        } else {
-                          {
-                            warning()
-                          }
+                  <span className="px-4 text-[24px]">
+                    {initialData.persons.adult}
+                  </span>
+                  <div
+                    onClick={() => {
+                      setInitialData(prev => ({
+                        ...prev,
+                        persons: {
+                          ...prev.persons,
+                          adult: Math.max(prev.persons.adult - 1, 0)
                         }
-                      }}
-                      className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
-                    >
-                      <span>+</span>
-                    </div>
-                    <span className="px-4 text-[24px]">
-                      {initialData.persons.children}
-                    </span>
-                    <div
-                      onClick={() => {
-                        setInitialData(prev => ({
-                          ...prev,
-                          persons: {
-                            ...prev.persons,
-                            children: Math.max(prev.persons.children - 1, 0)
-                          }
-                        }))
-                      }}
-                      className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
-                    >
-                      <span>-</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex justify-between mb-5">
-                  <span className="text-[20px]">Номера</span>
-                  <div className="flex">
-                    <div
-                      onClick={() => {
-                        setInitialData(prev => ({
-                          ...prev,
-                          persons: {
-                            ...prev.persons,
-                            rooms: prev.persons.rooms + 1
-                          }
-                        }))
-                      }}
-                      className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
-                    >
-                      <span>+</span>
-                    </div>
-                    <span className="px-4 text-[24px]">
-                      {initialData.persons.rooms}
-                    </span>
-                    <div
-                      onClick={() => {
-                        setInitialData(prev => ({
-                          ...prev,
-                          persons: {
-                            ...prev.persons,
-                            rooms: Math.max(prev.persons.rooms - 1, 0)
-                          }
-                        }))
-                      }}
-                      className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
-                    >
-                      <span>-</span>
-                    </div>
+                      }))
+                    }}
+                    className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
+                  >
+                    <span>-</span>
                   </div>
                 </div>
               </div>
-            )}
+              <div className="flex justify-between mb-5">
+                <span className="text-[20px]">Дети</span>
+                <div className="flex justify-between w-[120px]">
+                  <div
+                    onClick={() => {
+                      const totalGuests =
+                        initialData.persons.adult + initialData.persons.children
+                      if (totalGuests < 6) {
+                        setInitialData(prev => ({
+                          ...prev,
+                          persons: {
+                            ...prev.persons,
+                            children: prev.persons.children + 1
+                          }
+                        }))
+                      } else {
+                        {
+                          warning()
+                        }
+                      }
+                    }}
+                    className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
+                  >
+                    <span>+</span>
+                  </div>
+                  <span className="px-4 text-[24px]">
+                    {initialData.persons.children}
+                  </span>
+                  <div
+                    onClick={() => {
+                      setInitialData(prev => ({
+                        ...prev,
+                        persons: {
+                          ...prev.persons,
+                          children: Math.max(prev.persons.children - 1, 0)
+                        }
+                      }))
+                    }}
+                    className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
+                  >
+                    <span>-</span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex justify-between mb-5">
+                <span className="text-[20px]">Номера</span>
+                <div className="flex justify-between w-[120px]">
+                  <div
+                    onClick={() => {
+                      setInitialData(prev => ({
+                        ...prev,
+                        persons: {
+                          ...prev.persons,
+                          rooms: prev.persons.rooms + 1
+                        }
+                      }))
+                    }}
+                    className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
+                  >
+                    <span>+</span>
+                  </div>
+                  <span className="px-4 text-[24px]">
+                    {initialData.persons.rooms}
+                  </span>
+                  <div
+                    onClick={() => {
+                      setInitialData(prev => ({
+                        ...prev,
+                        persons: {
+                          ...prev.persons,
+                          rooms: Math.max(prev.persons.rooms - 1, 0)
+                        }
+                      }))
+                    }}
+                    className="text-[#282F77] cursor-pointer flex items-center justify-center pb-1 text-2xl rounded-full border h-[32px] w-[32px] border-black"
+                  >
+                    <span>-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <Button
