@@ -7,14 +7,17 @@ import {
   fetchHousingData, selectHousingData, selectHousingError, selectHousingLoadingStatus,
 } from "../../store/slice/housingSlice";
 import { useDispatch, useSelector } from "react-redux";
-import FilterModal from "../../components/hotelComponents/FilterModal/FilterModal";
 import sort from '../../assets/images/sort.svg'
 import filter from '../../assets/images/filter.svg'
 import Sorting from "../../components/hotelCatalogComponents/Sorting/Sorting";
+import Filters from "../../components/hotelCatalogComponents/Filters/Filters";
 
 const HotelCatalog = () => {
   const [activeSearch, setActiveSearch] = useState("hotel");
+
   const [activeSorting, setActiveSorting] = useState(false)
+  const [activeFilters, setActiveFilters] = useState(false)
+
   const dispatch = useDispatch();
   const hotelData = useSelector(selectHousingData);
   const loading = useSelector(selectHousingLoadingStatus);
@@ -24,28 +27,13 @@ const HotelCatalog = () => {
     setActiveSorting(false)
   }
 
+  const handleCancelFilters = () => {
+    setActiveFilters(false)
+  }
+
   useEffect(() => {
     dispatch(fetchHousingData({ limit: 12, offset: 0 }));
   }, [dispatch]);
-
-  const [filterShow, setFilterShow] = useState(false);
-  const [filters, setFilters] = useState({
-    housing_type: "",
-    food_type: "",
-    stars: "",
-    rating_range: "",
-    free_internet: "",
-    gym: "",
-    bar: "",
-    restaurant: "",
-    airport_transfer: "",
-    park: "",
-    pool: "",
-    spa_services: "",
-    room_service: "",
-    children_playground: "",
-  });
-
 
   return (<>
     <div className="bg-main bg-no-repeat bg-cover h-[550px]">
@@ -53,7 +41,7 @@ const HotelCatalog = () => {
         <div className="pt-[180px] flex flex-col gap-[50px]">
           <div className="flex gap-[20px]">
             <div
-              className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === "hotel" ? "bg-grey border-[1px] border-white" : "bg-dark-blue"}`}
+              className={`w-[115px] h-[76px] flex flex-col gap-[2px] items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === "hotel" ? "bg-grey border-[1px] border-white" : "bg-dark-blue"}`}
             >
               <img
                 className="w-[32px] h-[32px]"
@@ -63,7 +51,7 @@ const HotelCatalog = () => {
               <p className="text-[20px] text-white">Жилье</p>
             </div>
             <div
-              className={`w-[115px] h-[76px] flex flex-col gap-[2px] flex items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === "car" ? "bg-grey border-[1px] border-white" : "bg-dark-blue"}`}
+              className={`w-[115px] h-[76px] flex flex-col gap-[2px] items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === "car" ? "bg-grey border-[1px] border-white" : "bg-dark-blue"}`}
             >
               <img className="w-[32px] h-[32px]" src={carIcon} alt="hotel" />
               <p className="text-[20px] text-white">Транспорт</p>
@@ -116,9 +104,7 @@ const HotelCatalog = () => {
           </Button>
           <Button width={200} height={40}
             classes={"flex gap-[21px]"}
-            clickFunc={() => {
-              setFilterShow(prevState => !prevState)
-            }}
+            clickFunc={() => {setActiveFilters(true)}}
           >
             <img src={filter} alt="filter" />
             <p>Фильтры</p>
@@ -133,11 +119,15 @@ const HotelCatalog = () => {
         })}
       </div>
     </div>
-    {filterShow && <FilterModal filters={filterShow} setFilters={setFilterShow} />}
     <Sorting
       isOpen={activeSorting}
       handleOk={handleCancelSorting}
       handleCancel={handleCancelSorting}
+    />
+    <Filters 
+      isOpen={activeFilters}
+      handleOk={handleCancelFilters}
+      handleCancel={handleCancelFilters}
     />
   </>);
 };

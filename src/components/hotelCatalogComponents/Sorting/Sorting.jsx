@@ -37,14 +37,14 @@ const Sorting = ({ isOpen, handleOk, handleCancel }) => {
       bodyStyle={{ padding: 50 }}
       width={550}
     >
-      <div className='flex items-center gap-[143px]'>
+      <div className='flex items-center'>
         <img
           src={closeIcon}
           alt='close'
           className='w-[24px] h-[24px] cursor-pointer'
           onClick={handleCancel}
         />
-        <h3 className='text-[20px]'>Сортировка</h3>
+        <h3 className='flex-1 text-center text-[20px]'>Сортировка</h3>
       </div>
       <div className='flex flex-col gap-[35px] mb-[45px] mt-[40px]'>
         {data.map((item, index) => (
