@@ -26,6 +26,7 @@ import RestorePassCode from "./pages/RestorePassCode/RestorePassCode";
 import RestorePassNewPass from "./pages/RestorePassNewPass/RestorePassNewPass";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import WishListPage from "./pages/WishListPage/WishListPage";
+import Support from "./pages/Support/Support";
 
 
 function App() {
