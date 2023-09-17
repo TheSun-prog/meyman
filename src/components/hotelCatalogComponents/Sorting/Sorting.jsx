@@ -58,7 +58,7 @@ const Sorting = ({ isOpen, handleOk, handleCancel }) => {
           />
         ))}
       </div>
-      <Button classes={'py-[17px] w-full !text-[18px]'}>Показать варианты</Button>
+      <Button classes={'py-[17px] w-full !text-[18px] shadow-xl'}>Показать варианты</Button>
     </Modal>
   );
 };

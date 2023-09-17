@@ -1,13 +1,14 @@
 //icon
 import closeIcon from '../../../assets/images/clear.svg';
 // modules
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal } from 'antd';
 import { TextField } from '@mui/material';
 import { Radio } from 'antd';
-import { Rate } from 'antd'
+import { Rate } from 'antd';
 import { Checkbox } from '@mui/material';
 import { Switch } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
 // components
 import { typeHousing } from './filtersData';
 import { typeAllocation } from './filtersData';
@@ -19,23 +20,58 @@ import { rate } from './filtersData';
 import { facilityObject } from './filtersData';
 import { facilityRoom } from './filtersData';
 import Button from '../../ui/Button/Button';
+import { fetchHousingData } from '../../../store/slice/housingSlice';
+
+const initialFiltersState = {
+  price_per_night__gte: '',
+  price_per_night__lte: '',
+  housing_type: [],
+  accommodation_type: '',
+  rooms__bedrooms: '',
+  bed_type: [],
+  food_type: '',
+  stars: '',
+  rating_range: '',
+  facilityHotel: {
+    free_internet: null,
+    restaurant: null,
+    airport_transfer: null,
+    car_rental: null,
+    gym: null,
+    children_playground: null,
+    park: null,
+    bar: null,
+    spa_services: null,
+    pool: null,
+    room_service: null,
+    poolside_bar: null,
+    cafe: null,
+    in_room_internet: null,
+    hotel_wide_internet: null,
+  },
+  facilityRoom: [],
+};
 
 const Filters = ({ isOpen, handleOk, handleCancel }) => {
-  const [activeHousingType, setActiveHousingType] = useState(null); // Изначально нет активного типа
-  const [activeAllocation, setActiveAllocation] = useState(null)
-  const [numberBedRoomsState, setNumberBedRoomsState] = useState(null)
+  const [initialState, setInitialState] = useState(initialFiltersState);
 
-  const handleClickHousingType = (type) => {
-    setActiveHousingType(type); // Устанавливаем активный тип при клике
+  const dispatch = useDispatch()
+
+  const clearAllFields = () => {
+    console.log("Очищаем все поля");
+    setInitialState(initialFiltersState);
   };
 
-  const handleClickAllocationType = (type) => {
-    setActiveAllocation(type); // Устанавливаем активный тип при клике
-  };
+  const submitFilters = () => {
+    const { facilityHotel, ...restFilters } = initialState;
+    const data = { ...restFilters, ...facilityHotel };
+    dispatch(fetchHousingData({ limit: 12, offset: 0, data}))
+    handleOk()
+  }
 
-  const handleNumberBedRooms = (number) => {
-    setNumberBedRoomsState(number); // Устанавливаем активный тип при клике
-  };
+  useEffect(() => {
+    console.log(initialState);
+  }, [initialState]);
 
   return (
     <Modal
@@ -60,8 +96,32 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
         <div className='border-b pb-[40px]'>
           <h2 className='text-[30px] my-[50px]'>Цена за одну ночь</h2>
           <div className='flex items-center gap-[34px]'>
-            <TextField type='number' id='min' label='Минимум' variant='outlined' />
-            <TextField type='number' id='min' label='Максимум' variant='outlined' />
+            <TextField
+              onChange={(e) => {
+                setInitialState((prev) => ({
+                  ...prev,
+                  price_per_night__gte: e.target.value,
+                }));
+              }}
+              value={initialState.price_per_night__gte}
+              type='number'
+              id='min'
+              label='Минимум'
+              variant='outlined'
+            />
+            <TextField
+              onChange={(e) => {
+                setInitialState((prev) => ({
+                  ...prev,
+                  price_per_night__lte: e.target.value,
+                }));
+              }}
+              value={initialState.price_per_night__lte}
+              type='number'
+              id='max'
+              label='Максимум'
+              variant='outlined'
+            />
           </div>
         </div>
         <div className='border-b pb-[40px]'>
@@ -70,9 +130,16 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
             {typeHousing.map((type) => (
               <li
                 key={type.id}
-                onClick={() => handleClickHousingType(type)}
+                onClick={() =>
+                  setInitialState((prev) => ({
+                    ...prev,
+                    housing_type: type.type,
+                  }))
+                }
                 className={`${
-                  activeHousingType === type ? 'border-[#DFDFE5] shadow-xl transition-all' : ''
+                  initialState.housing_type === type.type
+                    ? '!border-[#DFDFE5] shadow-xl transition-all'
+                    : ''
                 } 
                 transition-all rounded-[10px] h-[123px] border border-[black] pt-[20px] pl-[20px] pb-[14px] pr-[60px] cursor-pointer`}
               >
@@ -86,9 +153,18 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
           <h2 className='text-[30px] my-[50px]'>Тип размещения</h2>
           <ul className='flex flex-col gap-[50px]'>
             {typeAllocation.map((type) => (
-              <li key={type.id} className='flex items-center' onClick={() => handleClickAllocationType(type)}>
+              <li
+                key={type.id}
+                className='flex items-center'
+                onClick={() =>
+                  setInitialState((prev) => ({
+                    ...prev,
+                    accommodation_type: type.title,
+                  }))
+                }
+              >
                 <div className='mr-[30px]'>
-                  <Radio checked={activeAllocation === type ? true : false}/>
+                  <Radio checked={initialState.accommodation_type === type.title ? true : false} />
                 </div>
                 <div>
                   <h4 className='text-[22px]'>{type.title}</h4>
@@ -101,9 +177,18 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
         <div className='border-b pb-[40px]'>
           <h2 className='text-[30px] my-[50px]'>Количество спальных комнат</h2>
           <ul className='flex flex-col gap-[50px]'>
-            {numberBedRooms.map(number => (
-              <li key={number.id} className='flex gap-[30px]' onClick={() => {handleNumberBedRooms(number)}}>
-                <Radio checked={numberBedRoomsState === number ? true : false}/>
+            {numberBedRooms.map((number) => (
+              <li
+                key={number.id}
+                className='flex gap-[30px]'
+                onClick={() =>
+                  setInitialState((prev) => ({
+                    ...prev,
+                    rooms__bedrooms: number.number,
+                  }))
+                }
+              >
+                <Radio checked={initialState.rooms__bedrooms === number.number ? true : false} />
                 <p className='text-[22px]'>{number.number}</p>
               </li>
             ))}
@@ -112,27 +197,43 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
         <div className='border-b pb-[40px]'>
           <h2 className='text-[30px] my-[50px]'>Тип кроватей</h2>
           <ul className='flex gap-[10px]'>
-            {typeBed.map(type => (
+            {typeBed.map((type) => (
               <li
-              key={type.id}
-              onClick={() => handleClickHousingType(type)}
-              className={`${
-                activeHousingType === type ? 'border-[#DFDFE5] shadow-xl transition-all' : ''
-              } 
+                key={type.id}
+                onClick={() =>
+                  setInitialState((prev) => ({
+                    ...prev,
+                    bed_type: type.type
+                  }))
+                }
+                className={`${
+                  initialState.bed_type === type.type
+                    ? '!border-[#DFDFE5] shadow-xl transition-all'
+                    : ''
+                } 
               transition-all rounded-[10px] h-[123px] border border-[black] pt-[20px] pl-[20px] pb-[14px] pr-[15px] cursor-pointer`}
-            >
-              <img src={type.icon} alt='icon' />
-              <p className='text-[24px]'>{type.type}</p>
-            </li>
+              >
+                <img src={type.icon} alt='icon' />
+                <p className='text-[24px]'>{type.type}</p>
+              </li>
             ))}
           </ul>
         </div>
         <div className='border-b pb-[40px]'>
           <h2 className='text-[30px] my-[50px]'>Питание</h2>
           <ul className='flex flex-col gap-[55px]'>
-          {food.map(foodType => (
-              <li key={foodType.id} className='flex gap-[30px]' onClick={() => {handleNumberBedRooms(foodType)}}>
-                <Radio checked={numberBedRoomsState === foodType ? true : false}/>
+            {food.map((foodType) => (
+              <li
+                key={foodType.id}
+                className='flex gap-[30px]'
+                onClick={() =>
+                  setInitialState((prev) => ({
+                    ...prev,
+                    food_type: foodType.text,
+                  }))
+                }
+              >
+                <Radio checked={initialState.food_type === foodType.text ? true : false} />
                 <p className='text-[22px]'>{foodType.text}</p>
               </li>
             ))}
@@ -141,10 +242,24 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
         <div className='border-b pb-[40px]'>
           <h2 className='text-[30px] my-[50px]'>Количество звезд</h2>
           <ul className='flex flex-col gap-[25px]'>
-          {stars.map((stars, index) => (
-              <li key={index} className='flex items-center gap-[30px]' onClick={() => {handleNumberBedRooms(stars)}}>
-                <Radio checked={numberBedRoomsState === stars ? true : false}/>
-                {stars === 'Без звезд' ? <p className='text-[22px]'>Без звезд</p> : <Rate style={{fontSize: '25px'}} defaultValue={stars} disabled={true} value={stars}/>}
+            {stars.map((stars, index) => (
+              <li
+                key={index}
+                className='flex items-center gap-[30px]'
+                onClick={() =>
+                  setInitialState((prev) => ({
+                    ...prev,
+                    stars: stars,
+                  }))
+                }
+              >
+                <Radio checked={initialState.stars === stars ? true : false} />
+                <Rate
+                  style={{ fontSize: '25px' }}
+                  defaultValue={stars}
+                  disabled={true}
+                  value={stars}
+                />
               </li>
             ))}
           </ul>
@@ -152,9 +267,18 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
         <div className='border-b pb-[40px]'>
           <h2 className='text-[30px] my-[50px]'>Рейтинг по отзывам</h2>
           <ul className='flex flex-col gap-[25px]'>
-          {rate.map((rate, index) => (
-              <li key={index} className='flex items-center gap-[30px]' onClick={() => {handleNumberBedRooms(stars)}}>
-                <Radio checked={numberBedRoomsState === stars ? true : false}/>
+            {rate.map((rate, index) => (
+              <li
+                key={index}
+                className='flex items-center gap-[30px]'
+                onClick={() =>
+                  setInitialState((prev) => ({
+                    ...prev,
+                    rating_range: rate,
+                  }))
+                }
+              >
+                <Radio checked={initialState.rating_range === rate ? true : false} />
                 <span className='text-[22px]'>{rate}</span>
               </li>
             ))}
@@ -162,10 +286,21 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
         </div>
         <div className='border-b pb-[40px]'>
           <h2 className='text-[30px] my-[50px]'>Удобства в объекте</h2>
-          <ul className='grid grid-cols-2 grid-rows-4 gap-[40px]'>
-            {facilityObject.map(facility => (
+          <ul className='grid grid-cols-2 gap-[40px]'>
+            {facilityObject.map((facility) => (
               <li key={facility.id} className='flex items-center'>
-                <Checkbox />
+                <Checkbox
+                  checked={initialState.facilityHotel[facility.key] || false}
+                  onChange={(e) => {
+                    setInitialState((prev) => ({
+                      ...prev,
+                      facilityHotel: {
+                        ...prev.facilityHotel,
+                        [facility.key]: e.target.checked,
+                      },
+                    }));
+                  }}
+                />
                 <span className='text-[22px]'>{facility.text}</span>
               </li>
             ))}
@@ -173,10 +308,27 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
         </div>
         <div className='border-b pb-[40px]'>
           <h2 className='text-[30px] my-[50px]'>Удобства в номере</h2>
-          <ul className='grid grid-cols-2 grid-rows-5 gap-[40px]'>
-            {facilityRoom.map(facility => (
+          <ul className='grid grid-cols-2 gap-[40px]'>
+            {facilityRoom.map((facility) => (
               <li key={facility.id} className='flex items-center'>
-                <Checkbox />
+                <Checkbox
+                  checked={initialState.facilityRoom.includes(facility.text)}
+                  onChange={() => {
+                    setInitialState((prev) => {
+                      const updatedFacilityRoom = [...prev.facilityRoom];
+                      if (updatedFacilityRoom.includes(facility.text)) {
+                        const index = updatedFacilityRoom.indexOf(facility.text);
+                        updatedFacilityRoom.splice(index, 1);
+                      } else {
+                        updatedFacilityRoom.push(facility.text);
+                      }
+                      return {
+                        ...prev,
+                        facilityRoom: updatedFacilityRoom,
+                      };
+                    });
+                  }}
+                />
                 <span className='text-[22px]'>{facility.text}</span>
               </li>
             ))}
@@ -186,18 +338,18 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
           <h2 className='text-[30px] my-[50px]'>Бронирование</h2>
           <div className='flex flex-col gap-[20px]'>
             <div className='flex items-center gap-[10px]'>
-              <Switch/>
+              <Switch />
               <span className='text-[22px]'>Оплата за полную стоимость</span>
             </div>
             <div className='flex items-center gap-[10px]'>
-              <Switch/>
+              <Switch />
               <span className='text-[22px]'>Бесплатная отмена</span>
             </div>
           </div>
         </div>
         <div className='flex items-center justify-between pt-[60px]'>
-          <p className='text-[28px] border-b border-[black] pb-2 cursor-pointer'>Очистить все</p>
-          <Button classes={'!text-18px py-[17px] px-[70px]'}>Показать варианты</Button>
+          <p className='text-[28px] border-b border-[black] pb-2 cursor-pointer' onClick={clearAllFields}>Очистить все</p>
+          <Button classes={'!text-[18px] py-[17px] px-[70px] shadow-xl'} clickFunc={submitFilters}>Показать варианты</Button>
         </div>
       </div>
     </Modal>

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import {$mainApi} from "../../axios/axios";
 
 const localStorageCurrency = localStorage.getItem('currency')
@@ -10,16 +9,18 @@ const initialState = {
   error: null,
 };
 
-export const fetchHousingData = createAsyncThunk('housing/fetchData/', async ({limit, offset, currency}) => {
+export const fetchHousingData = createAsyncThunk('housing/fetchData/', async ({limit, offset, currency, data}) => {
   const response = await $mainApi.get('/housing/', {
     headers: {
     },
     params: {
       limit,
       offset,
-      currency: currency || localStorageCurrency
+      currency: currency || localStorageCurrency,
+      ...data,
     }
   });
+  console.log(data);
   return response.data;
 });
 

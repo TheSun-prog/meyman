@@ -11,6 +11,7 @@ import sort from '../../assets/images/sort.svg'
 import filter from '../../assets/images/filter.svg'
 import Sorting from "../../components/hotelCatalogComponents/Sorting/Sorting";
 import Filters from "../../components/hotelCatalogComponents/Filters/Filters";
+import emptyIcon from '../../assets/images/zero-search.svg'
 
 const HotelCatalog = () => {
   const [activeSearch, setActiveSearch] = useState("hotel");
@@ -36,9 +37,9 @@ const HotelCatalog = () => {
   }, [dispatch]);
 
   return (<>
-    <div className="bg-main bg-no-repeat bg-cover h-[550px]">
+    <div className="bg-main z-[-100] bg-no-repeat bg-cover pt-[225px] h-[550px] ">
       <div className="mx-auto w-[1240px] h-[100%] relative">
-        <div className="pt-[180px] flex flex-col gap-[50px]">
+        <div className=" flex flex-col gap-[50px]">
           <div className="flex gap-[20px]">
             <div
               className={`w-[115px] h-[76px] flex flex-col gap-[2px] items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === "hotel" ? "bg-grey border-[1px] border-white" : "bg-dark-blue"}`}
@@ -117,6 +118,11 @@ const HotelCatalog = () => {
         {hotelData && hotelData.map((value, array) => {
           return <HotelCard data={value} id={value.id} />
         })}
+        {hotelData?.length === 0 ? <div className="w-[684px] mt-[100px] m-auto text-center flex flex-col justify-center">
+          <img src={emptyIcon} alt="emptyIcon" className="w-[250px] m-auto"/>
+          <h1 className="text-center text-[32px]">Ой, ничего не нашлось</h1>
+          <p className="text-[28px] text-[#898989]">Проверьте, правильно ли вы написали название.</p>
+        </div> : ''}
       </div>
     </div>
     <Sorting

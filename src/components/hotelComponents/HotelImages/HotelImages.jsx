@@ -7,7 +7,7 @@ const HotelImages = ({ data, handleOpenModalImages }) => {
       className="flex justify-between mt-[20px] cursor-pointer"
     >
       <div>
-        {data?.housing_images?.[0]?.image ? (
+        { data?.housing_images?.[0]?.image ? (
           <img
             className="rounded-l-2xl h-[500px] w-[490px] object-cover"
             src={data?.housing_images?.[0]?.image}
