@@ -43,7 +43,7 @@ const HotelRoomsCard = ({
       >
         {/* <img className="absolute right-2 top-2" src={heart} alt="heart" /> */}
       </div>
-      <h2 className="mt-[20px] mb-[12px] text-[20px]">{name}</h2>
+      <h2 className="mt-[20px] mb-[12px] text-[20px] min-h-[60px]">{name}</h2>
       <div className="flex text-[#666] text-[18px]">
         <img src={persons} alt="persons" />
         <span className="pl-2 ">

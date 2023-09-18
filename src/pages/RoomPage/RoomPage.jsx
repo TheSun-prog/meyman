@@ -49,6 +49,11 @@ const RoomPage = () => {
     setActiveModalAllServices(false);
   };
 
+  const propsData = {
+    data,
+    hotelData
+  }
+
   useEffect(() => {
     dispatch(
       fetchRoomData({
@@ -190,7 +195,7 @@ const RoomPage = () => {
               </Button>
             </div>
           </div>
-          <RoomDate data={data} roomId={roomId} />
+          <RoomDate data={propsData} roomId={roomId} />
         </div>
       </div>
       <ModalAllPhotos

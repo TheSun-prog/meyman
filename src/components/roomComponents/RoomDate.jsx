@@ -16,6 +16,7 @@ import Button from '../ui/Button/Button'
 
 const RoomDate = ({data}) => {
   const {hotelId, roomId} = useParams()
+  const [priceConverted, setPriceConverted] = useState()
   const localStorageCurrency = localStorage.getItem('currency')
   const currency = useSelector(state => state.currency)
   const currencys = {
@@ -115,12 +116,17 @@ const RoomDate = ({data}) => {
   //     currency:currency
   //   }))
   // }, [dispatch, currency])
+  useEffect(() => {
+    setPriceConverted(data?.hotelData?.rooms?.filter(room => room.id == roomId))
+    console.log(data?.hotelData?.rooms?.filter(room => room.id == roomId));
+  }, [data?.hotelData?.rooms, roomId])
+  
 
   return (
     <ConfigProvider locale={ru_RU}>
       <div className="max-h-[325px] w-[473px] py-10 px-10 rounded-3xl border shadow-lg">
         <div className="flex items-center mb-7">
-          <span className="text-[24px]">{Math.round(data?.price_per_night)}</span>
+          <span className="text-[24px]">{Math.round(priceConverted?.[0]?.price_per_night_converted)}</span>
           <img
             src={
               currency === 'KGS'

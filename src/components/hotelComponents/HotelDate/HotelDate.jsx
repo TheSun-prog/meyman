@@ -126,7 +126,7 @@ const HotelDate = ({ data, openModalFilteredRoom }) => {
 
   const lowestPrice =
     data?.rooms?.length > 0
-      ? Math.min(...data?.rooms?.map(room => parseFloat(room.price_per_night)))
+      ? Math.min(...data?.rooms?.map(room => parseFloat(room.price_per_night_converted)))
       : 0
 
   useEffect(() => {
@@ -152,7 +152,7 @@ const HotelDate = ({ data, openModalFilteredRoom }) => {
       >
         <div className="flex items-center mb-7">
           <span className="text-[18px] mt-1 mr-1">От</span>
-          <span className="text-[24px]">{lowestPrice}</span>
+          <span className="text-[24px]">{Math.round(lowestPrice)}</span>
           <img
             src={
               currency === 'KGS'

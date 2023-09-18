@@ -83,7 +83,7 @@ const HotelCard = ({data, id}) => {
             <div
                 className="bg-cover bg-center bg-no-repeat w-[350px] h-[350px] rounded-[30px]"
                 style={{
-                    backgroundImage: `url(${data.housing_images[0].image})`,
+                    backgroundImage: `url(${data.housing_images[0].image.replace("http://", "https://")})`,
                 }}
             >
                 <img

@@ -1,15 +1,20 @@
 // modules
 import { Modal } from 'antd';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 // icon
 import closeIcon from '../../../assets/images/clear.svg';
 // components
 import sortingData from '../sortingData';
 import SortingItem from './SortingItem/SortingItem';
 import Button from '../../ui/Button/Button';
+import { fetchHousingData } from '../../../store/slice/housingSlice';
 
 const Sorting = ({ isOpen, handleOk, handleCancel }) => {
+
+  const dispatch = useDispatch()
   const [data, setData] = useState(sortingData);
+  const currency = useSelector(state => state.currency)
 
   const handleChangeCheckBox = (e, index) => {
     setData((prevData) => {
@@ -23,9 +28,10 @@ const Sorting = ({ isOpen, handleOk, handleCancel }) => {
     });
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const handleClickSubmit = () => {
+    dispatch(fetchHousingData({ limit: 12, offset: 0, currency: currency, sortData: data.filter(item => item.checked === true)?.[0]?.key}))
+    handleOk()
+  }
 
   return (
     <Modal
@@ -58,7 +64,7 @@ const Sorting = ({ isOpen, handleOk, handleCancel }) => {
           />
         ))}
       </div>
-      <Button classes={'py-[17px] w-full !text-[18px] shadow-xl'}>Показать варианты</Button>
+      <Button classes={'py-[17px] w-full !text-[18px] shadow-xl'} clickFunc={handleClickSubmit}>Показать варианты</Button>
     </Modal>
   );
 };
