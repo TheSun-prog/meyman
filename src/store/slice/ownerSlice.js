@@ -18,6 +18,8 @@ const initialState = {
         phone_number: ''
     }, value: {
         user_id: localStorage.getItem('user_id'),
+        housing_name: '',
+        images: [],
         stars: 0,
         address: '',
         check_in_time_start: '',

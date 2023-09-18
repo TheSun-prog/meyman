@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import arrow_back from '../../assets/images/arrow2.svg'
 import Button from "../../components/ui/Button/Button";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setOwnerState} from "../../store/slice/ownerSlice";
 function BusinessAccountData(props) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch(), navigate = useNavigate()
 
     const [ownerData, setOwnerData] = useState("")
 
@@ -52,7 +52,11 @@ function BusinessAccountData(props) {
             <div onClick={() => {
                 dispatch(setOwnerState())
             }}>
-                <Button classes='w-[392px] h-[61px] hover:bg-[#1178B4]'>
+                <Button classes='w-[392px] h-[61px] hover:bg-[#1178B4]'
+                    clickFunc={() => {
+                        navigate('/fillingHotelDetails')
+                    }}
+                >
                     Продолжить
                 </Button>
                 </div>

@@ -20,7 +20,7 @@ import icon__8 from "../../../assets/images/businessMainPage/hotelServices/8.svg
 import icon__9 from "../../../assets/images/businessMainPage/hotelServices/9.svg";
 import icon__10 from "../../../assets/images/businessMainPage/hotelServices/10.svg";
 import icon__11 from "../../../assets/images/businessMainPage/hotelServices/11.svg";
-function AccommodationInfo(props) {
+function AccommodationInfo({setHotelData}) {
     const [activeButtons, setActiveButtons] = useState([false, false, false]);
 
     const toggleButton = (index) => {
@@ -96,7 +96,7 @@ function AccommodationInfo(props) {
                         '&.Mui-checked': {
                             color: 'black',
                         },
-                    }} />} label="Отель" />
+                    }} />} label="Отель"/>
                     <FormControlLabel value="2" control={<Radio sx={{
                         color: "black",
                         '&.Mui-checked': {
@@ -118,6 +118,12 @@ function AccommodationInfo(props) {
     const [room, setRoom] = React.useState('');
 
     const handleChange = (event) => {
+        setHotelData(prevState => {
+            return{
+                ...prevState,
+                region: event.target.value
+            }
+        })
         setRoom(event.target.value);
     };
 
@@ -125,58 +131,69 @@ function AccommodationInfo(props) {
     const hotelServicesData = [
         {
             id: 1,
-            name: "Бесплатный интерент",
+            name: "Бесплатный интернет",
             img: icon__1,
+            keyName: "free_internet",
         },
         {
             id: 2,
             name: "Спортивный зал",
             img: icon__2,
+            keyName: "gym",
         },
         {
             id: 3,
             name: "Бар",
             img: icon__3,
+            keyName: "bar",
         },
         {
             id: 4,
             name: "Ресторан",
             img: icon__4,
+            keyName: "restaurant",
         },
         {
             id: 5,
             name: "Трансфер от/до аэропорта",
             img: icon__5,
+            keyName: "airport_transfer",
         },
         {
             id: 6,
             name: "Парковка",
             img: icon__6,
+            keyName: "park",
         },
         {
             id: 7,
             name: "Бассейн",
             img: icon__7,
+            keyName: "pool",
         },
         {
             id: 8,
             name: "Спа услуги",
             img: icon__8,
+            keyName: "spa_services",
         },
         {
             id: 9,
             name: "Обслуживание номеров",
             img: icon__9,
+            keyName: "room_service",
         },
         {
             id: 10,
             name: "Детская площадка",
             img: icon__10,
+            keyName: "children_playground",
         },
         {
             id: 11,
             name: "Прокат автомобиля",
             img: icon__11,
+            keyName: "car_rental",
         },
     ]
 
@@ -196,7 +213,15 @@ function AccommodationInfo(props) {
                     <div className="mb-[40px]" key={hotelData.id}>
                         <button
                             className={`flex flex-col py-[18px] px-[20px] justify-between w-[587px] h-[180px] border-solid border-[1px] rounded-[18px]`}
-                            onClick={() => toggleButton(index)}
+                            onClick={() => {
+                                setHotelData(prevState => {
+                                    return {
+                                        ...prevState,
+                                        housing_type: hotelData.name
+                                    }
+                                })
+                                toggleButton(index)
+                            }}
                             style={buttonStyles(index)}
                         >
                             <img src={hotelData.icon} alt={hotelData.name} />
@@ -244,16 +269,15 @@ function AccommodationInfo(props) {
                         value={room}
                         label="Выберите область"
                         onChange={handleChange}
-
-
                     >
-                        <MenuItem value={10}>Чуй</MenuItem>
-                        <MenuItem value={20}>Жалал-Абад</MenuItem>
-                        <MenuItem value={30}>Ош</MenuItem>
-                        <MenuItem value={40}>Ыссык-Куль</MenuItem>
-                        <MenuItem value={50}>Нарын</MenuItem>
-                        <MenuItem value={60}>Талас</MenuItem>
-                        <MenuItem value={70}>Баткен</MenuItem>
+                        <MenuItem value={'Бишкек'}>Бишкек</MenuItem>
+                        <MenuItem value={'Чуй'}>Чуй</MenuItem>
+                        <MenuItem value={'Джалал-Абад'}>Джалал-Абад</MenuItem>
+                        <MenuItem value={'Ош'}>Ош</MenuItem>
+                        <MenuItem value={'Иссык-Куль'}>Иссык-Куль</MenuItem>
+                        <MenuItem value={'Нарын'}>Нарын</MenuItem>
+                        <MenuItem value={'Талас'}>Талас</MenuItem>
+                        <MenuItem value={'Баткен'}>Баткен</MenuItem>
                     </Select>
 
                 </FormControl>
@@ -264,7 +288,15 @@ function AccommodationInfo(props) {
                 <h3 className='font-quicksand text-[18px] mb-[22px] mt-[40px]'>
                     Адрес
                 </h3>
-                <input className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12" type="text" placeholder="Введите адрес вашего объекта"/>
+                <input className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12" type="text" placeholder="Введите адрес вашего объекта"
+                onChange={(event) => {
+                    setHotelData(prevState => {
+                        return {
+                            ...prevState,
+                            address: event.target.value
+                        }
+                    })
+                }}/>
 
             </div>
 
@@ -276,7 +308,16 @@ function AccommodationInfo(props) {
             <h3 className='font-quicksand text-[18px] font-normal mb-[12px]'>
                 Название вашего объекта
             </h3>
-            <input className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12" type="text" placeholder="Введите название вашего объекта"/>
+            <input className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12" type="text" placeholder="Введите название вашего объекта"
+                onChange={(event) => {
+                    setHotelData(prevState => {
+                        return {
+                            ...prevState,
+                            housing_name: event.target.value
+                        }
+                    })
+                }}
+            />
             <p className='font-quicksand text-[18px] text-[#A1A1A1] mt-[14px] mb-[40px]'>
                 Это название будут видеть гости,при поиске варианта проживания
             </p>
@@ -286,7 +327,7 @@ function AccommodationInfo(props) {
 
 
             <h3 className='font-quicksand text-[18px] font-normal mb-[12px]'>
-                Название вашего объекта
+                Укажите количество звезд у отеля
             </h3>
 
             <RadioGroup
@@ -295,23 +336,33 @@ function AccommodationInfo(props) {
                 name="row-radio-buttons-group"
                 sx={{ display: 'flex', flexDirection: 'column' }}
             >
-                {starsData.map((star) => (
-                    <FormControlLabel
-                        key={star.value}
-                        value={star.value}
-                        control={
-                            <Radio
-                                sx={{
-                                    color: 'black',
-                                    '&.Mui-checked': {
+                {starsData.map((star) => {
+                    return (
+                        <FormControlLabel
+                            key={star.value}
+                            value={star.count}
+                            control={
+                                <Radio
+                                    sx={{
                                         color: 'black',
-                                    },
-                                }}
-                            />
-                        }
-                        label={star.count === 0 ? 'Без звезд' : generateStars(star.count)}
-                    />
-                ))}
+                                        '&.Mui-checked': {
+                                            color: 'black',
+                                        },
+                                    }}
+                                />
+                            }
+                            onChange={(event) => {
+                                setHotelData(prevState => {
+                                    return {
+                                        ...prevState,
+                                        stars: Number(event.target.value)
+                                    }
+                                })
+                            }}
+                            label={star.count === 0 ? 'Без звезд' : generateStars(star.count)}
+                        />
+                    )
+                })}
             </RadioGroup>
 
 
@@ -335,6 +386,15 @@ function AccommodationInfo(props) {
                                         color: "Black",
                                     },
                                 }}
+                                onChange={() => {
+                             setHotelData(prevState => {
+                                 const state = prevState
+                                 state[hotelServiceData.keyName] = !state[hotelServiceData.keyName]
+                                 return {
+                                     ...state
+                                 }
+                             })
+                         }}
                             />
                             <img src={hotelServiceData.img} alt="icon" className="ml-[28px]"/>
                             <h3 className="text-base text-center font-normal leading-relaxed ml-[14px] ">{hotelServiceData.name}</h3>

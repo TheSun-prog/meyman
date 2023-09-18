@@ -6,24 +6,29 @@ import warning from "../../../assets/images/vnimanie.svg";
 import plus from "../../../assets/images/plus.svg";
 import logoAddPhoto from "../../../assets/images/addPhoto.svg";
 
-function AddHotelPhoto() {
+function AddHotelPhoto({hotelData, setHotelData}) {
 
     const [photos2, setPhotos2] = useState([]);
-    console.log(photos2)
 
     const handleFileChange = (e) => {
         const files = e.target.files;
 
-        if (files.length + photos2.length <= 6) {
+        if (files.length + photos2.length > 5) {
             const newPhotos = [...photos2];
+            const imageFiles = [...hotelData.images]
 
             for (let i = 0; i < files.length; i++) {
                 newPhotos.push(URL.createObjectURL(files[i]));
+                imageFiles.push(files[i])
             }
 
+            setHotelData(prevState => {
+                return {
+                    ...prevState,
+                    images: imageFiles
+                }
+            })
             setPhotos2(newPhotos);
-        } else {
-            alert('Максимально количество фотографий 6');
         }
     };
 
@@ -93,8 +98,8 @@ function AddHotelPhoto() {
                         multiple
                         onChange={handleFileChange}
                     />
-                    <img src={logoAddPhoto} alt="logoAddPhoto" className="w-[180px] h-[180px] logoAddPhoto" />
-                    <div className="flex items-center mt-[27px]">
+                    <img src={logoAddPhoto} alt="logoAddPhoto" className="w-[180px] h-[180px] mt-[121px] logoAddPhoto" />
+                    <div className="flex items-center justify-center mt-[27px]">
                         <img src={plus} alt="plusLogo" />
                         <p className="text-base font-normal leading-relaxed">
                             Загрузите фотографии
