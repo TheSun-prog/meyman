@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import clear from '../../../assets/images/clear.svg'
 import { useDispatch } from 'react-redux'
 import { postReviewsData } from '../../../store/slice/reviewsSlice'
+import { fetchHotelData } from '../../../store/slice/hotelSlice'
 
 const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
   const dispatch = useDispatch()
@@ -93,7 +94,9 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
     ) {
       // Если все условия выполняются, то диспатчим данные
       dispatch(postReviewsData(initialDataRate))
-      window.location.reload();
+      dispatch(fetchHotelData(hotelId))
+      handleOk()
+      //window.location.reload();
     } else if (initialDataRate.comment.length < 5) {
       setErrorText(true) // Устанавливаем errorText в true
     } else {
@@ -154,7 +157,7 @@ const ModalSendReview = ({ isOpen, handleOk, handleCancel, data, hotelId }) => {
       <h2 className="text-center text-[28px] border-b pb-4">Отзывы</h2>
       <div className="flex gap-[27px] mt-[40px]">
         <img
-          src={data?.housing_images?.[0]?.image}
+          src={process.env.REACT_APP_API_URL + data?.housing_images?.[0]?.image}
           alt="hotel"
           className="object-cover w-[270px] h-[250px] rounded-[30px]  border-2 border-black"
         />

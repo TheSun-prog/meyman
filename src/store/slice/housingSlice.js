@@ -10,7 +10,7 @@ const initialState = {
 };
 
 export const fetchHousingData = createAsyncThunk('housing/fetchData/', async ({limit, offset, currency, data}) => {
-  const response = await $mainApi.get('/housing/', {
+  const response = await $mainApi.get('api/housing/housing/', {
     headers: {
     },
     params: {

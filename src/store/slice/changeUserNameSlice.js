@@ -6,7 +6,6 @@ export const getChangeUserName = createAsyncThunk(
     async () => {
         try {
             const response = await $authApi.get('/api/users/profile/1/', {
-                
             });
             return response.data;
         } catch (error) {

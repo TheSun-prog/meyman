@@ -3,6 +3,8 @@ import heartOn from "../../../assets/images/heart-on.svg";
 import heartOff from "../../../assets/images/heart-off.svg";
 import star from "../../../assets/images/star.svg";
 import som from "../../../assets/images/som.svg";
+import eur from "../../../assets/images/euro.svg"
+import usd from "../../../assets/images/usd.svg"
 import done from "../../../assets/images/done.svg";
 import location from "../../../assets/images/location.svg";
 import React, {useEffect, useState} from "react";
@@ -12,12 +14,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {deleteFavorite, getFavorites, getUserWishList} from "../../../store/slice/wishListSlice";
 
 const HotelCard = ({data, id}) => {
-
+    const currencys = {
+        KGS: som,
+        EUR: eur,
+        USD: usd
+    }
     const dispatch = useDispatch()
     const firstRoomsPrice = parseInt(data?.rooms[0]?.price_per_night)
     const {wishLists} = useSelector(state => state.wishList)
     const {favorites} = useSelector(state => state.wishList)
-
+    const currency = useSelector(state => state.currency)
+    const localStorageCurrency = localStorage.getItem('currency')
 
     const [hotelPrice, setHotelPrice] = useState(
         firstRoomsPrice ? firstRoomsPrice : 0
@@ -115,7 +122,7 @@ const HotelCard = ({data, id}) => {
                 </div>
                 <div className="flex items-center h-[34px]">
                     <p className="text-[24px] font-[400]">от {hotelPrice}</p>
-                    <img src={som} alt="som" className="w-[18px] h-[18px]"/>
+                    <img src={currency === 'KGS' ? som : currency === 'USD' ? usd : currency === 'EUR' ? eur : currencys[localStorageCurrency]} alt="som" className="w-[18px] h-[18px]"/>
                 </div>
             </div>
             <ModalAddWishlist active={modalAddActive} setActive={setModalAddActive} id={data.id}/>

@@ -30,6 +30,7 @@ const Booking = () => {
   const roomData = useSelector(state => state.room.data)
   const { isError } = useSelector(state => state.reservation)
   const { state } = useLocation()
+
   const { hotelId, roomId } = useParams()
 
   const stars = data?.stars ? data?.stars : null
@@ -260,7 +261,7 @@ const Booking = () => {
           <div className="flex gap-[13px] justify-between h-[216px] w-[650px]">
             <img
               className="rounded-xl flex-1 object-cover w-[289px]"
-              src={data?.housing_images?.[0]?.image}
+              src={process.env.REACT_APP_API_URL + data?.housing_images?.[0]?.image}
               alt="hotelImg"
             />
             <div className="w-[350px] flex gap-[20px] flex-col">

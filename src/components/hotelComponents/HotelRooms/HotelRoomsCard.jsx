@@ -57,10 +57,10 @@ const HotelRoomsCard = ({
         <img src={bed} alt="persons" />
         <span className="pl-2">
           {Array.isArray(bedType) &&
-          bedType.includes('Односпальные') &&
-          bedType.includes('Двуспальная')
-            ? 'Односпальная и Двуспальная'
-            : bedType}
+          bedType.includes(' Односпальные') &&
+          bedType.includes(' Двуспальная')
+            ? ' Односпальная и Двуспальная'
+            : ' ' + bedType}
         </span>
       </div>
       <div className="flex mt-[20px]">

@@ -3,12 +3,9 @@ import { $authApi } from '../../axios/axios';
 
 export const reservationHotelPostData = createAsyncThunk('reviews', async (data) => {
   const token = localStorage.getItem('access'); // Получаем токен из Local Storage
-  const headers = {
-    'Authorization': `Bearer ${token}`, // Добавляем токен в заголовок запроса
-    'Content-Type': 'application/json',
-  };
+  
 
-  const response = await $authApi.post('http://127.0.0.1:8000/housing_reservations/', data, { headers });
+  const response = await $authApi.post('api/housing/housing_reservations/', data);
 
   console.log(response);
   return response.data;

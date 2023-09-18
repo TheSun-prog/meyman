@@ -1,23 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+
 import {$authApi, $mainApi} from "../../axios/axios";
 
 export const fetchReviewsData = createAsyncThunk('reviews/', async () => {
-  const response = await $mainApi.get(`/reviews/`, {
-
+  const response = await $mainApi.get(`api/housing/reviews/`, {
   })
   return response.data
 })
 
 export const postReviewsData = createAsyncThunk('/reviews/', async (data) => {
-  const token = localStorage.getItem('access'); // Получаем токен из Local Storage
-  const headers = {
-    'Authorization': `Bearer ${token}`, // Добавляем токен в заголовок запроса
-    'Content-Type': 'application/json',
-  };
-
-  const response = await $authApi.post('/reviews/', data, { headers });
-
+  const response = await $authApi.post('api/housing/reviews/', data);
   console.log(response);
   return response.data;
 });

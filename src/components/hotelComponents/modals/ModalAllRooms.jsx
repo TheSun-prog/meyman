@@ -32,7 +32,7 @@ const ModalAllRooms = ({ isOpen, handleOk, handleCancel, data, id }) => {
               className={'hover:text-black'}
             >
               <HotelRoomsCard
-                img={room.room_images[0].image}
+                img={process.env.REACT_APP_API_URL + room.room_images[0].image}
                 area={room.room_area}
                 bedType={room.bed_type}
                 maxGuest={room.max_guest_capacity}

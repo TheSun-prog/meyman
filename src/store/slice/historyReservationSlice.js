@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { $mainApi } from "../../axios/axios";
+import { $authApi } from "../../axios/axios";
 
 export const fetchHistoryReservationData = createAsyncThunk('history_reservation/getData', async () => {
-  const response = await $mainApi.get(`/housing_reservations/`, {})
+  const response = await $authApi.get(`api/housing/housing_reservations/`, {})
   return response.data
 })
 

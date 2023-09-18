@@ -3,13 +3,15 @@ import whatsAppIcon from "../../../assets/images/whats-app.svg";
 import heartIcon from "../../../assets/images/heart.svg";
 import Rating from "@mui/material/Rating";
 import { Skeleton } from "antd";
+import { useSelector } from "react-redux";
 
 const HotelName = ({ data }) => {
   const stars = data?.stars ? data?.stars : null;
+  const {isLoading} = useSelector(state => state.hotel)
   
   return (
     <div className="flex justify-between">
-      {data?.housing_name ? <div>
+      {!isLoading ? <div>
         <h3 className="font-medium text-[32px]">{data?.housing_name}</h3>
         <div className="flex">
           <Rating value={stars} readOnly />

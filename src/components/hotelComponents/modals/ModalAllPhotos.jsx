@@ -55,8 +55,8 @@ const ModalAllPhotos = ({ isOpen, handleOk, handleCancel, data, id }) => {
                 key={img.id}
                 onClick={handleOpenImage}
                 className="w-[300px] h-[220px] px-2 rounded-2xl object-cover cursor-pointer"
-                src={img.image}
-                alt="room"
+                src={process.env.REACT_APP_API_URL + img.image}
+                alt="hotel"
               />
             ))}
           </div>

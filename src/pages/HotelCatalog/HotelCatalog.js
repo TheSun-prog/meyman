@@ -15,9 +15,10 @@ import emptyIcon from '../../assets/images/zero-search.svg'
 
 const HotelCatalog = () => {
   const [activeSearch, setActiveSearch] = useState("hotel");
-
   const [activeSorting, setActiveSorting] = useState(false)
   const [activeFilters, setActiveFilters] = useState(false)
+  
+  const currency = useSelector(state => state.currency)
 
   const dispatch = useDispatch();
   const hotelData = useSelector(selectHousingData);
@@ -33,8 +34,8 @@ const HotelCatalog = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchHousingData({ limit: 12, offset: 0 }));
-  }, [dispatch]);
+    dispatch(fetchHousingData({ limit: 12, offset: 0, currency: currency }));
+  }, [dispatch, currency]);
 
   return (<>
     <div className="bg-main z-[-100] bg-no-repeat bg-cover pt-[225px] h-[550px] ">

@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { $mainApi } from '../../axios/axios'
 
 const localStorageCurrency = localStorage.getItem('currency')
 
 export const fetchRoomData = createAsyncThunk('room/getData', async (data) => {
-  const response = await axios.get(`http://127.0.0.1:8000/rooms/${data.roomId}/`, {
+  const response = await $mainApi.get(`api/housing/rooms/${data.roomId || data}/`, {
     params: {
       currency: data.currency || localStorageCurrency
     }

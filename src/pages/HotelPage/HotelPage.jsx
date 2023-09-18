@@ -149,7 +149,7 @@ const HotelPage = () => {
         isOpen={activeModalALlImages}
         handleOk={handleCancelImages}
         handleCancel={handleCancelImages}
-        data={data?.housing_images}
+        data={ data?.housing_images}
         id={hotelId}
       />
       <ModalFilteredRooms

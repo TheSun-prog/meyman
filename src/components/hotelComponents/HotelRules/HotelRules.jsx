@@ -13,6 +13,8 @@ import car from '../../../assets/images/car-rental.svg'
 import arrow from '../../../assets/images/arrow.svg'
 // ui
 import Button from '../../ui/Button/Button'
+import { useSelector } from 'react-redux'
+import { Skeleton } from 'antd'
 
 const amenitiesData = [
   { key: 'free_internet', icon: wifiIcon, text: 'Бесплатный интернет' },
@@ -29,6 +31,9 @@ const amenitiesData = [
 ]
 
 const HotelRules = ({ data, id, handleClickModal }) => {
+
+  const {isLoading} = useSelector(state => state.hotel)
+
   return (
     <div className="flex-1">
       <div className="max-w-[566px]">
@@ -44,8 +49,8 @@ const HotelRules = ({ data, id, handleClickModal }) => {
       <h5 className="mt-[80px] mb-[25px] text-[28px]">
         Удобства и услуги отеля
       </h5>
-      <ul className="pb-[10px] flex flex-col gap-[24px] flex-wrap h-[236px] max-w-[684px]">
-        {amenitiesData.slice(0, 9).map(
+      {!isLoading ? <ul className="grid grid-cols-2 grid-rows-4 overflow-hidden gap-[24px] pb-[20px] mr-[10px]">
+        {amenitiesData?.map(
           item =>
             data[item.key] && (
                 <li key={item.key} className="flex items-center justify-between  ">
@@ -68,7 +73,7 @@ const HotelRules = ({ data, id, handleClickModal }) => {
               
             )
         )}
-      </ul>
+      </ul> : <Skeleton style={{width: '500px', marginBottom: '10px'}}/>}
       <Button clickFunc={handleClickModal} classes={'py-[10px] px-[25px] shadow-xl text-[18px]'}>
         Подробнее <img className="ml-[10px]" src={arrow} alt="arrow" />
       </Button>
