@@ -31,7 +31,7 @@ import icon__8 from '../../../assets/images/room/Bathroom/8.svg'
 import icon__9 from '../../../assets/images/room/Bathroom/9.svg'
 import {Checkbox} from "@mui/material";
 
-function Room() {
+function Room({setRoomData}) {
 
     const roomsData = [
         {
@@ -219,6 +219,20 @@ function Room() {
                                                 color: "Black",
                                             },
                                         }}
+                                        onChange={() => {
+                                            setRoomData(prevState => {
+                                                let result
+                                                if (prevState.room_amenities.includes(roomData.name)) {
+                                                    result = prevState.room_amenities.filter(value => value !== roomData.name)
+                                                } else {
+                                                    result = [...prevState.room_amenities, roomData.name]
+                                                }
+                                                return {
+                                                    ...prevState,
+                                                    room_amenities: result
+                                                }
+                                            })
+                                        }}
                                     />
                                     <img src={roomData.img} alt="icon" className="ml-[28px]"/>
                                     <p className="text-base text-center font-normal leading-relaxed ml-[14px]">{roomData.name}</p>
@@ -243,6 +257,20 @@ function Room() {
                                                 color: "Black",
                                             },
                                         }}
+                                        onChange={() => {
+                                            setRoomData(prevState => {
+                                                let result
+                                                if (prevState.kitchen.includes(kitchenData.name)) {
+                                                    result = prevState.kitchen.filter(value => value !== kitchenData.name)
+                                                } else {
+                                                    result = [...prevState.kitchen, kitchenData.name]
+                                                }
+                                                return {
+                                                    ...prevState,
+                                                    kitchen: result
+                                                }
+                                            })
+                                        }}
                                     />
                                     <img src={kitchenData.img} alt="icon" className="ml-[28px]"/>
                                     <p className="text-base text-center font-normal leading-relaxed ml-[14px] mb-[4px] ">{kitchenData.name}</p>
@@ -266,6 +294,20 @@ function Room() {
                                             '&.Mui-checked': {
                                                 color: "Black",
                                             },
+                                        }}
+                                        onChange={() => {
+                                            setRoomData(prevState => {
+                                                let result
+                                                if (prevState.outside.includes(streetData.name)) {
+                                                    result = prevState.outside.filter(value => value !== streetData.name)
+                                                } else {
+                                                    result = [...prevState.outside, streetData.name]
+                                                }
+                                                return {
+                                                    ...prevState,
+                                                    outside: result
+                                                }
+                                            })
                                         }}
                                     />
                                     <img src={streetData.img} alt="icon" className="ml-[28px]"/>
@@ -293,6 +335,20 @@ function Room() {
                                             color: "Black",
                                         },
                                     }}
+                                    onChange={() => {
+                                            setRoomData(prevState => {
+                                                let result
+                                                if (prevState.bathroom.includes(bathroomData.name)) {
+                                                    result = prevState.bathroom.filter(value => value !== bathroomData.name)
+                                                } else {
+                                                    result = [...prevState.bathroom, bathroomData.name]
+                                                }
+                                                return {
+                                                    ...prevState,
+                                                    bathroom: result
+                                                }
+                                            })
+                                        }}
                                 />
                                 <img src={bathroomData.img} alt="icon" className="ml-[28px]"/>
                                 <p className="text-base text-center font-normal leading-relaxed ml-[14px] ">{bathroomData.name}</p>

@@ -21,7 +21,6 @@ export const fetchHousingData = createAsyncThunk('housing/fetchData/', async ({l
       ordering: sortData
     }
   });
-  console.log(data);
   return response.data;
 });
 
@@ -49,5 +48,6 @@ const housingSlice = createSlice({
 export default housingSlice.reducer;
 
 export const selectHousingData = (state) => state.housing.data?.results;
+export const selectHousingDataCount = (state) => state.housing.data?.count;
 export const selectHousingLoadingStatus = (state) => state.housing.loading;
 export const selectHousingError = (state) => state.housing.error;

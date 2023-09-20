@@ -16,6 +16,7 @@ import ownerSlice from "./slice/ownerSlice";
 import RestoreSlice from "./slice/RestoreSlice";
 import currencySlice from './slice/currencySlice'
 import wishListSlice from "./slice/wishListSlice";
+import advertisingSlice from './slice/advertisingSlice'
 
 const store = configureStore({
   reducer: {
@@ -34,6 +35,7 @@ const store = configureStore({
     restore: RestoreSlice,
     currency: currencySlice,
       wishList: wishListSlice,
+    advertising: advertisingSlice
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware()
 })

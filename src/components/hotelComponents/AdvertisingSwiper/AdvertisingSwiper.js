@@ -9,8 +9,8 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    fetchHousingData, selectHousingData, selectHousingError, selectHousingLoadingStatus,
-} from "../../../store/slice/housingSlice";
+    fetchAdvertisingData, selectAdvertisingData, selectAdvertisingError, selectAdvertisingLoadingStatus,
+} from "../../../store/slice/advertisingSlice";
 import HotelCard from "../HotelCard/HotelCard";
 import {NavLink, useParams} from "react-router-dom";
 
@@ -18,25 +18,25 @@ SwiperCore.use([Navigation]);
 
 const HotelSwiper = ({}) => {
     const dispatch = useDispatch();
-    const hotelData = useSelector(selectHousingData);
-    const loading = useSelector(selectHousingLoadingStatus);
-    const error = useSelector(selectHousingError);
+    const advertisingData = useSelector(selectAdvertisingData);
+    const loading = useSelector(selectAdvertisingLoadingStatus);
+    const error = useSelector(selectAdvertisingError);
 
     const currency = useSelector(state => state.currency)
 
     const [slidesCount, setSlidesCount] = useState(0);
 
-    const {hotelId} = useParams()
+    const {advertisingId} = useParams()
 
     useEffect(() => {
         try {
-            if (hotelData.length > 3) setSlidesCount(3.23); else setSlidesCount(hotelData.length);
+            if (advertisingData.length > 3) setSlidesCount(3.23); else setSlidesCount(advertisingData.length);
         } catch (e) {
         }
-    }, [hotelData]);
+    }, [advertisingData]);
 
     useEffect(() => {
-        dispatch(fetchHousingData({limit: 7, offset: 0, currency: currency}));
+        dispatch(fetchAdvertisingData());
     }, [dispatch, currency]);
 
     const swiperRef = React.useRef(null);
@@ -53,6 +53,8 @@ const HotelSwiper = ({}) => {
         }
     };
 
+    console.log()
+
     if (!error) return (<>
             <div className="flex flex-col gap-[40px] items-center">
                 <p className="text-[28px] pb-[40px]">Рекомендации</p>
@@ -61,13 +63,16 @@ const HotelSwiper = ({}) => {
                 spaceBetween={40}
                 slidesPerView={slidesCount}
                 navigation={{
-                    nextEl: ".swiper-button-next-hotel", prevEl: ".swiper-button-prev-hotel",
+                    nextEl: ".swiper-button-next-advertising", prevEl: ".swiper-button-prev-advertising",
                 }}
             >
-                {hotelData && hotelData.map((value, index) => {
+                {advertisingData && advertisingData.map((value, index) => {
+
+                    const imageUrl = `${process.env.REACT_APP_API_URL}${value.housing_image[0]}`
+
                     return (<SwiperSlide key={index}>
                             <NavLink to={`/hotelcatalog/${value?.id}`}>
-                                <HotelCard data={value} index={index}/>
+                                <HotelCard data={value} index={index} imageUrl={imageUrl}/>
                             </NavLink>
                         </SwiperSlide>);
                 })}
@@ -76,13 +81,13 @@ const HotelSwiper = ({}) => {
                 <img
                     src={left}
                     alt="left"
-                    className="swiper-button-prev-hotel"
+                    className="swiper-button-prev-advertising"
                     onClick={goPrev}
                 />
                 <img
                     src={right}
                     alt="right"
-                    className="swiper-button-next-hotel"
+                    className="swiper-button-next-advertising"
                     onClick={goNext}
                 />
             </div>

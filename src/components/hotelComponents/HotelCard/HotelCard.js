@@ -12,15 +12,19 @@ import {useNavigate} from "react-router-dom";
 import ModalAddWishlist from "../../wishListComponents/modals/ModalAddWishlist";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteFavorite, getFavorites, getUserWishList} from "../../../store/slice/wishListSlice";
+import {$authApi} from "../../../axios/axios";
 
-const HotelCard = ({data, id}) => {
+const HotelCard = ({data, id, imageUrl}) => {
+
+
     const currencys = {
         KGS: som,
         EUR: eur,
         USD: usd
     }
+
     const dispatch = useDispatch()
-    const firstRoomsPrice = parseInt(data?.rooms[0]?.price_per_night)
+    const firstRoomsPrice = parseInt(data?.cheapest_room_price)
     const {wishLists} = useSelector(state => state.wishList)
     const {favorites} = useSelector(state => state.wishList)
     const currency = useSelector(state => state.currency)
@@ -51,7 +55,9 @@ const HotelCard = ({data, id}) => {
     const favoriteId = findFavoriteIdByHousing(favorites, id)
 
     const handleIsFavorite = () => {
-        if (userType !== 'client') return alert('Войдите как гость')
+        if (userType !== 'client') {
+            $authApi.put('/api/users/update_user_type/', {user_type: 'client'})
+        }
         if (!isFavorite) {
             setModalAddActive(true)
         } else {
@@ -59,7 +65,7 @@ const HotelCard = ({data, id}) => {
         }
     };
 
-    for (const room of data.rooms) {
+    for (const room in data?.rooms) {
         const price = parseInt(room.price_per_night)
         if (price < hotelPrice) setHotelPrice(price);
     }
@@ -77,16 +83,16 @@ const HotelCard = ({data, id}) => {
     return (
         <div
             className="w-[350px] h-[540px] flex flex-col gap-[10px] relative "
-            key={id}
+            key={data.id}
             onClick={clickNavigate}
         >
             <div
                 className="bg-cover bg-center bg-no-repeat w-[350px] h-[350px] rounded-[30px]"
                 style={{
-                    backgroundImage: `url(${data.housing_images[0].image.replace("http://", "https://")})`,
+                    backgroundImage: `url(${imageUrl ? imageUrl : data?.housing_images[0].image.replace("http://", "https://")})`,
                 }}
             >
-                <img
+                {userType && (<img
                     src={isFavorite ? heartOn : heartOff}
                     alt="heart"
                     className="absolute top-[20px] right-[20px] cursor-pointer"
@@ -94,7 +100,7 @@ const HotelCard = ({data, id}) => {
                         e.stopPropagation()
                         handleIsFavorite()
                     }}
-                />
+                />)}
                 <div
                     className="absolute top-[40px] w-[195px] h-[38px] bg-green rounded-r-full flex items-center pl-[10px]">
                     <p className="text-white text-[21px]">Завтрак включен</p>
@@ -108,7 +114,7 @@ const HotelCard = ({data, id}) => {
                 </div>
                 <div className="flex h-[28px] gap-[5px] items-center">
                     <p className="px-[6px] py-[11px] bg-yellow rounded-[20px] text-white text-[16px] h-[18px] flex items-center">
-                        {data.average_rating}
+                        {data.average_rating ? data.average_rating : '10'}
                     </p>
                     <p>Замечательно</p>
                 </div>

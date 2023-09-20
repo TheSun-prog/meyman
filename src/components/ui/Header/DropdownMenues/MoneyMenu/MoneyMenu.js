@@ -7,8 +7,8 @@ const LanguageMenu = ({ closeMenu }) => {
   const dispatch = useDispatch()
 
   const currencies = [
-    { code: 'KGS', name: 'Сом' },
     { code: 'USD', name: 'Доллар' },
+    { code: 'KGS', name: 'Сом' },
     { code: 'EUR', name: 'Евро' }
   ]
   const [activeCurrency, setActiveCurrency] = useState()

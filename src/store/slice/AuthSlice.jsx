@@ -8,11 +8,11 @@ export const asyncSignUp = createAsyncThunk(
     'AuthSlice/asyncSignUp', async ({ userData }) => {
         try {
             const response = await $mainApi.post(`/api/users/signup/`, userData)
-            console.log(response)
+
             if (response.status >= 200 && response.status <= 204) return response.data
         }
         catch (error){
-            console.error(error)
+
             alert("Пользователь с таким email уже существует!")
         }
     }
@@ -26,13 +26,11 @@ export const asyncConfirmCode = createAsyncThunk(
             form.append('verify_code', code)
             form.append('email', user.email)
             const response = await $mainApi.post(`/api/users/verify/`, form)
-            console.log(response)
 
             const form2 = new FormData
             form2.append('email', user.email)
             form2.append('password', user.password)
             const response2 = await $mainApi.post(`/api/users/login/`, form2)
-            console.log(response2)
             localStorage.setItem('access', response2.data.tokens.access)
             localStorage.setItem('refresh', response2.data.tokens.refresh)
 
@@ -41,7 +39,6 @@ export const asyncConfirmCode = createAsyncThunk(
             }
         }
         catch (error){
-            console.log(error)
             await Swal.fire({
                 icon: `error`,
                 title: `${error.response.status}`,
@@ -56,7 +53,6 @@ export const asyncLogin = createAsyncThunk(
     'AuthSlice/asyncLogin', async ({user},{dispatch}) => {
         try {
             const response = await $mainApi.post(`/api/users/login/`, user)
-            console.log(response)
             localStorage.setItem('access', response.data.tokens.access)
             localStorage.setItem('refresh', response.data.tokens.refresh)
             const userID = decode(response.data.tokens.access)
@@ -65,7 +61,6 @@ export const asyncLogin = createAsyncThunk(
             if (response.status >= 200 && response.status <= 204) return response.data
         }
         catch (error) {
-            console.log(error)
             dispatch(setError3(true))
         }
     }

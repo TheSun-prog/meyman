@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import plus from '../../../assets/images/plus.svg'
 import minus from '../../../assets/images/minus.svg'
-const Counter = () => {
+const Counter = ({bedData, setRoomData}) => {
     const [count, setCount] = useState(0);
 
     const increment = () => {
@@ -13,6 +13,15 @@ const Counter = () => {
             setCount(count - 1);
         }
     };
+
+    useEffect(() => {
+        setRoomData(prevState => {
+            prevState[bedData.key] = count
+            return {
+                ...prevState
+            }
+        })
+    },[count])
 
     return (
         <div className="w-[163px] h-[44px] border-2 border-solid border-[#1164B4] rounded-full flex justify-between items-center p-4">

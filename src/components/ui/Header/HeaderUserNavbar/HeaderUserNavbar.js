@@ -50,7 +50,7 @@ const HeaderUserNavbar = ({ pageType, showModal, handleShowModal }) => {
               <p className="text-[16px]">Русский</p>
             </div>
             {showModal === 'language' && (
-              <LanguageMenu handleMenu={handleShowModal} />
+              <LanguageMenu closeMenu={handleShowModal} handleMenu={handleShowModal} />
             )}
           </div>
 

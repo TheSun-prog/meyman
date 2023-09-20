@@ -17,12 +17,16 @@ import {NavLink} from "react-router-dom";
 import AuthDoneModal from "../../components/objectRegisterComponents/AuthDoneModal/AuthDoneModal";
 import ModalReview from "../../components/hotelComponents/modals/ModalReview";
 import SiteReviewSwiper from "../../components/reviewComponents/SiteReviewSwiper/SiteReviewSwiper";
+import AdvertisingSwiper from "../../components/hotelComponents/AdvertisingSwiper/AdvertisingSwiper";
 
 const Mainpage = () => {
     const { AuthModal } = useSelector(state => state.authSlice)
     const [activeSearch, setActiveSearch] = useState('hotel')
     const [activeModalReview, setActiveModalReview] = useState(false)
     const [reviewDataProp, setReviewDataProp] = useState('')
+
+    const data = useSelector(state => state.owner)
+    console.log(data)
 
     const regions = [
         {
@@ -155,7 +159,7 @@ const Mainpage = () => {
                 </div>
             </div>
             <div className="mx-auto w-[1240px] pt-[100px]">
-                <HotelSwiper />
+                <AdvertisingSwiper />
             </div>
             <div className="mx-auto w-[1240px] py-[100px]">
                 <SiteReviewSwiper handleClick={(value) => {

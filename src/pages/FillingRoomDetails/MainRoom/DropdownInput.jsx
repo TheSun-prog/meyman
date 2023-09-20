@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import arrow_d from '../../../assets/images/arrow2.svg'
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-const DropdownInput = () => {
+
+const DropdownInput = ({setRoomData}) => {
 
     // const [isOpen, setIsOpen] = useState(false);
     // const [selectedRoom, setSelectedRoom] = useState('');
@@ -25,22 +26,26 @@ const DropdownInput = () => {
     const [room, setRoom] = React.useState('');
 
     const handleChange = (event) => {
+        setRoomData(prevState => {
+            return {
+                ...prevState,
+                room_name: event.target.value
+            }
+        })
         setRoom(event.target.value);
     };
 
-    return (
-        <div className="mx-auto w-[1240px]">
+    return (<div className="mx-auto w-[1240px]">
 
-            <FormControl sx={{ width: 520,
-                '& .MuiOutlinedInput-root': {
+            <FormControl sx={{
+                width: 520, '& .MuiOutlinedInput-root': {
                     borderRadius: 35,
-                },
-                '& .MuiPaper-rounded': {
+                }, '& .MuiPaper-rounded': {
                     borderRadius: 40,
                 },
 
             }}>
-                <InputLabel id="demo-simple-select-helper-label" >Выберите название вашего номера </InputLabel>
+                <InputLabel id="demo-simple-select-helper-label">Выберите название вашего номера </InputLabel>
                 <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
@@ -50,26 +55,22 @@ const DropdownInput = () => {
 
                 >
 
-                    <MenuItem value={10}>Двухместный номер с 1 кроватью</MenuItem>
-                    <MenuItem value={20}>Двухместный с 2 отдельными
-                        кроватями</MenuItem>
-                    <MenuItem value={30}>Двухместный номер с 1 кроватью или
-                        2 отдельными кроватями</MenuItem>
-                    <MenuItem value={40}>Люкс</MenuItem>
-                    <MenuItem value={50}>Трехместный номер</MenuItem>
-                    <MenuItem value={60}>Семейный</MenuItem>
-                    <MenuItem value={70}>Делюкс</MenuItem>
-                    <MenuItem value={80}>Четырехместный </MenuItem>
-                    <MenuItem value={90}>Пентхаус</MenuItem>
-                    <MenuItem value={100}>Коннектирующийся номер</MenuItem>
-                    <MenuItem value={110}>Бизнес</MenuItem>
-                    <MenuItem value={120}>Королевский люкс</MenuItem>
-                    <MenuItem value={130}>Эконом</MenuItem>
-                    <MenuItem value={140}>Стандартный</MenuItem>
+                    <MenuItem value={'Двухместный номер с 1 кроватью'}>Двухместный номер с 1 кроватью</MenuItem>
+                    <MenuItem value={'Двухместный с 2 отдельными кроватями'}>Двухместный с 2 отдельными кроватями</MenuItem>
+                    <MenuItem value={'Люкс'}>Люкс</MenuItem>
+                    <MenuItem value={'Трехместный номер'}>Трехместный номер</MenuItem>
+                    <MenuItem value={'Семейный'}>Семейный</MenuItem>
+                    <MenuItem value={'Делюкс'}>Делюкс</MenuItem>
+                    <MenuItem value={'Четырехместный'}>Четырехместный </MenuItem>
+                    <MenuItem value={'Пентхаус'}>Пентхаус</MenuItem>
+                    <MenuItem value={'Коннектирующийся номер'}>Коннектирующийся номер</MenuItem>
+                    <MenuItem value={'Бизнес'}>Бизнес</MenuItem>
+                    <MenuItem value={'Королевский люкс'}>Королевский люкс</MenuItem>
+                    <MenuItem value={'Эконом'}>Эконом</MenuItem>
+                    <MenuItem value={'Стандартный'}>Стандартный</MenuItem>
                 </Select>
 
             </FormControl>
-
 
 
             {/*<div className="relative flex">*/}
@@ -93,8 +94,7 @@ const DropdownInput = () => {
             {/*        ))}*/}
             {/*    </ul>*/}
             {/*</div>*/}
-        </div>
-    );
+        </div>);
 };
 
 export default DropdownInput;

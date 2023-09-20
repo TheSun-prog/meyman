@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const currencySlice = createSlice({
   name: 'currency',
-  initialState: '',
+  initialState: 'USD',
   reducers: {
     setCurrency: (state, action) => {
       return action.payload; // Устанавливаем новое значение валюты из payload действия

@@ -1,5 +1,5 @@
 // React modules
-import { Route, Routes } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 // Pages
 import Test from "./pages/Test/Test";
 import Mainpage from "./pages/Mainpage/Mainpage";
@@ -29,67 +29,66 @@ import WishListPage from "./pages/WishListPage/WishListPage";
 import Support from "./pages/Support/Support";
 
 
-
 function App() {
     return (<>
-            <ScrollToTop/>
-            <Routes>
-                <Route path="/" element={<Layout/>}>
-                    <Route path="/" element={<Mainpage/>}/>
-                    <Route path="/hotelcatalog" element={<HotelCatalog/>}/>
-                    <Route path="/hotelcatalog/:hotelId" element={<HotelPage/>}/>
-                    <Route path="/hotelcatalog/:hotelId/:roomId" element={<RoomPage/>}/>
-                    <Route
-                        path="/hotelcatalog/:hotelId/:roomId/booking"
-                        element={<BookingPage/>}
-                    />
-                    <Route path="/personal-area" element={<PersonalAreaPage />}/>
-                    <Route path="/personal-area/history-reservation" element={<HistoryReservationPage />}/>
-                    <Route path="/personal-area/personal-info" element={<PersonalInfoPage />}/>
-                    <Route path={'/about'} element={<AboutPage/>}/>
-                    <Route path={'/register'} element={<RegPage/>}/>
-                    <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
-                    <Route path={'/auth'} element={<AuthPage/>}/>
-                    <Route
-                        path="/businessMainPage"
-                        element={<BusinessMainPage/>}
-                    />
-                    <Route
-                        path="/businessAccountData"
-                        element={<BusinessAccountData/>}
-                    />
-                    <Route
-                        path="/fillingHotelDetails"
-                        element={<FillingHotelDetails/>}
-                    />
-                    <Route
-                        path="/fillingRoomDetails"
-                        element={<FillingRoomDetails/>}
-                    />
-                    <Route
-                        path="/businessOwnerNotification"
-                        element={<BusinessOwnerNotification/>}
-                    />
+        {<ScrollToTop/>}
+        <Routes>
+            <Route path="/" element={<Layout/>}>
+                <Route path="/" element={<Mainpage/>}/>
+                <Route path="/hotelcatalog" element={<HotelCatalog/>}/>
+                <Route path="/hotelcatalog/:hotelId" element={<HotelPage/>}/>
+                <Route path="/hotelcatalog/:hotelId/:roomId" element={<RoomPage/>}/>
+                <Route
+                    path="/hotelcatalog/:hotelId/:roomId/booking"
+                    element={<BookingPage/>}
+                />
+                <Route path="/personal-area" element={<PersonalAreaPage/>}/>
+                <Route path="/personal-area/history-reservation" element={<HistoryReservationPage/>}/>
+                <Route path="/personal-area/personal-info" element={<PersonalInfoPage/>}/>
+                <Route path={'/about'} element={<AboutPage/>}/>
+                <Route path={'/register'} element={<RegPage/>}/>
+                <Route path={'/confirmCode'} element={<ConfirmCode/>}/>
+                <Route path={'/auth'} element={<AuthPage/>}/>
+                <Route
+                    path="/businessMainPage"
+                    element={<BusinessMainPage/>}
+                />
+                <Route
+                    path="/businessAccountData"
+                    element={<BusinessAccountData/>}
+                />
+                <Route
+                    path="/fillingHotelDetails"
+                    element={<FillingHotelDetails/>}
+                />
+                <Route
+                    path="/fillingRoomDetails"
+                    element={<FillingRoomDetails/>}
+                />
+                <Route
+                    path="/businessOwnerNotification"
+                    element={<BusinessOwnerNotification/>}
+                />
 
-                    <Route path="/support" element={<Support/>} />
+                <Route path="/support" element={<Support/>}/>
 
-                    <Route path="/test" element={<Test/>}/>
+                <Route path="/test" element={<Test/>}/>
 
-                    <Route path="/restorePassEmail" element={<RestorePassEmail/>}/>
-                    <Route path="/restorePassCode" element={<RestorePassCode/>}/>
-                    <Route path="/restorePassNewPass" element={<RestorePassNewPass/>}/>
-                    <Route path="/favorites" element={<FavoritesPage/>}/>
-                    <Route path="/favorites/:id" element={<WishListPage/>}/>
+                <Route path="/restorePassEmail" element={<RestorePassEmail/>}/>
+                <Route path="/restorePassCode" element={<RestorePassCode/>}/>
+                <Route path="/restorePassNewPass" element={<RestorePassNewPass/>}/>
+                <Route path="/favorites" element={<FavoritesPage/>}/>
+                <Route path="/favorites/:id" element={<WishListPage/>}/>
 
-                    <Route
-                        path="/*"
-                        element={<h1 className="text-center text-red-700 text-[50px] mt-10">
-                            Страница не найдена
-                        </h1>}
-                    />
-                </Route>
-            </Routes>
-        </>);
+                <Route
+                    path="/*"
+                    element={<h1 className="text-center text-red-700 text-[50px] mt-10">
+                        Страница не найдена
+                    </h1>}
+                />
+            </Route>
+        </Routes>
+    </>);
 }
 
 export default App;

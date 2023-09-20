@@ -5,15 +5,26 @@ import {useEffect, useState} from "react";
 import logo from '../../../assets/images/logo.svg'
 import HeaderUserNavbar from "../../ui/Header/HeaderUserNavbar/HeaderUserNavbar";
 import HeaderProfile from "../../ui/Header/HeaderProfile/HeaderProfile";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 
 const Header = ({
-                    userType = 'user', pageType = 'mainpage',
+                    pageType = 'mainpage',
                 }) => {
+
+    const location = useLocation()
 
     const [isMainPage, setIsMainPage] = useState(false)
     const [showModal, setShowModal] = useState('')
+    const userType = useSelector(state => state.authSlice.userType)
+
+    console.log(userType)
+
+
+    useEffect(() => {
+        setShowModal('')
+  }, [location]);
 
     const handleShowModal = (value) => {
         setShowModal(value)

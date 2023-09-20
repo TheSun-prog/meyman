@@ -5,27 +5,32 @@ import Counter from "./Counter";
 import Counter2 from "./Counter2";
 import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 
-function MainRoom() {
+function MainRoom({setRoomData}) {
     const roomsData = [
         {
             name: "Односпальная",
             size: "Ширина: 90-130 см",
+            key: 'single_bed'
         },
         {
             name: "Двуспальная",
             size: "Ширина:131-150 см",
+            key: 'double_bed'
         },
         {
             name: "Широкая(queen-size)  ",
             size: "Ширина:151-180 см",
+            key: 'queen_bed'
         },
         {
             name: "Широкая(king-size)",
             size: "Ширина:181-210 см",
+            key: 'king_bed'
         },
         {
             name: "Диван-кровать",
             size: "Ширина варьируется",
+            key: 'sofa_bed'
         },
     ];
     return (
@@ -33,7 +38,7 @@ function MainRoom() {
         <div className="mx-auto w-[1240px]">
             <p className="text-xl font-normal leading-relaxed mt-[40px]">Основная</p>
             <p className="text-base font-normal leading-relaxed mt-[40px] mb-[12px]">Укажите название номера</p>
-            <DropdownInput/>
+            <DropdownInput setRoomData={setRoomData }/>
             <p className="text-base font-normal leading-relaxed mt-[40px] mb-[12px]">Какие в комнате кровати?</p>
 
             {
@@ -46,16 +51,25 @@ function MainRoom() {
                                 <p className="text-gray-500 text-sm">{roomInfo.size}</p>
                             </div>
                         </div>
-                        <Counter />
+                        <Counter setRoomData={setRoomData} bedData={roomInfo}/>
                     </div>
                 ))
             }
 
             <p className="text-base font-normal mt-[40px] mb-[12px] max-w-[520px]">Максимальная вместимость гостей в номере (до 6 персон)</p>
-            <Counter2/>
+            <Counter2 setRoomData={setRoomData}/>
 
             <p className="text-base font-normal leading-relaxed mt-[40px] mb-[12px]">Укажите размер комнаты(м²)</p>
-            <input className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12" type="number" placeholder="м²"/>
+            <input className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12" type="number" placeholder="м²" min={0}
+                onChange={(event) => {
+                    setRoomData(prevState => {
+                        return {
+                            ...prevState,
+                            room_area: event.target.value
+                        }
+                    })
+                }}
+            />
 
             <p className="text-base font-normal leading-relaxed mt-[40px] mb-[12px]">Разрешено ли курение в комнате?</p>
             <RadioGroup
@@ -63,14 +77,32 @@ function MainRoom() {
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
                 sx={{display: "flex", flexDirection: "column"}}
+                onChange={event => {
+                    if (event.target.value === '1'){
+                        setRoomData(prevState => {
+                            return {
+                                ...prevState,
+                                smoking_allowed: true
+                            }
+                        })
+                    }
+                    if (event.target.value === '0'){
+                        setRoomData(prevState => {
+                            return {
+                                ...prevState,
+                                smoking_allowed: false
+                            }
+                        })
+                    }
+                }}
             >
-                <FormControlLabel value="female" control={<Radio sx={{
+                <FormControlLabel value="1" control={<Radio sx={{
                     color: "black",
                     '&.Mui-checked': {
                         color: 'black',
                     },
                 }} />} label="Да" />
-                <FormControlLabel value="male" control={<Radio sx={{
+                <FormControlLabel value="0" control={<Radio sx={{
                     color: "black",
                     '&.Mui-checked': {
                         color: 'black',

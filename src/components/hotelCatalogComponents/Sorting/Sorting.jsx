@@ -40,8 +40,9 @@ const Sorting = ({ isOpen, handleOk, handleCancel }) => {
       onCancel={handleCancel}
       footer={null}
       closeIcon={false}
-      bodyStyle={{ padding: 50 }}
+      bodyStyle={{ padding: 50, height: 600}}
       width={550}
+
     >
       <div className='flex items-center'>
         <img

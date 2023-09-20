@@ -4,8 +4,14 @@ import BreakfastService from "./BreakfastService/BreakfastService";
 import AccommodationRules from "./AccommodationRules";
 import AddHotelPhoto from "./AddHotelPhoto/AddHotelPhoto";
 import FillingRoomDetails from "../FillingRoomDetails/FillingRoomDetails";
+import axios from "axios";
+import {useDispatch} from "react-redux";
+import {setHotelState} from "../../store/slice/ownerSlice";
 
 function FillingHotelDetails(props) {
+
+    const dispatch = useDispatch()
+
     const [hotelData, setHotelData] = useState({
         housing_name: '',
         images: [],
@@ -19,7 +25,7 @@ function FillingHotelDetails(props) {
         food_type: 'Все включено',
         children_playground: false,
         region: 'Бишкек',
-        // parking_location: ["parking_location"],
+        parking_location: "На территории",
         car_rental: false,
         paid_transfer: false,
         park: false,
@@ -45,23 +51,6 @@ function FillingHotelDetails(props) {
         breakfast_cost_usd: "0",
     })
 
-    const saveHotelData = () => {
-        const formData = new FormData()
-        for (const key in hotelData) {
-            if (key === 'images') {
-                for (let i = 0; i < hotelData.images.length; i++) {
-                    formData.append(`images[${i}]image`, hotelData.images[i])
-                }
-            } else if (typeof(hotelData[key] === 'object')){
-                for (let i = 0; i < hotelData[key].length; i++) {
-                    formData.append(`${key}[${i}]`, hotelData[key][i])
-                }
-            } else {
-                formData.append(key, hotelData[key])
-            }
-        }
-    }
-
     const requiredHotelData = ['housing_name', 'images', 'housing_type', 'accommodation_type', 'region', 'parking_location', 'breakfast_type', 'address', 'check_in_time_start', 'check_in_time_end', 'check_out_time_start', 'check_out_time_end']
 
     const checkHotelData = () => {
@@ -74,6 +63,23 @@ function FillingHotelDetails(props) {
             }
             return false
         }
+
+        const formData = new FormData()
+        for (const key in hotelData) {
+            if (key === 'images') {
+                for (let i = 0; i < hotelData.images.length; i++) {
+                    formData.append(`images[${i}]image`, hotelData.images[i])
+                }
+            } else if (['breakfast_type'].includes(key)){
+                for (let i = 0; i < hotelData[key].length; i++) {
+                    formData.append(`${key}[${i}]`, hotelData[key][i])
+                }
+            } else {
+                formData.append(key, hotelData[key])
+            }
+        }
+
+        dispatch(setHotelState(formData))
         return true
     }
 
@@ -91,7 +97,7 @@ function FillingHotelDetails(props) {
             <AccommodationInfo setHotelData={setHotelData}/>
             <BreakfastService hotelData={hotelData} setHotelData={setHotelData}/>
             <AccommodationRules setHotelData={setHotelData}/>
-            <AddHotelPhoto hotelData={hotelData} setHotelData={setHotelData}/>
+            <AddHotelPhoto hotelData={hotelData} setHotelData={setHotelData} checkHotelData={checkHotelData}/>
         </div>);
 }
 

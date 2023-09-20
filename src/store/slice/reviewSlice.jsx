@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { $authApi, $mainApi } from '../../axios/axios';
 
 export const fetchReviewData = createAsyncThunk('review/getReview', async ({ limit, offset }) => {
-  const response = await $mainApi.get('/review/', {
+  const response = await $mainApi.get('/api/users/review/', {
     params: {
       limit,
       offset,
@@ -12,9 +12,10 @@ export const fetchReviewData = createAsyncThunk('review/getReview', async ({ lim
 });
 
 export const postReviewData = createAsyncThunk('review/postReview', async (data) => {
-  const response = await $authApi.post('/review/', data)
+  const response = await $authApi.post('/api/users/review/', data)
   return response.data;
 });
+
 
 const reviewSlice = createSlice({
   name: 'review',

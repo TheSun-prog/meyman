@@ -28,7 +28,6 @@ const AuthPage = () => {
         if (gmailRegExp.test(email) && passRegExp.test(pass)) {
             const user = {email: email, password: pass}
             dispatch(asyncLogin({ user }))
-            console.log(user)
         }
         if (!gmailRegExp.test(email)) setEmailRegError(true)
         if (!passRegExp.test(pass)) setPassRegError(true)
@@ -103,8 +102,8 @@ const AuthPage = () => {
                             required
                         />
                         {isShow
-                            ? <img className='pt-[15px]' src={passHide} alt='passHide' onClick={() => setIsShow(false)}/>
-                            : <img className='pt-[15px]' src={passShow} alt='passShow' onClick={() => setIsShow(true)}/>
+                            ? <img className='' src={passHide} alt='passHide' onClick={() => setIsShow(false)}/>
+                            : <img className='' src={passShow} alt='passShow' onClick={() => setIsShow(true)}/>
                         }
                     </label>
                     <p className={'losePassword'} onClick={() => navigate('/restorePassEmail')}>

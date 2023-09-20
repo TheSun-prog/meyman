@@ -1,19 +1,22 @@
 import React, {useState} from 'react';
 import styles from "../../FillingRoomDetails/AddPhoto/AddPhotoRoom.module.scss";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Button from "../../../components/ui/Button/Button";
 import warning from "../../../assets/images/vnimanie.svg";
 import plus from "../../../assets/images/plus.svg";
 import logoAddPhoto from "../../../assets/images/addPhoto.svg";
 
-function AddHotelPhoto({hotelData, setHotelData}) {
+function AddHotelPhoto({hotelData, setHotelData, checkHotelData}) {
 
     const [photos2, setPhotos2] = useState([]);
+    const navigate = useNavigate()
+
+    const [error, setError] = useState('')
 
     const handleFileChange = (e) => {
         const files = e.target.files;
 
-        if (files.length + photos2.length > 5) {
+        if (files.length + photos2.length < 20) {
             const newPhotos = [...photos2];
             const imageFiles = [...hotelData.images]
 
@@ -29,6 +32,8 @@ function AddHotelPhoto({hotelData, setHotelData}) {
                 }
             })
             setPhotos2(newPhotos);
+        } else {
+            alert('Максимально количество фотографий 20');
         }
     };
 
@@ -49,19 +54,6 @@ function AddHotelPhoto({hotelData, setHotelData}) {
         )
     }
 
-
-    if (photos2.length <5)
-    {
-        minPhotoText = (
-            <div className="flex items-center mt-[41px]">
-                <img src={warning} alt="logoWarning" className="mr-[10px]"/>
-                <h1 className='font-quicksand text-xl font-normal text-red'>
-                    Загрузите не менее 5 фотографий чтобы продолжить
-                </h1>
-            </div>
-
-        )
-    }
     if (photos2.length >= 1) {
         uploadForm = (
             <div className="flex left-0">
@@ -136,9 +128,25 @@ function AddHotelPhoto({hotelData, setHotelData}) {
                 ))}
             </div>
             {uploadForm}
-            {minPhotoText}
+            {error && (
+            <div className="flex items-center mt-[41px]">
+                <img src={warning} alt="logoWarning" className="mr-[10px]"/>
+                <h1 className='font-quicksand text-xl font-normal text-red'>
+                    {error}
+                </h1>
+            </div>
+
+        )}
             <Link to={photos2.length >= 5 ? '/fillingRoomDetails' : '#'}>
-                <Button classes={'py-[20px] mt-[25px] w-[295px] h-[53px] hover:bg-[#1178B4] mb-[100px] mt-[100px]'}>
+                <Button classes={'py-[20px] mt-[25px] w-[295px] h-[53px] hover:bg-[#1178B4] mb-[100px] mt-[100px]'}
+                    clickFunc={() => {
+                        if(checkHotelData()) {
+                            navigate('/fillingRoomDetails')
+                        } else {
+                            setError('Заполните все поля')
+                        }
+                    }}
+                >
                     Сохранить
                 </Button>
             </Link>

@@ -6,7 +6,7 @@ function ScrollToTop() {
   const location = useLocation();
 
   useEffect(() => {
-
+    if (!['/fillingHotelDetails', '/fillingRoomDetails'].includes(location.pathname))
     window.scrollTo(0, 0);
   }, [location]);
 

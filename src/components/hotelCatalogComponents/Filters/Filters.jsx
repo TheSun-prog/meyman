@@ -69,9 +69,9 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
     handleOk()
   }
 
-  useEffect(() => {
-    console.log(initialState);
-  }, [initialState]);
+  // useEffect(() => {
+  //   console.log(initialState);
+  // }, [initialState]);
 
   return (
     <Modal
@@ -80,7 +80,7 @@ const Filters = ({ isOpen, handleOk, handleCancel }) => {
       onCancel={handleCancel}
       footer={null}
       closeIcon={false}
-      bodyStyle={{ padding: '64px 0px' }}
+      bodyStyle={{ padding: '64px 0px', height: '600px', overflowY: 'scroll', scrollbarWidth: 'none', msOverflowStyle: 'none'}}
       width={1100}
     >
       <div className='flex items-center border-b pb-[56px] px-[87px]'>

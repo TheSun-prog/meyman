@@ -11,16 +11,16 @@ import "swiper/css/scrollbar";
 import ReviewCard from "../ReviewCard/ReviewCard";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    fetchReviewData,
-    selectReviewData,
-    selectReviewError,
-    selectReviewLoadingStatus
+    fetchReviewData, selectReviewData, selectReviewError, selectReviewLoadingStatus
 } from "../../../store/slice/reviewSlice";
 
 
 SwiperCore.use([Navigation]);
 
-const ReviewSwiper = ({id = 0, handleClick=()=>{}, openModal}) => {
+const ReviewSwiper = ({
+                          id = 0, handleClick = () => {
+    }, openModal
+                      }) => {
 
     const dispatch = useDispatch();
     const reviewData = useSelector(selectReviewData);
@@ -30,15 +30,15 @@ const ReviewSwiper = ({id = 0, handleClick=()=>{}, openModal}) => {
     const [slidesCount, setSlidesCount] = useState(0);
 
     useEffect(() => {
-    try {
-      if (reviewData.length > 2) setSlidesCount(2.5);
-      else setSlidesCount(reviewData.length);
-    } catch (e) { }
-  }, [reviewData]);
+        try {
+            if (reviewData.length > 2) setSlidesCount(2.5); else setSlidesCount(reviewData.length);
+        } catch (e) {
+        }
+    }, [reviewData]);
 
     useEffect(() => {
-    dispatch(fetchReviewData({ limit: 10, offset: 0 }));
-  }, [dispatch]);
+        dispatch(fetchReviewData({limit: 10, offset: 0}));
+    }, [dispatch]);
 
     const swiperRef = React.useRef(null);
 
@@ -60,22 +60,17 @@ const ReviewSwiper = ({id = 0, handleClick=()=>{}, openModal}) => {
             className="pt-[40px]"
             spaceBetween={40}
             slidesPerView={slidesCount}
-            onInit={(swiper) => {
-                swiperRef.current = swiper;
-            }}
             navigation={{
                 nextEl: ".swiper-button-next-review", prevEl: ".swiper-button-prev-review",
             }}
         >
             {reviewData?.map((value, index, array) => {
-                return (<SwiperSlide onClick={() => {
-                    handleClick(value)
-                }} key={index}>
+                return (<SwiperSlide key={index}>
                     <ReviewCard reviewData={value}/>
                 </SwiperSlide>);
             })}
         </Swiper>
-        {reviewData?.length ? <div className="flex gap-[50px] justify-center pt-[50px]">
+        <div className="flex gap-[50px] justify-center pt-[50px]">
             <img
                 src={left}
                 alt="left"
@@ -88,7 +83,7 @@ const ReviewSwiper = ({id = 0, handleClick=()=>{}, openModal}) => {
                 className="swiper-button-next-review"
                 onClick={goNext}
             />
-        </div> : ''}
+        </div>
         {openModal && <div className="flex justify-end">
             <button
                 className="rounded-[31px] border-blue border-[3px] flex px-[70px] py-[14px]"
