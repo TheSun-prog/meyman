@@ -1,12 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {$authApi} from '../../axios/axios'
 
-const user = localStorage.getItem('user_id')
 
 export const getUserWishList = () => {
     return async (dispatch) => {
         try {
-            const {data} = await $authApi.get(`api/favorite/wishlist/`, {params: {user}})
+            const {data} = await $authApi.get(`api/favorite/wishlist/`, {params: {user: localStorage.getItem('user_id')}})
             dispatch(setWishLists(data))
         } catch (e) {
             dispatch(setError(e))
@@ -79,7 +78,7 @@ export const addToWishList = (wishlist_album, housing) => {
 export const addNewWishList = (title, housing) => {
     return async (dispatch) => {
         try {
-            const wishlistResponse = await $authApi.post(`api/favorite/wishlist/`, { user, title });
+            const wishlistResponse = await $authApi.post(`api/favorite/wishlist/`, { user: localStorage.getItem('user_id'), title });
             const wishlist_album = wishlistResponse.data.id;
             const favoriteResponse = await $authApi.post(`api/favorite/favorites/`, { wishlist_album, housing });
             if (favoriteResponse.status === 201) {

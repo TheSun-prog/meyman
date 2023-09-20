@@ -27,9 +27,14 @@ import RestorePassNewPass from "./pages/RestorePassNewPass/RestorePassNewPass";
 import FavoritesPage from "./pages/FavoritesPage/FavoritesPage";
 import WishListPage from "./pages/WishListPage/WishListPage";
 import Support from "./pages/Support/Support";
+import {useSelector} from "react-redux";
 
 
 function App() {
+
+    const owner = useSelector(state => state.owner)
+    console.log(owner)
+
     return (<>
         {<ScrollToTop/>}
         <Routes>

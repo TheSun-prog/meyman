@@ -36,6 +36,7 @@ function FillingRoomDetails({}) {
 
 
     const requiredRoomData = ['room_name', 'price_per_night', 'images', 'room_amenities', 'kitchen', 'outside', 'bathroom', 'bedrooms', 'bed_type', 'room_area']
+
     const saveRoomData = () => {
         for (const key in roomData) {
             if (!requiredRoomData.includes(key)) {
@@ -46,21 +47,22 @@ function FillingRoomDetails({}) {
             }
             return false
         }
-        const formData = new FormData()
-        for (const key in roomData) {
-            if (key === 'images') {
-                for (let i = 0; i < roomData.images.length; i++) {
-                    formData.append(`images[${i}]image`, roomData.images[i])
-                }
-            } else if (['room_amenities', 'kitchen', 'outside', 'bathroom'].includes(key)){
-                for (let i = 0; i < roomData[key].length; i++) {
-                    formData.append(`${key}[${i}]`, roomData[key][i])
-                }
-            } else {
-                formData.append(key, roomData[key])
-            }
-        }
-        dispatch(setRoomState(formData))
+        // const formData = new FormData()
+        // for (const key in roomData) {
+        //     if (key === 'images') {
+        //         for (let i = 0; i < roomData.images.length; i++) {
+        //             formData.append(`images[${i}]image`, roomData.images[i])
+        //         }
+        //     } else if (['room_amenities', 'kitchen', 'outside', 'bathroom'].includes(key)){
+        //         for (let i = 0; i < roomData[key].length; i++) {
+        //             formData.append(`${key}[${i}]`, roomData[key][i])
+        //         }
+        //     } else {
+        //         formData.append(key, roomData[key])
+        //     }
+        // }
+        dispatch(setRoomState(roomData))
+        window.scrollTo(0, 0);
         return true
     }
 

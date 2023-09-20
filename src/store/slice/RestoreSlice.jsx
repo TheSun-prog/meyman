@@ -46,10 +46,10 @@ export const asyncRestoreCode = createAsyncThunk(
 
 // ЗАПРОС ДЛЯ ВОССТАНОВЛЕНИЕ ПАРОЛЯ [ 3 ] СОЗДАНИЕ НОВОГО ПАРОЛЯ
 export const asyncRestoreNewPass = createAsyncThunk(
-    'RestoreSlice/asyncRestoreNewPass', async ({ password }) => {
+    'RestoreSlice/asyncRestoreNewPass', async ({ pass }) => {
         try {
             const code = localStorage.getItem('restore_code')
-            const response = await $authApi.post(`/api/users/reset-new-password/${code}/`, password)
+            const response = await $authApi.post(`/api/users/reset-new-password/${code}/`, {password: pass})
             console.log(response)
         }
         catch (error) {

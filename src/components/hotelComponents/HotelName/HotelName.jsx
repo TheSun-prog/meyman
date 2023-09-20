@@ -30,13 +30,9 @@ const HotelName = ({ data }) => {
         </div>
         <div className="flex">
           <img src={placeIcon} alt="placeIcon" />
-          <span className="text-2xl text-grey">{data?.address}/{data?.location}</span>
+          <span className="text-2xl text-grey">{data?.address}</span>
         </div>
       </div> : <Skeleton />}
-      <div className="flex">
-        <img className="mr-[20px]" src={whatsAppIcon} alt="whatsAppIcon" />
-        <img src={heartIcon} alt="heartIcon" />
-      </div>
     </div>
   );
 };

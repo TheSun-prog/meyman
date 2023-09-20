@@ -6,6 +6,7 @@ import classes from './RestorePassNewPass.module.sass'
 import logo from '../../assets/images/logo.svg'
 import {useDispatch} from 'react-redux'
 import React, {useEffect, useState} from 'react'
+import {useNavigate} from "react-router-dom";
 
 
 export default function RestorePassNewPass() {
@@ -16,13 +17,14 @@ export default function RestorePassNewPass() {
     const [ passError, setPassError ] = useState(false)
     const [ passError2, setPassError2 ] = useState(false)
     const passRegExp = /^[a-zA-Z0-9]{6,60}$/
-    const dispatch = useDispatch()
+    const dispatch = useDispatch(), navigate = useNavigate()
 
     const handleRestoreNewPass = (event) => {
         event.preventDefault()
         if (password === password2 && passRegExp.test(password)) {
-            console.log(password)
-            dispatch(asyncRestoreNewPass({ password }))
+            const pass = password
+            dispatch(asyncRestoreNewPass({ pass }))
+            navigate('/')
         }
         if (!passRegExp.test(password)) setPassError(true)
         if (password !== password2) setPassError2(true)

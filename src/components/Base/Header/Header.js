@@ -19,7 +19,6 @@ const Header = ({
     const [showModal, setShowModal] = useState('')
     const userType = useSelector(state => state.authSlice.userType)
 
-    console.log(userType)
 
 
     useEffect(() => {

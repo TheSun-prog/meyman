@@ -21,7 +21,7 @@ function WishListAddItem({wishList, id, setActive}) {
     const getHousingImg = (housingId) => {
         return async (dispatch) => {
             try {
-                const {data} = await $mainApi.get(`api/housing/housing/${housingId}`)
+                const {data} = await $mainApi.get(`/api/housing/housing/${housingId}`)
                 setImg(`${process.env.REACT_APP_API_URL}${data.housing_image}`)
             } catch (e) {
                 dispatch(setError(e))

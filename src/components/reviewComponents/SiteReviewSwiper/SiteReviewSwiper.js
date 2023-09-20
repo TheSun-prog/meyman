@@ -54,6 +54,7 @@ const ReviewSwiper = ({
         }
     };
 
+
     if (!error) return (<>
         <h5 className="text-center text-ot">Отзыв о сайте</h5>
         <Swiper

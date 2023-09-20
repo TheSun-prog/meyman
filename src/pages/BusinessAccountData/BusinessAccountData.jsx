@@ -1,18 +1,34 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import arrow_back from '../../assets/images/arrow2.svg'
 import Button from "../../components/ui/Button/Button";
 import {Link, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {setOwnerState} from "../../store/slice/ownerSlice";
+import {$authApi} from "../../axios/axios";
 
 function BusinessAccountData(props) {
     const dispatch = useDispatch(), navigate = useNavigate()
 
     const [ownerData, setOwnerData] = useState({
-        username: JSON.parse(localStorage.getItem('userData')).username,
-        email: JSON.parse(localStorage.getItem('userData')).email,
+        username: '',
+        email: '',
         phone_number: ''
     })
+
+    useEffect(() => {
+        const get = async() => {
+            const data = await $authApi.get('/api/users/profile/8/')
+            const user = data.data
+            setOwnerData({
+            username: user.username,
+            email: user.email,
+            phone_number: user.phone_number ? user.phone_number : ''
+        })
+        }
+        get()
+
+    }, [])
+
     const [error, setError] = useState('')
 
     return (<div className="mx-auto w-[1240px]">
@@ -32,7 +48,7 @@ function BusinessAccountData(props) {
                 </p>
                 <input
                     className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12"
-                    type="text" placeholder="Введите имя и фамилия" value={`${ownerData.username}`}
+                    type="text" placeholder="Введите имя и фамилия" value={`${ownerData?.username}`}
                     onChange={(event) => {
                         setOwnerData(prevState => {
                             return {
@@ -49,7 +65,7 @@ function BusinessAccountData(props) {
                 </p>
                 <input
                     className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12 text-grey"
-                    type="email" value={`${ownerData.email}`} disabled={true}/>
+                    type="email" value={`${ownerData?.email}`} disabled={true}/>
             </div>
 
             <div>
@@ -58,7 +74,7 @@ function BusinessAccountData(props) {
                 </p>
                 <input
                     className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12"
-                    type="tel" placeholder="Введите номер телефона" value={ownerData.phone_number}
+                    type="tel" placeholder="Введите номер телефона" value={ownerData?.phone_number}
                     onChange={(event) => {
                         setError('')
                         setOwnerData(prevState => {

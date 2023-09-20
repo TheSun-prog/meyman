@@ -12,7 +12,7 @@ export const postHousing = createAsyncThunk('/owner/housing', async (data) => {
 });
 
 const initialState = {
-    hotelId: localStorage.getItem('user_id'),
+    hotelId: '',
     hotelData: {
 
     },
@@ -25,14 +25,13 @@ const initialState = {
 const stateSlice = createSlice({
     name: "owner", initialState, reducers: {
         setOwnerState: (state, action) => {
-            state.owner.hotelId = localStorage.getItem('user_id')
-            state.owner.userData = action.payload
+            state.userData = action.payload
         },
         setHotelState: (state, action) => {
-            state.owner.hotelData = action.payload
+            state.hotelData = action.payload
         },
         setRoomState: (state, action) => {
-            state.owner.roomData = [...state.owner.roomData, action.payload]
+            state.roomData = [...state?.roomData, action.payload]
         },
         extraReducers: (builder) => {
             builder

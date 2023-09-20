@@ -64,22 +64,23 @@ function FillingHotelDetails(props) {
             return false
         }
 
-        const formData = new FormData()
-        for (const key in hotelData) {
-            if (key === 'images') {
-                for (let i = 0; i < hotelData.images.length; i++) {
-                    formData.append(`images[${i}]image`, hotelData.images[i])
-                }
-            } else if (['breakfast_type'].includes(key)){
-                for (let i = 0; i < hotelData[key].length; i++) {
-                    formData.append(`${key}[${i}]`, hotelData[key][i])
-                }
-            } else {
-                formData.append(key, hotelData[key])
-            }
-        }
+        // const formData = new FormData()
+        // for (const key in hotelData) {
+        //     if (key === 'images') {
+        //         for (let i = 0; i < hotelData.images.length; i++) {
+        //             formData.append(`images[${i}]image`, hotelData.images[i])
+        //         }
+        //     } else if (['breakfast_type'].includes(key)){
+        //         for (let i = 0; i < hotelData[key].length; i++) {
+        //             formData.append(`${key}[${i}]`, hotelData[key][i])
+        //         }
+        //     } else {
+        //         formData.append(key, hotelData[key])
+        //     }
+        // }
 
-        dispatch(setHotelState(formData))
+        dispatch(setHotelState(hotelData))
+        window.scrollTo(0, 0);
         return true
     }
 

@@ -39,7 +39,7 @@ function AddPhotoRoom({setRoomData, roomData, saveRoomData}) {
             }
             setRoomData(prevState => {
                 return {
-                    ...prevState, images: imageFiles
+                    ...prevState, images: [...imageFiles]
                 }
             })
             setPhotos(newPhotos);
@@ -151,17 +151,15 @@ function AddPhotoRoom({setRoomData, roomData, saveRoomData}) {
                 </div>
 
             )}
-            <Link to={photos.length >= 5 ? '/businessOwnerNotification' : '#'}>
-                <Button classes={'py-[20px] mt-[25px] w-[295px] h-[53px] hover:bg-[#1178B4] mb-[100px] mt-[100px]'}
-                        clickFunc={() => {
-                            if (!error) {
-                                setIsShow(prevState => !prevState)
-                            }
-                        }}
-                >
-                    Сохранить
-                </Button>
-            </Link>
+            <Button classes={'py-[20px] mt-[25px] w-[295px] h-[53px] hover:bg-[#1178B4] mb-[100px] mt-[100px]'}
+                    clickFunc={() => {
+                        if (!error) {
+                            setIsShow(prevState => !prevState)
+                        }
+                    }}
+            >
+                Сохранить
+            </Button>
             <Modal width={464} open={isShow} onOk={handleOk} onCancel={handleCancel} footer={null} closeIcon={false}
                    bodyStyle={{borderRadius: '10px', padding: '50px 15px'}}>
                 <p className={'text-[24px] flex justify-center'}>Добавить еще один номер?</p>
@@ -178,13 +176,22 @@ function AddPhotoRoom({setRoomData, roomData, saveRoomData}) {
                                 setError('Заполните все поля')
                                 setIsShow(false)
                             }
+                            setIsShow(false)
                         }}
                     />
                     <Button
                         width={200}
                         height={50}
                         text={'Добавить'}
-                        clickFunc={''}
+                        clickFunc={() => {
+                            if (saveRoomData()) {
+                                window.scrollTo(0, 0)
+                            } else {
+                                setError('Заполните все поля')
+                                setIsShow(false)
+                            }
+                            setIsShow(false)
+                        }}
                     />
                 </div>
             </Modal>

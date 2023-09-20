@@ -17,14 +17,12 @@ export default function RestorePassCode() {
     const handleRestoreCode = (event) => {
         event.preventDefault()
         if (code.trim() !== '') {
-            console.log(code)
             dispatch(asyncRestoreCode({ code }))
         }
     }
 
     const handleAgainEmail = () => {
         const email = localStorage.getItem('restore_email')
-        console.log(email)
         dispatch(asyncRestoreEmail({ email }))
         SweetAlert.fire({
             icon: `success`,
@@ -36,7 +34,7 @@ export default function RestorePassCode() {
     useEffect(() => {
         if (status2) {
             localStorage.setItem('restore_code', code)
-            navigate(`restorePassNewPass`)
+            navigate(`/restorePassNewPass`)
             dispatch(setStatus2(''))
         }
     }, [status2])
