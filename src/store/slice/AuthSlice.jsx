@@ -90,7 +90,8 @@ const AuthSlice = createSlice({
         error3: false,
         AuthModal: false,
         regErrorModal: false,
-        userType: localStorage.getItem('user_type') ?? ''
+        userType: localStorage.getItem('user_type') ?? '',
+        isReg: localStorage.getItem('access') ? localStorage.getItem('access') : ''
     },
     reducers: {
         setStatus: (state, action) => {

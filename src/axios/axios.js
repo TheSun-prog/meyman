@@ -46,13 +46,16 @@ const refreshToken = async () => {
         else handleTokenRefreshError()
     }
     catch (refreshError) {
-        handleTokenRefreshError()
+        if (refreshError?.response?.status === 401) {
+            handleTokenRefreshError()
+        }
         throw refreshError
     }
 }
 
 const handleTokenRefreshError = () => {
     removeTokens()
+    window.location.href = '/auth'
     window.location.reload()
 }
 
