@@ -106,7 +106,7 @@ const RoomPage = () => {
             <div>
               <img
                 className='rounded-l-2xl h-[500px] w-[490px] object-cover'
-                src={data?.room_images?.[0]?.image}
+                src={data?.room_images?.[0]?.image.replace("http://", "https://")}
                 alt='hotelImg'
               />
             </div>
@@ -118,7 +118,7 @@ const RoomPage = () => {
               {data?.room_images?.[1]?.image ? (
                 <img
                   className='w-[365px] h-[245px] object-cover'
-                  src={data?.room_images?.[1]?.image}
+                  src={data?.room_images?.[1]?.image.replace("http://", "https://")}
                   alt='hotelImg2'
                 />
               ) : (
@@ -127,7 +127,7 @@ const RoomPage = () => {
               {data?.room_images?.[2]?.image ? (
                 <img
                   className='w-[365px] h-[245px] rounded-tr-2xl object-cover'
-                  src={data?.room_images?.[2]?.image}
+                  src={data?.room_images?.[2]?.image.replace("http://", "https://")}
                   alt='hotelImg2'
                 />
               ) : (
@@ -138,7 +138,7 @@ const RoomPage = () => {
               {data?.room_images?.[3]?.image ? (
                 <img
                   className='w-[365px] h-[245px] object-cover'
-                  src={data?.room_images?.[3]?.image}
+                  src={data?.room_images?.[3]?.image.replace("http://", "https://")}
                   alt='hotelImg2'
                 />
               ) : (
@@ -147,7 +147,7 @@ const RoomPage = () => {
               {data?.room_images?.[4]?.image ? (
                 <img
                   className='w-[365px] h-[245px] rounded-br-2xl object-cover'
-                  src={data?.room_images?.[4]?.image}
+                  src={data?.room_images?.[4]?.image.replace("http://", "https://")}
                   alt='hotelImg2'
                 />
               ) : (
