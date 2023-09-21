@@ -6,6 +6,7 @@ const ModalAllPhotos = ({ isOpen, handleOk, handleCancel, data, id }) => {
   const [openImage, setOpenImage] = useState('')
   const [activeModal, setActiveModal] = useState(false)
 
+
   const handleOpenImage = e => {
     setActiveModal(true)
     setOpenImage(e.target.src)
@@ -50,15 +51,17 @@ const ModalAllPhotos = ({ isOpen, handleOk, handleCancel, data, id }) => {
       <div className="flex justify-center gap-5 mt-10">
         <div className="flex flex-col ">
           <div className="flex flex-wrap justify-center gap-2 mb-[10px]">
-            {data?.map(img => (
-              <img
-                key={img.id}
-                onClick={handleOpenImage}
-                className="w-[300px] h-[220px] px-2 rounded-2xl object-cover cursor-pointer"
-                src={process.env.REACT_APP_API_URL + img.image}
-                alt="hotel"
-              />
-            ))}
+            {data?.map(img => {
+              return (
+                  <img
+                      key={img.id}
+                      onClick={handleOpenImage}
+                      className="w-[300px] h-[220px] px-2 rounded-2xl object-cover cursor-pointer"
+                      src={img.image.split('://').includes('http') ? img.image : (process.env.REACT_APP_API_URL + img.image)}
+                      alt="hotel"
+                  />
+              )
+            })}
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const DropdownInput = ({setRoomData}) => {
+const DropdownInput = ({setRoomData, roomData}) => {
 
     // const [isOpen, setIsOpen] = useState(false);
     // const [selectedRoom, setSelectedRoom] = useState('');
@@ -23,8 +23,6 @@ const DropdownInput = ({setRoomData}) => {
     //     setIsOpen(false);
     // };
 
-    const [room, setRoom] = React.useState('');
-
     const handleChange = (event) => {
         setRoomData(prevState => {
             return {
@@ -32,7 +30,6 @@ const DropdownInput = ({setRoomData}) => {
                 room_name: event.target.value
             }
         })
-        setRoom(event.target.value);
     };
 
     return (<div className="mx-auto w-[1240px]">
@@ -49,7 +46,7 @@ const DropdownInput = ({setRoomData}) => {
                 <Select
                     labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-helper"
-                    value={room}
+                    value={roomData.room_name}
                     label="Выберите название вашего номера"
                     onChange={handleChange}
 

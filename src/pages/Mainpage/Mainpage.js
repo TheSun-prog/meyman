@@ -75,14 +75,6 @@ const Mainpage = () => {
                                 />
                                 <p className="text-[20px] text-white z-0">Жилье</p>
                             </div>
-                            <div
-                                className={`w-[115px] h-[76px] flex flex-col gap-[2px]  items-center justify-center rounded-[10px] backdrop-blur-[9px] ${activeSearch === 'car' ? 'bg-grey border-[1px] border-white' : 'bg-dark-blue'}`}>
-                                <img
-                                    className="w-[32px] h-[32px]"
-                                    src={carIcon} alt="hotel"
-                                />
-                                <p className="text-[20px] text-white">Транспорт</p>
-                            </div>
                         </div>
                         <div className="flex h-[80px] bg-white rounded-full pl-[75px] pr-[20px] py-[13px] z-0">
                             <div className="w-[422px] h-[100%]">

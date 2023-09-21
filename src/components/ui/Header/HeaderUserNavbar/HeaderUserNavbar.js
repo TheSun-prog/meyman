@@ -40,34 +40,9 @@ const HeaderUserNavbar = ({ pageType, showModal, handleShowModal }) => {
       <div className="flex gap-[57px] items-center justify-self-end">
         <div className="flex gap-[21px] items-center">
           <div className="relative">
-            <div
-              className="flex gap-[12px] items-center cursor-pointer relative"
-              onClick={() =>
-                handleShowModal(showModal !== 'language' ? 'language' : '')
-              }
-            >
-              <img src={language} alt="language" />
-              <p className="text-[16px]">Русский</p>
-            </div>
-            {showModal === 'language' && (
-              <LanguageMenu closeMenu={handleShowModal} handleMenu={handleShowModal} />
-            )}
+
           </div>
 
-          <div className="relative w-[70px]">
-            <div
-              className="flex items-center cursor-pointer"
-              onClick={() =>
-                handleShowModal(showModal !== 'money' ? 'money' : '')
-              }
-            >
-              <img className='mr-[5px] object-cover' src={currency ? currencies[currency] : currencies[localStorageCurrency]} alt="currency" />
-              <p className="text-[16px]">{currency || localStorageCurrency}</p>
-            </div>
-            {showModal === 'money' && (
-              <MoneyMenu closeMenu={handleShowModal} handleMenu={handleShowModal} />
-            )}
-          </div>
         </div>
         <NavLink to="/businessMainPage">
           <Button width={237} height={44} text="Сдать жилье на Meyman" />

@@ -65,12 +65,6 @@ const HotelCard = ({data, id, imageUrl}) => {
         }
     };
 
-    for (const room in data?.rooms) {
-        const price = parseInt(room.price_per_night)
-        if (price < hotelPrice) setHotelPrice(price);
-    }
-
-
     useEffect(() => {
         if (userType === 'client') {
             if (wishListIsEmpty) {
@@ -127,7 +121,7 @@ const HotelCard = ({data, id, imageUrl}) => {
                     <p className="text-green text-[18px]">Бесплатная отмена</p>
                 </div>
                 <div className="flex items-center h-[34px]">
-                    <p className="text-[24px] font-[400]">от {hotelPrice}</p>
+                    <p className="text-[24px] font-[400]">от {data.cheapest_room_price ? data.cheapest_room_price : 'НЕТ ЦЕНЫ'}</p>
                     <img src={currency === 'KGS' ? som : currency === 'USD' ? usd : currency === 'EUR' ? eur : currencys[localStorageCurrency]} alt="som" className="w-[18px] h-[18px]"/>
                 </div>
             </div>

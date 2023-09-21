@@ -39,7 +39,7 @@ const refreshToken = async () => {
         refresh: localStorage.getItem('refresh') || sessionStorage.getItem('refresh'),
     }
     try {
-        const response = await $mainApi.post(`api/token/refresh/`, config)
+        const response = await $mainApi.post(`/api/users/tokens/refresh_access_token/`, config)
         console.log('Access token was refreshed', response)
 
         if (response.status === 200) await selectToken(response)

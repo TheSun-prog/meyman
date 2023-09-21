@@ -96,10 +96,6 @@ const RoomPage = () => {
           ) : (
             <Skeleton />
           )}
-          <div className='flex'>
-            <img className='mr-[20px]' src={whatsAppIcon} alt='whatsAppIcon' />
-            <img src={heartIcon} alt='heartIcon' />
-          </div>
         </div>
         <div onClick={handleActiveModal} className='flex justify-between mt-[20px] cursor-pointer'>
           {data?.room_images?.[0]?.image ? (

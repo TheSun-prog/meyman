@@ -35,18 +35,9 @@ function FillingRoomDetails({}) {
     })
 
 
-    const requiredRoomData = ['room_name', 'price_per_night', 'images', 'room_amenities', 'kitchen', 'outside', 'bathroom', 'bedrooms', 'bed_type', 'room_area']
 
     const saveRoomData = () => {
-        for (const key in roomData) {
-            if (!requiredRoomData.includes(key)) {
-                continue
-            }
-            if (roomData[key]) {
-                continue
-            }
-            return false
-        }
+
         // const formData = new FormData()
         // for (const key in roomData) {
         //     if (key === 'images') {
@@ -61,6 +52,7 @@ function FillingRoomDetails({}) {
         //         formData.append(key, roomData[key])
         //     }
         // }
+
         dispatch(setRoomState(roomData))
         window.scrollTo(0, 0);
         return true
@@ -81,9 +73,9 @@ function FillingRoomDetails({}) {
             <h1 className='font-quicksand text-3xl font-normal mt-[40px]'>
                 Информация о номере
             </h1>
-            <MainRoom setRoomData={setRoomData}/>
-            <Room setRoomData={setRoomData}/>
-            <PriceSetting setRoomData={setRoomData}/>
+            <MainRoom roomData={roomData} setRoomData={setRoomData}/>
+            <Room roomInfo={roomData} setRoomData={setRoomData}/>
+            <PriceSetting roomData={roomData} setRoomData={setRoomData}/>
             <AddPhotoRoom saveRoomData={saveRoomData} setRoomData={setRoomData} roomData={roomData}/>
         </div>
     );

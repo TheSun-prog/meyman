@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import logoAddPhoto from '../../../assets/images/addPhoto.svg'
 import warning from '../../../assets/images/vnimanie.svg'
 import plus from '../../../assets/images/plus.svg'
@@ -48,6 +48,11 @@ function AddPhotoRoom({setRoomData, roomData, saveRoomData}) {
         }
     };
 
+    useEffect(() => {
+        if (roomData.images.length === 0) {
+            setPhotos([])
+        }
+    }, [roomData])
 
     let uploadForm;
     let photoAddText;
@@ -153,8 +158,23 @@ function AddPhotoRoom({setRoomData, roomData, saveRoomData}) {
             )}
             <Button classes={'py-[20px] mt-[25px] w-[295px] h-[53px] hover:bg-[#1178B4] mb-[100px] mt-[100px]'}
                     clickFunc={() => {
-                        if (!error) {
+                        let status = 1
+                        const requiredRoomData = ['room_name', 'price_per_night', 'images', 'room_amenities', 'kitchen', 'outside', 'bathroom', 'bedrooms', 'bed_type', 'room_area']
+
+                        for (const key in roomData) {
+                            if (!requiredRoomData.includes(key)) {
+                                continue
+                            }
+                            if (roomData[key]) {
+                                continue
+                            }
+                            status = 0
+                        }
+                        if (status) {
+                            setError('')
                             setIsShow(prevState => !prevState)
+                        } else {
+                            setError('Заполните все поля')
                         }
                     }}
             >
@@ -185,6 +205,27 @@ function AddPhotoRoom({setRoomData, roomData, saveRoomData}) {
                         text={'Добавить'}
                         clickFunc={() => {
                             if (saveRoomData()) {
+                                setRoomData({
+                                    housing: '',
+                                    room_name: '',
+                                    price_per_night: '',
+                                    images: [],
+                                    room_amenities: [],
+                                    kitchen: [],
+                                    outside: [],
+                                    bathroom: [],
+                                    bedrooms: '1 спальня',
+                                    bed_type: 'Односпальные',
+                                    single_bed: 0,
+                                    double_bed: 0,
+                                    queen_bed: 0,
+                                    king_bed: 0,
+                                    sofa_bed: 0,
+                                    max_guest_capacity: 1,
+                                    room_area: 0,
+                                    smoking_allowed: false,
+                                    Free_cancellation_anytime: false
+                                })
                                 window.scrollTo(0, 0)
                             } else {
                                 setError('Заполните все поля')

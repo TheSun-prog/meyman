@@ -5,7 +5,7 @@ import Counter from "./Counter";
 import Counter2 from "./Counter2";
 import {FormControlLabel, Radio, RadioGroup} from "@mui/material";
 
-function MainRoom({setRoomData}) {
+function MainRoom({setRoomData, roomData}) {
     const roomsData = [
         {
             name: "Односпальная",
@@ -38,7 +38,7 @@ function MainRoom({setRoomData}) {
         <div className="mx-auto w-[1240px]">
             <p className="text-xl font-normal leading-relaxed mt-[40px]">Основная</p>
             <p className="text-base font-normal leading-relaxed mt-[40px] mb-[12px]">Укажите название номера</p>
-            <DropdownInput setRoomData={setRoomData }/>
+            <DropdownInput setRoomData={setRoomData} roomData={roomData}/>
             <p className="text-base font-normal leading-relaxed mt-[40px] mb-[12px]">Какие в комнате кровати?</p>
 
             {
@@ -51,16 +51,16 @@ function MainRoom({setRoomData}) {
                                 <p className="text-gray-500 text-sm">{roomInfo.size}</p>
                             </div>
                         </div>
-                        <Counter setRoomData={setRoomData} bedData={roomInfo}/>
+                        <Counter setRoomData={setRoomData} bedData={roomInfo} roomData={roomData}/>
                     </div>
                 ))
             }
 
             <p className="text-base font-normal mt-[40px] mb-[12px] max-w-[520px]">Максимальная вместимость гостей в номере (до 6 персон)</p>
-            <Counter2 setRoomData={setRoomData}/>
+            <Counter2 setRoomData={setRoomData} roomData={roomData}/>
 
             <p className="text-base font-normal leading-relaxed mt-[40px] mb-[12px]">Укажите размер комнаты(м²)</p>
-            <input className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12" type="number" placeholder="м²" min={0}
+            <input className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12" type="number" placeholder="м²" min={0} value={roomData.room_area}
                 onChange={(event) => {
                     setRoomData(prevState => {
                         return {
@@ -78,7 +78,7 @@ function MainRoom({setRoomData}) {
                 name="row-radio-buttons-group"
                 sx={{display: "flex", flexDirection: "column"}}
                 onChange={event => {
-                    if (event.target.value === '1'){
+                    if (event.target.value === true){
                         setRoomData(prevState => {
                             return {
                                 ...prevState,
@@ -86,7 +86,7 @@ function MainRoom({setRoomData}) {
                             }
                         })
                     }
-                    if (event.target.value === '0'){
+                    if (event.target.value === false){
                         setRoomData(prevState => {
                             return {
                                 ...prevState,
@@ -96,18 +96,33 @@ function MainRoom({setRoomData}) {
                     }
                 }}
             >
-                <FormControlLabel value="1" control={<Radio sx={{
+                <FormControlLabel value={true} control={<Radio sx={{
                     color: "black",
                     '&.Mui-checked': {
                         color: 'black',
                     },
-                }} />} label="Да" />
-                <FormControlLabel value="0" control={<Radio sx={{
+                }} />} label="Да" checked={roomData.smoking_allowed} onChange={() => {
+                    setRoomData(prevState => {
+                        return {
+                            ...prevState,
+                            smoking_allowed: true
+                        }
+                    })
+                }}/>
+                <FormControlLabel value={false} control={<Radio sx={{
                     color: "black",
                     '&.Mui-checked': {
                         color: 'black',
                     },
-                }}/>} label="Нет" />
+                }}/>} label="Нет" checked={!roomData.smoking_allowed} onChange={() => {
+
+                    setRoomData(prevState => {
+                        return {
+                            ...prevState,
+                            smoking_allowed: false
+                        }
+                    })
+                }}/>
 
             </RadioGroup>
 

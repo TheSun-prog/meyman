@@ -33,6 +33,11 @@ const stateSlice = createSlice({
         setRoomState: (state, action) => {
             state.roomData = [...state?.roomData, action.payload]
         },
+        clearState: (state, action) => {
+            state.userData = {}
+            state.hotelData = {}
+            state.roomData = []
+        },
         extraReducers: (builder) => {
             builder
                 .addCase(fetchReviewData.pending, (state) => {

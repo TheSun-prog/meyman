@@ -2,8 +2,12 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { $authApi } from '../../axios/axios';
 
 export const reservationHotelPostData = createAsyncThunk('reviews', async (data) => {
+
+  await $authApi.put('/api/users/profile/update_user_type/', {user_type: 'client'})
+
   const token = localStorage.getItem('access'); // Получаем токен из Local Storage
-  
+
+
 
   const response = await $authApi.post('api/housing/housing_reservations/', data);
 

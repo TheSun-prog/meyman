@@ -31,7 +31,7 @@ import icon__8 from '../../../assets/images/room/Bathroom/8.svg'
 import icon__9 from '../../../assets/images/room/Bathroom/9.svg'
 import {Checkbox} from "@mui/material";
 
-function Room({setRoomData}) {
+function Room({setRoomData, roomInfo}) {
 
     const roomsData = [
         {
@@ -176,7 +176,7 @@ function Room({setRoomData}) {
         },
         {
             id: 6,
-            name: "Бесплатные уходовые средтсва ",
+            name: "Бесплатные уходовые средтсва",
             img: icon__6,
         },
         {
@@ -213,6 +213,7 @@ function Room({setRoomData}) {
                                 <label className="checkbox" style={{display: 'flex', alignItems: 'center'}}>
                                     <Checkbox
                                         {...label}
+                                        checked={roomInfo.room_amenities.includes(roomData.name)}
                                         sx={{
                                             color: "Black",
                                             '&.Mui-checked': {
@@ -220,6 +221,7 @@ function Room({setRoomData}) {
                                             },
                                         }}
                                         onChange={() => {
+
                                             setRoomData(prevState => {
                                                 let result
                                                 if (prevState.room_amenities.includes(roomData.name)) {
@@ -251,6 +253,7 @@ function Room({setRoomData}) {
                                 <label className="checkbox" style={{display: 'flex', alignItems: 'center'}}>
                                     <Checkbox
                                         {...label}
+                                        checked={roomInfo.kitchen.includes(kitchenData.name)}
                                         sx={{
                                             color: "Black",
                                             '&.Mui-checked': {
@@ -289,6 +292,7 @@ function Room({setRoomData}) {
                                 <label className="checkbox" style={{display: 'flex', alignItems: 'center'}}>
                                     <Checkbox
                                         {...label}
+                                        checked={roomInfo.outside.includes(streetData.name)}
                                         sx={{
                                             color: "Black",
                                             '&.Mui-checked': {
@@ -329,6 +333,7 @@ function Room({setRoomData}) {
                             <label className="checkbox" style={{display: 'flex', alignItems: 'center'}}>
                                 <Checkbox
                                     {...label}
+                                    checked={roomInfo.bathroom.includes(bathroomData.name)}
                                     sx={{
                                         color: "Black",
                                         '&.Mui-checked': {

@@ -23,7 +23,6 @@ const Footer = ({}) => {
                     <p>Партнёрам</p>
                     <div className="flex flex-col gap-[20px] text-[18px]">
                         <NavLink to={'/businessMainPage'}><p>Подключить отель</p></NavLink>
-                        <p>Подключить транспорт</p>
                     </div>
                 </div>
                 <div className="flex flex-col gap-[37px] text-[22px]">

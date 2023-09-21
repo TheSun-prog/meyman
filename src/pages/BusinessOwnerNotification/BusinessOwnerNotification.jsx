@@ -51,7 +51,7 @@ function BusinessOwnerNotification(props) {
                     clickFunc={() => {
                         const req = async () => {
                             try {
-                                await $authApi.put('/api/users/profile/update_user_type/', {user_type: 'admin'})
+                                await $authApi.put('/api/users/profile/update_user_type/', {user_type: 'owner'})
                             } catch (e) {
                             }
 
@@ -73,31 +73,27 @@ function BusinessOwnerNotification(props) {
                             const hotelRes = await $authApi.post('/api/housing/housing/', formHotelData)
                             const hotelId = hotelRes.data.id
 
-                            const formRoomData = new FormData()
-                            for (const key in data.roomData[0]) {
-                                if (key === 'images') {
-                                    for (let i = 0; i < data.roomData[0].images.length; i++) {
-                                        formRoomData.append(`images[${i}]image`, data.roomData[0].images[i])
+                            for (let y = 0; y < data.roomData.length; y++){
+                                const formRoomData = new FormData()
+                                for (const key in data.roomData[y]) {
+                                    if (key === 'images') {
+                                        for (let i = 0; i < data.roomData[y].images.length; i++) {
+                                            formRoomData.append(`images[${i}]image`, data.roomData[y].images[i])
+                                        }
+                                    } else if (['room_amenities', 'kitchen', 'outside', 'bathroom'].includes(key)) {
+                                        for (let i = 0; i < data.roomData[y][key].length; i++) {
+                                            formRoomData.append(`${key}`, data.roomData[y][key][i])
+                                        }
+                                    } else {
+                                        formRoomData.append(key, data.roomData[y][key])
                                     }
-                                } else if (['room_amenities', 'kitchen', 'outside', 'bathroom'].includes(key)) {
-                                    for (let i = 0; i < data.roomData[0][key].length; i++) {
-                                        formRoomData.append(`${key}[${i}]`, data.roomData[0][key][i])
-                                    }
-                                } else {
-                                    formRoomData.append(key, data.roomData[0][key])
+                                }
+                                formRoomData.append('housing', hotelId)
+                                try {
+                                    await $authApi.post('/api/housing/rooms/', formRoomData)
+                                } catch (e) {
                                 }
                             }
-                            formRoomData.append('housing', hotelId)
-                            try {
-                                await $authApi.post('/api/housing/rooms/', formRoomData)
-                            } catch (e) {
-                            }
-                            try {
-                                await $authApi.put('/api/users/profule/update_user_type/', {user_type: 'client'})
-                            } catch (e) {
-                            }
-
-
                         }
                         req()
                         navigate('/')

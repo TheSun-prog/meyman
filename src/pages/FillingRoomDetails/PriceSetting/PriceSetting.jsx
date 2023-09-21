@@ -4,7 +4,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 
 
-function PriceSetting({setRoomData}) {
+function PriceSetting({setRoomData, roomData}) {
 
     const IOSSwitch = styled((props) => (
         <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -62,10 +62,10 @@ function PriceSetting({setRoomData}) {
             <h1 className='font-quicksand text-xl font-normal mt-[100px] mb-[40px]'>
                 Установите цену за ночь для этой комнаты
             </h1>
-            <p className="text-base font-normal leading-relaxed mb-[20px]">Цена для гостей (в сомах)</p>
+            <p className="text-base font-normal leading-relaxed mb-[20px]">Цена для гостей (в долларах)</p>
             <input
                 className="w-[520px] h-[50px] px-5 py-3 rounded-full border-2 border-solid border-gray-300 outline-none pr-12"
-                type="number" placeholder="Введите цену для гостей" min={0}
+                type="number" placeholder="Введите цену для гостей" min={0} value={roomData.price_per_night}
                 onChange={(event) => {
                     setRoomData(prevState => {
                         return {
@@ -85,6 +85,7 @@ function PriceSetting({setRoomData}) {
             <FormControlLabel
                 control={<IOSSwitch sx={{ m: 1 }} defaultChecked />}
                 label="Бесплатная отмена в любое время"
+                checked={roomData.smoking_allowed}
                 onChange={event => {
                     setRoomData(prevState => {
                         return {
