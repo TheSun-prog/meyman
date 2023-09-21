@@ -20,7 +20,8 @@ body {
 
 .Login {
     width: 600px;
-    height: 599px;
+    /*height: 599px;*/
+    height: fit-content;
     top: 123px;
     padding: 40px 35px;
     box-shadow: 0 9px 16px 2px #00000040;

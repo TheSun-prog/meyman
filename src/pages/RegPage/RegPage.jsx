@@ -1,8 +1,7 @@
 import passwordHide from '../../assets/images/password-hide.svg'
 import passwordShow from '../../assets/images/password-show.svg'
-import AuthSlice, {asyncSignUp, setError, setRegError, setStatus} from '../../store/slice/AuthSlice'
+import {asyncSignUp, setError, setRegError, setStatus} from '../../store/slice/AuthSlice'
 import Button from '../../components/ui/Button/Button'
-import Input from '../../components/ui/Input/Input'
 import Google from '../../assets/images/google.svg'
 import React, {useEffect, useState} from 'react'
 import back from '../../assets/images/back.svg'
@@ -181,7 +180,7 @@ const RegPage = () => {
                         </p>
                         <div className='flex justify-center flex-col items-center'>
                             <p className='pt-[10px]'>Войдите через соц.сеть</p>
-                            <span className='pt-[20px] pb-[35px]'><img src={Google} alt=''/></span>
+                            <span className='pt-[20px]'><img src={Google} alt=''/></span>
                         </div>
                     </div>
                 </div>
