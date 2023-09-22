@@ -29,12 +29,13 @@ const RegPage = () => {
         [ passShow2, setPassShow2 ] = useState(false)
 
     const gmailRegExp = /^[a-zA-Z0-9.]{3,60}@gmail.com$/
-    const nameRegExp = /^[a-zA-Z0-9]{3,60}$/
+    const nameRegExp = /^[a-zA-Z0-9]{3,60}$ /
     const passRegExp = /^[a-zA-Z0-9]{6,60}$/
 
     const addSignUp = () => {
+
         if (gmailRegExp.test(email) && password === password2 &&
-            passRegExp.test(password) && nameRegExp.test(name)
+            passRegExp.test(password)
         ) {
             const userData = {email: email, username: name, user_type: 'client', password: password}
             console.log(userData) // Собираем обьект из инпутов и передаем его в запрос
@@ -42,7 +43,6 @@ const RegPage = () => {
             dispatch(asyncSignUp({ userData }))
         }
         if (!gmailRegExp.test(email)) setEmailError(true)
-        if (!nameRegExp.test(name)) setNameError(true)
         if (!passRegExp.test(password)) setPassError(true)
         if (password !== password2) setPassConfirmError(true)
     }

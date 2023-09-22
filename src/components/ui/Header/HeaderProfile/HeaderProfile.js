@@ -5,13 +5,17 @@ import {useEffect, useState} from "react";
 import profile from '../../../../assets/images/profile.svg'
 import NotUserMenu from "../DropdownMenues/NotUserMenu/NotUserMenu";
 import IsUserMenu from "../DropdownMenues/IsUserMenu/IsUserMenu";
+import {useDispatch} from "react-redux";
+import {getUserApi} from "../../../../store/slice/AuthSlice";
 
 
 const HeaderProfile = ({userType, showModal, handleShowModal,}) => {
-    const [isReg, setIsReg] = useState(false)
+    const [isReg, setIsReg] = useState(userType === '' ? false : true)
 
+    const dispatch = useDispatch()
 
     useEffect(() => {
+        dispatch(getUserApi('1'))
         switch (userType) {
             case 'user':
                 setIsReg(false);

@@ -26,7 +26,6 @@ const Mainpage = () => {
     const [reviewDataProp, setReviewDataProp] = useState('')
 
     const data = useSelector(state => state.owner)
-    console.log(data)
 
     const regions = [
         {
