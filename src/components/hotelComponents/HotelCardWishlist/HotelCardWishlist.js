@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteFavorite, getFavorites, getOneWishList, getUserWishList} from "../../../store/slice/wishListSlice";
 
-const HotelCardWishlist = ({data, id, wishlist_id}) => {
+const HotelCardWishlist = ({data, id, wishlist_id, message}) => {
     const dispatch = useDispatch()
     const hotelPrice = isNaN(parseInt(data?.cheapest_room_price)) ? 0 : parseInt(data?.cheapest_room_price)
     const {favorites} = useSelector(state => state.wishList)
@@ -65,6 +65,7 @@ const HotelCardWishlist = ({data, id, wishlist_id}) => {
                     alt="heart"
                     className="absolute top-[20px] right-[20px] cursor-pointer"
                     onClick={(e) => {
+                        message()
                         e.stopPropagation()
                         handleIsFavorite()
                     }}

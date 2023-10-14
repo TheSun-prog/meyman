@@ -97,7 +97,7 @@ const wishListSlice = createSlice({
         wishLists: [],
         oneWishList: {},
         favorites: [],
-        error: ''
+        error: null
     },
     reducers: {
         setWishLists: (state, action) => {

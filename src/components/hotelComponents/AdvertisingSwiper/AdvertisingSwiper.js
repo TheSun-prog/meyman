@@ -71,7 +71,7 @@ const HotelSwiper = ({}) => {
                     const imageUrl = `${process.env.REACT_APP_API_URL}${value.housing_image[0]}`
 
                     return (<SwiperSlide key={index}>
-                            <NavLink to={`/hotelcatalog/${value?.id}`}>
+                            <NavLink to={`/hotelcatalog/${value?.housing}`}>
                                 <HotelCard data={value} index={index} imageUrl={imageUrl}/>
                             </NavLink>
                         </SwiperSlide>);
