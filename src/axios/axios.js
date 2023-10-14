@@ -78,7 +78,7 @@ $authApi.interceptors.response.use((config) => config, async (error) => {
             originalRequest._isRetry = true
             removeTokens()
         }
-        throw error
+        alert("Вы еще не зарегистрированы. Вам следует войти в аккаунт")
     }
 )
 
