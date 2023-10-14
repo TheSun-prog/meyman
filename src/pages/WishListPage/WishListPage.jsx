@@ -8,13 +8,7 @@ import HotelCardWishlist from '../../components/hotelComponents/HotelCardWishlis
 import { message } from 'antd';
 
 function WishListPage() {
-  const [messageApi, contextHolder] = message.useMessage();
-  const success = () => {
-    messageApi.open({
-      type: 'success',
-      content: 'Отель успешно удален из избранного',
-    });
-  };
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
@@ -26,7 +20,7 @@ function WishListPage() {
     dispatch(deleteWishList(id))
     setTimeout(() => {
       navigate(`/favorites/`)
-    }, 3000)
+    }, 1000)
 }
 
 useEffect(() => {
@@ -36,7 +30,6 @@ useEffect(() => {
 
   return (
     <div className='mx-auto w-[1240px]'>
-      {contextHolder}
       <div className='flex items-center mb-[50px] mt-[45px]'>
         <Link to={'/'}>Главная</Link>
         <img className='-rotate-90 h-4' src={arrow} alt='arrow' />
@@ -48,7 +41,7 @@ useEffect(() => {
         <p className={classes.wishList_title}>{oneWishList.title}</p>
         <div className={classes.wishList_wrapper}>
           {oneWishList.houseFavorite?.map((house) => (
-            <HotelCardWishlist key={house.id} message={success} data={house} id={house.housing} wishlist_id={id} />
+            <HotelCardWishlist key={house.id} data={house} id={house.housing} wishlist_id={id} />
           ))}
         </div>
       </div>
