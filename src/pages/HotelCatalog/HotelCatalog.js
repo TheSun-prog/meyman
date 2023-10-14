@@ -126,8 +126,8 @@ const HotelCatalog = () => {
     </div>
     <div className="mx-auto w-[1240px] flex flex-col items-center">
       <div className="pt-[80px] pb-[100px] flex flex-wrap gap-x-[95px] gap-y-[55px]">
-        {hotelData && hotelData.map((value, array) => {
-          return <HotelCard data={value} id={value.id} />
+        {hotelData && hotelData.map((value) => {
+          return <HotelCard key={value.id} data={value} id={value.id} />
         })}
         {hotelData?.length === 0 ? <div className="w-[684px] mt-[100px] m-auto text-center flex flex-col justify-center">
           <img src={emptyIcon} alt="emptyIcon" className="w-[250px] m-auto"/>

@@ -1,5 +1,10 @@
 @import "./assets/fonts/Quicksand/stylesheet.css";
 
+@font-face {
+    font-family: 'Montserrat'; /* Название вашего шрифта */
+    src: url('../src/assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf') format('woff2'),
+}
+
 * {
     padding: 0;
     margin: 0;
