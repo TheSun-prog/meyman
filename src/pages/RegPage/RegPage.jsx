@@ -79,15 +79,7 @@ const RegPage = () => {
     return (
         <>
             {regErrorModal && <RegErrorModal/>}
-            <div>
-                <span className='flex justify-self-start '>
-                    <a href='' onClick={() => navigate('/')}>
-                        <img src={back} alt=''/>
-                    </a>
-                </span>
-                <span className='flex justify-center'><img className='justify-self-center' src={logo} alt=''/></span>
-            </div>
-            <div className='AuthPage'>
+            <div className='AuthPage pt-[30px]'>
                 <div className='Login'>
                     <div className='container'>
                         <p className='signIn'>Зарегистрироваться</p>

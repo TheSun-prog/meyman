@@ -60,15 +60,7 @@ const AuthPage = () => {
 
     return (
         <>
-            <div>
-                <span className='flex justify-self-star t '>
-                    <a href='' onClick={() => navigate('/')}>
-                        <img src={back} alt=''/>
-                    </a>
-                </span>
-                <span className='flex justify-center'><img className='justify-self-center' src={logo} alt=''/></span>
-            </div>
-            <div className='AuthPage'>
+            <div className='AuthPage pt-[30px]'>
                 <form onSubmit={SignIn} className={'AuthForm'}>
                     <h3>Войти</h3>
                     {emailError && (

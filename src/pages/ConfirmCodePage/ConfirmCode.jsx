@@ -47,11 +47,6 @@ const ConfirmCode = () => {
     }, [])
 
     return (<>
-            <div className="flex justify-center">
-                <NavLink to={'/register'}><img src={back} alt="back"/></NavLink>
-                <NavLink to={'/'}><img className="pt-[45px]" src={logo} alt="logo"/></NavLink>
-                <span></span>
-            </div>
             <div className="pt-[80px] w-[421px] h-[496px] m-auto">
                 <div className="flex justify-center">
                     <img src={lock} alt=""/>
