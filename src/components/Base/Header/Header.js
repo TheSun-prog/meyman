@@ -54,7 +54,10 @@ const Header = ({
                         pageType={pageType}
                     />}
 
-                    <div className="flex gap-[20px]">
+                    <div className="flex items-center gap-[20px]">
+                        <NavLink to={'/hotelcatalog'}>
+                            <p className='pr-[40px]'>Список отелей</p>
+                        </NavLink>
 
                         {isMainPage && <HeaderUserNavbar
                             pageType={pageType}
