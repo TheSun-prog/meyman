@@ -198,6 +198,7 @@ const HotelDate = ({ data, openModalFilteredRoom }) => {
                   onOpenChange={handleOpenChange}
                   inputReadOnly={true}
                   onChange={handleArrivalChange}
+
                 />
                 <img
                   className={`${
